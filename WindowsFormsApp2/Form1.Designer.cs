@@ -33,9 +33,23 @@
             this.cBoxCOMPORT = new System.Windows.Forms.ComboBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.tBoxDataIN = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pnProxy = new System.Windows.Forms.Panel();
+            this.button40 = new System.Windows.Forms.Button();
+            this.button41 = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.button68 = new System.Windows.Forms.Button();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button69 = new System.Windows.Forms.Button();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.button70 = new System.Windows.Forms.Button();
+            this.button71 = new System.Windows.Forms.Button();
+            this.button72 = new System.Windows.Forms.Button();
+            this.button73 = new System.Windows.Forms.Button();
+            this.button35 = new System.Windows.Forms.Button();
+            this.button34 = new System.Windows.Forms.Button();
             this.pnSetting = new System.Windows.Forms.Panel();
             this.button33 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
@@ -110,24 +124,16 @@
             this.btnIMSI = new System.Windows.Forms.Button();
             this.btnManufac = new System.Windows.Forms.Button();
             this.btnModel = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.cBoxATCMD = new System.Windows.Forms.ComboBox();
-            this.btnATCMD = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.button34 = new System.Windows.Forms.Button();
-            this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.pnProxy.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.pnSetting.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // cBoxBaudRate
@@ -140,30 +146,30 @@
             "38400",
             "76800",
             "115200"});
-            this.cBoxBaudRate.Location = new System.Drawing.Point(1017, 14);
+            this.cBoxBaudRate.Location = new System.Drawing.Point(216, 71);
             this.cBoxBaudRate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
-            this.cBoxBaudRate.Size = new System.Drawing.Size(70, 20);
+            this.cBoxBaudRate.Size = new System.Drawing.Size(291, 20);
             this.cBoxBaudRate.TabIndex = 2;
             this.cBoxBaudRate.Text = "115200";
             // 
             // cBoxCOMPORT
             // 
             this.cBoxCOMPORT.FormattingEnabled = true;
-            this.cBoxCOMPORT.Location = new System.Drawing.Point(938, 14);
+            this.cBoxCOMPORT.Location = new System.Drawing.Point(216, 43);
             this.cBoxCOMPORT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
-            this.cBoxCOMPORT.Size = new System.Drawing.Size(73, 20);
+            this.cBoxCOMPORT.Size = new System.Drawing.Size(291, 20);
             this.cBoxCOMPORT.TabIndex = 1;
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBar1.Location = new System.Drawing.Point(909, 14);
+            this.progressBar1.Location = new System.Drawing.Point(275, 315);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(22, 18);
+            this.progressBar1.Size = new System.Drawing.Size(135, 18);
             this.progressBar1.TabIndex = 2;
             this.progressBar1.Click += new System.EventHandler(this.ProgressBar1_Click);
             // 
@@ -172,43 +178,191 @@
             this.serialPort1.BaudRate = 115200;
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.SerialPort1_DataReceived);
             // 
-            // tBoxDataIN
-            // 
-            this.tBoxDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tBoxDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tBoxDataIN.Location = new System.Drawing.Point(3, 61);
-            this.tBoxDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tBoxDataIN.Multiline = true;
-            this.tBoxDataIN.Name = "tBoxDataIN";
-            this.tBoxDataIN.ReadOnly = true;
-            this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxDataIN.Size = new System.Drawing.Size(460, 297);
-            this.tBoxDataIN.TabIndex = 6;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.tBoxDataIN);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Location = new System.Drawing.Point(3, 96);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(466, 360);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pnProxy);
+            this.panel1.Controls.Add(this.button35);
             this.panel1.Controls.Add(this.button34);
             this.panel1.Controls.Add(this.pnSetting);
-            this.panel1.Controls.Add(this.groupBox4);
-            this.panel1.Controls.Add(this.panel2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1102, 817);
+            this.panel1.Size = new System.Drawing.Size(1420, 716);
             this.panel1.TabIndex = 10;
+            // 
+            // pnProxy
+            // 
+            this.pnProxy.Controls.Add(this.progressBar1);
+            this.pnProxy.Controls.Add(this.button40);
+            this.pnProxy.Controls.Add(this.button41);
+            this.pnProxy.Controls.Add(this.groupBox10);
+            this.pnProxy.Location = new System.Drawing.Point(866, 70);
+            this.pnProxy.Name = "pnProxy";
+            this.pnProxy.Size = new System.Drawing.Size(544, 634);
+            this.pnProxy.TabIndex = 34;
+            // 
+            // button40
+            // 
+            this.button40.Location = new System.Drawing.Point(54, 312);
+            this.button40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button40.Name = "button40";
+            this.button40.Size = new System.Drawing.Size(167, 24);
+            this.button40.TabIndex = 28;
+            this.button40.Text = "파일 읽기";
+            this.button40.UseVisualStyleBackColor = true;
+            this.button40.Click += new System.EventHandler(this.button40_Click);
+            // 
+            // button41
+            // 
+            this.button41.Location = new System.Drawing.Point(54, 369);
+            this.button41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button41.Name = "button41";
+            this.button41.Size = new System.Drawing.Size(167, 24);
+            this.button41.TabIndex = 27;
+            this.button41.Text = "파일 쓰기";
+            this.button41.UseVisualStyleBackColor = true;
+            this.button41.Click += new System.EventHandler(this.button41_Click);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.cBoxBaudRate);
+            this.groupBox10.Controls.Add(this.cBoxCOMPORT);
+            this.groupBox10.Controls.Add(this.comboBox3);
+            this.groupBox10.Controls.Add(this.textBox6);
+            this.groupBox10.Controls.Add(this.button68);
+            this.groupBox10.Controls.Add(this.textBox7);
+            this.groupBox10.Controls.Add(this.button69);
+            this.groupBox10.Controls.Add(this.textBox8);
+            this.groupBox10.Controls.Add(this.button70);
+            this.groupBox10.Controls.Add(this.button71);
+            this.groupBox10.Controls.Add(this.button72);
+            this.groupBox10.Controls.Add(this.button73);
+            this.groupBox10.Location = new System.Drawing.Point(12, 50);
+            this.groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox10.Size = new System.Drawing.Size(513, 230);
+            this.groupBox10.TabIndex = 11;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "PROXY";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "수동",
+            "자동"});
+            this.comboBox3.Location = new System.Drawing.Point(216, 15);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(291, 20);
+            this.comboBox3.TabIndex = 30;
+            this.comboBox3.Text = "수동";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(216, 156);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(291, 21);
+            this.textBox6.TabIndex = 15;
+            this.textBox6.Text = "3050";
+            // 
+            // button68
+            // 
+            this.button68.Location = new System.Drawing.Point(6, 153);
+            this.button68.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button68.Name = "button68";
+            this.button68.Size = new System.Drawing.Size(196, 24);
+            this.button68.TabIndex = 14;
+            this.button68.Text = "MODEL NAME";
+            this.button68.UseVisualStyleBackColor = true;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(216, 127);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(291, 21);
+            this.textBox7.TabIndex = 13;
+            this.textBox7.Text = "100";
+            // 
+            // button69
+            // 
+            this.button69.Location = new System.Drawing.Point(6, 124);
+            this.button69.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button69.Name = "button69";
+            this.button69.Size = new System.Drawing.Size(196, 24);
+            this.button69.TabIndex = 12;
+            this.button69.Text = "MMI command";
+            this.button69.UseVisualStyleBackColor = true;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(216, 99);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(291, 21);
+            this.textBox8.TabIndex = 11;
+            this.textBox8.Text = "2600";
+            // 
+            // button70
+            // 
+            this.button70.Location = new System.Drawing.Point(6, 96);
+            this.button70.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button70.Name = "button70";
+            this.button70.Size = new System.Drawing.Size(196, 24);
+            this.button70.TabIndex = 10;
+            this.button70.Text = "Call command";
+            this.button70.UseVisualStyleBackColor = true;
+            // 
+            // button71
+            // 
+            this.button71.Location = new System.Drawing.Point(6, 69);
+            this.button71.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button71.Name = "button71";
+            this.button71.Size = new System.Drawing.Size(196, 24);
+            this.button71.TabIndex = 8;
+            this.button71.Text = "BaudRate";
+            this.button71.UseVisualStyleBackColor = true;
+            // 
+            // button72
+            // 
+            this.button72.Location = new System.Drawing.Point(7, 41);
+            this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button72.Name = "button72";
+            this.button72.Size = new System.Drawing.Size(196, 24);
+            this.button72.TabIndex = 6;
+            this.button72.Text = "COM port";
+            this.button72.UseVisualStyleBackColor = true;
+            // 
+            // button73
+            // 
+            this.button73.Location = new System.Drawing.Point(6, 12);
+            this.button73.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button73.Name = "button73";
+            this.button73.Size = new System.Drawing.Size(196, 24);
+            this.button73.TabIndex = 0;
+            this.button73.Text = "DisplayOnly";
+            this.button73.UseVisualStyleBackColor = true;
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(226, 28);
+            this.button35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(167, 24);
+            this.button35.TabIndex = 33;
+            this.button35.Text = "SETTING PROXY";
+            this.button35.UseVisualStyleBackColor = true;
+            // 
+            // button34
+            // 
+            this.button34.Location = new System.Drawing.Point(31, 28);
+            this.button34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(167, 24);
+            this.button34.TabIndex = 32;
+            this.button34.Text = "SETTING SMST";
+            this.button34.UseVisualStyleBackColor = true;
             // 
             // pnSetting
             // 
@@ -1056,65 +1210,6 @@
             this.btnModel.Text = "IMS PDN";
             this.btnModel.UseVisualStyleBackColor = true;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.panel4);
-            this.groupBox4.Controls.Add(this.groupBox3);
-            this.groupBox4.Location = new System.Drawing.Point(618, 28);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(472, 459);
-            this.groupBox4.TabIndex = 12;
-            this.groupBox4.TabStop = false;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.cBoxATCMD);
-            this.panel4.Controls.Add(this.btnATCMD);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(3, 17);
-            this.panel4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(466, 20);
-            this.panel4.TabIndex = 12;
-            // 
-            // cBoxATCMD
-            // 
-            this.cBoxATCMD.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cBoxATCMD.FormattingEnabled = true;
-            this.cBoxATCMD.Items.AddRange(new object[] {
-            "AT"});
-            this.cBoxATCMD.Location = new System.Drawing.Point(0, 0);
-            this.cBoxATCMD.Name = "cBoxATCMD";
-            this.cBoxATCMD.Size = new System.Drawing.Size(381, 20);
-            this.cBoxATCMD.Sorted = true;
-            this.cBoxATCMD.TabIndex = 3;
-            this.cBoxATCMD.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CBoxATCMD_KeyDown);
-            // 
-            // btnATCMD
-            // 
-            this.btnATCMD.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnATCMD.Location = new System.Drawing.Point(381, 0);
-            this.btnATCMD.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.btnATCMD.Name = "btnATCMD";
-            this.btnATCMD.Size = new System.Drawing.Size(85, 20);
-            this.btnATCMD.TabIndex = 2;
-            this.btnATCMD.Text = "AT명령";
-            this.btnATCMD.UseVisualStyleBackColor = true;
-            this.btnATCMD.Click += new System.EventHandler(this.BtnATCMD_Click);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.progressBar1);
-            this.panel2.Controls.Add(this.cBoxCOMPORT);
-            this.panel2.Controls.Add(this.cBoxBaudRate);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 776);
-            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(3, 0, 0, 2);
-            this.panel2.Size = new System.Drawing.Size(1102, 41);
-            this.panel2.TabIndex = 10;
-            // 
             // timer1
             // 
             this.timer1.Interval = 15000;
@@ -1125,21 +1220,11 @@
             this.timer2.Interval = 10000;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
-            // button34
-            // 
-            this.button34.Location = new System.Drawing.Point(31, 28);
-            this.button34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button34.Name = "button34";
-            this.button34.Size = new System.Drawing.Size(167, 24);
-            this.button34.TabIndex = 32;
-            this.button34.Text = "SETTING SMST";
-            this.button34.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1102, 817);
+            this.ClientSize = new System.Drawing.Size(1420, 716);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
@@ -1147,12 +1232,11 @@
             this.MinimumSize = new System.Drawing.Size(750, 522);
             this.Name = "Form1";
             this.Text = "LGU+ ATcommand TEST";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Resize += new System.EventHandler(this.Form1_Resize);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.pnProxy.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.pnSetting.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -1161,9 +1245,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1173,19 +1254,12 @@
         private System.Windows.Forms.ComboBox cBoxBaudRate;
         private System.Windows.Forms.ComboBox cBoxCOMPORT;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.TextBox tBoxDataIN;
-        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnModel;
         private System.Windows.Forms.Button btnIMSI;
         private System.Windows.Forms.Button btnManufac;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button btnATCMD;
-        private System.Windows.Forms.ComboBox cBoxATCMD;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Panel pnSetting;
         private System.Windows.Forms.TextBox tbChannel3;
@@ -1258,6 +1332,21 @@
         private System.Windows.Forms.CheckBox cbEMC;
         private System.Windows.Forms.TextBox tbDeviceType;
         private System.Windows.Forms.Button button34;
+        private System.Windows.Forms.Panel pnProxy;
+        private System.Windows.Forms.Button button40;
+        private System.Windows.Forms.Button button41;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Button button68;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button69;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Button button70;
+        private System.Windows.Forms.Button button71;
+        private System.Windows.Forms.Button button72;
+        private System.Windows.Forms.Button button73;
+        private System.Windows.Forms.Button button35;
     }
 }
 
