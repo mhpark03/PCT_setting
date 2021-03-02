@@ -2339,21 +2339,69 @@ namespace WindowsFormsApp2
 
         private void button40_Click(object sender, EventArgs e)
         {
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml("<book genre='novel' ISBN='1-861001-57-5'>" +
-                            "<title>Pride And Prejudice</title>" +
-                            "</book>");
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", null));
 
-                //Create an XML declaration.
-                XmlDeclaration xmldecl;
-                xmldecl = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc = addNode(xmlDoc, "", "ProxyConfiguration", "", "NEW");
+            xmlDoc = addNode(xmlDoc, "ProxyConfiguration", "WRITER", "당꿈응", "NEW");
 
-                //Add the new node to the document.
-                XmlElement root = doc.DocumentElement;
-                doc.InsertBefore(xmldecl, root);
+            for (int i = 0; i < 10; i++)
+            {
+                XmlElement sList = xmlDoc.CreateElement("SUB_LIST");
+                sList = addElement(xmlDoc, sList, "TITLE", "TITLE_" + i + "", "ELEMENT");
+                sList = addElement(xmlDoc, sList, "CONTENT", "CONTENT_" + i, "CDATA");
+                xmlDoc.DocumentElement.AppendChild(sList);
+            }
 
-                Console.WriteLine("Display the modified XML...");
-                doc.Save(Console.Out);
+            Console.WriteLine("Display the modified XML...");
+            xmlDoc.Save(Console.Out);
+        }
+
+        private XmlElement addElement(XmlDocument xmlDoc, XmlElement reElement, string NodeName, string NodeText, string type)
+        {
+            XmlElement Eadd = xmlDoc.CreateElement(NodeName);
+            if (type == "ELEMENT")
+            {
+                if (NodeText != "")
+                {
+                    XmlText TextStr = xmlDoc.CreateTextNode(NodeText);
+                    Eadd.AppendChild(TextStr);
+                }
+            }
+            else if (type == "CDATA")
+            {
+                if (NodeText != "")
+                {
+                    XmlCDataSection TextStr = xmlDoc.CreateCDataSection(NodeText);
+                    Eadd.AppendChild(TextStr);
+                }
+            }
+            reElement.AppendChild(Eadd);
+            return reElement;
+        }
+
+        public XmlDocument addNode(XmlDocument xmlDoc, string targetNode, string cNodeName, string cNodeText, string cNodeType)
+        {
+            XmlNode targetObj;                                      //자식을 추가할 상위노드 선언
+            XmlElement childNode = xmlDoc.CreateElement(cNodeName); //자식 노드 생성
+            childNode.InnerText = cNodeText;                        //자식노드 내용 넣기
+
+            if (targetNode != "")
+            {
+                targetObj = xmlDoc.SelectSingleNode(targetNode);  //상위노드 선택
+                targetObj.AppendChild(childNode);                 //노드 추가
+
+                if (cNodeType == "NEW")
+                {
+                    xmlDoc.AppendChild(targetObj); //추가할 노드 
+                }
+            }
+            else
+            {
+                xmlDoc.AppendChild(childNode);
+            }
+
+            return xmlDoc;
         }
     }
 }
