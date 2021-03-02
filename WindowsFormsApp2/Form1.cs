@@ -11,6 +11,7 @@ using System.IO.Ports;
 using System.IO;
 using System.Security.Cryptography;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace WindowsFormsApp2
 {
@@ -177,7 +178,6 @@ namespace WindowsFormsApp2
 
         }
 
-        string sendWith;
         string dataIN = "";
         string nextcommand = "";    //OK를 받은 후 전송할 명령어가 존재하는 경우
                                     //예를들어 +CEREG와 같이 OK를 포함한 응답 값을 받은 경우 OK처리 후에 명령어를 전송해야 한다
@@ -448,18 +448,7 @@ namespace WindowsFormsApp2
                 if (serialPort1.IsOpen)
                 {
                     string sendmsg = dataOUT;
-                    if (sendWith == "Both")     // LF + CR
-                    {
-                        sendmsg = dataOUT + "\r\n";
-                    }
-                    else if (sendWith == "LF")
-                    {
-                        sendmsg = dataOUT + "\r";
-                    }
-                    else if (sendWith == "CR")
-                    {
-                        sendmsg = dataOUT + "\n";
-                    }
+                    sendmsg = dataOUT + "\r\n";
 
                     serialPort1.Write(sendmsg);
                     logPrintInTextBox(sendmsg, "tx");
@@ -1650,686 +1639,105 @@ namespace WindowsFormsApp2
 
             Directory.CreateDirectory(pathname);
 
-
-            // Create a file to write to.
-            FileStream fs = null;
             try
             {
-                fs = new FileStream(pathname + filename, FileMode.Create, FileAccess.Write);
                 // Create a file to write to.
-                StreamWriter sw = new StreamWriter(fs);
+                XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+                XElement xroot = new XElement("ProxyConfiguration",
+                    new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance"),
+                    new XAttribute(xsi + "noNamespaceSchemaLocation", "AT-MMI Proxy Configuration.xsd")
+                    );
+                xdoc.Add(xroot);
 
-                sw.WriteLine("<? xml version = \"1.0\" encoding = \"UTF - 8\" ?>");
-                sw.WriteLine("< ProxyConfiguration xmlns:xsi = \"http://www.w3.org/2001/XMLSchema-instance\" xsi: noNamespaceSchemaLocation = \"AT-MMI Proxy Configuration.xsd\" >");
-                sw.WriteLine("\t< Ports >");
-                sw.WriteLine("\t\t< Port id = \"1\" >");
-                sw.WriteLine("\t\t\t< Socket address = \"127.0.0.1\" port = \"10005\" />");
-                sw.WriteLine("\t\t</ Port >");
-                sw.WriteLine("\t\t< Port id = \"2\" >");
-                sw.WriteLine("\t\t\t< Socket address = \"127.0.0.1\" port = \"10006\" />");
-               
-                    /*
-                       </ Port >
-               
-                       < Port id = "3" >
-                
-                            < Serial com = "103" baudrate = "115200" parity = "0" stopbits = "1" byteSize = "8" />
-                         
-                                 </ Port >
-                         
-                                 < Port id = "4" >
-                          
-                                      < Serial com = "103" baudrate = "115200" parity = "0" stopbits = "1" byteSize = "8" />
-                                   
-                                           </ Port >
-                                   
-                                           < Port id = "5" >
-                                    
-                                                < Socket address = "127.0.0.1" port = "10007" />
-                                       
-                                               </ Port >
-                                       
-                                               < Port id = "6" >
-                                        
-                                                    < Socket address = "127.0.0.1" port = "10008" />
-                                           
-                                                   </ Port >
-                                           
-                                                   < Port id = "7" >
-                                            
-                                                        < Serial com = "103" baudrate = "115200" parity = "0" stopbits = "1" byteSize = "8" />
-                                                     
-                                                             </ Port >
-                                                     
-                                                             < Port id = "8" >
-                                                      
-                                                                  < Serial com = "103" baudrate = "115200" parity = "0" stopbits = "1" byteSize = "8" />
-                                                               
-                                                                       </ Port >
-                                                               
-                                                                   </ Ports >
-                                                               
-                                                                   < Channels >
-                                                               
-                                                                       < Channel id = "1" >
-                                                                
-                                                                            < ChannelApplication name = "MUX_MMI" id = "1" />
-                                                                   
-                                                                               < ServerPorts >
-                                                                   
-                                                                                   < ServerPort > 1 </ ServerPort >
-                                                                   
-                                                                               </ ServerPorts >
-                                                                   
-                                                                               < ClientPorts >
-                                                                   
-                                                                                   < ClientPort > 3 </ ClientPort >
-                                                                   
-                                                                               </ ClientPorts >
-                                                                   
-                                                                           </ Channel >
-                                                                   
-                                                                           < Channel id = "2" >
-                                                                    
-                                                                                < ChannelApplication name = "MUX_AT" id = "2" />
-                                                                       
-                                                                                   < ServerPorts >
-                                                                       
-                                                                                       < ServerPort > 2 </ ServerPort >
-                                                                       
-                                                                                   </ ServerPorts >
-                                                                       
-                                                                                   < ClientPorts >
-                                                                       
-                                                                                       < ClientPort > 4 </ ClientPort >
-                                                                       
-                                                                                   </ ClientPorts >
-                                                                       
-                                                                               </ Channel >
-                                                                       
-                                                                               < Channel id = "3" >
-                                                                        
-                                                                                    < ChannelApplication name = "MUX_MMI" id = "3" />
-                                                                           
-                                                                                       < ServerPorts >
-                                                                           
-                                                                                           < ServerPort > 5 </ ServerPort >
-                                                                           
-                                                                                       </ ServerPorts >
-                                                                           
-                                                                                       < ClientPorts >
-                                                                           
-                                                                                           < ClientPort > 7 </ ClientPort >
-                                                                           
-                                                                                       </ ClientPorts >
-                                                                           
-                                                                                   </ Channel >
-                                                                           
-                                                                                   < Channel id = "4" >
-                                                                            
-                                                                                        < ChannelApplication name = "MUX_AT" id = "4" />
-                                                                               
-                                                                                           < ServerPorts >
-                                                                               
-                                                                                               < ServerPort > 6 </ ServerPort >
-                                                                               
-                                                                                           </ ServerPorts >
-                                                                               
-                                                                                           < ClientPorts >
-                                                                               
-                                                                                               < ClientPort > 8 </ ClientPort >
-                                                                               
-                                                                                           </ ClientPorts >
-                                                                               
-                                                                                       </ Channel >
-                                                                               
-                                                                                   </ Channels >
-                                                                               
-                                                                                   < Applications >
-                                                                               
-                                                                                       < DisplayOnly > no </ DisplayOnly >
-                                                                               
-                                                                                       < !--Display only or send command to the UE.Values: yes or no-- >
-                                                                              
-                                                                                      < BypassAllRemap > no </ BypassAllRemap >
-                                                                              
-                                                                                      < !--Ignore all remapping options.Values: yes or no-- >
-                                                                             
-                                                                                     < KeepSerialConnection > yes </ KeepSerialConnection >
-                                                                             
-                                                                                     < !--Keep the serial connection opened after each AT command sent to the phone. Values: yes or no-- >
-                                                                             
-                                                                                     < CreateLogFile > yes </ CreateLogFile >
-                                                                             
-                                                                                     < !--Create automatically a log file in the \bin directory. Values: yes or no-- >
-                                                                             
-                                                                                     < ClearUeQueue > yes </ ClearUeQueue > < !--Clear the UE queue before sending a new AT command-- >
-                                                                                   
-                                                                                           < Application name = "MUX_MMI" id = "1" >
-                                                                                      
-                                                                                                  < AutoConfirmationEnabled > no </ AutoConfirmationEnabled >
-                                                                                      
-                                                                                                  < !--Raise the MMI prompt or send auto reply.Values: yes or no-- >
-                                                                                     
-                                                                                             </ Application >
-                                                                                     
-                                                                                             < Application name = "MUX_AT" id = "2" >
-                                                                                        
-                                                                                                    < AtManualControl > no </ AtManualControl >
-                                                                                        
-                                                                                                    < !--Don't send AT commands to the phone and display a menu to the user. Values: yes or no -->
-                                                                                                    < Options >
-                                                                                        
-                                                                                                        < ClientReceiveRemap >
-                                                                                        
-                                                                                                            < From > ATD123456789; &lt; CR & gt; &lt; LF & gt;</ From >
-                                                                                                   
-                                                                                                                       < !--Equivalent to ATD123456789;< CR >< LF > -->
-                                                                                                   
-                                                                                                                       < To > at + cmec = 2 </ To >
-                                                                                                   
-                                                                                                                       < To > at + ckpd = "123456789s" </ To >
-                                                                                                   
-                                                                                                                   </ ClientReceiveRemap >
-                                                                                                   
-                                                                                                               </ Options >
-                                                                                                   
-                                                                                                                   </ Application >
-                                                                                                   
-                                                                                                           < Application name = "MUX_MMI" id = "3" >
-                                                                                                      
-                                                                                                                  < AutoConfirmationEnabled > yes </ AutoConfirmationEnabled >
-                                                                                                      
-                                                                                                                  < !--Raise the MMI prompt or send auto reply.Values: yes or no-- >
-                                                                                                     
-                                                                                                                 < Options >
-                                                                                                     
-                                                                                                                     < ClientReceiveRemap >
-                                                                                                     
-                                                                                                                         < From > Please disconnect pdn</ From >
-                                                                                                        
-                                                                                                                            < To closePort = "yes" > AT + CGACT = 0,1 </ To >
-                                                                                                                 
-                                                                                                                                 </ ClientReceiveRemap >
-                                                                                                                 
-                                                                                                                             </ Options >
-                                                                                                                 
-                                                                                                                             < Options >
-                                                                                                                 
-                                                                                                                                 < ClientReceiveRemap >
-                                                                                                                 
-                                                                                                                                     < From > Switch on the phone </ From >
-                                                                                                                    
-                                                                                                                                        < To closePort = "yes" > at + cfun = 1,1 </ To >
-                                                                                                                             
-                                                                                                                                             </ ClientReceiveRemap >
-                                                                                                                             
-                                                                                                                                         </ Options >
-                                                                                                                             
+                XElement xports = new XElement("Ports");
+                xroot.Add(xports);
 
-                                                                                                                                         < Options >
-                                                                                                                             
-                                                                                                                                             < ClientReceiveRemap >
-                                                                                                                             
-                                                                                                                                                 < From > Activate SMS mode</ From >
-                                                                                                                                
-                                                                                                                                                    < To closePort = "yes" > at + cmms = 0 </ To >
-                                                                                                                                 
-                                                                                                                                                 </ ClientReceiveRemap >
-                                                                                                                                 
-                                                                                                                                             </ Options >
-                                                                                                                                 
+                XElement port = new XElement("Port",
+                    new XAttribute("id", "1"),
+                    new XElement("Socket",
+                          new XAttribute("address", "127.0.0.1"),
+                          new XAttribute("port", "10005")
+                       )
+                    );
+                xports.Add(port);
 
+                port = new XElement("Port",
+                    new XAttribute("id", "2"),
+                    new XElement("Socket",
+                          new XAttribute("address", "127.0.0.1"),
+                          new XAttribute("port", "10006")
+                       )
+                    );
+                xports.Add(port);
 
-                                                                                                                                             < Options >
-                                                                                                                                 
-                                                                                                                                                 < ClientReceiveRemap >
-                                                                                                                                 
-                                                                                                                                                     < From > Try MO SMS</ From >
-                                                                                                                                    
-                                                                                                                                                        < To closePort = "yes" > AT * SMS * MO = 01012345678,313233 </ To >
-                                                                                                                                               
-                                                                                                                                                               </ ClientReceiveRemap >
-                                                                                                                                               
-                                                                                                                                                           </ Options >
-                                                                                                                                               
+                port = new XElement("Port",
+                    new XAttribute("id", "3"),
+                    new XElement("Serial",
+                          new XAttribute("com", "103"),
+                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("parity", "0"),
+                          new XAttribute("stopbits", "1"),
+                          new XAttribute("byteSize", "8")
+                       )
+                    );
+                xports.Add(port);
 
+                port = new XElement("Port",
+                    new XAttribute("id", "4"),
+                    new XElement("Serial",
+                          new XAttribute("com", "103"),
+                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("parity", "0"),
+                          new XAttribute("stopbits", "1"),
+                          new XAttribute("byteSize", "8")
+                       )
+                    );
+                xports.Add(port);
 
-                                                                                                                                                           < Options >
-                                                                                                                                               
-                                                                                                                                                               < ClientReceiveRemap >
-                                                                                                                                               
-                                                                                                                                                                   < From > Emergency call 111 </ From >
-                                                                                                                                                  
-                                                                                                                                                                      < To closePort = "yes" > AT * VOICE * ORI = 111 </ To >
-                                                                                                                                                   
-                                                                                                                                                                   </ ClientReceiveRemap >
-                                                                                                                                                   
-                                                                                                                                                               </ Options >
-                                                                                                                                                   
+                port = new XElement("Port",
+                    new XAttribute("id", "5"),
+                    new XElement("Socket",
+                          new XAttribute("address", "127.0.0.1"),
+                          new XAttribute("port", "10007")
+                       )
+                    );
+                xports.Add(port);
 
+                port = new XElement("Port",
+                    new XAttribute("id", "6"),
+                    new XElement("Socket",
+                          new XAttribute("address", "127.0.0.1"),
+                          new XAttribute("port", "10008")
+                       )
+                    );
+                xports.Add(port);
 
+                port = new XElement("Port",
+                    new XAttribute("id", "7"),
+                    new XElement("Serial",
+                          new XAttribute("com", "103"),
+                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("parity", "0"),
+                          new XAttribute("stopbits", "1"),
+                          new XAttribute("byteSize", "8")
+                       )
+                    );
+                xports.Add(port);
 
-                                                                                                                                                               < Options >
-                                                                                                                                                   
-                                                                                                                                                                   < ClientReceiveRemap >
-                                                                                                                                                   
-                                                                                                                                                                       < From > Emergency call 112 </ From >
-                                                                                                                                                      
-                                                                                                                                                                          < To closePort = "yes" > AT * VOICE * ORI = 112 </ To >
-                                                                                                                                                       
-                                                                                                                                                                       </ ClientReceiveRemap >
-                                                                                                                                                       
-                                                                                                                                                                   </ Options >
-                                                                                                                                                       
+                port = new XElement("Port",
+                    new XAttribute("id", "8"),
+                    new XElement("Serial",
+                          new XAttribute("com", "103"),
+                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("parity", "0"),
+                          new XAttribute("stopbits", "1"),
+                          new XAttribute("byteSize", "8")
+                       )
+                    );
+                xports.Add(port);
 
-                                                                                                                                                                   < Options >
-                                                                                                                                                       
-                                                                                                                                                                       < ClientReceiveRemap >
-                                                                                                                                                       
-                                                                                                                                                                           < From > Normal call 114 </ From >
-                                                                                                                                                          
-                                                                                                                                                                              < To closePort = "yes" > AT * VOICE * ORI = 114 </ To >
-                                                                                                                                                           
-                                                                                                                                                                           </ ClientReceiveRemap >
-                                                                                                                                                           
-                                                                                                                                                                       </ Options >
-                                                                                                                                                           
-
-                                                                                                                                                                       < Options >
-                                                                                                                                                           
-                                                                                                                                                                           < ClientReceiveRemap >
-                                                                                                                                                           
-                                                                                                                                                                               < From > Emergency call 113 </ From >
-                                                                                                                                                              
-                                                                                                                                                                                  < To closePort = "yes" > AT * VOICE * ORI = 113 </ To >
-                                                                                                                                                               
-                                                                                                                                                                               </ ClientReceiveRemap >
-                                                                                                                                                               
-                                                                                                                                                                           </ Options >
-                                                                                                                                                               
-
-                                                                                                                                                                           < Options >
-                                                                                                                                                               
-                                                                                                                                                                               < ClientReceiveRemap >
-                                                                                                                                                               
-                                                                                                                                                                                   < From > Emergency call 117 </ From >
-                                                                                                                                                                  
-                                                                                                                                                                                      < To closePort = "yes" > ATD117 </ To >
-                                                                                                                                                                   
-                                                                                                                                                                                   </ ClientReceiveRemap >
-                                                                                                                                                                   
-                                                                                                                                                                               </ Options >
-                                                                                                                                                                   
-
-                                                                                                                                                                               < Options >
-                                                                                                                                                                   
-                                                                                                                                                                                   < ClientReceiveRemap >
-                                                                                                                                                                   
-                                                                                                                                                                                       < From > Emergency call 118 </ From >
-                                                                                                                                                                      
-                                                                                                                                                                                          < To closePort = "yes" > AT * VOICE * ORI = 118 </ To >
-                                                                                                                                                                       
-                                                                                                                                                                                       </ ClientReceiveRemap >
-                                                                                                                                                                       
-                                                                                                                                                                                   </ Options >
-                                                                                                                                                                       
-
-                                                                                                                                                                                   < Options >
-                                                                                                                                                                       
-                                                                                                                                                                                       < ClientReceiveRemap >
-                                                                                                                                                                       
-                                                                                                                                                                                           < From > Emergency call 119 </ From >
-                                                                                                                                                                          
-                                                                                                                                                                                              < To closePort = "yes" > AT * VOICE * ORI = 119 </ To >
-                                                                                                                                                                           
-                                                                                                                                                                                           </ ClientReceiveRemap >
-                                                                                                                                                                           
-                                                                                                                                                                                       </ Options >
-                                                                                                                                                                           
-
-                                                                                                                                                                                       < Options >
-                                                                                                                                                                           
-                                                                                                                                                                                           < ClientReceiveRemap >
-                                                                                                                                                                           
-                                                                                                                                                                                               < From > Emergency call 122 </ From >
-                                                                                                                                                                              
-                                                                                                                                                                                                  < To closePort = "yes" > AT * VOICE * ORI = 122 </ To >
-                                                                                                                                                                               
-                                                                                                                                                                                               </ ClientReceiveRemap >
-                                                                                                                                                                               
-                                                                                                                                                                                           </ Options >
-                                                                                                                                                                               
-
-                                                                                                                                                                                           < Options >
-                                                                                                                                                                               
-                                                                                                                                                                                               < ClientReceiveRemap >
-                                                                                                                                                                               
-                                                                                                                                                                                                   < From > Emergency call 125 </ From >
-                                                                                                                                                                                  
-                                                                                                                                                                                                      < To closePort = "yes" > AT * VOICE * ORI = 125 </ To >
-                                                                                                                                                                                   
-                                                                                                                                                                                                   </ ClientReceiveRemap >
-                                                                                                                                                                                   
-                                                                                                                                                                                               </ Options >
-                                                                                                                                                                                   
-
-                                                                                                                                                                                               < Options >
-                                                                                                                                                                                   
-                                                                                                                                                                                                   < ClientReceiveRemap >
-                                                                                                                                                                                   
-                                                                                                                                                                                                       < From > Switch off the phone </ From >
-                                                                                                                                                                                      
-                                                                                                                                                                                                          < To closePort = "yes" > at + cfun = 0 </ To >
-                                                                                                                                                                                       
-                                                                                                                                                                                                       </ ClientReceiveRemap >
-                                                                                                                                                                                       
-                                                                                                                                                                                                   </ Options >
-                                                                                                                                                                                       
-
-                                                                                                                                                                                                   < Options >
-                                                                                                                                                                                       
-                                                                                                                                                                                                       < ClientReceiveRemap >
-                                                                                                                                                                                       
-                                                                                                                                                                                                           < From > Please power off the UE</ From >
-                                                                                                                                                                                          
-                                                                                                                                                                                                              < To closePort = "yes" > at + cfun = 1,1 </ To >
-                                                                                                                                                                                                   
-                                                                                                                                                                                                                   </ ClientReceiveRemap >
-                                                                                                                                                                                                   
-                                                                                                                                                                                                               </ Options >
-                                                                                                                                                                                                   
-
-                                                                                                                                                                                                               < Options >
-                                                                                                                                                                                                   
-                                                                                                                                                                                                                   < ClientReceiveRemap >
-                                                                                                                                                                                                   
-                                                                                                                                                                                                                       < From > Please make voice call from the UE</ From >
-                                                                                                                                                                                                      
-                                                                                                                                                                                                                          < To closePort = "yes" > AT * VOICE * ORI = 0101234567 </ To >
-                                                                                                                                                                                                       
-                                                                                                                                                                                                                       </ ClientReceiveRemap >
-                                                                                                                                                                                                       
-                                                                                                                                                                                                                   </ Options >
-                                                                                                                                                                                                       
-
-                                                                                                                                                                                                                   < Options >
-                                                                                                                                                                                                       
-                                                                                                                                                                                                                       < ClientReceiveRemap >
-                                                                                                                                                                                                       
-                                                                                                                                                                                                                           < From > Try MO Voice Call(15447769) </ From >
-                                                                                                                                                                                                          
-                                                                                                                                                                                                                              < To closePort = "yes" > AT * VOICE * ORI = 15447769 </ To >
-                                                                                                                                                                                                           
-                                                                                                                                                                                                                           </ ClientReceiveRemap >
-                                                                                                                                                                                                           
-                                                                                                                                                                                                                       </ Options >
-                                                                                                                                                                                                           
-
-                                                                                                                                                                                                                       < Options >
-                                                                                                                                                                                                           
-                                                                                                                                                                                                                           < ClientReceiveRemap >
-                                                                                                                                                                                                           
-                                                                                                                                                                                                                               < From > Try MO Voice Call </ From >
-                                                                                                                                                                                                              
-                                                                                                                                                                                                                                  < To closePort = "yes" > AT * VOICE * ORI = 01012345678 </ To >
-                                                                                                                                                                                                               
-                                                                                                                                                                                                                               </ ClientReceiveRemap >
-                                                                                                                                                                                                               
-                                                                                                                                                                                                                           </ Options >
-                                                                                                                                                                                                               
-
-                                                                                                                                                                                                                           < Options >
-                                                                                                                                                                                                               
-                                                                                                                                                                                                                               < ClientReceiveRemap >
-                                                                                                                                                                                                               
-                                                                                                                                                                                                                                   < From > Try Call Answer</ From >
-                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                      < To closePort = "yes" > ata </ To >
-                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                   </ ClientReceiveRemap >
-                                                                                                                                                                                                                   
-                                                                                                                                                                                                                               </ Options >
-                                                                                                                                                                                                                   
-
-                                                                                                                                                                                                                               < Options >
-                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                   < ClientReceiveRemap >
-                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                       < From > Try Call End</ From >
-                                                                                                                                                                                                                      
-                                                                                                                                                                                                                                          < To closePort = "yes" > AT * VOICE * CEND </ To >
-                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                       </ ClientReceiveRemap >
-                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                   </ Options >
-                                                                                                                                                                                                                       
-
-                                                                                                                                                                                                                                   < Options >
-                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                       < ClientReceiveRemap >
-                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                           < From > End voice call from the UE</ From >
-                                                                                                                                                                                                                          
-                                                                                                                                                                                                                                              < To closePort = "yes" > AT * VOICE * CEND </ To >
-                                                                                                                                                                                                                           
-                                                                                                                                                                                                                                           </ ClientReceiveRemap >
-                                                                                                                                                                                                                           
-                                                                                                                                                                                                                                       </ Options >
-                                                                                                                                                                                                                           
-
-                                                                                                                                                                                                                                       < Options >
-                                                                                                                                                                                                                           
-                                                                                                                                                                                                                                           < ClientReceiveRemap >
-                                                                                                                                                                                                                           
-                                                                                                                                                                                                                                               < From > Check PDN Address</ From >
-                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                  < To closePort = "yes" > AT + CGPADDR </ To >
-                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                               </ ClientReceiveRemap >
-                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                           </ Options >
-                                                                                                                                                                                                                               
-
-                                                                                                                                                                                                                                           < Options >
-                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                               < ClientReceiveRemap >
-                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                   < From > Please set EMM/ ESM cause </ From >
-                                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                                       < To closePort = "yes" > AT + CNEC = 24 </ To >
-                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                    </ ClientReceiveRemap >
-                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                < Options >
-                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                    < ClientReceiveRemap >
-                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                        < From > Please reboot phone</ From >
-                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                           < To closePort = "yes" > AT + CFUN = 1,1 </ To >
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                            </ Options >
-                                                                                                                                                                                                                                                
-
-                                                                                                                                                                                                                                                            < Options >
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                < ClientReceiveRemap >
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                    < From > Please connect pdn</ From >
-                                                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                                                       < To closePort = "yes" > AT + CGACT = 1,1 </ To >
-                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                            </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                        </ Options >
-                                                                                                                                                                                                                                                            
-
-                                                                                                                                                                                                                                                                        < Options >
-                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                            < ClientReceiveRemap >
-                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                < From > Please disconnect pdn</ From >
-                                                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                                                   < To closePort = "yes" > AT + CGACT = 0,1 </ To >
-                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                        </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                    </ Options >
-                                                                                                                                                                                                                                                                        
-
-
-                                                                                                                                                                                                                                                                                    < Options >
-                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                        < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                            < From > Please disconnect pdn</ From >
-                                                                                                                                                                                                                                                                           
-                                                                                                                                                                                                                                                                                               < To closePort = "yes" > AT + CGACT = 0,1 </ To >
-                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                    </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                </ Options >
-                                                                                                                                                                                                                                                                                    < !--Jeong.Suyon-- >
-                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                < Options >
-                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                    < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                        < From > Please PSM On</ From >
-                                                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                                                           < To closePort = "yes" > AT + CPSMS = 1,,,"10000101","00100010" </ To >
-                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                            </ Options >
-                                                                                                                                                                                                                                                                                                
-
-                                                                                                                                                                                                                                                                                                            < Options >
-                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                    < From > Please PSM Off</ From >
-                                                                                                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                                                                                                       < To closePort = "yes" > AT + CPSMS = 0 </ To >
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                    </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                </ Options >
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                < Options >
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                    < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                        < From > Deactivate Data PDN</ From >
-                                                                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                                                                           < To closePort = "yes" > AT + CGACT = 0,2 </ To >
-                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                            </ Options >
-                                                                                                                                                                                                                                                                                                                
-
-                                                                                                                                                                                                                                                                                                                            < Options >
-                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                    < From > Activate Data PDN</ From >
-                                                                                                                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                                                                                                                       < To closePort = "yes" > AT + CGACT = 1,2 </ To >
-                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                            </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                        </ Options >
-                                                                                                                                                                                                                                                                                                                            
-
-
-                                                                                                                                                                                                                                                                                                                            < !--Jeong.Suyon  END-- >
-                                                                                                                                                                                                                                                                                                                            
-
-                                                                                                                                                                                                                                                                                                                                    </ Application >
-                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                    < Application name = "MUX_AT" id = "4" >
-                                                                                                                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                                                                                                           < AutoConfirmationEnabled > yes </ AutoConfirmationEnabled >
-                                                                                                                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                                                                                                           < !--Raise the MMI prompt or send auto reply.Values: yes or no-- >
-                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                          < Options >
-                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                              < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                  < From > AT + CGACT = 1,1 </ From >
-                                                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                                                         < To closePort = "yes" > AT + CGACT = 1,2 </ To >
-                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                              </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                              < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                  < From > AT + CGACT = 1 = 0,1 </ From >
-                                                                                                                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                                                                                                                           < To closePort = "yes" > AT + CGACT = 1 = 0,2 </ To >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < From > at + cops ?</ From >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < Pause > 10000 </ Pause >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < To > at + cops ?</ To >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < From > at + cfun = 0 </ From >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < To closePort = "yes" > at + cfun = 0 </ To >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < From > at + cfun = 1 </ From >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < To closePort = "yes" > at + cfun = 1 </ To >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                      < From > PSM On </ From >
-                                                                                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                                                                                         < To closePort = "yes" > at + cpsms = 1,,,"10000101","00100010" </ To >
-                                                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                                              </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                                              < ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                                                  < From > PSM Off </ From >
-                                                                                                                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                                                                                                                                     < To closePort = "yes" > at + cpsms = 0 </ To >
-                                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                                  </ ClientReceiveRemap >
-                                                                                                                                                                                                                                                                                                                                                                                  
-
-
-
-                                                                                                                                                                                                                                                                                                                                                                                              </ Options >
-                                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                          </ Application >
-                                                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                  </ ProxyConfiguration >
-
-                    */
-
-                sw.Close();
-                fs.Close();
+                xdoc.Save(pathname + filename);
             }
             catch (Exception err)
             {
@@ -2339,69 +1747,7 @@ namespace WindowsFormsApp2
 
         private void button40_Click(object sender, EventArgs e)
         {
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.AppendChild(xmlDoc.CreateXmlDeclaration("1.0", "utf-8", null));
 
-            xmlDoc = addNode(xmlDoc, "", "ProxyConfiguration", "", "NEW");
-            xmlDoc = addNode(xmlDoc, "ProxyConfiguration", "WRITER", "당꿈응", "NEW");
-
-            for (int i = 0; i < 10; i++)
-            {
-                XmlElement sList = xmlDoc.CreateElement("SUB_LIST");
-                sList = addElement(xmlDoc, sList, "TITLE", "TITLE_" + i + "", "ELEMENT");
-                sList = addElement(xmlDoc, sList, "CONTENT", "CONTENT_" + i, "CDATA");
-                xmlDoc.DocumentElement.AppendChild(sList);
-            }
-
-            Console.WriteLine("Display the modified XML...");
-            xmlDoc.Save(Console.Out);
-        }
-
-        private XmlElement addElement(XmlDocument xmlDoc, XmlElement reElement, string NodeName, string NodeText, string type)
-        {
-            XmlElement Eadd = xmlDoc.CreateElement(NodeName);
-            if (type == "ELEMENT")
-            {
-                if (NodeText != "")
-                {
-                    XmlText TextStr = xmlDoc.CreateTextNode(NodeText);
-                    Eadd.AppendChild(TextStr);
-                }
-            }
-            else if (type == "CDATA")
-            {
-                if (NodeText != "")
-                {
-                    XmlCDataSection TextStr = xmlDoc.CreateCDataSection(NodeText);
-                    Eadd.AppendChild(TextStr);
-                }
-            }
-            reElement.AppendChild(Eadd);
-            return reElement;
-        }
-
-        public XmlDocument addNode(XmlDocument xmlDoc, string targetNode, string cNodeName, string cNodeText, string cNodeType)
-        {
-            XmlNode targetObj;                                      //자식을 추가할 상위노드 선언
-            XmlElement childNode = xmlDoc.CreateElement(cNodeName); //자식 노드 생성
-            childNode.InnerText = cNodeText;                        //자식노드 내용 넣기
-
-            if (targetNode != "")
-            {
-                targetObj = xmlDoc.SelectSingleNode(targetNode);  //상위노드 선택
-                targetObj.AppendChild(childNode);                 //노드 추가
-
-                if (cNodeType == "NEW")
-                {
-                    xmlDoc.AppendChild(targetObj); //추가할 노드 
-                }
-            }
-            else
-            {
-                xmlDoc.AppendChild(childNode);
-            }
-
-            return xmlDoc;
         }
     }
 }
