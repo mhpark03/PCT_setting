@@ -179,26 +179,9 @@ namespace WindowsFormsApp2
         string sendWith;
         string dataIN = "";
         string RxDispOrder;
-        string serverip = "106.103.233.155";
-        string serverport = "5783";
-        int network_chkcnt = 3;
         string nextcommand = "";    //OK를 받은 후 전송할 명령어가 존재하는 경우
                                     //예를들어 +CEREG와 같이 OK를 포함한 응답 값을 받은 경우 OK처리 후에 명령어를 전송해야 한다
                                     // states 값을 바꾸고 명령어를 전송하면 명령의 응답을 받기전 이전에 받았던 OK에 동작할 수 있다.
-
-        string device_fota_state = "1";
-        string device_fota_reseult = "0";
-        string device_fota_index = "0";
-        string device_total_index = "0";
-        string device_fota_checksum = "";
-        UInt32 oneM2Mtotalsize = 0;
-        UInt32 oneM2Mrcvsize = 0;
-
-        string oneM2MMEFIP = "106.103.230.209";
-        string oneM2MMEFPort = "80";
-        string oneM2MBRKIP = "106.103.230.207";
-        string oneM2MBRKPort = "8080";
-        int oneM2Mmode = 0;
 
         Dictionary<string, string> commands = new Dictionary<string, string>();
         Dictionary<char, int> bcdvalues = new Dictionary<char, int>();
@@ -225,8 +208,6 @@ namespace WindowsFormsApp2
             RxDispOrder = "BOTTOM";
 
             this.setWindowLayOut();
-            groupBox1.Enabled = false;
-            groupBox4.Enabled = false;
 
             bcdvalues.Add('0', 0);
             bcdvalues.Add('1', 1);
@@ -433,7 +414,6 @@ namespace WindowsFormsApp2
                     groupBox4.Enabled = true;
                     logPrintInTextBox("COM PORT가 연결 되었습니다.", "");
 
-                    tBoxActionState.Text = states.booting.ToString();
                     timer2.Interval = 1000;     //초기에는 1초 타이머로 동작 
                     timer2.Start();
                 }
@@ -532,51 +512,6 @@ namespace WindowsFormsApp2
 
                     serialPort1.Write(sendmsg);
                     logPrintInTextBox(sendmsg, "tx");
-
-                    //textbox에서 명령어를 직접 입력한 경우에도 응답 값을 받았을떄 정보를 저장하고 화면에 표시할 수 있게하기 위함.
-                    if (tBoxActionState.Text == "idle")
-                    {
-                        string command = dataOUT.ToUpper();
-                        if (command == "AT+CIMI")
-                        {
-                            tBoxActionState.Text = states.getimsi.ToString();
-                        }
-                        else if (command == "AT+ICCID")
-                        {
-                            tBoxActionState.Text = states.geticcid.ToString();
-                        }
-                        else if (command == "AT@ICCID?")
-                        {
-                            tBoxActionState.Text = states.geticcidamtel.ToString();
-                        }
-                        else if (command == "AT+MUICCID")
-                        {
-                            tBoxActionState.Text = states.geticcid.ToString();
-                        }
-                        else if (command == "AT+MUICCID=?")
-                        {
-                            tBoxActionState.Text = states.geticcid.ToString();
-                        }
-                        else if (command == "AT+GSN")
-                        {
-                            tBoxActionState.Text = states.getimei.ToString();
-                        }
-                        else if (command == "AT+CGSN=1")
-                        {
-                            tBoxActionState.Text = states.getimei.ToString();
-                        }
-                        else if (command == "AT+CGMM" || command == "AT+GMM")
-                        {
-                            tBoxActionState.Text = states.getmodel.ToString();
-                        }
-                        else if (command == "AT+CGMI")
-                        {
-                            tBoxActionState.Text = states.getmanufac.ToString();
-                        }
-
-                        timer1.Start();
-                    }
-
                 }
             }
             catch (Exception err)
@@ -640,7 +575,7 @@ namespace WindowsFormsApp2
             {
                 msg_form = "\r\n";
             }
-            msg_form += currenttime.ToString("hh:mm:ss.fff") + "("+ tBoxActionState.Text+") : ";
+            msg_form += currenttime.ToString("hh:mm:ss.fff");
 
             if (kind == "tx")
             {
@@ -842,120 +777,10 @@ namespace WindowsFormsApp2
                     OKReceived();
                     break;
                 case "ERROR":
-                    tBoxActionState.Text = states.idle.ToString();
                     nextcommand = "";
                     timer1.Stop();
 
-                    if (tBoxModel.Text == "알 수 없음")
-                    {
-                        isDeviceInfo();     // 모류 발생시 모듈 정보 확인(모델 정보 오류로 인해 전문 오류 발생할 수 있음)
-                    }
                     timer2.Stop();
-                    break;
-                case "+ICCID:":
-                    // AT+ICCID의 응답으로 ICCID 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    if (str2.Length > 19)
-                        tBoxIccid.Text = str2.Substring(str2.Length - 20, 19);
-                    else
-                        tBoxIccid.Text = str2;
-                    logPrintInTextBox("ICCID값이 저장되었습니다.", "");
-
-                    if (tBoxActionState.Text == states.autogeticcid.ToString())
-                    {
-                        if (tBoxModel.Text == "BG96" || tBoxManu.Text == "LIME-I Co., Ltd" || tBoxModel.Text == "EC25" || tBoxModel.Text == "EC21")
-                        {
-                            nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                        }
-                        else if (tBoxModel.Text == "TPB23")
-                        {
-                            nextcommand = states.autogetmodemvertpb23.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                        }
-                        else
-                        {
-                            nextcommand = states.getcereg.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                        }
-                    }
-                    break;
-                case "ICCID:":
-                    // AT+ICCID의 응답으로 ICCID 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    string[] strchar = str2.Split(' ');        // Remove first char ' '
-                    if (strchar.Length > 1)
-                        str2 = strchar[strchar.Length - 1];
-
-                    if (str2.Length > 19)
-                        tBoxIccid.Text = str2.Substring(str2.Length - 20, 19);
-                    else
-                        tBoxIccid.Text = str2;
-                    logPrintInTextBox("ICCID값이 저장되었습니다.", "");
-
-                    if (tBoxActionState.Text == states.autogeticcid.ToString())
-                    {
-                        if (tBoxManu.Text == "QUALCOMM INCORPORATED" || tBoxManu.Text == "LIME-I Co., Ltd")
-                        {
-                            nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                        }
-                        else
-                        {
-                            nextcommand = states.autogetmodemvernt.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                        }
-                    }
-                    break;
-                case "+MUICCID:":
-                    // AT+MUICCID (NB TPB23모델)의 응답으로 ICCID 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    if (str2.Length > 19)
-                        tBoxIccid.Text = str2.Substring(str2.Length - 20, 19);
-                    else
-                        tBoxIccid.Text = str2;
-                    logPrintInTextBox("ICCID값이 저장되었습니다.", "");
-
-                    if (tBoxActionState.Text == states.autogeticcidtpb23.ToString())
-                    {
-                        nextcommand = states.autogetmodemvertpb23.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                    }
-                    else if (tBoxActionState.Text == states.autogeticcidlg.ToString())
-                    {
-                        this.sendDataOut(commands["autogetmodemver"]);
-                        tBoxActionState.Text = states.autogetmodemver.ToString();
-
-                        timer1.Start();
-                    }
-                    break;
-                case "@ICCID:":
-                    // AT@ICCID?의 응답으로 ICCID 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    if (str2.Length > 19)
-                        tBoxIccid.Text = str2.Substring(str2.Length - 20, 19);
-                    else
-                        tBoxIccid.Text = str2;
-                    logPrintInTextBox("ICCID값이 저장되었습니다.", "");
-
-                    if (tBoxActionState.Text == states.autogeticcidamtel.ToString())
-                    {
-                        nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                    }
-                    break;
-                case "+NCCID:":
-                    // AT+NCCID (Quectel BC95모델)의 응답으로 ICCID 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    if (str2.Length > 19)
-                        tBoxIccid.Text = str2.Substring(str2.Length - 20, 19);
-                    else
-                        tBoxIccid.Text = str2;
-                    logPrintInTextBox("ICCID값이 저장되었습니다.", "");
-
-                    if (tBoxActionState.Text == states.autogeticcidbc95.ToString())
-                    {
-                        nextcommand = states.autogetmodemverbc95.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                    }
-                    break;
-                case "+CGSN:":
-                    // AT+CGSN=1 (NB TPB23모델)의 응답으로 IMEI 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    tBoxIMEI.Text = str2;
-                    logPrintInTextBox("IMEI값이 저장되었습니다.", "");
                     break;
                 case "+CEREG:":
                     // AT+CEREG의 응답으로 LTE attach 상태 확인하고 disable되어 있어면 attach 요청, 
@@ -972,15 +797,6 @@ namespace WindowsFormsApp2
                     string ltestatus = str2.Substring(0, 1);
                     if (ltestatus == "0")
                     {
-                        network_chkcnt = 3;             // LTE attach disable일 경우 enable하고 getcereg 3회 확인
-                        if (tBoxModel.Text == "TPB23" || tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            nextcommand = states.setceregtpb23.ToString();
-                        }
-                        else
-                        {
-                            nextcommand = states.setcereg.ToString();
-                        }
                         logPrintInTextBox("LTE 연결을 요청이 필요합니다.", "");
                     }
                     else if ((ltestatus == "1") || (ltestatus == "3"))
@@ -1034,7 +850,6 @@ namespace WindowsFormsApp2
                         timer2.Stop();
                     }
 
-                    tBoxActionState.Text = states.idle.ToString();
                     timer1.Stop();
                     break;
                 case "$OM_AUTH_RSP=":
@@ -1042,29 +857,6 @@ namespace WindowsFormsApp2
                     if (str2 == "2000")
                     {
                         logPrintInTextBox("oneM2M서버 인증 성공하였습니다.", "");
-
-                        if (tBoxModel.Text == "알 수 없음")
-                        {
-                            getDeviveInfo();
-                        }
-                        else if(tBoxActionState.Text == "fotamefauthnt")
-                        {
-                            this.sendDataOut(commands["deviceFWUPfinish"]);
-                            tBoxActionState.Text = states.deviceFWUPfinish.ToString();
-                        }
-                        else if (tBoxActionState.Text == "mfotamefauth")
-                        {
-                            if (tBoxModel.Text == "NTLM3410Y")
-                            {
-                                this.sendDataOut(commands["modemFWUPfinishLTE"]);
-                                tBoxActionState.Text = states.modemFWUPfinishLTE.ToString();
-                            }
-                            else
-                            {
-                                this.sendDataOut(commands["modemFWUPfinish"]);
-                                tBoxActionState.Text = states.modemFWUPfinish.ToString();
-                            }
-                        }
                     }
                     else
                     {
@@ -1083,7 +875,6 @@ namespace WindowsFormsApp2
                         // (getCSEbase) - (getremoteCSE) - setremoteCSE - setcontainer - setsubscript,
 
                         this.sendDataOut(commands["getremoteCSE"]);
-                        tBoxActionState.Text = states.getremoteCSE.ToString();
                     }
                     else
                     {
@@ -1103,7 +894,6 @@ namespace WindowsFormsApp2
                         // getCSEbase - (getremoteCSE) - (updateremoteCSE) - setcontainer - setsubscript,
 
                         this.sendDataOut(commands["updateremoteCSE"]);
-                        tBoxActionState.Text = states.updateremoteCSE.ToString();
                     }
                     else
                     {
@@ -1111,22 +901,6 @@ namespace WindowsFormsApp2
                         // getCSEbase - (getremoteCSE) - (setremoteCSE) - setcontainer - setsubscript,
 
                         this.sendDataOut(commands["setremoteCSE"]);
-                        tBoxActionState.Text = states.setremoteCSE.ToString();
-                    }
-                    break;
-                case "$OM_C_CSE_RSP=":
-                    // oneM2M remoteCSE 생성 결과, 2001이면 container 생성 요청
-                    if (str2 == "2001" || str2 == "2000" || str2 == "4105")
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // getCSEbase - getremoteCSE - (setremoteCSE) - (setcontainer) - setsubscript,
-
-                        this.sendDataOut(commands["setcontainer"] + tBoxDeviceSN.Text);
-                        tBoxActionState.Text = states.setcontainer.ToString();
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
                     }
                     break;
                 case "$OM_U_CSE_RSP=":
@@ -1136,8 +910,6 @@ namespace WindowsFormsApp2
                         // 플랫폼 서버 remoteCSE, container 등록 요청
                         // getCSEbase - getremoteCSE - (updateremoteCSE) - (setcontainer) - setsubscript,
 
-                        this.sendDataOut(commands["setcontainer"] + tBoxDeviceSN.Text);
-                        tBoxActionState.Text = states.setcontainer.ToString();
                     }
                     else
                     {
@@ -1151,8 +923,6 @@ namespace WindowsFormsApp2
                         // 플랫폼 서버 remoteCSE, container 등록 요청
                         // getCSEbase - getremoteCSE - setremoteCSE - (setcontainer) - (setsubscript),
 
-                        this.sendDataOut(commands["setsubscript"] + tBoxDeviceSN.Text);
-                        tBoxActionState.Text = states.setsubscript.ToString();
                     }
                     else
                     {
@@ -1177,7 +947,6 @@ namespace WindowsFormsApp2
                     // oneM2M subscription 설정에 의한 data 변경 이벤트
                     // 플랫폼 서버에 data 수신 요청
                     this.sendDataOut(commands["getonem2mdata"] + str2);
-                    tBoxActionState.Text = states.getonem2mdata.ToString();
                     break;
                 case "$OM_R_INS_RSP=":
                     // 플랫폼 서버에 data 수신
@@ -1200,139 +969,6 @@ namespace WindowsFormsApp2
                     {
                         logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
                     }
-                    break;
-                case "*ST*INFO:":
-                    string[] modeminfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    tBoxModemVer.Text = modeminfos[1];
-                    logPrintInTextBox("MODEM의 버전을 저장하였습니다.", "");
-                    break;
-                case "APPLICATION_A,":
-                    tBoxModemVer.Text = str2;
-                    logPrintInTextBox("MODEM의 버전을 저장하였습니다.", "");
-                    break;
-                case "+QLWSERVERIP:BS,":
-                    if (str2 != serverip +"," + serverport)
-                    {
-                        //AT+QLWSERVERIP=BS,<ip>,<port>   BC95모델
-                        //this.sendDataOut(commands["autosetsvrbsbc95"] + serverip + "," + serverport);
-                        tBoxActionState.Text = states.actsetsvrbsbc95.ToString();
-                        //nextcommand = "skip";
-                    }
-                    break;
-                case "+QLWSERVERIP:LWM2M,":
-                    if ((str2 != serverip + "," + serverport))
-                    {
-                        if (tBoxActionState.Text != states.actsetsvrbsbc95.ToString())
-                        {
-                            //AT+QLWSERVERIP=LWM2M,<ip>,<port>   BC95모델 서버정보 갱신
-                            //this.sendDataOut(commands["autosetsvripbc95"] + serverip + "," + serverport);
-                            tBoxActionState.Text = states.actsetsvripbc95.ToString();
-                            //nextcommand = "skip";
-                        }
-                    }
-                    break;
-                case "+QLWEPNS: ":
-                    String md5value = getMd5Hash(tBoxIMSI.Text + tBoxIccid.Text);
-                    string epn = md5value.Substring(0, 5) + md5value.Substring(md5value.Length - 5, 5);
-
-                    if (str2 != "ASN_CSE-D-" + epn + "-" + tBoxSVCCD.Text)
-                    {
-                        //AT+QLWSERVERIP=LWM2M,<ip>,<port>   BC95모델 서버정보 갱신
-                        tBoxActionState.Text = states.autosetepnsbc95.ToString();
-                        nextcommand = commands["setepnsbc95"] + tBoxSVCCD.Text;
-                    }
-                    break;
-                case "+QLWMBSPS: ":
-                    //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
-                    string epncmd = "\"" + tBoxSVCCD.Text + "\",\"";
-                    epncmd = epncmd + tBoxDeviceSN.Text + "\",\"";
-                    epncmd = epncmd + tBoxIMSI.Text + "\",\"";
-
-                    string epniccid = tBoxIccid.Text;
-                    epncmd = epncmd + epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
-                    epncmd = epncmd + tBoxDeviceModel.Text + "\"";
-
-                    if (str2 != epncmd)
-                    {
-                        tBoxActionState.Text = states.autosetmbspsbc95.ToString();
-                        nextcommand = commands["setmbspsbc95"] + epncmd;
-                    }
-                    break;
-
-                case "$OM_DEV_FWDL_START=":
-                    oneM2Mtotalsize = Convert.ToUInt32(str2);
-                    logPrintInTextBox("FOTA 이미지 크기는 " + str2 + "입니다.", "");
-                    break;
-                case "$BIN_DATA=":
-                    if (tBoxManu.Text == "AM Telecom")        //AMTEL 모듈은 OK가 오지 않음
-                    {
-                        string[] oneM2Minfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                        oneM2Mrcvsize += Convert.ToUInt32(oneM2Minfos[0]);
-                    }
-                    else
-                    {
-                        oneM2Mrcvsize += (UInt32)str2.Length / 2;
-                    }
-                    logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
-                    break;
-                case "$OM_C_MODEM_FWUP_RSP=":
-                    break;
-                case "$OM_MODEM_FWUP_RSP=":
-                case "$OM_PUSH_MODEM_FWUP_RSP=":
-                    string[] modemverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if(modemverinfos[0] == "2000")
-                    {
-                        logPrintInTextBox("수신한 MODEM의 버전은 " + modemverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
-
-                        this.sendDataOut(commands["modemFWUPstart"]);
-                        tBoxActionState.Text = states.modemFWUPstart.ToString();
-                    }
-                    else if (modemverinfos[0] == "9001")
-                    {
-                        logPrintInTextBox("현재 MODEM 버전이 최신버전입니다.", "");
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
-                    }
-                    break;
-                case "$OM_MODEM_UPDATE_FINISH":
-                    if (tBoxModel.Text == "NTLM3410Y")
-                    {
-                        this.sendDataOut(commands["modemFWUPfinishLTE"]);
-                        tBoxActionState.Text = states.modemFWUPfinishLTE.ToString();
-                    }
-                    else
-                    {
-                        this.sendDataOut(commands["modemFWUPfinish"]);
-                        tBoxActionState.Text = states.modemFWUPfinish.ToString();
-                    }
-                    break;
-                case "$OM_DEV_FWUP_RSP=":
-                case "$OM_PUSH_DEV_FWUP_RSP=":
-                    string[] deviceverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (deviceverinfos[0] == "2000")
-                    {
-                        logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
-
-                        this.sendDataOut(commands["deviceFWUPstart"]);
-                        tBoxActionState.Text = states.deviceFWUPstart.ToString();
-
-                        oneM2Mrcvsize = 0;
-                        oneM2Mtotalsize = 0;
-                    }
-                    else if (deviceverinfos[0] == "9001")
-                    {
-                        logPrintInTextBox("현재 DEVICE 버전이 최신버전입니다.", "");
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
-                    }
-                    break;
-                case "$OM_DEV_FWDL_FINISH":
-                    this.sendDataOut(commands["deviceFWUPfinish"]);
-                    tBoxActionState.Text = states.deviceFWUPfinish.ToString();
                     break;
                 case "+QLWEVENT:":
                     timer2.Stop();
@@ -1374,40 +1010,6 @@ namespace WindowsFormsApp2
                             break;
                     }
                     break;
-                case "AT+MLWDLDATA=":
-                    // 모듈이 LWM2M서버에서 받은 데이터를 전달하는 이벤트,
-                    // OK 응답 발생하지 않고 bcd를 ascii로 변경해야함
-                    // AT+MLWDLDATA=(<type>),<length>,<hex data>
-                    string[] rxdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if(rxdatas.Length <3 )
-                    {
-                        // 10250 DATA object RECEIVED!!!
-                        if (Convert.ToInt32(rxdatas[0]) == rxdatas[1].Length / 2)    // data size 비교
-                        {
-                            //received hex data make to ascii code
-                            string receiveDataIN = BcdToString(rxdatas[1].ToCharArray());
-                            logPrintInTextBox("\"" + receiveDataIN + "\"를 수신하였습니다.", "");
-                        }
-                        else
-                        {
-                            logPrintInTextBox("data size가 맞지 않습니다.", "");
-                        }
-                    }
-                    else if(rxdatas[0] == "1")
-                    {
-                        // 26241 FOTA DATA object RECEIVED!!!
-                        receiveFotaData(rxdatas[1],rxdatas[2]);
-                    }
-                    else if (rxdatas[0] == "2")
-                    {
-                        // 26241 FOTA DATA object RECEIVED!!!  (GCT 모듈)
-                        receiveFotaData(rxdatas[1], rxdatas[2]);
-                    }
-                    else
-                    {
-                        logPrintInTextBox("data format이 맞지 않습니다.", "");
-                    }
-                    break;
                 case "+NNMI:":
                     // 모듈이 LWM2M서버에서 받은 데이터를 전달하는 이벤트,
                     // OK 응답 발생하지 않고 bcd를 ascii로 변경해야함
@@ -1424,14 +1026,6 @@ namespace WindowsFormsApp2
                     {
                         logPrintInTextBox("data size가 맞지 않습니다.", "");
                     }
-                    break;
-                case "AT+MLWDFDLDATA=":
-                    // 모듈이 LWM2M서버에서 받은 26241 데이터를 전달하는 이벤트,
-                    // OK 응답 발생하지 않고 bcd를 ascii로 변경해야함
-                    // AT+MLWDFDLDATA=<length>,<hex data>
-                    string[] rxdfdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                                                             // 26241 FOTA DATA object RECEIVED!!!
-                    receiveFotaData(rxdfdatas[0], rxdfdatas[1]);
                     break;
                 case "+QLWDLDATA:":
                     // 모듈이 LWM2M서버에서 받은 데이터를 전달하는 이벤트,
@@ -1463,18 +1057,6 @@ namespace WindowsFormsApp2
                             {
                                 logPrintInTextBox("data size가 맞지 않습니다.", "");
                             }
-                        }
-                        else
-                        {
-                            logPrintInTextBox("지원하지 않는 data object입니다.", "");
-                        }
-                    }
-                    else if (words[0] == " \"/26241/0/1\"")       // device firmware object인지 확인
-                    {
-                        if (words[1] == "5")     // hex data received
-                        {
-                            // 26241 FOTA DATA object RECEIVED!!!
-                            receiveFotaData(words[2], words[3].Substring(1,words[3].Length-2));
                         }
                         else
                         {
@@ -1516,90 +1098,8 @@ namespace WindowsFormsApp2
                     getDeviveInfo();
                     timer2.Interval = 10000;        // 10초 타이머로 동작
                     break;
-                case "AT+CGMI":
-                    // AMTEL booting 시 제조사명 재요청인 경우인지 확인
-                    if(tBoxActionState.Text == "idle")
-                    {
-                        tBoxActionState.Text = states.autogetmanufac.ToString();
-                    }
-                    break;
-                case "$LGTMPF=":
-                    if (str2 == "5")
-                    {
-                        // 플랫폼 서버 MEF AUTH 요청
-                        this.sendDataOut(commands["setmefauthnt"] + tBoxSVCCD.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + ",D-" + tBoxIMSI.Text);
-                        tBoxActionState.Text = states.setmefauthnt.ToString();
-                        nextcommand = "skip";
-                    }
-                    else
-                    {
-                        // 모듈 oneM2M 플랫폼 모드 요청
-                        nextcommand = "setonem2mmode";
-                    }
-                    break;
-                case "+QCFG: ":
-                    string[] qcfgs = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (qcfgs[0] == "\"iotopmode\"")       // 현재 접속한 LTE망 확인
-                    {
-                        if(qcfgs[1] == "0")
-                            logPrintInTextBox("LTE Cat M1망에 접속되어 있습니다.", "");
-                        else
-                            logPrintInTextBox("NB_IOT망에 접속되어 있습니다.", "");
-
-                        if (tBoxActionState.Text == "autogetNWmode")
-                        {
-                            nextcommand = "autogetimsi";
-                        }
-                    }
-                    break;
-                case "FW_VER: ":
-                    tBoxModemVer.Text = str2;
-                    logPrintInTextBox("모뎀 버전이 저장되었습니다.", "");
-                    break;
                 default:
                     break;
-            }
-        }
-
-        private void receiveFotaData(string size, string rcvData)
-        {
-            int dataSize = rcvData.Length / 2;
-            if (Convert.ToInt32(size) == dataSize)    // data size 비교
-            {
-                // Firmware File Information Block Checking
-                if ((device_total_index == "0") && (dataSize == 8))
-                {
-                    if (rcvData.Substring(0, 4) == "0000")
-                    {
-                        device_total_index = rcvData.Substring(4, 4);
-                        device_fota_checksum = rcvData.Substring(8, 8);
-                        device_fota_state = "2";
-                        logPrintInTextBox("total Index= " + device_total_index + ", checksum = " + device_fota_checksum + "를 수신하였습니다.", "");
-                    }
-                }
-                // Firmware File Data Block Checking
-                else
-                {
-                    device_fota_index = rcvData.Substring(0, 4);
-                    tBoxFOTAIndex.Text = device_fota_index;
-                    string checksum = rcvData.Substring(4, 8);
-                    logPrintInTextBox("index= " + device_fota_index + "/" + device_total_index + ", checksum= " + checksum + "를 수신하였습니다.", "");
-
-                    if (device_total_index == device_fota_index)
-                    {
-                        device_total_index = "0";
-                        device_fota_index = "0";
-                        device_fota_state = "1";        // fota receive sucess
-                        tBoxFOTAIndex.Text = device_fota_index;
-
-                        // 메뉴에서 선택시 버전 정보 보고하도록 함
-                        // DeviceFWVerSend(tBoxDeviceVer.Text, device_fota_state, device_fota_reseult);
-                    }
-                }
-            }
-            else
-            {
-                logPrintInTextBox("data size가 맞지 않습니다.", "");
             }
         }
 
@@ -1607,339 +1107,6 @@ namespace WindowsFormsApp2
         {
             string ctn = string.Empty;
 
-            states state = (states)Enum.Parse(typeof(states), tBoxActionState.Text);
-            switch (state)
-            {
-                case states.setmefserverinfo:
-                    //AT$OM_SVR_INFO=<svr>,<ip>,<port>
-                    this.sendDataOut(commands["sethttpserverinfo"] + oneM2MBRKIP + "," + oneM2MBRKPort);
-                    tBoxActionState.Text = states.sethttpserverinfo.ToString();
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.sethttpserverinfo:
-                    nextcommand = "";           // 서버 설정 완료
-                    break;
-                case states.setserverinfo:
-                    if(tBoxModel.Text == "BG96")
-                    {
-                        nextcommand = "rfreset";           // 서버 변경후 망 재연결
-                    }
-                    break;
-                case states.disable_bg96:
-                    // 쿼텔 LWM2M bootstrap 자동 요청 순서
-                    // (disable) - (setcdp) - servertype - endpointpame - mbsps - enable
-                    // 플랫폼 서버 타입 설정
-                    //AT+QLWM2M="cdp",<ip>,<port>
-                    this.sendDataOut(commands["setcdp_bg96"] + "\"" + serverip + "\"," + serverport);
-                    tBoxActionState.Text = states.setcdp_bg96.ToString();
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.setcdp_bg96:
-                    // 쿼텔 LWM2M bootstrap 자동 요청 순서
-                    // disable - (setcdp) - (servertype) - endpointpame - mbsps - enable
-                    // 플랫폼 서버 타입 설정
-                    //AT+QLWM2M="select",2
-                    this.sendDataOut(commands["setservertype"]);
-                    tBoxActionState.Text = states.setservertype.ToString();
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.setservertype:
-                        // 쿼텔 LWM2M bootstrap 자동 요청 순서
-                        // disable - setcdp - (servertype) - (endpointpame) - mbsps - enable
-                        // EndPointName 플랫폼 device ID 설정
-                        //AT+QLWM2M="enps",0,<service code>
-                        //this.sendDataOut(commands["setepns"] + "ASN-CSE-D-6399301537-FOTA" + "\"");
-                        this.sendDataOut(commands["setepns"] + tBoxSVCCD.Text + "\"");
-                        tBoxActionState.Text = states.setepns.ToString();
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.setsvrbsbc95:
-                    //AT+QLWSERVERIP=LWM2M,<ip>,<port>   BC95모델
-                    this.sendDataOut(commands["setsvripbc95"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.setsvripbc95.ToString();
-                    nextcommand = "skip";
-                    break;
-                // 단말 정보 자동 갱신 순서
-                // autogetmanufac - autogetmodel - autogetimsi - (autogetimei) - (geticcid) - 마지막
-                case states.autogetimeitpb23:
-                    if (tBoxModel.Text == "TPB23")
-                    {
-                        nextcommand = states.autogeticcidtpb23.ToString();
-                    }
-                    else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        nextcommand = states.autogeticcidbc95.ToString();
-                    }
-                    else
-                    {
-                        nextcommand = states.autogeticcidlg.ToString();
-                    }
-                    break;
-                case states.setepns:
-                    // 쿼텔 LWM2M bootstrap 자동 요청 순서
-                    // disable - setcdp - servertype - (endpointpame) - (mbsps) - enable
-                    // PLMN 정보 확인 후 진행
-                    ctn = tBoxIMSI.Text;
-                    if (ctn != "알 수 없음")
-                    {
-                        // Bootstrap Parameter 설정
-                        //AT+QLWM2M="mbsps",<service code>,<sn>,<ctn>,<iccid>,<device model>
-                        string epncmd = commands["setmbsps"] + tBoxSVCCD.Text + "\",\"";
-                        epncmd = epncmd + tBoxDeviceSN.Text + "\",\"";
-                        epncmd = epncmd + ctn + "\",\"";
-
-                        string epniccid = tBoxIccid.Text;
-                        epncmd = epncmd + epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
-                        epncmd = epncmd + tBoxDeviceModel.Text + "\"";
-                        this.sendDataOut(epncmd);
-                        tBoxActionState.Text = states.setmbsps.ToString();
-
-                        timer1.Start();
-                        nextcommand = "skip";
-                    }
-                    else
-                    {
-                        MessageBox.Show("USIM이 정상인지 확인해주세요.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        nextcommand = "";
-                        timer1.Stop();
-                    }
-                    break;
-                case states.setepnsme:
-                    if (tBoxIMSI.Text != "알 수 없음")
-                    {
-                        // Bootstrap Parameter 설정
-                        //AT+MLWMBSPS="mbsps",<service code>,<sn>,<ctn>,<iccid>,<device model>
-                        string mbspscmd = commands["setmbspstpb23"] + tBoxSVCCD.Text + "|deviceSerialNo=";
-                        mbspscmd += tBoxDeviceSN.Text + "|ctn=";
-                        mbspscmd += tBoxIMSI.Text + "|iccId=";
-
-                        mbspscmd += tBoxIccid.Text.Substring(tBoxIccid.Text.Length - 6, 6) + "|deviceModel=";
-                        mbspscmd += tBoxDeviceModel.Text + "|mac=";
-
-                        this.sendDataOut(mbspscmd);
-                        tBoxActionState.Text = states.setmbspstpb23.ToString();
-
-                        timer1.Start();
-                        nextcommand = "skip";
-                    }
-                    else
-                    {
-                        MessageBox.Show("USIM이 정상인지 확인해주세요.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        nextcommand = "";
-                    }
-                    break;
-                case states.lwm2mresetbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // (lwm2mresetbc95) - (holdoffbc95) - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - getmbspsbc95 - setmbspsbc95 - bootstrapbc95
-                    // LWM2M 서버 설정
-                    // AT+QBOOTSTRAPHOLDOFF=0
-                    nextcommand = states.holdoffbc95.ToString();
-                    break;
-                case states.holdoffbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - (holdoffbc95) - (getsvripbc95) - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - getmbspsbc95 - setmbspsbc95 - bootstrapbc95
-                    nextcommand = states.getsvripbc95.ToString();
-                    break;
-                case states.actsetsvrbsbc95:
-                    //AT+QLWSERVERIP=BS,<ip>,<port>   BC95모델
-                    this.sendDataOut(commands["autosetsvrbsbc95"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.autosetsvrbsbc95.ToString();
-                    nextcommand = "skip";
-                    break;
-                case states.autosetsvrbsbc95:
-                // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - (autosetsvrbsbc95) - (autosetsvripbc95) - getepnsbc95 - setepnsbc95 - getmbspsbc95 - setmbspsbc95 - bootstrapbc95
-                    //AT+QLWSERVERIP=LWM2M,<ip>,<port>   BC95모델
-                    this.sendDataOut(commands["autosetsvripbc95"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.autosetsvripbc95.ToString();
-                    nextcommand = "skip";
-                    break;
-                case states.actsetsvripbc95:
-                    //AT+QLWSERVERIP=LWM2M,<ip>,<port>   BC95모델
-                    this.sendDataOut(commands["autosetsvripbc95"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.autosetsvripbc95.ToString();
-                    nextcommand = "skip";
-                    break;
-                case states.autosetsvripbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - (autosetsvripbc95) - (getepnsbc95) - setepnsbc95 - getmbspsbc95 - setmbspsbc95 - bootstrapbc95
-                    nextcommand = states.getepnsbc95.ToString();
-                    break;
-                case states.getsvripbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - (getsvripbc95) - autosetsvrbsbc95 - autosetsvripbc95 - (getepnsbc95) - setepnsbc95 - (getmbspsbc95) - setmbspsbc95 - bootstrapbc95
-                    nextcommand = states.getepnsbc95.ToString();
-                    break;
-                case states.getepnsbc95:
-                // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - (getepnsbc95) - setepnsbc95 - (getmbspsbc95) - setmbspsbc95 - bootstrapbc95
-                case states.setepnsbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - (setepnsbc95) - (getmbspsbc95) - setmbspsbc95 - bootstrapbc95
-                    nextcommand = states.getmbspsbc95.ToString();
-                    break;
-                case states.autosetepnsbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - (setepnsbc95) - getmbspsbc95 - setmbspsbc95 - bootstrapbc95
-                    this.sendDataOut(nextcommand);
-                    tBoxActionState.Text = states.setepnsbc95.ToString();
-                    nextcommand = "skip";
-                    break;
-                case states.getmbspsbc95:
-                // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - (getmbspsbc95) - setmbspsbc95 - (bootstrapbc95)
-                case states.setmbspsbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - getmbspsbc95 - (setmbspsbc95) - (bootstrapbc95)
-                    nextcommand = states.bootstrapbc95.ToString();
-                    break;
-                case states.autosetmbspsbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - getmbspsbc95 - (setmbspsbc95) - bootstrapbc95
-                    this.sendDataOut(nextcommand);
-                    tBoxActionState.Text = states.setmbspsbc95.ToString();
-                    nextcommand = "skip";
-                    break;
-                case states.bootstrapbc95:
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - getmbspsbc95 - (setmbspsbc95) - (bootstrapbc95) - reboot module
-                    nextcommand = states.rebootbc95.ToString();
-                    break;
-                case states.autogetmodemver:
-                case states.autogetmodemvertpb23:
-                case states.autogetmodemvernt:
-                case states.autogetmodemverbc95:
-                    // 모듈 정보 자동 확인 후 , LTE network attach 요청하면 정상적으로 attach 성공했는지 확인
-                    nextcommand = states.getcereg.ToString();
-                    break;
-                case states.setcereg:
-                    // LTE network attach 요청하면 정상적으로 attach 성공했는지 확인 필요
-                    nextcommand = states.getcereg.ToString();
-                    break;
-                case states.setceregtpb23:
-                    // LTE network attach 요청하면 정상적으로 attach 성공했는지 확인 필요
-                    nextcommand = states.getcereg.ToString();
-                    break;
-                case states.setncdp:
-                    if (tBoxManu.Text.StartsWith("MOBILEECO", System.StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        // 모바일에코 EndPointName 생성 
-                        //AT+MLWGENEPNS=<service code>
-                        this.sendDataOut(commands["setepnsme"] + tBoxSVCCD.Text);
-                        tBoxActionState.Text = states.setepnsme.ToString();
-                    }
-                    else
-                    {
-                        // LWM2M bootstrap 자동 요청 순서 (V150)
-                        // (setncdp) - (setepnstpb23) - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
-                        // End Point Name Parameter 설정
-                        //AT+MLWEPNS="LWM2M 서버 entityID"
-                        String md5value = getMd5Hash(tBoxIMSI.Text + tBoxIccid.Text);
-                        logPrintInTextBox(md5value, "");
-
-                        string epn = md5value.Substring(0, 5) + md5value.Substring(md5value.Length - 5, 5);
-
-                        this.sendDataOut(commands["setepnstpb23"] + epn + "-" + tBoxSVCCD.Text);
-                        tBoxActionState.Text = states.setepnstpb23.ToString();
-                    }
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.setepnstpb23:
-                    // LWM2M bootstrap 자동 요청 순서 (V150)
-                    // setncdp - (setepnstpb23) - (setmbspstpb23) - bootstrapmodetpb23 - bootstraptpb23
-                    // Bootstarp Parameter 설정
-                    //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
-
-                    string command = tBoxSVCCD.Text + "|deviceSerialNo=";
-                    command += tBoxDeviceSN.Text + "|ctn=";
-                    command += tBoxIMSI.Text + "|iccId=";
-
-                    string iccid = tBoxIccid.Text;
-                    command += iccid.Substring(iccid.Length - 6, 6) + "|deviceModel=";
-                    command += tBoxDeviceModel.Text + "|mac=";
-
-                    this.sendDataOut(commands["setmbspstpb23"] + command);
-                    tBoxActionState.Text = states.setmbspstpb23.ToString();
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.setmbspstpb23:
-                    // LWM2M bootstrap 자동 요청 순서 (V150)
-                    // setncdp - setepnstpb23 - (setmbspstpb23) - (bootstrapmodetpb23) - bootstraptpb23
-                    // LWM2M 서버 설정
-                    // BOOTSTARP MODE 설정
-                    //AT+MBOOTSTRAPMODE=1
-                    nextcommand = states.bootstrapmodetpb23.ToString();
-                    break;
-                case states.bootstrapmodetpb23:
-                    // LWM2M bootstrap 자동 요청 순서 (V150)
-                    // setncdp - setepnstpb23 - setmbspstpb23 - (bootstrapmodetpb23) - (bootstraptpb23)
-                    // LWM2M서버에 Bootstarp 요청
-                    //  AT+MLWGOBOOTSTRAP=1
-                     nextcommand = states.bootstraptpb23.ToString();
-                    break;
-                case states.setonem2mmode:
-                    nextcommand = states.getonem2mmode.ToString();
-                    break;
-                case states.catm1set:
-                    nextcommand = states.catm1apn1.ToString();
-                    break;
-                case states.catm1apn1:
-                    nextcommand = states.catm1apn2.ToString();
-                    break;
-                case states.catm1apn2:
-                    nextcommand = states.catm1psmode.ToString();
-                    break;
-                case states.catm1psmode:
-                    nextcommand = states.rfoff.ToString();
-                    break;
-                case states.rfoff:
-                    nextcommand = states.rfon.ToString();
-                    break;
-                case states.rfon:
-                    nextcommand = states.getcereg.ToString();
-                    break;
-                case states.catm1imsset:
-                    nextcommand = states.catm1imsapn1.ToString();
-                    break;
-                case states.catm1imsapn1:
-                    nextcommand = states.catm1imsapn2.ToString();
-                    break;
-                case states.catm1imsapn2:
-                    nextcommand = states.catm1imsmode.ToString();
-                    break;
-                case states.catm1imsmode:
-                    nextcommand = states.catm1imspco.ToString();
-                    break;
-                case states.catm1imspco:
-                    nextcommand = states.rfoff.ToString();
-                    break;
-                case states.nbset:
-                    nextcommand = states.nbapn1.ToString();
-                    break;
-                case states.nbapn1:
-                    nextcommand = states.nbapn2.ToString();
-                    break;
-                case states.nbapn2:
-                    nextcommand = states.nbpsmode.ToString();
-                    break;
-                case states.nbpsmode:
-                    nextcommand = states.rfoff.ToString();
-                    break;
-                default:
-                    break;
-            }
 
             // 마지막 응답(OK)을 받은 후에 후속 작업이 필요한지 확인한다.
             if (nextcommand != "skip")
@@ -1947,14 +1114,12 @@ namespace WindowsFormsApp2
                 if (nextcommand != "")
                 {
                     this.sendDataOut(commands[nextcommand]);
-                    tBoxActionState.Text = nextcommand;
                     nextcommand = "";
 
                     timer1.Start();
                 }
                 else
                 {
-                    tBoxActionState.Text = states.idle.ToString();
                     timer1.Stop();
                 }
             }
@@ -1962,281 +1127,11 @@ namespace WindowsFormsApp2
 
         private void parseNoPrefixData(string str1)
         {
-            states state = (states)Enum.Parse(typeof(states), tBoxActionState.Text);
-            switch(state)
-            {
-                // 단말 정보 자동 갱신 순서
-                // autogetmanufac - (autogetmodel) - (autogetimsi) - autogetimei - geticcid
-                case states.autogetmodel:
-                    tBoxModel.Text = str1;
-                    this.logPrintInTextBox("모델값이 저장되었습니다.", "");
-
-                    setModelConfig(str1);
-
-                    tBoxActionState.Text = states.idle.ToString();
-                    if (str1 == "BG96")
-                    {
-                        nextcommand = "autogetNWmode";
-                    }
-                    else
-                    {
-                        nextcommand = states.autogetimsi.ToString();
-                    }
-                    break;
-                // 단말 정보 자동 갱신 순서
-                // (autogetmanufac) - (autogetmodel) - autogetimsi - autogetimei - geticcid
-                case states.autogetmanufac:
-                    tBoxManu.Text = str1;
-                    this.logPrintInTextBox("제조사값이 저장되었습니다.", "");
-                    if (str1 == "AM Telecom" || str1 == "QUALCOMM INCORPORATED"
-                        || str1 == "LIME-I Co., Ltd")        //AMTEL 모듈은 OK가 오지 않음
-                    {
-                        this.sendDataOut(commands["autogetmodelgmm"]);
-                        tBoxActionState.Text = states.autogetmodel.ToString();
-
-                        timer1.Start();
-                        nextcommand = "skip";
-                    }
-                    else
-                    {
-                        tBoxActionState.Text = states.idle.ToString();
-                        nextcommand = states.autogetmodel.ToString();
-                    }
-                    break;
-                // 단말 정보 자동 갱신 순서
-                // autogetmanufac - autogetmodel - (autogetimsi) - (autogetimei) - geticcid
-                case states.autogetimsi:
-                    if (str1.StartsWith("45006"))
-                    {
-                        string ctn = "0" + str1.Substring(5, str1.Length - 5);
-
-                        tBoxIMSI.Text = ctn;
-                        tBoxSMSCTN.Text = ctn;
-
-                        tBoxActionState.Text = states.idle.ToString();
-                        if (tBoxModel.Text == "TPB23" || tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase) )
-                            nextcommand = states.autogetimeitpb23.ToString();
-                        else
-                            nextcommand = states.autogetimei.ToString();
-                    }
-                    else
-                        this.logPrintInTextBox("USIM 상태 확인이 필요합니다.", "");
-                    break;
-                // 단말 정보 자동 갱신 순서
-                // autogetmanufac - autogetmodel - autogetimsi - (autogetimei) - (geticcid)
-                case states.autogetimei:
-                    tBoxIMEI.Text = str1;
-                    if (tBoxManu.Text == "AM Telecom")        //AMTEL 모듈은 OK가 오지 않음
-                    {
-                        tBoxActionState.Text = states.autogeticcidamtel.ToString();
-                        nextcommand = states.autogeticcidamtel.ToString();
-                    }
-                    else if (tBoxManu.Text.StartsWith("MOBILEECO", System.StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        tBoxActionState.Text = states.autogeticcidme.ToString();
-                        nextcommand = states.autogeticcidme.ToString();
-                    }
-                    else
-                    {
-                        tBoxActionState.Text = states.autogeticcid.ToString();
-                        nextcommand = states.autogeticcid.ToString();
-                    }
-                    this.logPrintInTextBox("IMEI값이이 저장되었습니다.", "");
-                    break;
-                case states.autogeticcidme:
-                case states.geticcidme:
-                    // AT+ICCID의 응답으로 ICCID 값 화면 표시/bootstrap 정보 생성를 위해 저장,
-                    // OK 응답이 따라온다
-                    if (str1.Length > 19)
-                        tBoxIccid.Text = str1.Substring(str1.Length - 20, 19);
-                    else
-                        tBoxIccid.Text = str1;
-                    logPrintInTextBox("ICCID값이 저장되었습니다.", "");
-
-                    if (tBoxActionState.Text == states.autogeticcidme.ToString())
-                    {
-                        nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 LTE망 연결 상태 조회
-                    }
-                    break;
-                case states.setservertype:
-                    // EndPointName 플랫폼 device ID 설정
-                    //AT+QLWM2M="enps",0,<service code>
-                    //this.sendDataOut(commands["setepns"] + "ASN-CSE-D-6399301537-FOTA" + "\"");
-                    this.sendDataOut(commands["setepns"] + tBoxSVCCD.Text + "\"");
-                    tBoxActionState.Text = states.setepns.ToString();
-
-                    timer1.Start();
-                    nextcommand = "skip";
-                    break;
-                case states.setepns:
-                    if (tBoxIMSI.Text != "알 수 없음")
-                    {
-                        // Bootstrap Parameter 설정
-                        //AT+QLWM2M="mbsps",<service code>,<sn>,<ctn>,<iccid>,<device model>
-                        string command = commands["setmbsps"] + tBoxSVCCD.Text + "\",\"";
-                        command = command + tBoxDeviceSN.Text + "\",\"";
-                        command = command + tBoxIMSI.Text + "\",\"";
-
-                        string iccid = tBoxIccid.Text;
-                        command = command + iccid.Substring(iccid.Length - 6, 6) + "\",\"";
-                        command = command + tBoxDeviceModel.Text + "\"";
-                        this.sendDataOut(command);
-                        tBoxActionState.Text = states.setmbsps.ToString();
-
-                        timer1.Start();
-                        nextcommand = "skip";
-                    }
-                    else
-                    {
-                        MessageBox.Show("USIM이 정상인지 확인해주세요.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        nextcommand = "";
-                    }
-                    break;
-                case states.setmbsps:
-                    // Bootstrap 요청
-                    //AT+QLWM2M="bootstrap",1
-                    //nextcommand = states.bootstrap.ToString();
-                    break;
-
-                case states.getimsi:
-                    if (str1.StartsWith("45006"))
-                    {
-                        string ctn = "0" + str1.Substring(5, str1.Length - 5);
-
-                        tBoxIMSI.Text = ctn;
-                        tBoxActionState.Text = states.idle.ToString();
-                        this.logPrintInTextBox("IMSI값이 저장되었습니다.", "");
-                    }
-                    else
-                        this.logPrintInTextBox("USIM 상태 확인이 필요합니다.", "");
-
-                    tBoxActionState.Text = states.idle.ToString();
-                    timer1.Stop();
-                    break;
-                case states.getimei:
-                    tBoxIMEI.Text = str1;
-                    tBoxActionState.Text = states.idle.ToString();
-                    timer1.Stop();
-                    this.logPrintInTextBox("IMEI값이이 저장되었습니다.", "");
-                    break;
-                case states.getmodel:
-                    tBoxModel.Text = str1;
-                    tBoxActionState.Text = states.idle.ToString();
-                    timer1.Stop();
-                    this.logPrintInTextBox("모델값이 저장되었습니다.", "");
-
-                    setModelConfig(str1);
-
-                    if(str1 == "BG96")
-                    {
-                        nextcommand = "getNWmode";
-                    }
-                    break;
-                case states.getmanufac:
-                    tBoxManu.Text = str1;
-                    tBoxActionState.Text = states.idle.ToString();
-                    timer1.Stop();
-                    this.logPrintInTextBox("제조사값이 저장되었습니다.", "");
-                    break;
-                case states.getmodemver:
-                case states.getmodemvertpb23:
-                    tBoxModemVer.Text = str1;
-                    tBoxActionState.Text = states.idle.ToString();
-                    timer1.Stop();
-                    this.logPrintInTextBox("모뎀버전이 저장되었습니다.", "");
-                    break;
-                case states.autogetmodemver:
-                case states.autogetmodemvertpb23:
-                    tBoxModemVer.Text = str1;
-                    this.logPrintInTextBox("모뎀버전이 저장되었습니다.", "");
-                    break;
-                default:
-                    break;
-            }
         }
 
         private void setModelConfig(string model)
         {
-            if (tBoxManu.Text == "AM Telecom")        //AMTEL/oneM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "AMM5400LG";
-                btSNConst.Text = "폴더명";
-                tBoxDeviceSN.Text = "TEST";
-                oneM2Mmode = 0;
-            }
-            else if (tBoxManu.Text == "QUALCOMM INCORPORATED")        //텔라딘/oneM2M 모듈
-            {
-                tBoxSVCCD.Text = "SMCL";
-                tBoxDeviceModel.Text = "TM800L";
-                btSNConst.Text = "폴더명";
-                tBoxDeviceSN.Text = "TEST";
-                oneM2Mmode = 0;
-            }
-            else if (tBoxManu.Text == "LIME-I Co., Ltd")        //라임아이/oneM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "LML-D";
-                btSNConst.Text = "폴더명";
-                tBoxDeviceSN.Text = "TEST";
-                oneM2Mmode = 0;
-            }
-            else if (model.StartsWith("NTLM3", System.StringComparison.CurrentCultureIgnoreCase))         //NTmore/oneM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "NTM_Simulator";
-                btSNConst.Text = "폴더명";
-                tBoxDeviceSN.Text = "TEST";
-                oneM2Mmode = 0;
-            }
-            else if (model == "EC21" || model == "EC25")                                                //쿼텔/oneM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "EC25-E";
-                btSNConst.Text = "폴더명";
-                tBoxDeviceSN.Text = "TEST";
-                oneM2Mmode = 0;
-            }
-            else if (model == "BG96")                                                                   //쿼텔/LwM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "LWEMG";
-                btSNConst.Text = "단말SN";
-                tBoxDeviceSN.Text = "123456";
-                oneM2Mmode = 1;
-            }
-            else if (model == "TPB23")                                                                   //화웨이/LwM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "TPB23";
-                btSNConst.Text = "단말SN";
-                tBoxDeviceSN.Text = "123456";
-                oneM2Mmode = 1;
-            }
-            else if (model == "GDM7243R1")                                                                   //바인테크/GCT/LwM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "VTLM-102G";
-                btSNConst.Text = "단말SN";
-                tBoxDeviceSN.Text = "123456";
-                oneM2Mmode = 1;
-            }
-            else if (model.StartsWith("MOBILEECO", System.StringComparison.CurrentCultureIgnoreCase))         //모바일에코/LwM2M 모듈
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "LWEMG";
-                btSNConst.Text = "단말SN";
-                tBoxDeviceSN.Text = "123456";
-                oneM2Mmode = 1;
-            }
-            else                                                                                        //default/LwM2M 메뉴 활성화
-            {
-                tBoxSVCCD.Text = "CATO";
-                tBoxDeviceModel.Text = "LWEMG";
-                btSNConst.Text = "단말SN";
-                tBoxDeviceSN.Text = "123456";
-                oneM2Mmode = 1;
-            }
+
         }
 
         private void InitinfoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2251,151 +1146,16 @@ namespace WindowsFormsApp2
             // 단말 정보 자동 갱신 순서
             // (autogetmanufac) - autogetmodel - autogetimsi - autogetimei - geticcid
             this.sendDataOut(commands["autogetmanufac"]);
-            tBoxActionState.Text = states.autogetmanufac.ToString();
 
             timer1.Start();
         }
 
-        private void btnIMSI_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["getimsi"]);
-            tBoxActionState.Text = states.getimsi.ToString();
-            timer1.Start();
-        }
-
-        private void btnICCID_Click(object sender, EventArgs e)
-        {
-            if (tBoxManu.Text == "AM Telecom")
-            {
-                this.sendDataOut(commands["geticcidamtel"]);
-            }
-            else if (tBoxModel.Text == "TPB23")
-            {
-                this.sendDataOut(commands["geticcidtpb23"]);
-            }
-            else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                this.sendDataOut(commands["geticcidbc95"]);
-            }
-            else if (tBoxModel.Text == "BG96" || tBoxManu.Text == "QUALCOMM INCORPORATED")
-            {
-                this.sendDataOut(commands["geticcid"]);
-            }
-            else if (tBoxManu.Text == "LIME-I Co., Ltd"
-                || tBoxModel.Text.StartsWith("NTLM3", System.StringComparison.CurrentCultureIgnoreCase))           //oneM2M 모듈인 경우, oneM2M 메뉴 활성화
-            {
-                this.sendDataOut(commands["geticcid"]);
-            }
-            else if (tBoxManu.Text.StartsWith("MOBILEECO", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                this.sendDataOut(commands["geticcidmc"]);
-            }
-            else
-            {
-                this.sendDataOut(commands["geticcidlg"]);
-            }
-            tBoxActionState.Text = states.geticcid.ToString();
-            timer1.Start();
-        }
-
-        private void btnIMEI_Click(object sender, EventArgs e)
-        {
-            if (tBoxModel.Text == "TPB23" || tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                this.sendDataOut(commands["getimeitpb23"]);
-            }
-            else
-            {
-                this.sendDataOut(commands["getimei"]);
-            }
-            tBoxActionState.Text = states.getimei.ToString();
-            timer1.Start();
-        }
-
-        private void BtnModel_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["getmodel"]);
-            tBoxActionState.Text = states.getmodel.ToString();
-            timer1.Start();
-        }
-
-        private void btnManufac_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["getmanufac"]);
-            tBoxActionState.Text = states.getmanufac.ToString();
-            timer1.Start();
-        }
 
         // AT command를 요청하고 10초 동안 OK 응답이 없으면 COM port 재설정
         private void Timer1_Tick(object sender, EventArgs e)
         {
             timer1.Stop();
-            logPrintInTextBox(tBoxActionState.Text+"요청에 대해 timeout이 발생하였습니다.","");
-            //MessageBox.Show("타이머가 종료되었습니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            tBoxActionState.Text = states.idle.ToString();
-
             this.doOpenComPort();
-        }
-
-        // menubar에서 LWM2M 플랫폼 디바이스 등록을 요청 (bootstrap)
-        private void ProvisionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (isDeviceInfo())
-            {
-                if (oneM2Mmode == 0)      // oneM2M : MEF Auth인증 요청
-                {
-                    // 모듈이 oneM2M 모드인지 확인하고 플랫폼 인증 요청
-                    this.sendDataOut(commands["getonem2mmode"]);
-                    tBoxActionState.Text = states.getonem2mmode.ToString();
-                    
-                    // 플랫폼 서버 MEF AUTH 요청
-                    //this.sendDataOut(commands["setmefauthnt"] + tBoxSVCCD.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + ",D-" + tBoxIMSI.Text);
-                    //tBoxActionState.Text = states.setmefauthnt.ToString();
-                }
-                else if (tBoxModel.Text == "BG96")       //쿼텔
-                {
-                    // 쿼텔 LWM2M bootstrap 자동 요청 순서
-                    // (disable) - setcdp - servertype - endpointpame - mbsps - enable
-                    // 플랫폼 서버 타입 설정
-                    //AT+QLWM2M="select",2
-                    //this.sendDataOut(commands["setservertype"]);
-                    //tBoxActionState.Text = states.setservertype.ToString();
-                    //AT+QLWM2M="enable",0
-                    this.sendDataOut(commands["disable_bg96"]);
-                    tBoxActionState.Text = states.disable_bg96.ToString();
-                }
-                else if (tBoxModel.Text == "TPB23")
-                {
-                    // LWM2M bootstrap 자동 요청 순서 (TPB23 V150)
-                    // setncdp - setepnstpb23 - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
-                    // LWM2M 서버 설정
-                    // AT+NCDP=IP,PORT
-                    this.sendDataOut(commands["setncdp"] + "\"" + serverip + "\"," + serverport);
-                    tBoxActionState.Text = states.setncdp.ToString();
-                }
-                else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // LWM2M bootstrap 자동 요청 순서 (BC95 V150)
-                    // lwm2mresetbc95 - holdoffbc95 - getsvripbc95 - autosetsvrbsbc95 - autosetsvripbc95 - getepnsbc95 - setepnsbc95 - getmbspsbc95 - setmbspsbc95 - bootstrapbc95
-                    // LWM2M 서버 설정
-                    // AT+QBOOTSTRAPHOLDOFF=0
-                    //this.sendDataOut(commands["holdoffbc95"]);
-                    //tBoxActionState.Text = states.holdoffbc95.ToString();
-                    this.sendDataOut(commands["lwm2mresetbc95"]);
-                    tBoxActionState.Text = states.lwm2mresetbc95.ToString();
-                }
-                else            //일반(U+ command)
-                {
-                    // LWM2M bootstrap 자동 요청 순서
-                    // setncdp - setepnstpb23 - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
-                    // LWM2M 서버 설정
-                    // AT+NCDP=IP,PORT
-                    this.sendDataOut(commands["setncdp"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.setncdp.ToString();
-                }
-                timer1.Start();
-            }
         }
 
         // Hash an input string and return the hash as
@@ -2425,256 +1185,7 @@ namespace WindowsFormsApp2
 
         private bool isDeviceInfo()
         {
-            if ((tBoxIMSI.Text == "알 수 없음") || (tBoxIccid.Text == "알 수 없음"))
-            {
-                if (tBoxModel.Text == "알 수 없음")
-                {
-                    this.getDeviveInfo();
-                    MessageBox.Show("모듈 정보를 읽고 있습니다.\n다시 시도해주세요.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    MessageBox.Show("USIM 상태 확인이 필요합니다.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                return false;
-            }
             return true;
-        }
-
-        private void DevserverToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cBoxSERVER.Text = "개발";
-            setLwm2mServer();
-        }
-
-        private void CvsserverToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cBoxSERVER.Text = "검증";
-            setLwm2mServer();
-        }
-
-        private void OpserverToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            cBoxSERVER.Text = "상용";
-            setLwm2mServer();
-        }
-
-        private void Button2_Click(object sender, EventArgs e)
-        {
-            setLwm2mServer();
-        }
-
-        private void CBoxSERVER_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            setLwm2mServer();
-        }
-
-        private void setLwm2mServer()
-        {
-            if (isDeviceInfo())
-            {
-                if (cBoxSERVER.Text == "개발")
-                {
-                    serverip = "106.103.233.155";
-
-                    oneM2MMEFIP = "106.103.234.198";
-                    oneM2MMEFPort = "80";
-                    oneM2MBRKIP = "106.103.234.117";
-                    oneM2MBRKPort = "80";
-                }
-                else if (cBoxSERVER.Text == "검증")
-                {
-                    serverip = "106.103.230.51";
-
-                    oneM2MMEFIP = "106.103.230.209";
-                    oneM2MMEFPort = "80";
-                    oneM2MBRKIP = "106.103.230.207";
-                    oneM2MBRKPort = "8080";
-                }
-                else if (cBoxSERVER.Text == "상용")
-                {
-                    serverip = "106.103.250.108";
-
-                    oneM2MMEFIP = "106.103.210.126";
-                    oneM2MMEFPort = "80";
-                    oneM2MBRKIP = "106.103.210.104";
-                    oneM2MBRKPort = "8080";
-                }
-                else if (cBoxSERVER.Text == "NMS개발")
-                {
-                    serverip = "192.168.33.131";
-                }
-                else if (cBoxSERVER.Text == "NMS상용")
-                {
-                    serverip = "172.17.102.56";
-                }
-                serverport = "5783";
-
-                // 플랫폼 서버의 IP/port 설정
-                if (oneM2Mmode == 0)
-                {
-                    //AT$OM_SVR_INFO=<svr>,<ip>,<port>
-                    this.sendDataOut(commands["setmefserverinfo"] + oneM2MMEFIP + "," + oneM2MMEFPort);
-                    tBoxActionState.Text = states.setmefserverinfo.ToString();
-                }
-                else if (tBoxModel.Text == "BG96")
-                {
-                    //AT+QLWM2M="cdp",<ip>,<port>
-                    this.sendDataOut(commands["setserverinfo"] + "\"" + serverip + "\"," + serverport);
-                    tBoxActionState.Text = states.setserverinfo.ToString();
-                }
-                else if (tBoxModel.Text == "TPB23")
-                {
-                    //AT+NCDP=<ip>   TPB23모델
-                    this.sendDataOut(commands["setserverinfotpb23"] + "\"" + serverip + "\"," + serverport);
-                    tBoxActionState.Text = states.setserverinfo.ToString();
-                }
-                else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    //AT+QLWSERVERIP=BS,<ip>,<port>   BC95모델
-                    this.sendDataOut(commands["setsvrbsbc95"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.setsvrbsbc95.ToString();
-                }
-                else
-                {
-                    //AT+NCDP=<ip>   일반 LwM2M
-                    this.sendDataOut(commands["setserverinfotpb23"] + serverip + "," + serverport);
-                    tBoxActionState.Text = states.setserverinfo.ToString();
-                }
-
-                timer1.Start();
-            }
-        }
-
-        private void RegisterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (isDeviceInfo())
-            {
-                if (oneM2Mmode == 0)   //oneM2M : remoteCSE 요청
-                {
-                    // 플랫폼 서버 remoteCSE, container 등록 요청
-                    // getCSEbase - getremoteCSE - setremoteCSE - setcontainer - setsubscript,
-
-                    //this.sendDataOut(commands["getCSEbase"]);
-                    //tBoxActionState.Text = states.getCSEbase.ToString();
-                    this.sendDataOut(commands["getremoteCSE"]);
-                    tBoxActionState.Text = states.getremoteCSE.ToString();
-                }
-                else if (tBoxModel.Text == "BG96")
-                {
-                    // 플랫폼 등록 요청
-                    //AT+QLWM2M="register"
-                    this.sendDataOut(commands["register"]);
-                    tBoxActionState.Text = states.register.ToString();
-                }
-                else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // 플랫폼 등록 요청
-                    //AT+QLWSREGIND=0
-                    this.sendDataOut(commands["registerbc95"]);
-                    tBoxActionState.Text = states.registerbc95.ToString();
-                }
-                else
-                {
-                    // 플랫폼 등록 요청
-                    //AT+MLWSREGIND=0
-                    this.sendDataOut(commands["registertpb23"]);
-                    tBoxActionState.Text = states.registertpb23.ToString();
-                }
-            }
-        }
-
-        private void DeregisterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (isDeviceInfo())
-            {
-
-                if (tBoxModel.Text == "BG96")
-                {
-                    // 플랫폼 등록해제 요청
-                    //AT+QLWM2M="deregister"
-                    this.sendDataOut(commands["deregister"]);
-                    tBoxActionState.Text = states.deregister.ToString();
-                }
-                else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // 플랫폼 등록해제 요청
-                    //AT+QLWSREGIND=1
-                    this.sendDataOut(commands["deregisterbc95"]);
-                    tBoxActionState.Text = states.deregisterbc95.ToString();
-                }
-                else
-                {
-                    // 플랫폼 등록해제 요청
-                    //AT+MLWSREGIND=1
-                    this.sendDataOut(commands["deregistertpb23"]);
-                    tBoxActionState.Text = states.deregistertpb23.ToString();
-                }
-            }
-        }
-
-        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(tBoxModel.Text == "BG96")
-            {
-                // 플랫폼 정보 삭제 요청
-                //AT+QLWM2M="reset"
-                this.sendDataOut(commands["lwm2mreset"]);
-                tBoxActionState.Text = states.lwm2mreset.ToString();
-            }
-        }
-        private void sendDataToServer(string text)
-        {
-            if (isDeviceInfo())
-            {
-                if (oneM2Mmode == 0)      // oneM2M
-                {
-                    // 플랫폼 서버 data 전송
-                    // Data send to SERVER (string to BCD convert)
-                    //AT+QLWM2M="ulhex",<object>,<length>,<data>
-
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    this.sendDataOut(commands["sendonemsgstr"] + tBoxDeviceSN.Text + "," + hexOutput.Length + "," + hexOutput);
-                    tBoxActionState.Text = states.sendonemsgstr.ToString();
-
-                    timer1.Start();
-                }
-                else if (tBoxModel.Text == "BG96")
-                {
-                    // Data send to SERVER (string to BCD convert)
-                    //AT+QLWM2M="ulhex",<object>,<length>,<data>
-
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    this.sendDataOut(commands["sendmsghex"] + hexOutput.Length / 2 + ",\"" + hexOutput + "\"");
-                    tBoxActionState.Text = states.sendmsghex.ToString();
-
-                    timer1.Start();
-                }
-                else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // Data send to SERVER (string original)
-                    //AT+QLWULDATA=<length>,<data>
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    this.sendDataOut(commands["sendmsgstbc95"] + hexOutput.Length / 2 + "," + hexOutput);
-                    tBoxActionState.Text = states.sendmsgstr.ToString();
-
-                    timer1.Start();
-                }
-                else
-                {
-                    // Data send to SERVER (string original)
-                    //AT+MLWULDATA=<length>,<data>
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    this.sendDataOut(commands["sendmsgstrtpb23"] + hexOutput.Length / 2 + "," + hexOutput);
-                    tBoxActionState.Text = states.sendmsgstr.ToString();
-
-                    timer1.Start();
-                }
-            }
         }
 
         private string BcdToString(char[] charValues)
@@ -2743,249 +1254,504 @@ namespace WindowsFormsApp2
         {
             timer2.Stop();
 
-            if(tBoxActionState.Text=="booting")
-            {
-                getDeviveInfo();
-                timer2.Interval = 10000;        // 10초 타이머로 동작
-            }
-            else
-            {
-                if (network_chkcnt-- > 0)
-                {
-                    this.sendDataOut(commands["getcereg"]);
-                    tBoxActionState.Text = states.getcereg.ToString();
+        }
 
-                    timer1.Start();
-                    logPrintInTextBox("LTE 연결 상태를 확인합니다.", "");
-                }
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMultiPDN.Checked == true)
+                cbMultiPDN.Text = "지원";
+            else
+                cbMultiPDN.Text = "미지원";
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIPSec.Checked == true)
+                cbIPSec.Text = "지원";
+            else
+                cbIPSec.Text = "미지원";
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSMS.Checked == true)
+                cbSMS.Text = "지원";
+            else
+                cbSMS.Text = "미지원";
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbVoice.Checked == true)
+                cbVoice.Text = "지원";
+            else
+                cbVoice.Text = "미지원";
+        }
+
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbVideo.Checked == true)
+                cbVideo.Text = "지원";
+            else
+                cbVideo.Text = "미지원";
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAuto2ndPDN.Checked == true)
+                cbAuto2ndPDN.Text = "올림";
+            else
+                cbAuto2ndPDN.Text = "안올림";
+        }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCA.Checked == true)
+                cbCA.Text = "지원";
+            else
+                cbCA.Text = "미지원";
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbEMC.Checked == true)
+                cbEMC.Text = "지원";
+            else
+                cbEMC.Text = "미지원";
+        }
+
+        private void checkBox11_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbBand1.Checked == true)
+                cbBand1.Text = "지원";
+            else
+                cbBand1.Text = "미지원";
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbBand5.Checked == true)
+                cbBand5.Text = "지원";
+            else
+                cbBand5.Text = "미지원";
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbBand7.Checked == true)
+                cbBand7.Text = "지원";
+            else
+                cbBand7.Text = "미지원";
+        }
+
+        private void checkBox16_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbFGI4.Checked == true)
+                cbFGI4.Text = "지원";
+            else
+                cbFGI4.Text = "미지원";
+        }
+
+        private void checkBox14_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbFGI5.Checked == true)
+                cbFGI5.Text = "지원";
+            else
+                cbFGI5.Text = "미지원";
+        }
+
+        private void checkBox13_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbFGI17.Checked == true)
+                cbFGI17.Text = "지원";
+            else
+                cbFGI17.Text = "미지원";
+        }
+
+        private void checkBox12_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbFGI18.Checked == true)
+                cbFGI18.Text = "지원";
+            else
+                cbFGI18.Text = "미지원";
+        }
+
+        private void checkBox15_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbFGI28.Checked == true)
+                cbFGI28.Text = "지원";
+            else
+                cbFGI28.Text = "미지원";
+        }
+
+        private void checkBox17_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRachR9.Checked == true)
+                cbRachR9.Text = "지원";
+            else
+                cbRachR9.Text = "미지원";
+        }
+
+        private void checkBox18_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLogR10.Checked == true)
+                cbLogR10.Text = "지원";
+            else
+                cbLogR10.Text = "미지원";
+        }
+
+        private void checkBox19_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbStandaloneGNSS.Checked == true)
+                cbStandaloneGNSS.Text = "지원";
+            else
+                cbStandaloneGNSS.Text = "미지원";
+        }
+
+        private void checkBox20_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbBandCombin.Checked == true)
+                cbBandCombin.Text = "지원";
+            else
+                cbBandCombin.Text = "미지원";
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            string pathname = @"c:\temp\seriallog\";
+            string filename = "Sample_" + tbDeviceName.Text + ".txt";
+
+            Directory.CreateDirectory(pathname);
+
+            // Create a file to write to.
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(pathname + filename, FileMode.Create, FileAccess.Write);
+                // Create a file to write to.
+                StreamWriter sw = new StreamWriter(fs);
+
+                sw.WriteLine("[Common]");
+                if (cbImsPDN.SelectedIndex == 0)
+                    sw.WriteLine("imsPDN_number = " + "1");
                 else
-                {
-                    this.sendDataOut(commands["reset"]);
-                    tBoxActionState.Text = states.reset.ToString();
-
-                    network_chkcnt = 3;
-                    timer1.Start();
-                    logPrintInTextBox("3회 가 over하여 모듈을 reset합니다.", "");
-                }
-            }
-        }
-
-        private void Button6_Click(object sender, EventArgs e)
-        {
-            if (oneM2Mmode == 0)      // oneM2M : MEF Auth인증 요청
-                DeviceFWVerSendOne(tBoxDeviceVer.Text, device_fota_state, device_fota_reseult);
-            else
-                DeviceFWVerSend(tBoxDeviceVer.Text, device_fota_state, device_fota_reseult);
-        }
-
-        private void DeviceFWVerSendOne(string ver, string state, string result)
-        {
-            if (isDeviceInfo())
-            {
-                // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                this.sendDataOut(commands["fotamefauthnt"] + tBoxSVCCD.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + ",D-" + tBoxIMSI.Text);
-                tBoxActionState.Text = states.fotamefauthnt.ToString();
-                nextcommand = "skip";
-                timer1.Start();
-            }
-        }
-
-        private void FWUPToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DeviceFWVerSend(tBoxDeviceVer.Text, device_fota_state, device_fota_reseult);
-        }
-
-        private void DeviceFWVerSend(string ver, string state, string result)
-        {
-            if (isDeviceInfo())
-            {
-                // Device firmware 버전 등록 전문 예 : fwVr=1.0|fwSt=1|fwRt=0
-                // fwVr ={ VERSION}| fwSt ={ STATUS}| fwRt ={ RESULT_CODE}(|fwIn={index})(|szx={buffersize})
-                // fwVr: 현재 Device Firmware 버전
-                // fwSt: Firmware Status
-                //      1: Success
-                //      2: Progress
-                //      3: Failure
-                // fwRt : Firmware Update 결과(OMA Spec 과 같은 값 사용)
-                //      0: Initial value.
-                //      1: Firmware updated successfully
-                //      2: Not enough flash memory
-                //      3: Out of RAM during downloading process.
-                //      4: Connection lost during downloading process.
-                //      5: Integrity check failure
-                //      6: Unsupported package type.
-                //      8: Firmware update failed
-                //  fwIn : 단말에서 문제가 발생 하여 특정 Index부터 다시 받고 싶을 때 사용
-                //      만약 fwSt 가 2(Progress)이면서 fwIn 에 특정 Index 를 보내면
-                //      기존에 upload Process 는 중지 하고 해당 Index 부터 다시 Upload 시작 함
-                //      fwSt 가 2 가 아닐 경우, fwIn 값이 없거나 0 보다 작을 경우 이어 받기 동작하지 않음
-                //      fwIn 의 값이 전체 Index 보다 클 경우 이전 내려받기는 취소 되고 에러 처리 됨
-                // szx : FOTA buffer size (1:32, 2:64, 3:128, 4:256, 5:512(default), 6:1024 
-
-                string text = "fwVr=" + ver + "|fwSt=" + state + "|fwRt=" + result;
-
-                if (state == "2")
-                {
-                    Int32 index = Convert.ToInt32(device_fota_index, 16);
-                    text += "|fwIn=" + Convert.ToString(index);
-                }
-
-                text += "|szx=6";       // FOTA buffer size set 1024bytes.
-
-                logPrintInTextBox(text + " 로 FOTA응답하였습니다.", "");
-
-                if (tBoxModel.Text == "BG96")
-                {
-                    // Data send to SERVER (string to BCD convert)
-                    //AT+QLWM2M="uldata,"fwVr=1.0.0|fwSt=1|fwRt=0"
-
-                    this.sendDataOut(commands["sendmsgver"] + text.Length + ",\"" + text + "\"");
-                    tBoxActionState.Text = states.sendmsgver.ToString();
-
-                    timer1.Start();
-                }
-                else if (tBoxManu.Text.StartsWith("MOBILEECO", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // Data send to SERVER (string original)
-                    //AT+MLWDFULDATA=<length>,<data>
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    this.sendDataOut(commands["sendmsgverme"] + hexOutput.Length / 2 + "," + hexOutput);
-                    tBoxActionState.Text = states.sendmsgverme.ToString();
-
-                    timer1.Start();
-                }
-                else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    // Data send to SERVER (string original)
-                    //AT+QLWULDATA=1,<length>,<data>
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    this.sendDataOut(commands["sendmsgverbc95"] + hexOutput.Length / 2 + "," + hexOutput);
-                    tBoxActionState.Text = states.sendmsgverbc95.ToString();
-
-                    timer1.Start();
-                }
+                    sw.WriteLine("imsPDN_number = " + "2");
+                sw.WriteLine("imsIPversion = " + cbImsIP.Text);
+                if(cbMultiPDN.Checked == true)
+                    sw.WriteLine("Multiple_PDN = true");
                 else
+                    sw.WriteLine("Multiple_PDN = false");
+                sw.WriteLine("Channel1 = "+ tbChannel1.Text);
+                sw.WriteLine("Channel2 = " + tbChannel2.Text);
+                sw.WriteLine("Channel3 = " + tbChannel3.Text);
+                sw.WriteLine("UE_IMEI = " + tbIMEI.Text);
+                if (cbAuto2ndPDN.Checked == true)
+                    sw.WriteLine("Auto2ndPDN = true");
+                else
+                    sw.WriteLine("Auto2ndPDN = false");
+                if (cbEMC.Checked == true)
+                    sw.WriteLine("EMC_Support = 1");
+                else
+                    sw.WriteLine("EMC_Support = 0");
+                if(cbCA.Checked == true)
+                    sw.WriteLine("CA_Support = true");
+                else
+                    sw.WriteLine("CA_Support = false");
+                sw.WriteLine("");
+                sw.WriteLine("[Capability]");
+                if (cbCatagory.SelectedIndex == 0)
+                    sw.WriteLine("LTE_Category = 1");
+                else
+                    sw.WriteLine("LTE_Category = 4");
+                if (cbBand1.Checked == true)
+                    sw.WriteLine("Supported_Band1 = 1");
+                else
+                    sw.WriteLine("Supported_Band1 = omitted");
+                if (cbBand5.Checked == true)
+                    sw.WriteLine("Supported_Band5 = 5");
+                else
+                    sw.WriteLine("Supported_Band5 = omitted");
+                if (cbBand7.Checked == true)
+                    sw.WriteLine("Supported_Band7 = 7");
+                else
+                    sw.WriteLine("Supported_Band7 = omitted");
+                if (cbFGI4.Checked == true)
+                    sw.WriteLine("FGI_4 = 1");
+                else
+                    sw.WriteLine("FGI_4 = 0");
+                if (cbFGI5.Checked == true)
+                    sw.WriteLine("FGI_5 = 1");
+                else
+                    sw.WriteLine("FGI_5 = 0");
+                if (cbFGI17.Checked == true)
+                    sw.WriteLine("FGI_17 = 1");
+                else
+                    sw.WriteLine("FGI_17 = 0");
+                if (cbFGI18.Checked == true)
+                    sw.WriteLine("FGI_18 = 1");
+                else
+                    sw.WriteLine("FGI_18 = 0");
+                if (cbFGI28.Checked == true)
+                    sw.WriteLine("FGI_28 = 1");
+                else
+                    sw.WriteLine("FGI_28 = 0");
+                if (cbRachR9.Checked == true)
+                    sw.WriteLine("Rach_Report_r9 = supported");
+                else
+                    sw.WriteLine("Rach_Report_r9 = omitted");
+                if (cbLogR10.Checked == true)
+                    sw.WriteLine("loggedMeasurementIdle_r10 = supported");
+                else
+                    sw.WriteLine("loggedMeasurementIdle_r10 = omitted");
+                if(cbStandaloneGNSS.Checked == true)
+                    sw.WriteLine("standaloneGNSS_Location_r10 = supported");
+                else
+                    sw.WriteLine("standaloneGNSS_Location_r10 = omitted");
+                if (cbBandCombin.Checked == true)
+                    sw.WriteLine("supportedBandCombination = supported");
+                else
+                    sw.WriteLine("supportedBandCombination = omitted");
+                sw.WriteLine("");
+                sw.WriteLine("[VOLTE_SMS]");
+                sw.WriteLine("Device_Name = " + tbDeviceName.Text);
+                sw.WriteLine("Device_Version = " + tbDeviceVer.Text);
+                sw.WriteLine("Device_Type = " + tbDeviceType.Text);
+                sw.WriteLine("TTA_Version = " + tbTTAVer.Text);
+                if (cbIPSec.Checked == true)
+                    sw.WriteLine("IPsec_enable = true");
+                else
+                    sw.WriteLine("IPsec_enable = false");
+                if (cbSMS.Checked == true)
+                    sw.WriteLine("SMS_Support = true");
+                else
+                    sw.WriteLine("SMS_Support = false");
+                if (cbVoice.Checked == true)
+                    sw.WriteLine("Voice_Support = true");
+                else
+                    sw.WriteLine("Voice_Support = false");
+                if (cbVideo.Checked == true)
+                    sw.WriteLine("Video_Support = true");
+                else
+                    sw.WriteLine("Video_Support = false");
+                sw.WriteLine("");
+                sw.WriteLine("[NBIoT]");
+                if (cbNBIPVer.SelectedIndex == 0)
+                    sw.WriteLine("IPversion = IPv4");
+                else
+                    sw.WriteLine("IPversion = IPv6");
+
+                sw.Close();
+                fs.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.DefaultExt = "txt";
+            ofd.Filter = "text files (*.tx)|*.txt";
+            ofd.ShowDialog();
+            if (ofd.FileName.Length > 0)
+            {
+                try
                 {
-                    // Data send to SERVER (string original)
-                    //AT+MLWULDATA=<length>,<data>
-                    string hexOutput = StringToBCD(text.ToCharArray());
+                    FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
+                    // Open a file to read to.
+                    StreamReader sr = new StreamReader(fs);
 
-                    this.sendDataOut(commands["sendmsgvertpb23"] + hexOutput.Length / 2 + "," + hexOutput);
-                    tBoxActionState.Text = states.sendmsgvertpb23.ToString();
+                    string rddata = sr.ReadLine();
+                    if (rddata == "[Common]")
+                    {
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbImsPDN.SelectedIndex = 0;
+                        else
+                            cbImsPDN.SelectedIndex = 1;
 
-                    timer1.Start();
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("IPv4"))
+                            cbImsIP.SelectedIndex = 0;
+                        else
+                            cbImsIP.SelectedIndex = 1;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbMultiPDN.Checked = true;
+                        else
+                            cbMultiPDN.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        tbChannel1.Text = rddata.Substring(11, rddata.Length - 11);
+                        rddata = sr.ReadLine();
+                        tbChannel2.Text = rddata.Substring(11, rddata.Length - 11);
+                        rddata = sr.ReadLine();
+                        tbChannel3.Text = rddata.Substring(11, rddata.Length - 11);
+                        rddata = sr.ReadLine();
+                        tbIMEI.Text = rddata.Substring(10, rddata.Length - 10);
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbAuto2ndPDN.Checked = true;
+                        else
+                            cbAuto2ndPDN.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbEMC.Checked = true;
+                        else
+                            cbEMC.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbCA.Checked = true;
+                        else
+                            cbCA.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        rddata = sr.ReadLine();
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbCatagory.SelectedIndex = 0;
+                        else
+                            cbCatagory.SelectedIndex = 1;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbBand1.Checked = true;
+                        else
+                            cbBand1.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("5"))
+                            cbBand5.Checked = true;
+                        else
+                            cbBand5.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("7"))
+                            cbBand7.Checked = true;
+                        else
+                            cbBand7.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbFGI4.Checked = true;
+                        else
+                            cbFGI4.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbFGI5.Checked = true;
+                        else
+                            cbFGI5.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbFGI17.Checked = true;
+                        else
+                            cbFGI17.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbFGI18.Checked = true;
+                        else
+                            cbFGI18.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("1"))
+                            cbFGI28.Checked = true;
+                        else
+                            cbFGI28.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("supported"))
+                            cbRachR9.Checked = true;
+                        else
+                            cbRachR9.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("supported"))
+                            cbLogR10.Checked = true;
+                        else
+                            cbLogR10.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("supported"))
+                            cbStandaloneGNSS.Checked = true;
+                        else
+                            cbStandaloneGNSS.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("supported"))
+                            cbBandCombin.Checked = true;
+                        else
+                            cbBandCombin.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        rddata = sr.ReadLine();
+
+                        rddata = sr.ReadLine();
+                        tbDeviceName.Text = rddata.Substring(14, rddata.Length - 14);
+
+                        rddata = sr.ReadLine();
+                        tbDeviceVer.Text = rddata.Substring(17, rddata.Length - 17);
+
+                        rddata = sr.ReadLine();
+                        tbDeviceType.Text = rddata.Substring(14, rddata.Length - 14);
+
+                        rddata = sr.ReadLine();
+                        tbTTAVer.Text = rddata.Substring(14, rddata.Length - 14);
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbIPSec.Checked = true;
+                        else
+                            cbIPSec.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbSMS.Checked = true;
+                        else
+                            cbSMS.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbVoice.Checked = true;
+                        else
+                            cbVoice.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            cbVideo.Checked = true;
+                        else
+                            cbVideo.Checked = false;
+
+                        rddata = sr.ReadLine();
+                        rddata = sr.ReadLine();
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("IPv4"))
+                            cbNBIPVer.SelectedIndex = 0;
+                        else
+                            cbNBIPVer.SelectedIndex = 1;
+                    }
+                    else
+                        MessageBox.Show("Bad PCF setting file");
+
+                    sr.Close();
+                    fs.Close();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
-
-        private void BtnFOTAConti_Click(object sender, EventArgs e)
-        {
-            device_fota_index = tBoxFOTAIndex.Text;
-            if (oneM2Mmode == 0)      // oneM2M : MEF Auth인증 요청
-                DeviceFWVerSendOne(tBoxDeviceVer.Text, "2", device_fota_reseult);
-            else
-                DeviceFWVerSend(tBoxDeviceVer.Text, "2", device_fota_reseult);
-        }
-
-        private void TSMenuModemVer_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["getmodemSvrVer"]);
-            tBoxActionState.Text = states.getmodemSvrVer.ToString();
-
-            timer1.Start();
-        }
-
-        private void TSMenuDeviceVer_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["getdeviceSvrVer"]);
-            tBoxActionState.Text = states.getdeviceSvrVer.ToString();
-
-            timer1.Start();
-        }
-
-        private void tSMenuTxVersion_Click(object sender, EventArgs e)
-        {
-            DeviceFWVerSendOne(tBoxDeviceVer.Text, device_fota_state, device_fota_reseult);
-        }
-
-        private void catM1ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["catm1set"]);
-            tBoxActionState.Text = states.catm1set.ToString();
-
-            timer1.Start();
-        }
-
-        private void catM1IMSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["catm1imsset"]);
-            tBoxActionState.Text = states.catm1imsset.ToString();
-
-            timer1.Start();
-        }
-
-        private void nBToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(commands["nbset"]);
-            tBoxActionState.Text = states.nbset.ToString();
-
-            timer1.Start();
-        }
-
-        private void cOMReloadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
-            {
-                this.doCloseComPort();
-            }
-
-            cBoxCOMPORT.Items.Clear();
-
-            string[] ports = SerialPort.GetPortNames();
-            if (ports.Length == 0)
-            {
-                logPrintInTextBox("연결 가능한 COM PORT가 없습니다.", "");
-            }
-            else
-            {
-                cBoxCOMPORT.Items.AddRange(ports);
-                cBoxCOMPORT.SelectedIndex = 0;
-            }
-        }
-
-        private void btnModemVer_Click(object sender, EventArgs e)
-        {
-            if (tBoxModel.Text == "TPB23")
-            {
-                this.sendDataOut(commands["getmodemvertpb23"]);
-                tBoxActionState.Text = states.getmodemvertpb23.ToString();
-
-                timer1.Start();
-            }
-            else if (tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                this.sendDataOut(commands["getmodemverbc95"]);
-                tBoxActionState.Text = states.getmodemverbc95.ToString();
-
-                timer1.Start();
-            }
-            else if (tBoxModel.Text.StartsWith("NTLM3", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                this.sendDataOut(commands["getmodemvernt"]);
-                tBoxActionState.Text = states.getmodemvernt.ToString();
-
-                timer1.Start();
-            }
-            else
-            {
-                this.sendDataOut(commands["getmodemver"]);
-                tBoxActionState.Text = states.getmodemver.ToString();
-
-                timer1.Start();
-            }
-        }
-
     }
 }
