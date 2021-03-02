@@ -37,10 +37,16 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnSetting = new System.Windows.Forms.Panel();
+            this.button33 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.cbNBIPVer = new System.Windows.Forms.ComboBox();
             this.button36 = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tbDeviceType = new System.Windows.Forms.TextBox();
             this.cbVideo = new System.Windows.Forms.CheckBox();
             this.cbVoice = new System.Windows.Forms.CheckBox();
             this.cbSMS = new System.Windows.Forms.CheckBox();
@@ -57,6 +63,18 @@
             this.tbDeviceName = new System.Windows.Forms.TextBox();
             this.button30 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbCatagory = new System.Windows.Forms.ComboBox();
+            this.cbBandCombin = new System.Windows.Forms.CheckBox();
+            this.cbStandaloneGNSS = new System.Windows.Forms.CheckBox();
+            this.cbLogR10 = new System.Windows.Forms.CheckBox();
+            this.cbRachR9 = new System.Windows.Forms.CheckBox();
+            this.cbFGI4 = new System.Windows.Forms.CheckBox();
+            this.cbFGI28 = new System.Windows.Forms.CheckBox();
+            this.cbFGI5 = new System.Windows.Forms.CheckBox();
+            this.cbFGI17 = new System.Windows.Forms.CheckBox();
+            this.cbFGI18 = new System.Windows.Forms.CheckBox();
+            this.cbBand1 = new System.Windows.Forms.CheckBox();
+            this.cbBand7 = new System.Windows.Forms.CheckBox();
             this.button18 = new System.Windows.Forms.Button();
             this.button19 = new System.Windows.Forms.Button();
             this.button20 = new System.Windows.Forms.Button();
@@ -72,6 +90,8 @@
             this.button16 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbEMC = new System.Windows.Forms.CheckBox();
+            this.cbImsPDN = new System.Windows.Forms.ComboBox();
             this.cbCA = new System.Windows.Forms.CheckBox();
             this.cbAuto2ndPDN = new System.Windows.Forms.CheckBox();
             this.cbImsIP = new System.Windows.Forms.ComboBox();
@@ -97,26 +117,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.cbImsPDN = new System.Windows.Forms.ComboBox();
-            this.cbEMC = new System.Windows.Forms.CheckBox();
-            this.cbBand7 = new System.Windows.Forms.CheckBox();
-            this.cbBand1 = new System.Windows.Forms.CheckBox();
-            this.cbFGI18 = new System.Windows.Forms.CheckBox();
-            this.cbFGI17 = new System.Windows.Forms.CheckBox();
-            this.cbFGI5 = new System.Windows.Forms.CheckBox();
-            this.cbFGI28 = new System.Windows.Forms.CheckBox();
-            this.cbFGI4 = new System.Windows.Forms.CheckBox();
-            this.cbRachR9 = new System.Windows.Forms.CheckBox();
-            this.cbLogR10 = new System.Windows.Forms.CheckBox();
-            this.cbStandaloneGNSS = new System.Windows.Forms.CheckBox();
-            this.cbBandCombin = new System.Windows.Forms.CheckBox();
-            this.cbCatagory = new System.Windows.Forms.ComboBox();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
-            this.button31 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
-            this.button33 = new System.Windows.Forms.Button();
-            this.tbDeviceType = new System.Windows.Forms.TextBox();
+            this.button34 = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnSetting.SuspendLayout();
@@ -198,6 +199,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button34);
             this.panel1.Controls.Add(this.pnSetting);
             this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.panel2);
@@ -219,10 +221,62 @@
             this.pnSetting.Controls.Add(this.groupBox5);
             this.pnSetting.Controls.Add(this.groupBox2);
             this.pnSetting.Controls.Add(this.groupBox1);
-            this.pnSetting.Location = new System.Drawing.Point(12, 12);
+            this.pnSetting.Location = new System.Drawing.Point(12, 70);
             this.pnSetting.Name = "pnSetting";
             this.pnSetting.Size = new System.Drawing.Size(809, 634);
             this.pnSetting.TabIndex = 13;
+            // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(300, 16);
+            this.button33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(167, 24);
+            this.button33.TabIndex = 31;
+            this.button33.Text = "Cat M1";
+            this.button33.UseVisualStyleBackColor = true;
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(512, 16);
+            this.button32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(167, 24);
+            this.button32.TabIndex = 30;
+            this.button32.Text = "NB IoT";
+            this.button32.UseVisualStyleBackColor = true;
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(95, 16);
+            this.button31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(167, 24);
+            this.button31.TabIndex = 29;
+            this.button31.Text = "LTE";
+            this.button31.UseVisualStyleBackColor = true;
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(417, 566);
+            this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(167, 24);
+            this.button24.TabIndex = 28;
+            this.button24.Text = "파일 읽기";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
+            // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(612, 566);
+            this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(167, 24);
+            this.button23.TabIndex = 27;
+            this.button23.Text = "파일 쓰기";
+            this.button23.UseVisualStyleBackColor = true;
+            this.button23.Click += new System.EventHandler(this.button23_Click);
             // 
             // groupBox6
             // 
@@ -286,6 +340,14 @@
             this.groupBox5.TabIndex = 25;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "VoLTE/SMS";
+            // 
+            // tbDeviceType
+            // 
+            this.tbDeviceType.Location = new System.Drawing.Point(215, 72);
+            this.tbDeviceType.Name = "tbDeviceType";
+            this.tbDeviceType.Size = new System.Drawing.Size(126, 21);
+            this.tbDeviceType.TabIndex = 28;
+            this.tbDeviceType.Text = "modem";
             // 
             // cbVideo
             // 
@@ -474,6 +536,146 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Capability";
             // 
+            // cbCatagory
+            // 
+            this.cbCatagory.FormattingEnabled = true;
+            this.cbCatagory.Items.AddRange(new object[] {
+            "Cat 1",
+            "Cat 4"});
+            this.cbCatagory.Location = new System.Drawing.Point(216, 15);
+            this.cbCatagory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbCatagory.Name = "cbCatagory";
+            this.cbCatagory.Size = new System.Drawing.Size(126, 20);
+            this.cbCatagory.TabIndex = 32;
+            this.cbCatagory.Text = "Cat 1";
+            // 
+            // cbBandCombin
+            // 
+            this.cbBandCombin.AutoSize = true;
+            this.cbBandCombin.Location = new System.Drawing.Point(216, 355);
+            this.cbBandCombin.Name = "cbBandCombin";
+            this.cbBandCombin.Size = new System.Drawing.Size(60, 16);
+            this.cbBandCombin.TabIndex = 43;
+            this.cbBandCombin.Text = "미지원";
+            this.cbBandCombin.UseVisualStyleBackColor = true;
+            this.cbBandCombin.CheckedChanged += new System.EventHandler(this.checkBox20_CheckedChanged);
+            // 
+            // cbStandaloneGNSS
+            // 
+            this.cbStandaloneGNSS.AutoSize = true;
+            this.cbStandaloneGNSS.Location = new System.Drawing.Point(216, 327);
+            this.cbStandaloneGNSS.Name = "cbStandaloneGNSS";
+            this.cbStandaloneGNSS.Size = new System.Drawing.Size(60, 16);
+            this.cbStandaloneGNSS.TabIndex = 42;
+            this.cbStandaloneGNSS.Text = "미지원";
+            this.cbStandaloneGNSS.UseVisualStyleBackColor = true;
+            this.cbStandaloneGNSS.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
+            // 
+            // cbLogR10
+            // 
+            this.cbLogR10.AutoSize = true;
+            this.cbLogR10.Location = new System.Drawing.Point(216, 299);
+            this.cbLogR10.Name = "cbLogR10";
+            this.cbLogR10.Size = new System.Drawing.Size(60, 16);
+            this.cbLogR10.TabIndex = 41;
+            this.cbLogR10.Text = "미지원";
+            this.cbLogR10.UseVisualStyleBackColor = true;
+            this.cbLogR10.CheckedChanged += new System.EventHandler(this.checkBox18_CheckedChanged);
+            // 
+            // cbRachR9
+            // 
+            this.cbRachR9.AutoSize = true;
+            this.cbRachR9.Location = new System.Drawing.Point(216, 270);
+            this.cbRachR9.Name = "cbRachR9";
+            this.cbRachR9.Size = new System.Drawing.Size(60, 16);
+            this.cbRachR9.TabIndex = 40;
+            this.cbRachR9.Text = "미지원";
+            this.cbRachR9.UseVisualStyleBackColor = true;
+            this.cbRachR9.CheckedChanged += new System.EventHandler(this.checkBox17_CheckedChanged);
+            // 
+            // cbFGI4
+            // 
+            this.cbFGI4.AutoSize = true;
+            this.cbFGI4.Location = new System.Drawing.Point(220, 129);
+            this.cbFGI4.Name = "cbFGI4";
+            this.cbFGI4.Size = new System.Drawing.Size(60, 16);
+            this.cbFGI4.TabIndex = 39;
+            this.cbFGI4.Text = "미지원";
+            this.cbFGI4.UseVisualStyleBackColor = true;
+            this.cbFGI4.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
+            // 
+            // cbFGI28
+            // 
+            this.cbFGI28.AutoSize = true;
+            this.cbFGI28.Location = new System.Drawing.Point(216, 242);
+            this.cbFGI28.Name = "cbFGI28";
+            this.cbFGI28.Size = new System.Drawing.Size(60, 16);
+            this.cbFGI28.TabIndex = 38;
+            this.cbFGI28.Text = "미지원";
+            this.cbFGI28.UseVisualStyleBackColor = true;
+            this.cbFGI28.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
+            // 
+            // cbFGI5
+            // 
+            this.cbFGI5.AutoSize = true;
+            this.cbFGI5.Checked = true;
+            this.cbFGI5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFGI5.Location = new System.Drawing.Point(220, 158);
+            this.cbFGI5.Name = "cbFGI5";
+            this.cbFGI5.Size = new System.Drawing.Size(48, 16);
+            this.cbFGI5.TabIndex = 37;
+            this.cbFGI5.Text = "지원";
+            this.cbFGI5.UseVisualStyleBackColor = true;
+            this.cbFGI5.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
+            // 
+            // cbFGI17
+            // 
+            this.cbFGI17.AutoSize = true;
+            this.cbFGI17.Checked = true;
+            this.cbFGI17.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFGI17.Location = new System.Drawing.Point(220, 186);
+            this.cbFGI17.Name = "cbFGI17";
+            this.cbFGI17.Size = new System.Drawing.Size(48, 16);
+            this.cbFGI17.TabIndex = 36;
+            this.cbFGI17.Text = "지원";
+            this.cbFGI17.UseVisualStyleBackColor = true;
+            this.cbFGI17.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
+            // 
+            // cbFGI18
+            // 
+            this.cbFGI18.AutoSize = true;
+            this.cbFGI18.Checked = true;
+            this.cbFGI18.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbFGI18.Location = new System.Drawing.Point(220, 214);
+            this.cbFGI18.Name = "cbFGI18";
+            this.cbFGI18.Size = new System.Drawing.Size(48, 16);
+            this.cbFGI18.TabIndex = 35;
+            this.cbFGI18.Text = "지원";
+            this.cbFGI18.UseVisualStyleBackColor = true;
+            this.cbFGI18.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
+            // 
+            // cbBand1
+            // 
+            this.cbBand1.AutoSize = true;
+            this.cbBand1.Location = new System.Drawing.Point(220, 45);
+            this.cbBand1.Name = "cbBand1";
+            this.cbBand1.Size = new System.Drawing.Size(60, 16);
+            this.cbBand1.TabIndex = 34;
+            this.cbBand1.Text = "미지원";
+            this.cbBand1.UseVisualStyleBackColor = true;
+            this.cbBand1.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
+            // 
+            // cbBand7
+            // 
+            this.cbBand7.AutoSize = true;
+            this.cbBand7.Location = new System.Drawing.Point(220, 101);
+            this.cbBand7.Name = "cbBand7";
+            this.cbBand7.Size = new System.Drawing.Size(60, 16);
+            this.cbBand7.TabIndex = 33;
+            this.cbBand7.Text = "미지원";
+            this.cbBand7.UseVisualStyleBackColor = true;
+            this.cbBand7.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            // 
             // button18
             // 
             this.button18.Location = new System.Drawing.Point(6, 294);
@@ -647,6 +849,32 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COMMON";
+            // 
+            // cbEMC
+            // 
+            this.cbEMC.AutoSize = true;
+            this.cbEMC.Checked = true;
+            this.cbEMC.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbEMC.Location = new System.Drawing.Point(220, 242);
+            this.cbEMC.Name = "cbEMC";
+            this.cbEMC.Size = new System.Drawing.Size(48, 16);
+            this.cbEMC.TabIndex = 31;
+            this.cbEMC.Text = "지원";
+            this.cbEMC.UseVisualStyleBackColor = true;
+            this.cbEMC.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            // 
+            // cbImsPDN
+            // 
+            this.cbImsPDN.FormattingEnabled = true;
+            this.cbImsPDN.Items.AddRange(new object[] {
+            "1번째",
+            "2번째"});
+            this.cbImsPDN.Location = new System.Drawing.Point(216, 15);
+            this.cbImsPDN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.cbImsPDN.Name = "cbImsPDN";
+            this.cbImsPDN.Size = new System.Drawing.Size(126, 20);
+            this.cbImsPDN.TabIndex = 30;
+            this.cbImsPDN.Text = "1번째";
             // 
             // cbCA
             // 
@@ -897,231 +1125,15 @@
             this.timer2.Interval = 10000;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
-            // cbImsPDN
+            // button34
             // 
-            this.cbImsPDN.FormattingEnabled = true;
-            this.cbImsPDN.Items.AddRange(new object[] {
-            "1번째",
-            "2번째"});
-            this.cbImsPDN.Location = new System.Drawing.Point(216, 15);
-            this.cbImsPDN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbImsPDN.Name = "cbImsPDN";
-            this.cbImsPDN.Size = new System.Drawing.Size(126, 20);
-            this.cbImsPDN.TabIndex = 30;
-            this.cbImsPDN.Text = "1번째";
-            // 
-            // cbEMC
-            // 
-            this.cbEMC.AutoSize = true;
-            this.cbEMC.Checked = true;
-            this.cbEMC.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbEMC.Location = new System.Drawing.Point(220, 242);
-            this.cbEMC.Name = "cbEMC";
-            this.cbEMC.Size = new System.Drawing.Size(48, 16);
-            this.cbEMC.TabIndex = 31;
-            this.cbEMC.Text = "지원";
-            this.cbEMC.UseVisualStyleBackColor = true;
-            this.cbEMC.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
-            // 
-            // cbBand7
-            // 
-            this.cbBand7.AutoSize = true;
-            this.cbBand7.Location = new System.Drawing.Point(220, 101);
-            this.cbBand7.Name = "cbBand7";
-            this.cbBand7.Size = new System.Drawing.Size(60, 16);
-            this.cbBand7.TabIndex = 33;
-            this.cbBand7.Text = "미지원";
-            this.cbBand7.UseVisualStyleBackColor = true;
-            this.cbBand7.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
-            // 
-            // cbBand1
-            // 
-            this.cbBand1.AutoSize = true;
-            this.cbBand1.Location = new System.Drawing.Point(220, 45);
-            this.cbBand1.Name = "cbBand1";
-            this.cbBand1.Size = new System.Drawing.Size(60, 16);
-            this.cbBand1.TabIndex = 34;
-            this.cbBand1.Text = "미지원";
-            this.cbBand1.UseVisualStyleBackColor = true;
-            this.cbBand1.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
-            // 
-            // cbFGI18
-            // 
-            this.cbFGI18.AutoSize = true;
-            this.cbFGI18.Checked = true;
-            this.cbFGI18.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFGI18.Location = new System.Drawing.Point(220, 214);
-            this.cbFGI18.Name = "cbFGI18";
-            this.cbFGI18.Size = new System.Drawing.Size(48, 16);
-            this.cbFGI18.TabIndex = 35;
-            this.cbFGI18.Text = "지원";
-            this.cbFGI18.UseVisualStyleBackColor = true;
-            this.cbFGI18.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged);
-            // 
-            // cbFGI17
-            // 
-            this.cbFGI17.AutoSize = true;
-            this.cbFGI17.Checked = true;
-            this.cbFGI17.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFGI17.Location = new System.Drawing.Point(220, 186);
-            this.cbFGI17.Name = "cbFGI17";
-            this.cbFGI17.Size = new System.Drawing.Size(48, 16);
-            this.cbFGI17.TabIndex = 36;
-            this.cbFGI17.Text = "지원";
-            this.cbFGI17.UseVisualStyleBackColor = true;
-            this.cbFGI17.CheckedChanged += new System.EventHandler(this.checkBox13_CheckedChanged);
-            // 
-            // cbFGI5
-            // 
-            this.cbFGI5.AutoSize = true;
-            this.cbFGI5.Checked = true;
-            this.cbFGI5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbFGI5.Location = new System.Drawing.Point(220, 158);
-            this.cbFGI5.Name = "cbFGI5";
-            this.cbFGI5.Size = new System.Drawing.Size(48, 16);
-            this.cbFGI5.TabIndex = 37;
-            this.cbFGI5.Text = "지원";
-            this.cbFGI5.UseVisualStyleBackColor = true;
-            this.cbFGI5.CheckedChanged += new System.EventHandler(this.checkBox14_CheckedChanged);
-            // 
-            // cbFGI28
-            // 
-            this.cbFGI28.AutoSize = true;
-            this.cbFGI28.Location = new System.Drawing.Point(216, 242);
-            this.cbFGI28.Name = "cbFGI28";
-            this.cbFGI28.Size = new System.Drawing.Size(60, 16);
-            this.cbFGI28.TabIndex = 38;
-            this.cbFGI28.Text = "미지원";
-            this.cbFGI28.UseVisualStyleBackColor = true;
-            this.cbFGI28.CheckedChanged += new System.EventHandler(this.checkBox15_CheckedChanged);
-            // 
-            // cbFGI4
-            // 
-            this.cbFGI4.AutoSize = true;
-            this.cbFGI4.Location = new System.Drawing.Point(220, 129);
-            this.cbFGI4.Name = "cbFGI4";
-            this.cbFGI4.Size = new System.Drawing.Size(60, 16);
-            this.cbFGI4.TabIndex = 39;
-            this.cbFGI4.Text = "미지원";
-            this.cbFGI4.UseVisualStyleBackColor = true;
-            this.cbFGI4.CheckedChanged += new System.EventHandler(this.checkBox16_CheckedChanged);
-            // 
-            // cbRachR9
-            // 
-            this.cbRachR9.AutoSize = true;
-            this.cbRachR9.Location = new System.Drawing.Point(216, 270);
-            this.cbRachR9.Name = "cbRachR9";
-            this.cbRachR9.Size = new System.Drawing.Size(60, 16);
-            this.cbRachR9.TabIndex = 40;
-            this.cbRachR9.Text = "미지원";
-            this.cbRachR9.UseVisualStyleBackColor = true;
-            this.cbRachR9.CheckedChanged += new System.EventHandler(this.checkBox17_CheckedChanged);
-            // 
-            // cbLogR10
-            // 
-            this.cbLogR10.AutoSize = true;
-            this.cbLogR10.Location = new System.Drawing.Point(216, 299);
-            this.cbLogR10.Name = "cbLogR10";
-            this.cbLogR10.Size = new System.Drawing.Size(60, 16);
-            this.cbLogR10.TabIndex = 41;
-            this.cbLogR10.Text = "미지원";
-            this.cbLogR10.UseVisualStyleBackColor = true;
-            this.cbLogR10.CheckedChanged += new System.EventHandler(this.checkBox18_CheckedChanged);
-            // 
-            // cbStandaloneGNSS
-            // 
-            this.cbStandaloneGNSS.AutoSize = true;
-            this.cbStandaloneGNSS.Location = new System.Drawing.Point(216, 327);
-            this.cbStandaloneGNSS.Name = "cbStandaloneGNSS";
-            this.cbStandaloneGNSS.Size = new System.Drawing.Size(60, 16);
-            this.cbStandaloneGNSS.TabIndex = 42;
-            this.cbStandaloneGNSS.Text = "미지원";
-            this.cbStandaloneGNSS.UseVisualStyleBackColor = true;
-            this.cbStandaloneGNSS.CheckedChanged += new System.EventHandler(this.checkBox19_CheckedChanged);
-            // 
-            // cbBandCombin
-            // 
-            this.cbBandCombin.AutoSize = true;
-            this.cbBandCombin.Location = new System.Drawing.Point(216, 355);
-            this.cbBandCombin.Name = "cbBandCombin";
-            this.cbBandCombin.Size = new System.Drawing.Size(60, 16);
-            this.cbBandCombin.TabIndex = 43;
-            this.cbBandCombin.Text = "미지원";
-            this.cbBandCombin.UseVisualStyleBackColor = true;
-            this.cbBandCombin.CheckedChanged += new System.EventHandler(this.checkBox20_CheckedChanged);
-            // 
-            // cbCatagory
-            // 
-            this.cbCatagory.FormattingEnabled = true;
-            this.cbCatagory.Items.AddRange(new object[] {
-            "Cat 1",
-            "Cat 4"});
-            this.cbCatagory.Location = new System.Drawing.Point(216, 15);
-            this.cbCatagory.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbCatagory.Name = "cbCatagory";
-            this.cbCatagory.Size = new System.Drawing.Size(126, 20);
-            this.cbCatagory.TabIndex = 32;
-            this.cbCatagory.Text = "Cat 1";
-            // 
-            // button23
-            // 
-            this.button23.Location = new System.Drawing.Point(612, 566);
-            this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(167, 24);
-            this.button23.TabIndex = 27;
-            this.button23.Text = "파일 쓰기";
-            this.button23.UseVisualStyleBackColor = true;
-            this.button23.Click += new System.EventHandler(this.button23_Click);
-            // 
-            // button24
-            // 
-            this.button24.Location = new System.Drawing.Point(417, 566);
-            this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(167, 24);
-            this.button24.TabIndex = 28;
-            this.button24.Text = "파일 읽기";
-            this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.button24_Click);
-            // 
-            // button31
-            // 
-            this.button31.Location = new System.Drawing.Point(95, 16);
-            this.button31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button31.Name = "button31";
-            this.button31.Size = new System.Drawing.Size(167, 24);
-            this.button31.TabIndex = 29;
-            this.button31.Text = "LTE";
-            this.button31.UseVisualStyleBackColor = true;
-            // 
-            // button32
-            // 
-            this.button32.Location = new System.Drawing.Point(512, 16);
-            this.button32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(167, 24);
-            this.button32.TabIndex = 30;
-            this.button32.Text = "NB IoT";
-            this.button32.UseVisualStyleBackColor = true;
-            // 
-            // button33
-            // 
-            this.button33.Location = new System.Drawing.Point(300, 16);
-            this.button33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button33.Name = "button33";
-            this.button33.Size = new System.Drawing.Size(167, 24);
-            this.button33.TabIndex = 31;
-            this.button33.Text = "Cat M1";
-            this.button33.UseVisualStyleBackColor = true;
-            // 
-            // tbDeviceType
-            // 
-            this.tbDeviceType.Location = new System.Drawing.Point(215, 72);
-            this.tbDeviceType.Name = "tbDeviceType";
-            this.tbDeviceType.Size = new System.Drawing.Size(126, 21);
-            this.tbDeviceType.TabIndex = 28;
-            this.tbDeviceType.Text = "modem";
+            this.button34.Location = new System.Drawing.Point(31, 28);
+            this.button34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button34.Name = "button34";
+            this.button34.Size = new System.Drawing.Size(167, 24);
+            this.button34.TabIndex = 32;
+            this.button34.Text = "SETTING SMST";
+            this.button34.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1245,6 +1257,7 @@
         private System.Windows.Forms.CheckBox cbBand7;
         private System.Windows.Forms.CheckBox cbEMC;
         private System.Windows.Forms.TextBox tbDeviceType;
+        private System.Windows.Forms.Button button34;
     }
 }
 
