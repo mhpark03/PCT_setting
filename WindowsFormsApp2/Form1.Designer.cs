@@ -39,11 +39,7 @@
             this.button41 = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.button68 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.button69 = new System.Windows.Forms.Button();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.button70 = new System.Windows.Forms.Button();
             this.button71 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
@@ -126,6 +122,42 @@
             this.btnModel = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button37 = new System.Windows.Forms.Button();
+            this.button38 = new System.Windows.Forms.Button();
+            this.button39 = new System.Windows.Forms.Button();
+            this.button42 = new System.Windows.Forms.Button();
+            this.button44 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button45 = new System.Windows.Forms.Button();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.button46 = new System.Windows.Forms.Button();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.button47 = new System.Windows.Forms.Button();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.button48 = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.button49 = new System.Windows.Forms.Button();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.button50 = new System.Windows.Forms.Button();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.button51 = new System.Windows.Forms.Button();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.button52 = new System.Windows.Forms.Button();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.button53 = new System.Windows.Forms.Button();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.button54 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnProxy.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -134,6 +166,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cBoxBaudRate
@@ -146,30 +179,33 @@
             "38400",
             "76800",
             "115200"});
-            this.cBoxBaudRate.Location = new System.Drawing.Point(216, 71);
+            this.cBoxBaudRate.Location = new System.Drawing.Point(941, 26);
             this.cBoxBaudRate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
-            this.cBoxBaudRate.Size = new System.Drawing.Size(291, 20);
+            this.cBoxBaudRate.Size = new System.Drawing.Size(93, 20);
             this.cBoxBaudRate.TabIndex = 2;
             this.cBoxBaudRate.Text = "115200";
             // 
             // cBoxCOMPORT
             // 
             this.cBoxCOMPORT.FormattingEnabled = true;
-            this.cBoxCOMPORT.Location = new System.Drawing.Point(216, 43);
+            this.cBoxCOMPORT.Items.AddRange(new object[] {
+            "COM103"});
+            this.cBoxCOMPORT.Location = new System.Drawing.Point(827, 26);
             this.cBoxCOMPORT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
-            this.cBoxCOMPORT.Size = new System.Drawing.Size(291, 20);
+            this.cBoxCOMPORT.Size = new System.Drawing.Size(108, 20);
             this.cBoxCOMPORT.TabIndex = 1;
+            this.cBoxCOMPORT.Text = "COM103";
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBar1.Location = new System.Drawing.Point(275, 315);
+            this.progressBar1.Location = new System.Drawing.Point(804, 28);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(135, 18);
+            this.progressBar1.Size = new System.Drawing.Size(17, 18);
             this.progressBar1.TabIndex = 2;
             this.progressBar1.Click += new System.EventHandler(this.ProgressBar1_Click);
             // 
@@ -180,6 +216,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cBoxBaudRate);
+            this.panel1.Controls.Add(this.progressBar1);
+            this.panel1.Controls.Add(this.cBoxCOMPORT);
             this.panel1.Controls.Add(this.pnProxy);
             this.panel1.Controls.Add(this.button35);
             this.panel1.Controls.Add(this.button34);
@@ -193,18 +232,18 @@
             // 
             // pnProxy
             // 
-            this.pnProxy.Controls.Add(this.progressBar1);
+            this.pnProxy.Controls.Add(this.groupBox3);
             this.pnProxy.Controls.Add(this.button40);
             this.pnProxy.Controls.Add(this.button41);
             this.pnProxy.Controls.Add(this.groupBox10);
-            this.pnProxy.Location = new System.Drawing.Point(866, 70);
+            this.pnProxy.Location = new System.Drawing.Point(280, 58);
             this.pnProxy.Name = "pnProxy";
-            this.pnProxy.Size = new System.Drawing.Size(544, 634);
+            this.pnProxy.Size = new System.Drawing.Size(1083, 632);
             this.pnProxy.TabIndex = 34;
             // 
             // button40
             // 
-            this.button40.Location = new System.Drawing.Point(54, 312);
+            this.button40.Location = new System.Drawing.Point(878, 149);
             this.button40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(167, 24);
@@ -215,7 +254,7 @@
             // 
             // button41
             // 
-            this.button41.Location = new System.Drawing.Point(54, 369);
+            this.button41.Location = new System.Drawing.Point(878, 189);
             this.button41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button41.Name = "button41";
             this.button41.Size = new System.Drawing.Size(167, 24);
@@ -226,14 +265,12 @@
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.cBoxBaudRate);
-            this.groupBox10.Controls.Add(this.cBoxCOMPORT);
+            this.groupBox10.Controls.Add(this.comboBox5);
+            this.groupBox10.Controls.Add(this.comboBox4);
+            this.groupBox10.Controls.Add(this.comboBox2);
+            this.groupBox10.Controls.Add(this.comboBox1);
             this.groupBox10.Controls.Add(this.comboBox3);
-            this.groupBox10.Controls.Add(this.textBox6);
-            this.groupBox10.Controls.Add(this.button68);
-            this.groupBox10.Controls.Add(this.textBox7);
             this.groupBox10.Controls.Add(this.button69);
-            this.groupBox10.Controls.Add(this.textBox8);
             this.groupBox10.Controls.Add(this.button70);
             this.groupBox10.Controls.Add(this.button71);
             this.groupBox10.Controls.Add(this.button72);
@@ -242,49 +279,23 @@
             this.groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox10.Size = new System.Drawing.Size(513, 230);
+            this.groupBox10.Size = new System.Drawing.Size(333, 163);
             this.groupBox10.TabIndex = 11;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "PROXY";
+            this.groupBox10.Text = "OPTIONS";
             // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
-            "수동",
-            "자동"});
+            "자동",
+            "수동"});
             this.comboBox3.Location = new System.Drawing.Point(216, 15);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(291, 20);
+            this.comboBox3.Size = new System.Drawing.Size(99, 20);
             this.comboBox3.TabIndex = 30;
-            this.comboBox3.Text = "수동";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(216, 156);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(291, 21);
-            this.textBox6.TabIndex = 15;
-            this.textBox6.Text = "3050";
-            // 
-            // button68
-            // 
-            this.button68.Location = new System.Drawing.Point(6, 153);
-            this.button68.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button68.Name = "button68";
-            this.button68.Size = new System.Drawing.Size(196, 24);
-            this.button68.TabIndex = 14;
-            this.button68.Text = "MODEL NAME";
-            this.button68.UseVisualStyleBackColor = true;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(216, 127);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(291, 21);
-            this.textBox7.TabIndex = 13;
-            this.textBox7.Text = "100";
+            this.comboBox3.Text = "자동";
             // 
             // button69
             // 
@@ -293,16 +304,8 @@
             this.button69.Name = "button69";
             this.button69.Size = new System.Drawing.Size(196, 24);
             this.button69.TabIndex = 12;
-            this.button69.Text = "MMI command";
+            this.button69.Text = "AT command queue";
             this.button69.UseVisualStyleBackColor = true;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(216, 99);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(291, 21);
-            this.textBox8.TabIndex = 11;
-            this.textBox8.Text = "2600";
             // 
             // button70
             // 
@@ -311,7 +314,7 @@
             this.button70.Name = "button70";
             this.button70.Size = new System.Drawing.Size(196, 24);
             this.button70.TabIndex = 10;
-            this.button70.Text = "Call command";
+            this.button70.Text = "Log file 생성";
             this.button70.UseVisualStyleBackColor = true;
             // 
             // button71
@@ -321,7 +324,7 @@
             this.button71.Name = "button71";
             this.button71.Size = new System.Drawing.Size(196, 24);
             this.button71.TabIndex = 8;
-            this.button71.Text = "BaudRate";
+            this.button71.Text = "Serial 연결 상태";
             this.button71.UseVisualStyleBackColor = true;
             // 
             // button72
@@ -331,7 +334,7 @@
             this.button72.Name = "button72";
             this.button72.Size = new System.Drawing.Size(196, 24);
             this.button72.TabIndex = 6;
-            this.button72.Text = "COM port";
+            this.button72.Text = "Options Remapping";
             this.button72.UseVisualStyleBackColor = true;
             // 
             // button73
@@ -341,7 +344,7 @@
             this.button73.Name = "button73";
             this.button73.Size = new System.Drawing.Size(196, 24);
             this.button73.TabIndex = 0;
-            this.button73.Text = "DisplayOnly";
+            this.button73.Text = "AT command 전송";
             this.button73.UseVisualStyleBackColor = true;
             // 
             // button35
@@ -353,6 +356,7 @@
             this.button35.TabIndex = 33;
             this.button35.Text = "SETTING PROXY";
             this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // button34
             // 
@@ -363,6 +367,7 @@
             this.button34.TabIndex = 32;
             this.button34.Text = "SETTING SMST";
             this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
             // pnSetting
             // 
@@ -1220,6 +1225,378 @@
             this.timer2.Interval = 10000;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "무시",
+            "적용"});
+            this.comboBox1.Location = new System.Drawing.Point(216, 44);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(99, 20);
+            this.comboBox1.TabIndex = 31;
+            this.comboBox1.Text = "적용";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "연결",
+            "해제"});
+            this.comboBox2.Location = new System.Drawing.Point(216, 72);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(99, 20);
+            this.comboBox2.TabIndex = 32;
+            this.comboBox2.Text = "연결";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "생성",
+            "남기지 않음"});
+            this.comboBox4.Location = new System.Drawing.Point(216, 99);
+            this.comboBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(99, 20);
+            this.comboBox4.TabIndex = 33;
+            this.comboBox4.Text = "생성";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "초기화",
+            "유지"});
+            this.comboBox5.Location = new System.Drawing.Point(216, 127);
+            this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(99, 20);
+            this.comboBox5.TabIndex = 34;
+            this.comboBox5.Text = "초기화";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textBox16);
+            this.groupBox3.Controls.Add(this.button54);
+            this.groupBox3.Controls.Add(this.textBox15);
+            this.groupBox3.Controls.Add(this.button53);
+            this.groupBox3.Controls.Add(this.textBox14);
+            this.groupBox3.Controls.Add(this.button52);
+            this.groupBox3.Controls.Add(this.textBox13);
+            this.groupBox3.Controls.Add(this.button51);
+            this.groupBox3.Controls.Add(this.textBox12);
+            this.groupBox3.Controls.Add(this.button50);
+            this.groupBox3.Controls.Add(this.textBox11);
+            this.groupBox3.Controls.Add(this.button49);
+            this.groupBox3.Controls.Add(this.textBox10);
+            this.groupBox3.Controls.Add(this.button48);
+            this.groupBox3.Controls.Add(this.textBox9);
+            this.groupBox3.Controls.Add(this.button47);
+            this.groupBox3.Controls.Add(this.textBox8);
+            this.groupBox3.Controls.Add(this.button46);
+            this.groupBox3.Controls.Add(this.textBox7);
+            this.groupBox3.Controls.Add(this.button45);
+            this.groupBox3.Controls.Add(this.textBox6);
+            this.groupBox3.Controls.Add(this.textBox5);
+            this.groupBox3.Controls.Add(this.textBox4);
+            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.textBox2);
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.button37);
+            this.groupBox3.Controls.Add(this.button38);
+            this.groupBox3.Controls.Add(this.button39);
+            this.groupBox3.Controls.Add(this.button42);
+            this.groupBox3.Controls.Add(this.button44);
+            this.groupBox3.Location = new System.Drawing.Point(363, 56);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox3.Size = new System.Drawing.Size(513, 546);
+            this.groupBox3.TabIndex = 35;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "AT COMMANDS";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(208, 156);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(291, 21);
+            this.textBox1.TabIndex = 15;
+            this.textBox1.Text = "AT*SMS*MO=01012345678,313233";
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(6, 153);
+            this.button37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(196, 24);
+            this.button37.TabIndex = 14;
+            this.button37.Text = "Try MO SMS";
+            this.button37.UseVisualStyleBackColor = true;
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(6, 124);
+            this.button38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(196, 24);
+            this.button38.TabIndex = 12;
+            this.button38.Text = "Activate SMS mode";
+            this.button38.UseVisualStyleBackColor = true;
+            // 
+            // button39
+            // 
+            this.button39.Location = new System.Drawing.Point(6, 96);
+            this.button39.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button39.Name = "button39";
+            this.button39.Size = new System.Drawing.Size(196, 24);
+            this.button39.TabIndex = 10;
+            this.button39.Text = "Switch on the phone";
+            this.button39.UseVisualStyleBackColor = true;
+            // 
+            // button42
+            // 
+            this.button42.Location = new System.Drawing.Point(6, 69);
+            this.button42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button42.Name = "button42";
+            this.button42.Size = new System.Drawing.Size(196, 24);
+            this.button42.TabIndex = 8;
+            this.button42.Text = "Please disconnect pdn";
+            this.button42.UseVisualStyleBackColor = true;
+            // 
+            // button44
+            // 
+            this.button44.Location = new System.Drawing.Point(6, 12);
+            this.button44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(196, 24);
+            this.button44.TabIndex = 0;
+            this.button44.Text = "ATD123456789;<CR><LF>";
+            this.button44.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(208, 15);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(291, 21);
+            this.textBox2.TabIndex = 16;
+            this.textBox2.Text = "at+cmec=2";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(208, 44);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(291, 21);
+            this.textBox3.TabIndex = 17;
+            this.textBox3.Text = "at+ckpd=\"123456789s\"";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(208, 72);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(291, 21);
+            this.textBox4.TabIndex = 18;
+            this.textBox4.Text = "AT+CGACT=0,1";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(208, 99);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(291, 21);
+            this.textBox5.TabIndex = 19;
+            this.textBox5.Text = "at+cfun=1,1";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(208, 124);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(291, 21);
+            this.textBox6.TabIndex = 20;
+            this.textBox6.Text = "at+cmms=0";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(208, 184);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(291, 21);
+            this.textBox7.TabIndex = 22;
+            this.textBox7.Text = "AT*VOICE*ORI=111";
+            // 
+            // button45
+            // 
+            this.button45.Location = new System.Drawing.Point(6, 181);
+            this.button45.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button45.Name = "button45";
+            this.button45.Size = new System.Drawing.Size(196, 24);
+            this.button45.TabIndex = 21;
+            this.button45.Text = "Emergency call 111";
+            this.button45.UseVisualStyleBackColor = true;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(208, 212);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(291, 21);
+            this.textBox8.TabIndex = 24;
+            this.textBox8.Text = "3050";
+            // 
+            // button46
+            // 
+            this.button46.Location = new System.Drawing.Point(6, 209);
+            this.button46.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button46.Name = "button46";
+            this.button46.Size = new System.Drawing.Size(196, 24);
+            this.button46.TabIndex = 23;
+            this.button46.Text = "MODEL NAME";
+            this.button46.UseVisualStyleBackColor = true;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(208, 240);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(291, 21);
+            this.textBox9.TabIndex = 26;
+            this.textBox9.Text = "3050";
+            // 
+            // button47
+            // 
+            this.button47.Location = new System.Drawing.Point(6, 237);
+            this.button47.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button47.Name = "button47";
+            this.button47.Size = new System.Drawing.Size(196, 24);
+            this.button47.TabIndex = 25;
+            this.button47.Text = "MODEL NAME";
+            this.button47.UseVisualStyleBackColor = true;
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(208, 271);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(291, 21);
+            this.textBox10.TabIndex = 28;
+            this.textBox10.Text = "3050";
+            // 
+            // button48
+            // 
+            this.button48.Location = new System.Drawing.Point(6, 268);
+            this.button48.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button48.Name = "button48";
+            this.button48.Size = new System.Drawing.Size(196, 24);
+            this.button48.TabIndex = 27;
+            this.button48.Text = "MODEL NAME";
+            this.button48.UseVisualStyleBackColor = true;
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(208, 303);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(291, 21);
+            this.textBox11.TabIndex = 30;
+            this.textBox11.Text = "3050";
+            // 
+            // button49
+            // 
+            this.button49.Location = new System.Drawing.Point(6, 300);
+            this.button49.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button49.Name = "button49";
+            this.button49.Size = new System.Drawing.Size(196, 24);
+            this.button49.TabIndex = 29;
+            this.button49.Text = "MODEL NAME";
+            this.button49.UseVisualStyleBackColor = true;
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(208, 331);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(291, 21);
+            this.textBox12.TabIndex = 32;
+            this.textBox12.Text = "3050";
+            // 
+            // button50
+            // 
+            this.button50.Location = new System.Drawing.Point(6, 328);
+            this.button50.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button50.Name = "button50";
+            this.button50.Size = new System.Drawing.Size(196, 24);
+            this.button50.TabIndex = 31;
+            this.button50.Text = "MODEL NAME";
+            this.button50.UseVisualStyleBackColor = true;
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(209, 359);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(291, 21);
+            this.textBox13.TabIndex = 34;
+            this.textBox13.Text = "3050";
+            // 
+            // button51
+            // 
+            this.button51.Location = new System.Drawing.Point(7, 356);
+            this.button51.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button51.Name = "button51";
+            this.button51.Size = new System.Drawing.Size(196, 24);
+            this.button51.TabIndex = 33;
+            this.button51.Text = "MODEL NAME";
+            this.button51.UseVisualStyleBackColor = true;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(209, 388);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(291, 21);
+            this.textBox14.TabIndex = 36;
+            this.textBox14.Text = "3050";
+            // 
+            // button52
+            // 
+            this.button52.Location = new System.Drawing.Point(7, 385);
+            this.button52.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button52.Name = "button52";
+            this.button52.Size = new System.Drawing.Size(196, 24);
+            this.button52.TabIndex = 35;
+            this.button52.Text = "MODEL NAME";
+            this.button52.UseVisualStyleBackColor = true;
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(209, 417);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(291, 21);
+            this.textBox15.TabIndex = 38;
+            this.textBox15.Text = "3050";
+            // 
+            // button53
+            // 
+            this.button53.Location = new System.Drawing.Point(7, 414);
+            this.button53.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button53.Name = "button53";
+            this.button53.Size = new System.Drawing.Size(196, 24);
+            this.button53.TabIndex = 37;
+            this.button53.Text = "MODEL NAME";
+            this.button53.UseVisualStyleBackColor = true;
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(209, 445);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(291, 21);
+            this.textBox16.TabIndex = 40;
+            this.textBox16.Text = "3050";
+            // 
+            // button54
+            // 
+            this.button54.Location = new System.Drawing.Point(7, 442);
+            this.button54.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button54.Name = "button54";
+            this.button54.Size = new System.Drawing.Size(196, 24);
+            this.button54.TabIndex = 39;
+            this.button54.Text = "MODEL NAME";
+            this.button54.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1236,7 +1613,6 @@
             this.panel1.ResumeLayout(false);
             this.pnProxy.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
             this.pnSetting.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -1245,6 +1621,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1337,16 +1715,48 @@
         private System.Windows.Forms.Button button41;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Button button68;
-        private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Button button69;
-        private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Button button70;
         private System.Windows.Forms.Button button71;
         private System.Windows.Forms.Button button72;
         private System.Windows.Forms.Button button73;
         private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.Button button54;
+        private System.Windows.Forms.TextBox textBox15;
+        private System.Windows.Forms.Button button53;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.Button button52;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.Button button51;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.Button button50;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Button button49;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Button button48;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Button button47;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Button button46;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button45;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Button button38;
+        private System.Windows.Forms.Button button39;
+        private System.Windows.Forms.Button button42;
+        private System.Windows.Forms.Button button44;
     }
 }
 

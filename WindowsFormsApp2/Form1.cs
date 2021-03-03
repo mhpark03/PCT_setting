@@ -1671,11 +1671,14 @@ namespace WindowsFormsApp2
                     );
                 xports.Add(port);
 
+                string comport = cBoxCOMPORT.Text;
+                comport = comport.Substring(3, comport.Length - 3);
+                string baudrate = cBoxBaudRate.Text;
                 port = new XElement("Port",
                     new XAttribute("id", "3"),
                     new XElement("Serial",
-                          new XAttribute("com", "103"),
-                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("com", comport),
+                          new XAttribute("baudrate", baudrate),
                           new XAttribute("parity", "0"),
                           new XAttribute("stopbits", "1"),
                           new XAttribute("byteSize", "8")
@@ -1686,8 +1689,8 @@ namespace WindowsFormsApp2
                 port = new XElement("Port",
                     new XAttribute("id", "4"),
                     new XElement("Serial",
-                          new XAttribute("com", "103"),
-                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("com", comport),
+                          new XAttribute("baudrate", baudrate),
                           new XAttribute("parity", "0"),
                           new XAttribute("stopbits", "1"),
                           new XAttribute("byteSize", "8")
@@ -1716,8 +1719,8 @@ namespace WindowsFormsApp2
                 port = new XElement("Port",
                     new XAttribute("id", "7"),
                     new XElement("Serial",
-                          new XAttribute("com", "103"),
-                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("com", comport),
+                          new XAttribute("baudrate", baudrate),
                           new XAttribute("parity", "0"),
                           new XAttribute("stopbits", "1"),
                           new XAttribute("byteSize", "8")
@@ -1728,8 +1731,8 @@ namespace WindowsFormsApp2
                 port = new XElement("Port",
                     new XAttribute("id", "8"),
                     new XElement("Serial",
-                          new XAttribute("com", "103"),
-                          new XAttribute("baudrate", "115200"),
+                          new XAttribute("com", comport),
+                          new XAttribute("baudrate", baudrate),
                           new XAttribute("parity", "0"),
                           new XAttribute("stopbits", "1"),
                           new XAttribute("byteSize", "8")
@@ -1803,27 +1806,46 @@ namespace WindowsFormsApp2
                 XElement xApps = new XElement("Applications");
                 xroot.Add(xApps);
 
-                XElement xApp = new XElement("DisplayOnly","no");
+                string selectmsg = "yes";
+                if (comboBox3.SelectedIndex == 0)
+                    selectmsg = "no";
+                XElement xApp = new XElement("DisplayOnly",selectmsg);
                 xApps.Add(xApp);
                 XComment xComment = new XComment(" Display only or send command to the UE. Values: yes or no ");
                 xApps.Add(xComment);
 
-                xApp = new XElement("BypassAllRemap", "no");
+                if (comboBox1.SelectedIndex == 0)
+                    selectmsg = "yes";
+                else
+                    selectmsg = "no";
+                xApp = new XElement("BypassAllRemap", selectmsg);
                 xApps.Add(xApp);
                 xComment = new XComment(" Ignore all remapping options. Values: yes or no ");
                 xApps.Add(xComment);
 
-                xApp = new XElement("KeepSerialConnection", "yes");
+                if (comboBox2.SelectedIndex == 0)
+                    selectmsg = "yes";
+                else
+                    selectmsg = "no";
+                xApp = new XElement("KeepSerialConnection", selectmsg);
                 xApps.Add(xApp);
                 xComment = new XComment(" Keep the serial connection opened after each AT command sent to the phone. Values: yes or no ");
                 xApps.Add(xComment);
 
-                xApp = new XElement("CreateLogFile", "yes");
+                if (comboBox4.SelectedIndex == 0)
+                    selectmsg = "yes";
+                else
+                    selectmsg = "no";
+                xApp = new XElement("CreateLogFile", selectmsg);
                 xApps.Add(xApp);
                 xComment = new XComment(" Create automatically a log file in the \\bin directory. Values: yes or no ");
                 xApps.Add(xComment);
 
-                xApp = new XElement("ClearUeQueue", "yes");
+                if (comboBox5.SelectedIndex == 0)
+                    selectmsg = "yes";
+                else
+                    selectmsg = "no";
+                xApp = new XElement("ClearUeQueue", selectmsg);
                 xApps.Add(xApp);
                 xComment = new XComment(" Clear the UE queue before sending a new AT command ");
                 xApps.Add(xComment);
@@ -1847,8 +1869,8 @@ namespace WindowsFormsApp2
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "ATD123456789;<CR><LF>"),
                       new XComment(" Equivalent to ATD123456789;<CR><LF> "),
-                      new XElement("To", "at+cmec=2"),
-                      new XElement("To", "at+ckpd=\"123456789s\"")
+                      new XElement("To", textBox2.Text),
+                      new XElement("To", textBox3.Text)
                       )
                     );
                 xApp.Add(xOption);
@@ -1866,7 +1888,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please disconnect pdn"),
                       new XElement("To", 
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=0,1"
+                        textBox4.Text
                       )
                     )
                   );
@@ -1877,7 +1899,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Switch on the phone"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cfun=1,1"
+                        textBox5.Text
                       )
                     )
                   );
@@ -1888,7 +1910,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Activate SMS mode"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cmms=0"
+                        textBox6.Text
                       )
                     )
                   );
@@ -1899,7 +1921,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Try MO SMS"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*SMS*MO=01012345678,313233"
+                        textBox1.Text
                       )
                     )
                   );
@@ -1910,7 +1932,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 111"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=111"
+                        textBox7.Text
                       )
                     )
                   );
@@ -2290,6 +2312,18 @@ namespace WindowsFormsApp2
         private void button40_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button34_Click(object sender, EventArgs e)
+        {
+            pnSetting.Visible = true;
+            pnProxy.Visible = false;
+        }
+
+        private void button35_Click(object sender, EventArgs e)
+        {
+            pnSetting.Visible = false;
+            pnProxy.Visible = true;
         }
     }
 }
