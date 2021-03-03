@@ -1737,6 +1737,548 @@ namespace WindowsFormsApp2
                     );
                 xports.Add(port);
 
+                XElement xChannels = new XElement("Channels");
+                xroot.Add(xChannels);
+
+                XElement xChannel = new XElement("Channel",
+                    new XAttribute("id", "1") ,
+                    new XElement("ChannelApplication",
+                        new XAttribute("name", "MUX_MMI"),
+                        new XAttribute("id", "1")
+                      ),
+                    new XElement("ServerPorts",
+                        new XElement("ServerPort", "1")
+                      ),
+                    new XElement("ClientPorts",
+                        new XElement("ClientPort", "3")
+                      )
+                    );
+                xChannels.Add(xChannel);
+
+                xChannel = new XElement("Channel",
+                    new XAttribute("id", "2"),
+                    new XElement("ChannelApplication",
+                        new XAttribute("name", "MUX_AT"),
+                        new XAttribute("id", "2")
+                      ),
+                    new XElement("ServerPorts",
+                        new XElement("ServerPort", "2")
+                      ),
+                    new XElement("ClientPorts",
+                        new XElement("ClientPort", "4")
+                      )
+                    );
+                xChannels.Add(xChannel);
+
+                xChannel = new XElement("Channel",
+                    new XAttribute("id", "3"),
+                    new XElement("ChannelApplication",
+                        new XAttribute("name", "MUX_MMI"),
+                        new XAttribute("id", "3")
+                      ),
+                    new XElement("ServerPorts",
+                        new XElement("ServerPort", "5")
+                      ),
+                    new XElement("ClientPorts",
+                        new XElement("ClientPort", "7")
+                      )
+                    );
+                xChannels.Add(xChannel);
+
+                xChannel = new XElement("Channel",
+                    new XAttribute("id", "4"),
+                    new XElement("ChannelApplication",
+                        new XAttribute("name", "MUX_AT"),
+                        new XAttribute("id", "4")
+                      ),
+                    new XElement("ServerPorts",
+                        new XElement("ServerPort", "6")
+                      ),
+                    new XElement("ClientPorts",
+                        new XElement("ClientPort", "8")
+                      )
+                    );
+                xChannels.Add(xChannel);
+
+                XElement xApps = new XElement("Applications");
+                xroot.Add(xApps);
+
+                XElement xApp = new XElement("DisplayOnly","no");
+                xApps.Add(xApp);
+                XComment xComment = new XComment(" Display only or send command to the UE. Values: yes or no ");
+                xApps.Add(xComment);
+
+                xApp = new XElement("BypassAllRemap", "no");
+                xApps.Add(xApp);
+                xComment = new XComment(" Ignore all remapping options. Values: yes or no ");
+                xApps.Add(xComment);
+
+                xApp = new XElement("KeepSerialConnection", "yes");
+                xApps.Add(xApp);
+                xComment = new XComment(" Keep the serial connection opened after each AT command sent to the phone. Values: yes or no ");
+                xApps.Add(xComment);
+
+                xApp = new XElement("CreateLogFile", "yes");
+                xApps.Add(xApp);
+                xComment = new XComment(" Create automatically a log file in the \\bin directory. Values: yes or no ");
+                xApps.Add(xComment);
+
+                xApp = new XElement("ClearUeQueue", "yes");
+                xApps.Add(xApp);
+                xComment = new XComment(" Clear the UE queue before sending a new AT command ");
+                xApps.Add(xComment);
+
+                xApp = new XElement("Application",
+                    new XAttribute("name", "MUX_MMI"),
+                    new XAttribute("id", "1"),
+                    new XElement("AutoConfirmationEnabled","no"),
+                    new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
+                 );
+                xApps.Add(xApp);
+
+                xApp = new XElement("Application",
+                    new XAttribute("name", "MUX_AT"),
+                    new XAttribute("id", "2"),
+                    new XElement("AtManualControl", "no"),
+                    new XComment(" Don't send AT commands to the phone and display a menu to the user. Values: yes or no ")
+                 );
+
+                XElement xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "ATD123456789;<CR><LF>"),
+                      new XComment(" Equivalent to ATD123456789;<CR><LF> "),
+                      new XElement("To", "at+cmec=2"),
+                      new XElement("To", "at+ckpd=\"123456789s\"")
+                      )
+                    );
+                xApp.Add(xOption);
+                xApps.Add(xApp);
+
+                xApp = new XElement("Application",
+                    new XAttribute("name", "MUX_MMI"),
+                    new XAttribute("id", "3"),
+                    new XElement("AutoConfirmationEnabled", "yes"),
+                    new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
+                 );
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please disconnect pdn"),
+                      new XElement("To", 
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=0,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Switch on the phone"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cfun=1,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Activate SMS mode"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cmms=0"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Try MO SMS"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*SMS*MO=01012345678,313233"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 111"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=111"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 112"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=112"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Normal call 114"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=114"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 113"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=113"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 117"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "ATD117"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 118"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=118"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 119"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=119"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 122"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=122"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Emergency call 125"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=125"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Switch off the phone"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cfun=0"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please power off the UE"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cfun=1,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please make voice call from the UE"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=0101234567"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Try MO Voice Call(15447769)"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=15447769"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Try MO Voice Call"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*ORI=01012345678"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Try Call Answer"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "ata"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Try Call End"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*CEND"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "End voice call from the UE"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT*VOICE*CEND"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Check PDN Address"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGPADDR"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please set EMM/ESM cause"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CNEC=24"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please reboot phone"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CFUN=1,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please connect pdn"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=1,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please disconnect pdn"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=0,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please disconnect pdn"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=0,1"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+                xComment = new XComment(" Jeong.Suyon ");
+                xApp.Add(xComment);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please PSM On"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CPSMS=1,,,\"10000101\",\"00100010\""
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please PSM Off"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CPSMS=0"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Deactivate Data PDN"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=0,2"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", "Activate Data PDN"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=1,2"
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+                xComment = new XComment(" Jeong.Suyon  END ");
+                xApp.Add(xComment);
+                xApps.Add(xApp);
+
+                xApp = new XElement("Application",
+                    new XAttribute("name", "MUX_AT"),
+                    new XAttribute("id", "4"),
+                    new XElement("AutoConfirmationEnabled", "yes"),
+                    new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
+                 );
+
+                XElement xOptions = new XElement("Options");
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "AT+CGACT=1,1"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=1,2"
+                    )
+                  );
+                xOptions.Add(xOption);
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "AT+CGACT=1=0,1"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "AT+CGACT=1=0,2"
+                    )
+                  );
+                xOptions.Add(xOption);
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "at+cops?"),
+                      new XElement("Pause", "10000"),
+                      new XElement("To","at+cops?")
+                  );
+                xOptions.Add(xOption);
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "at+cfun=0"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cfun=0"
+                      )
+                  );
+                xOptions.Add(xOption);
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "at+cfun=1"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cfun=1"
+                      )
+                  );
+                xOptions.Add(xOption);
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "PSM On"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cpsms=1,,,\"10000101\",\"00100010\""
+                      )
+                  );
+                xOptions.Add(xOption);
+
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", "PSM Off"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        "at+cpsms=0"
+                      )
+                  );
+                xOptions.Add(xOption);
+                xApp.Add(xOptions);
+                xApps.Add(xApp);
+
                 xdoc.Save(pathname + filename);
             }
             catch (Exception err)
