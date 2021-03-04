@@ -392,7 +392,7 @@ namespace WindowsFormsApp2
                     serialPort1.WriteTimeout = (int)500;
 
                     serialPort1.Open();
-                    progressBar1.Value = 100;
+                    progressBar1.Value = 50;
                     groupBox1.Enabled = true;
                     logPrintInTextBox("COM PORT가 연결 되었습니다.", "");
 
@@ -401,8 +401,6 @@ namespace WindowsFormsApp2
                 }
                 catch (Exception err)
                 {
-                    //groupBox1.Enabled = false;
-                    //groupBox4.Enabled = false;
                     logPrintInTextBox(err.Message, "");
 
                     this.doCloseComPort();
@@ -1943,7 +1941,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 112"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=112"
+                        textBox8.Text
                       )
                     )
                   );
@@ -1954,7 +1952,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Normal call 114"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=114"
+                        textBox9.Text
                       )
                     )
                   );
@@ -1965,7 +1963,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 113"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=113"
+                        textBox10.Text
                       )
                     )
                   );
@@ -1976,7 +1974,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 117"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "ATD117"
+                        textBox11.Text
                       )
                     )
                   );
@@ -1987,7 +1985,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 118"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=118"
+                        textBox12.Text
                       )
                     )
                   );
@@ -1998,7 +1996,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 119"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=119"
+                        textBox13.Text
                       )
                     )
                   );
@@ -2009,7 +2007,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 122"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=122"
+                        textBox14.Text
                       )
                     )
                   );
@@ -2020,7 +2018,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Emergency call 125"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=125"
+                        textBox15.Text
                       )
                     )
                   );
@@ -2031,7 +2029,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Switch off the phone"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cfun=0"
+                        textBox16.Text
                       )
                     )
                   );
@@ -2042,7 +2040,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please power off the UE"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cfun=1,1"
+                        textBox17.Text
                       )
                     )
                   );
@@ -2053,7 +2051,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please make voice call from the UE"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=0101234567"
+                        textBox18.Text
                       )
                     )
                   );
@@ -2064,7 +2062,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Try MO Voice Call(15447769)"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=15447769"
+                        textBox19.Text
                       )
                     )
                   );
@@ -2075,7 +2073,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Try MO Voice Call"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*ORI=01012345678"
+                        textBox20.Text
                       )
                     )
                   );
@@ -2086,7 +2084,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Try Call Answer"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "ata"
+                        textBox21.Text
                       )
                     )
                   );
@@ -2097,7 +2095,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Try Call End"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*CEND"
+                        textBox22.Text
                       )
                     )
                   );
@@ -2108,7 +2106,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "End voice call from the UE"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT*VOICE*CEND"
+                        textBox43.Text
                       )
                     )
                   );
@@ -2119,7 +2117,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Check PDN Address"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGPADDR"
+                        textBox42.Text
                       )
                     )
                   );
@@ -2130,7 +2128,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please set EMM/ESM cause"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CNEC=24"
+                        textBox41.Text
                       )
                     )
                   );
@@ -2141,7 +2139,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please reboot phone"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CFUN=1,1"
+                        textBox40.Text
                       )
                     )
                   );
@@ -2152,7 +2150,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please connect pdn"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=1,1"
+                        textBox39.Text
                       )
                     )
                   );
@@ -2163,7 +2161,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please disconnect pdn"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=0,1"
+                        textBox44.Text
                       )
                     )
                   );
@@ -2174,7 +2172,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please disconnect pdn"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=0,1"
+                        textBox38.Text
                       )
                     )
                   );
@@ -2198,7 +2196,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please PSM Off"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CPSMS=0"
+                        textBox36.Text
                       )
                     )
                   );
@@ -2209,7 +2207,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Deactivate Data PDN"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=0,2"
+                        textBox35.Text
                       )
                     )
                   );
@@ -2220,7 +2218,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Activate Data PDN"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=1,2"
+                        textBox34.Text
                       )
                     )
                   );
@@ -2242,7 +2240,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "AT+CGACT=1,1"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=1,2"
+                        textBox31.Text
                     )
                   );
                 xOptions.Add(xOption);
@@ -2251,15 +2249,15 @@ namespace WindowsFormsApp2
                       new XElement("From", "AT+CGACT=1=0,1"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CGACT=1=0,2"
+                        textBox30.Text
                     )
                   );
                 xOptions.Add(xOption);
 
                 xOption = new XElement("ClientReceiveRemap",
                       new XElement("From", "at+cops?"),
-                      new XElement("Pause", "10000"),
-                      new XElement("To","at+cops?")
+                      new XElement("Pause", textBox29.Text),
+                      new XElement("To", textBox28.Text)
                   );
                 xOptions.Add(xOption);
 
@@ -2267,7 +2265,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "at+cfun=0"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cfun=0"
+                        textBox32.Text
                       )
                   );
                 xOptions.Add(xOption);
@@ -2276,7 +2274,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "at+cfun=1"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cfun=1"
+                        textBox27.Text
                       )
                   );
                 xOptions.Add(xOption);
@@ -2285,7 +2283,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "PSM On"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cpsms=1,,,\"10000101\",\"00100010\""
+                        textBox26.Text
                       )
                   );
                 xOptions.Add(xOption);
@@ -2294,7 +2292,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "PSM Off"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "at+cpsms=0"
+                        textBox25.Text
                       )
                   );
                 xOptions.Add(xOption);
@@ -2316,12 +2314,16 @@ namespace WindowsFormsApp2
 
         private void button34_Click(object sender, EventArgs e)
         {
+            button34.BackColor = SystemColors.ButtonHighlight;
+            button35.BackColor = SystemColors.ButtonShadow;
             pnSetting.Visible = true;
             pnProxy.Visible = false;
         }
 
         private void button35_Click(object sender, EventArgs e)
         {
+            button35.BackColor = SystemColors.ButtonHighlight;
+            button34.BackColor = SystemColors.ButtonShadow;
             pnSetting.Visible = false;
             pnProxy.Visible = true;
         }
