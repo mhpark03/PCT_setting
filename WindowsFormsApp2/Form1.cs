@@ -12,6 +12,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Xml;
 using System.Xml.Linq;
+using ExcelLibrary.SpreadSheet;
 
 namespace WindowsFormsApp2
 {
@@ -2326,6 +2327,173 @@ namespace WindowsFormsApp2
             button34.BackColor = SystemColors.ButtonShadow;
             pnSetting.Visible = false;
             pnProxy.Visible = true;
+        }
+
+        private void button63_Click(object sender, EventArgs e)
+        {
+            string pathname = @"c:\temp\seriallog\";
+            string filename = "LTD_" + tbDeviceName.Text + "_proxy.xls";
+
+            Directory.CreateDirectory(pathname);
+
+            // Create a file to write to.
+            FileStream fs = null;
+            try
+            {
+                Workbook workbook = new Workbook();
+                Worksheet worksheet = new Worksheet("options");
+                worksheet.Cells[0, 0] = new Cell(button73.Text);
+                worksheet.Cells[0, 1] = new Cell(comboBox3.Text);
+
+                worksheet.Cells[1, 0] = new Cell(button72.Text);
+                worksheet.Cells[1, 1] = new Cell(comboBox1.Text);
+
+                worksheet.Cells[2, 0] = new Cell(button71.Text);
+                worksheet.Cells[2, 1] = new Cell(comboBox2.Text);
+
+                worksheet.Cells[3, 0] = new Cell(button70.Text);
+                worksheet.Cells[3, 1] = new Cell(comboBox4.Text);
+
+                worksheet.Cells[4, 0] = new Cell(button69.Text);
+                worksheet.Cells[4, 1] = new Cell(comboBox5.Text);
+
+                worksheet.Cells.ColumnWidth[0, 2] = 7000;
+                workbook.Worksheets.Add(worksheet);
+
+                int i = 0;
+                worksheet = new Worksheet("atcommand1");
+                worksheet.Cells[i, 0] = new Cell(button44.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox2.Text);
+                worksheet.Cells[i, 2] = new Cell(textBox3.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button42.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox4.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button39.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox5.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button38.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox6.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button37.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox1.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button45.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox7.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button46.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox8.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button47.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox9.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button48.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox10.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button49.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox11.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button50.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox12.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button51.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox13.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button52.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox14.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button53.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox15.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button54.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox16.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button43.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox17.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button55.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox18.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button56.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox19.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button57.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox20.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button58.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox21.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button59.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox22.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button85.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox43.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button60.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox42.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button84.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox41.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button83.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox40.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button82.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox39.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button81.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox44.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button80.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox38.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button79.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox37.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button78.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox36.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button77.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox35.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button76.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox34.Text);
+
+                worksheet.Cells.ColumnWidth[0, 2] = 10000;
+                workbook.Worksheets.Add(worksheet);
+
+                i = 0;
+                worksheet = new Worksheet("atcommand2");
+                worksheet.Cells[i, 0] = new Cell(button61.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox31.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button75.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox30.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button74.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox29.Text);
+                worksheet.Cells[i, 2] = new Cell(textBox28.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button67.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox32.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button66.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox27.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button65.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox26.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button64.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox25.Text);
+
+                worksheet.Cells.ColumnWidth[0, 2] = 10000;
+                workbook.Worksheets.Add(worksheet);
+                workbook.Save(pathname + filename);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
