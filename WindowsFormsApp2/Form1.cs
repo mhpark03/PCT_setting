@@ -2161,7 +2161,7 @@ namespace WindowsFormsApp2
                       new XElement("From", "Please PSM On"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        "AT+CPSMS=1,,,\"10000101\",\"00100010\""
+                        textBox37.Text
                       )
                     )
                   );
@@ -2293,12 +2293,179 @@ namespace WindowsFormsApp2
             {
                 try
                 {
-                    FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
-                    // Open a file to read to.
-                    StreamReader sr = new StreamReader(fs);
+                    XDocument xdoc = XDocument.Load(ofd.FileName);
 
-                    sr.Close();
-                    fs.Close();
+                    // <Employees> 노드 하나 리턴
+                    IEnumerable<XElement> elems = xdoc.Elements();
+
+                    // 복수 개의 <Employee> 노드들 리턴
+                    IEnumerable<XElement> emps = xdoc.Root.Elements();
+                    foreach (var emp in emps)
+                    {
+                        if (emp.Name == "Applications")
+                        {
+                            IEnumerable<XElement> apps = emp.Elements();
+                            foreach (var app in apps)
+                            {
+                                if (app.Name == "Application")
+                                {
+                                    if (app.Attribute("id").Value == "2")
+                                    {
+                                        IEnumerable<XElement> atcmds = app.Element("Options").Element("ClientReceiveRemap").Elements();
+                                        int first = 0;
+                                        foreach (var atcmd in atcmds)
+                                        {
+                                            if (atcmd.Name == "To")
+                                            {
+                                                if (first == 0)
+                                                    textBox2.Text = atcmd.Value;
+                                                else
+                                                    textBox3.Text = atcmd.Value;
+                                                first++;
+                                            }
+                                        }
+                                    }
+                                    else if (app.Attribute("id").Value == "3")
+                                    {
+                                        int index = 0;
+                                        IEnumerable<XElement> options = app.Elements();
+                                        foreach (var option in options)
+                                        {
+                                            if(option.Name == "Options")
+                                            {
+                                                string msg = option.Element("ClientReceiveRemap").Element("To").Value;
+                                                switch (option.Element("ClientReceiveRemap").Element("From").Value)
+                                                {
+                                                    case "Please disconnect pdn":
+                                                        textBox4.Text = msg;
+                                                        break;
+                                                    case "Switch on the phone":
+                                                        textBox5.Text = msg;
+                                                        break;
+                                                    case "Activate SMS mode":
+                                                        textBox6.Text = msg;
+                                                        break;
+                                                    case "Try MO SMS":
+                                                        textBox1.Text = msg;
+                                                        break;
+                                                    case "Emergency call 111":
+                                                        textBox7.Text = msg;
+                                                        break;
+                                                    case "Emergency call 112":
+                                                        textBox8.Text = msg;
+                                                        break;
+                                                    case "Normal call 114":
+                                                        textBox9.Text = msg;
+                                                        break;
+                                                    case "Emergency call 113":
+                                                        textBox10.Text = msg;
+                                                        break;
+                                                    case "Emergency call 117":
+                                                        textBox11.Text = msg;
+                                                        break;
+                                                    case "Emergency call 118":
+                                                        textBox12.Text = msg;
+                                                        break;
+                                                    case "Emergency call 119":
+                                                        textBox13.Text = msg;
+                                                        break;
+                                                    case "Emergency call 122":
+                                                        textBox14.Text = msg;
+                                                        break;
+                                                    case "Emergency call 125":
+                                                        textBox15.Text = msg;
+                                                        break;
+                                                    case "Switch off the phone":
+                                                        textBox16.Text = msg;
+                                                        break;
+                                                    case "Please power off the UE":
+                                                        textBox17.Text = msg;
+                                                        break;
+                                                    case "Please make voice call from the UE":
+                                                        textBox18.Text = msg;
+                                                        break;
+                                                    case "Try MO Voice Call(15447769)":
+                                                        textBox19.Text = msg;
+                                                        break;
+                                                    case "Try MO Voice Call":
+                                                        textBox20.Text = msg;
+                                                        break;
+                                                    case "Try Call Answer":
+                                                        textBox21.Text = msg;
+                                                        break;
+                                                    case "Try Call End":
+                                                        textBox22.Text = msg;
+                                                        break;
+                                                    case "End voice call from the UE":
+                                                        textBox43.Text = msg;
+                                                        break;
+                                                    case "Check PDN Address":
+                                                        textBox42.Text = msg;
+                                                        break;
+                                                    case "Please set EMM/ESM cause":
+                                                        textBox41.Text = msg;
+                                                        break;
+                                                    case "Please reboot phone":
+                                                        textBox23.Text = msg;
+                                                        break;
+                                                    case "Please connect pdn":
+                                                        textBox39.Text = msg;
+                                                        break;
+                                                    case "Please PSM On":
+                                                        textBox37.Text = msg;
+                                                        break;
+                                                    case "Please PSM Off":
+                                                        textBox36.Text = msg;
+                                                        break;
+                                                    case "Deactivate Data PDN":
+                                                        textBox35.Text = msg;
+                                                        break;
+                                                    case "Activate Data PDN":
+                                                        textBox34.Text = msg;
+                                                        break;
+                                                    default:
+                                                        MessageBox.Show("Check options count");
+                                                        break;
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (app.Attribute("id").Value == "4")
+                                    {
+                                        Console.WriteLine("=========id=4 ==========");
+                                        Console.WriteLine(app);
+
+                                    }
+                                }
+                                else if (app.Name == "DisplayOnly")
+                                {
+                                    if (app.Value == "no")
+                                        comboBox3.SelectedIndex = 0;
+                                    else
+                                        comboBox3.SelectedIndex = 1;
+                                }
+                            }
+                        }
+
+                        /*
+                        else if (emp.Name == "Ports")
+                        {
+                            IEnumerable<XElement> ports = emp.Elements();
+                            foreach (var port in ports)
+                            {
+                                if (port.Attribute("id").Value == "1")
+                                {
+                                    Console.WriteLine("$$$$$$$$$$$$$");
+                                    Console.WriteLine(port);
+                                }
+
+                                Console.WriteLine("&&&&&&&&&&&&&&&");
+                                Console.WriteLine(port);
+                            }
+                        }
+                        */
+                    }
                 }
                 catch (Exception err)
                 {
