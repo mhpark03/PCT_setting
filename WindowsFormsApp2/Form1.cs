@@ -2327,7 +2327,6 @@ namespace WindowsFormsApp2
                                     }
                                     else if (app.Attribute("id").Value == "3")
                                     {
-                                        int index = 0;
                                         IEnumerable<XElement> options = app.Elements();
                                         foreach (var option in options)
                                         {
@@ -2426,16 +2425,45 @@ namespace WindowsFormsApp2
                                                     default:
                                                         MessageBox.Show("Check options count");
                                                         break;
-
                                                 }
                                             }
                                         }
                                     }
                                     else if (app.Attribute("id").Value == "4")
                                     {
-                                        Console.WriteLine("=========id=4 ==========");
-                                        Console.WriteLine(app);
-
+                                        IEnumerable<XElement> options = app.Element("Options").Elements();
+                                        foreach (var option in options)
+                                        {
+                                            string msg = option.Element("To").Value;
+                                            switch (option.Element("From").Value)
+                                            {
+                                                case "AT+CGACT=1,1":
+                                                    textBox31.Text = msg;
+                                                    break;
+                                                case "AT+CGACT=1=0,1":
+                                                    textBox30.Text = msg;
+                                                    break;
+                                                case "at+cops?":
+                                                    textBox29.Text = option.Element("Pause").Value;
+                                                    textBox28.Text = msg;
+                                                    break;
+                                                case "at+cfun=0":
+                                                    textBox32.Text = msg;
+                                                    break;
+                                                case "at+cfun=1":
+                                                    textBox27.Text = msg;
+                                                    break;
+                                                case "PSM On":
+                                                    textBox26.Text = msg;
+                                                    break;
+                                                case "PSM Off":
+                                                    textBox25.Text = msg;
+                                                    break;
+                                                default:
+                                                    MessageBox.Show("Check options count");
+                                                    break;
+                                            }
+                                        }
                                     }
                                 }
                                 else if (app.Name == "DisplayOnly")
