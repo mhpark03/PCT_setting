@@ -1825,38 +1825,22 @@ namespace WindowsFormsApp2
                 XComment xComment = new XComment(" Display only or send command to the UE. Values: yes or no ");
                 xApps.Add(xComment);
 
-                if (comboBox1.SelectedIndex == 0)
-                    selectmsg = "yes";
-                else
-                    selectmsg = "no";
-                xApp = new XElement("BypassAllRemap", selectmsg);
+                xApp = new XElement("BypassAllRemap", "no");
                 xApps.Add(xApp);
                 xComment = new XComment(" Ignore all remapping options. Values: yes or no ");
                 xApps.Add(xComment);
 
-                if (comboBox2.SelectedIndex == 0)
-                    selectmsg = "yes";
-                else
-                    selectmsg = "no";
-                xApp = new XElement("KeepSerialConnection", selectmsg);
+                xApp = new XElement("KeepSerialConnection", "yes");
                 xApps.Add(xApp);
                 xComment = new XComment(" Keep the serial connection opened after each AT command sent to the phone. Values: yes or no ");
                 xApps.Add(xComment);
 
-                if (comboBox4.SelectedIndex == 0)
-                    selectmsg = "yes";
-                else
-                    selectmsg = "no";
-                xApp = new XElement("CreateLogFile", selectmsg);
+                xApp = new XElement("CreateLogFile", "yes");
                 xApps.Add(xApp);
                 xComment = new XComment(" Create automatically a log file in the \\bin directory. Values: yes or no ");
                 xApps.Add(xComment);
 
-                if (comboBox5.SelectedIndex == 0)
-                    selectmsg = "yes";
-                else
-                    selectmsg = "no";
-                xApp = new XElement("ClearUeQueue", selectmsg);
+                xApp = new XElement("ClearUeQueue", "yes");
                 xApps.Add(xApp);
                 xComment = new XComment(" Clear the UE queue before sending a new AT command ");
                 xApps.Add(xComment);
@@ -2374,18 +2358,6 @@ namespace WindowsFormsApp2
                 worksheet.Cells[0, 0] = new Cell(button73.Text);
                 worksheet.Cells[0, 1] = new Cell(comboBox3.Text);
 
-                worksheet.Cells[1, 0] = new Cell(button72.Text);
-                worksheet.Cells[1, 1] = new Cell(comboBox1.Text);
-
-                worksheet.Cells[2, 0] = new Cell(button71.Text);
-                worksheet.Cells[2, 1] = new Cell(comboBox2.Text);
-
-                worksheet.Cells[3, 0] = new Cell(button70.Text);
-                worksheet.Cells[3, 1] = new Cell(comboBox4.Text);
-
-                worksheet.Cells[4, 0] = new Cell(button69.Text);
-                worksheet.Cells[4, 1] = new Cell(comboBox5.Text);
-
                 worksheet.Cells.ColumnWidth[0, 2] = 7000;
                 workbook.Worksheets.Add(worksheet);
 
@@ -2544,22 +2516,6 @@ namespace WindowsFormsApp2
                             comboBox3.SelectedIndex = 0;
                         else
                             comboBox3.SelectedIndex = 1;
-                        if (worksheet.Cells[1, 1].ToString() == "무시")
-                            comboBox1.SelectedIndex = 0;
-                        else
-                            comboBox1.SelectedIndex = 1;
-                        if (worksheet.Cells[2, 1].ToString() == "연결")
-                            comboBox2.SelectedIndex = 0;
-                        else
-                            comboBox2.SelectedIndex = 1;
-                        if (worksheet.Cells[3, 1].ToString() == "생성")
-                            comboBox4.SelectedIndex = 0;
-                        else
-                            comboBox4.SelectedIndex = 1;
-                        if (worksheet.Cells[4, 1].ToString() == "초기화")
-                            comboBox5.SelectedIndex = 0;
-                        else
-                            comboBox5.SelectedIndex = 1;
 
                         worksheet = workbook.Worksheets[1];
                         int i = 0;

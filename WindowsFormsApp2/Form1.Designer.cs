@@ -122,16 +122,7 @@
             this.button44 = new System.Windows.Forms.Button();
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.button69 = new System.Windows.Forms.Button();
-            this.button70 = new System.Windows.Forms.Button();
-            this.button71 = new System.Windows.Forms.Button();
-            this.button72 = new System.Windows.Forms.Button();
             this.button73 = new System.Windows.Forms.Button();
             this.button35 = new System.Windows.Forms.Button();
             this.button34 = new System.Windows.Forms.Button();
@@ -217,7 +208,6 @@
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             this.pnSetting.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -288,14 +278,15 @@
             // 
             // pnProxy
             // 
+            this.pnProxy.Controls.Add(this.comboBox3);
             this.pnProxy.Controls.Add(this.button62);
+            this.pnProxy.Controls.Add(this.button73);
             this.pnProxy.Controls.Add(this.button63);
             this.pnProxy.Controls.Add(this.groupBox7);
             this.pnProxy.Controls.Add(this.groupBox4);
             this.pnProxy.Controls.Add(this.groupBox3);
             this.pnProxy.Controls.Add(this.button40);
             this.pnProxy.Controls.Add(this.button41);
-            this.pnProxy.Controls.Add(this.groupBox10);
             this.pnProxy.Location = new System.Drawing.Point(24, 61);
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(1083, 736);
@@ -1176,135 +1167,22 @@
             this.button41.UseVisualStyleBackColor = true;
             this.button41.Click += new System.EventHandler(this.button41_Click);
             // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.comboBox5);
-            this.groupBox10.Controls.Add(this.comboBox4);
-            this.groupBox10.Controls.Add(this.comboBox2);
-            this.groupBox10.Controls.Add(this.comboBox1);
-            this.groupBox10.Controls.Add(this.comboBox3);
-            this.groupBox10.Controls.Add(this.button69);
-            this.groupBox10.Controls.Add(this.button70);
-            this.groupBox10.Controls.Add(this.button71);
-            this.groupBox10.Controls.Add(this.button72);
-            this.groupBox10.Controls.Add(this.button73);
-            this.groupBox10.Location = new System.Drawing.Point(13, 16);
-            this.groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox10.Size = new System.Drawing.Size(333, 163);
-            this.groupBox10.TabIndex = 11;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "OPTIONS";
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "초기화",
-            "유지"});
-            this.comboBox5.Location = new System.Drawing.Point(216, 127);
-            this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(99, 20);
-            this.comboBox5.TabIndex = 34;
-            this.comboBox5.Text = "초기화";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "생성",
-            "남기지 않음"});
-            this.comboBox4.Location = new System.Drawing.Point(216, 99);
-            this.comboBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(99, 20);
-            this.comboBox4.TabIndex = 33;
-            this.comboBox4.Text = "생성";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "연결",
-            "해제"});
-            this.comboBox2.Location = new System.Drawing.Point(216, 72);
-            this.comboBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(99, 20);
-            this.comboBox2.TabIndex = 32;
-            this.comboBox2.Text = "연결";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "무시",
-            "적용"});
-            this.comboBox1.Location = new System.Drawing.Point(216, 44);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(99, 20);
-            this.comboBox1.TabIndex = 31;
-            this.comboBox1.Text = "적용";
-            // 
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
             "자동",
             "수동"});
-            this.comboBox3.Location = new System.Drawing.Point(216, 15);
+            this.comboBox3.Location = new System.Drawing.Point(230, 22);
             this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(99, 20);
             this.comboBox3.TabIndex = 30;
             this.comboBox3.Text = "자동";
             // 
-            // button69
-            // 
-            this.button69.Location = new System.Drawing.Point(6, 124);
-            this.button69.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button69.Name = "button69";
-            this.button69.Size = new System.Drawing.Size(196, 24);
-            this.button69.TabIndex = 12;
-            this.button69.Text = "AT command queue";
-            this.button69.UseVisualStyleBackColor = true;
-            // 
-            // button70
-            // 
-            this.button70.Location = new System.Drawing.Point(6, 96);
-            this.button70.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button70.Name = "button70";
-            this.button70.Size = new System.Drawing.Size(196, 24);
-            this.button70.TabIndex = 10;
-            this.button70.Text = "Log file 생성";
-            this.button70.UseVisualStyleBackColor = true;
-            // 
-            // button71
-            // 
-            this.button71.Location = new System.Drawing.Point(6, 69);
-            this.button71.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button71.Name = "button71";
-            this.button71.Size = new System.Drawing.Size(196, 24);
-            this.button71.TabIndex = 8;
-            this.button71.Text = "Serial 연결 상태";
-            this.button71.UseVisualStyleBackColor = true;
-            // 
-            // button72
-            // 
-            this.button72.Location = new System.Drawing.Point(7, 41);
-            this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button72.Name = "button72";
-            this.button72.Size = new System.Drawing.Size(196, 24);
-            this.button72.TabIndex = 6;
-            this.button72.Text = "Options Remapping";
-            this.button72.UseVisualStyleBackColor = true;
-            // 
             // button73
             // 
-            this.button73.Location = new System.Drawing.Point(6, 12);
+            this.button73.Location = new System.Drawing.Point(20, 19);
             this.button73.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button73.Name = "button73";
             this.button73.Size = new System.Drawing.Size(196, 24);
@@ -2229,7 +2107,6 @@
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
             this.pnSetting.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -2328,18 +2205,9 @@
         private System.Windows.Forms.Panel pnProxy;
         private System.Windows.Forms.Button button40;
         private System.Windows.Forms.Button button41;
-        private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.Button button69;
-        private System.Windows.Forms.Button button70;
-        private System.Windows.Forms.Button button71;
-        private System.Windows.Forms.Button button72;
         private System.Windows.Forms.Button button73;
         private System.Windows.Forms.Button button35;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.Button button54;
