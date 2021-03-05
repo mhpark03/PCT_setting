@@ -211,6 +211,7 @@
             this.btnModel = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.button68 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnProxy.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -295,7 +296,7 @@
             this.pnProxy.Controls.Add(this.button40);
             this.pnProxy.Controls.Add(this.button41);
             this.pnProxy.Controls.Add(this.groupBox10);
-            this.pnProxy.Location = new System.Drawing.Point(45, 70);
+            this.pnProxy.Location = new System.Drawing.Point(24, 61);
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(1083, 736);
             this.pnProxy.TabIndex = 34;
@@ -1337,6 +1338,7 @@
             // 
             // pnSetting
             // 
+            this.pnSetting.Controls.Add(this.button68);
             this.pnSetting.Controls.Add(this.button33);
             this.pnSetting.Controls.Add(this.button32);
             this.pnSetting.Controls.Add(this.button31);
@@ -1354,33 +1356,36 @@
             // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(300, 16);
+            this.button33.Location = new System.Drawing.Point(209, 16);
             this.button33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(167, 24);
             this.button33.TabIndex = 31;
             this.button33.Text = "Cat M1";
             this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
             // 
             // button32
             // 
-            this.button32.Location = new System.Drawing.Point(512, 16);
+            this.button32.Location = new System.Drawing.Point(396, 16);
             this.button32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(167, 24);
             this.button32.TabIndex = 30;
             this.button32.Text = "NB IoT";
             this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
             // 
             // button31
             // 
-            this.button31.Location = new System.Drawing.Point(95, 16);
+            this.button31.Location = new System.Drawing.Point(25, 16);
             this.button31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(167, 24);
             this.button31.TabIndex = 29;
             this.button31.Text = "LTE";
             this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
             // 
             // button24
             // 
@@ -2192,6 +2197,17 @@
             this.timer2.Interval = 10000;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
+            // button68
+            // 
+            this.button68.Location = new System.Drawing.Point(581, 16);
+            this.button68.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button68.Name = "button68";
+            this.button68.Size = new System.Drawing.Size(167, 24);
+            this.button68.TabIndex = 32;
+            this.button68.Text = "IMS";
+            this.button68.UseVisualStyleBackColor = true;
+            this.button68.Click += new System.EventHandler(this.button68_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -2409,6 +2425,7 @@
         private System.Windows.Forms.Button button75;
         private System.Windows.Forms.Button button62;
         private System.Windows.Forms.Button button63;
+        private System.Windows.Forms.Button button68;
     }
 }
 

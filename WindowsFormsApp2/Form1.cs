@@ -183,6 +183,8 @@ namespace WindowsFormsApp2
         string nextcommand = "";    //OK를 받은 후 전송할 명령어가 존재하는 경우
                                     //예를들어 +CEREG와 같이 OK를 포함한 응답 값을 받은 경우 OK처리 후에 명령어를 전송해야 한다
                                     // states 값을 바꾸고 명령어를 전송하면 명령의 응답을 받기전 이전에 받았던 OK에 동작할 수 있다.
+        string commmode = "catm1";
+        string imsmode = "no";
 
         Dictionary<string, string> commands = new Dictionary<string, string>();
         Dictionary<char, int> bcdvalues = new Dictionary<char, int>();
@@ -369,6 +371,16 @@ namespace WindowsFormsApp2
             commands.Add("autogetmodemverbc95", "AT+CGMR");
             commands.Add("getmodemvernt", "AT*ST*INFO?");
             commands.Add("autogetmodemvernt", "AT*ST*INFO?");
+
+            commmode = "catm1";
+            button31.BackColor = SystemColors.Control;
+            button33.BackColor = SystemColors.ButtonHighlight;
+            button32.BackColor = SystemColors.Control;
+            button68.Enabled = true;
+
+            groupBox2.Enabled = false;
+            groupBox6.Enabled = false;
+            groupBox5.Enabled = false;
         }
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2642,6 +2654,72 @@ namespace WindowsFormsApp2
                 }
             }
 
+        }
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+            commmode = "lte";
+            button31.BackColor = SystemColors.ButtonHighlight;
+            button33.BackColor = SystemColors.Control;
+            button32.BackColor = SystemColors.Control;
+            button68.Enabled = true;
+
+            groupBox2.Enabled = true;
+            groupBox6.Enabled = false;
+            if (imsmode == "yes")
+                groupBox5.Enabled = true;
+            else
+                groupBox5.Enabled = false;
+        }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            commmode = "catm1";
+            button31.BackColor = SystemColors.Control;
+            button33.BackColor = SystemColors.ButtonHighlight;
+            button32.BackColor = SystemColors.Control;
+            button68.Enabled = true;
+
+            groupBox2.Enabled = false;
+            groupBox6.Enabled = false;
+            if (imsmode == "yes")
+                groupBox5.Enabled = true;
+            else
+                groupBox5.Enabled = false;
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            commmode = "nbiot";
+            button31.BackColor = SystemColors.Control;
+            button33.BackColor = SystemColors.Control;
+            button32.BackColor = SystemColors.ButtonHighlight;
+            button68.Enabled = false;
+
+            groupBox2.Enabled = false;
+            groupBox6.Enabled = true;
+            groupBox5.Enabled = false;
+        }
+
+        private void button68_Click(object sender, EventArgs e)
+        {
+            if (commmode != "nbiot")
+            {
+                if (imsmode == "yes")
+                {
+                    imsmode = "no";
+                    button68.BackColor = SystemColors.Control;
+                    groupBox5.Enabled = false;
+                }
+                else
+                {
+                    imsmode = "yes";
+                    button68.BackColor = SystemColors.ButtonHighlight;
+                    groupBox5.Enabled = true;
+                }
+            }
+            else
+                MessageBox.Show("NB-IoT에서는 IMS를 지원하지 않습니다.");
         }
     }
 }
