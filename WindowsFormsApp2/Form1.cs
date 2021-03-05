@@ -1430,7 +1430,7 @@ namespace WindowsFormsApp2
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "txt";
-            ofd.Filter = "text files (*.tx)|*.txt";
+            ofd.Filter = "text files (*.txt)|*.txt";
             ofd.ShowDialog();
             if (ofd.FileName.Length > 0)
             {
@@ -2310,7 +2310,26 @@ namespace WindowsFormsApp2
 
         private void button40_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.DefaultExt = "txt";
+            ofd.Filter = "text files (*.txt)|*.txt";
+            ofd.ShowDialog();
+            if (ofd.FileName.Length > 0)
+            {
+                try
+                {
+                    FileStream fs = new FileStream(ofd.FileName, FileMode.Open, FileAccess.Read);
+                    // Open a file to read to.
+                    StreamReader sr = new StreamReader(fs);
 
+                    sr.Close();
+                    fs.Close();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void button34_Click(object sender, EventArgs e)
@@ -2336,8 +2355,6 @@ namespace WindowsFormsApp2
 
             Directory.CreateDirectory(pathname);
 
-            // Create a file to write to.
-            FileStream fs = null;
             try
             {
                 Workbook workbook = new Workbook();
@@ -2494,6 +2511,137 @@ namespace WindowsFormsApp2
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button62_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.DefaultExt = "xls";
+            ofd.Filter = "text files (*.xls)|*.xls";
+            ofd.ShowDialog();
+            if (ofd.FileName.Length > 0)
+            {
+                try
+                {
+                    Workbook workbook = Workbook.Load(ofd.FileName);
+
+                    Worksheet worksheet = workbook.Worksheets[0];
+                    if (worksheet.Name == "options" && worksheet.Cells[0, 0].ToString() == button73.Text)
+                    {
+                        if (worksheet.Cells[0, 1].ToString() == "자동")
+                            comboBox3.SelectedIndex = 0;
+                        else
+                            comboBox3.SelectedIndex = 1;
+                        if (worksheet.Cells[1, 1].ToString() == "무시")
+                            comboBox1.SelectedIndex = 0;
+                        else
+                            comboBox1.SelectedIndex = 1;
+                        if (worksheet.Cells[2, 1].ToString() == "연결")
+                            comboBox2.SelectedIndex = 0;
+                        else
+                            comboBox2.SelectedIndex = 1;
+                        if (worksheet.Cells[3, 1].ToString() == "생성")
+                            comboBox4.SelectedIndex = 0;
+                        else
+                            comboBox4.SelectedIndex = 1;
+                        if (worksheet.Cells[4, 1].ToString() == "초기화")
+                            comboBox5.SelectedIndex = 0;
+                        else
+                            comboBox5.SelectedIndex = 1;
+
+                        worksheet = workbook.Worksheets[1];
+                        int i = 0;
+                        textBox2.Text = worksheet.Cells[i, 1].ToString();
+                        textBox3.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox4.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox5.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox6.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox1.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox7.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox8.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox9.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox10.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox11.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox12.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox13.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox14.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox15.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox16.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox17.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox18.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox19.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox20.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox21.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox22.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox43.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox42.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox41.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox40.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox39.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox44.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox38.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox37.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox36.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox35.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox34.Text = worksheet.Cells[i, 1].ToString();
+
+                        i = 0;
+                        worksheet = workbook.Worksheets[2];
+                        textBox31.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox30.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox29.Text = worksheet.Cells[i, 1].ToString();
+                        textBox28.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox32.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox27.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox26.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox25.Text = worksheet.Cells[i, 1].ToString();
+                    }
+                    else
+                        MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
     }
 }

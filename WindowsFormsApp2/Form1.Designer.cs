@@ -35,6 +35,8 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnProxy = new System.Windows.Forms.Panel();
+            this.button62 = new System.Windows.Forms.Button();
+            this.button63 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.button61 = new System.Windows.Forms.Button();
             this.textBox25 = new System.Windows.Forms.TextBox();
@@ -209,8 +211,6 @@
             this.btnModel = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.button62 = new System.Windows.Forms.Button();
-            this.button63 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnProxy.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -299,6 +299,28 @@
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(1083, 736);
             this.pnProxy.TabIndex = 34;
+            // 
+            // button62
+            // 
+            this.button62.Location = new System.Drawing.Point(360, 111);
+            this.button62.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button62.Name = "button62";
+            this.button62.Size = new System.Drawing.Size(167, 24);
+            this.button62.TabIndex = 42;
+            this.button62.Text = "엑셀 파일 읽기";
+            this.button62.UseVisualStyleBackColor = true;
+            this.button62.Click += new System.EventHandler(this.button62_Click);
+            // 
+            // button63
+            // 
+            this.button63.Location = new System.Drawing.Point(360, 145);
+            this.button63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button63.Name = "button63";
+            this.button63.Size = new System.Drawing.Size(167, 24);
+            this.button63.TabIndex = 41;
+            this.button63.Text = "엑셀 파일 쓰기";
+            this.button63.UseVisualStyleBackColor = true;
+            this.button63.Click += new System.EventHandler(this.button63_Click);
             // 
             // groupBox7
             // 
@@ -2169,27 +2191,6 @@
             // 
             this.timer2.Interval = 10000;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
-            // 
-            // button62
-            // 
-            this.button62.Location = new System.Drawing.Point(360, 111);
-            this.button62.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button62.Name = "button62";
-            this.button62.Size = new System.Drawing.Size(167, 24);
-            this.button62.TabIndex = 42;
-            this.button62.Text = "엑셀 파일 읽기";
-            this.button62.UseVisualStyleBackColor = true;
-            // 
-            // button63
-            // 
-            this.button63.Location = new System.Drawing.Point(360, 145);
-            this.button63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button63.Name = "button63";
-            this.button63.Size = new System.Drawing.Size(167, 24);
-            this.button63.TabIndex = 41;
-            this.button63.Text = "엑셀 파일 쓰기";
-            this.button63.UseVisualStyleBackColor = true;
-            this.button63.Click += new System.EventHandler(this.button63_Click);
             // 
             // Form1
             // 
