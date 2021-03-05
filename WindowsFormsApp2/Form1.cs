@@ -2133,17 +2133,6 @@ namespace WindowsFormsApp2
 
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please reboot phone"),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        textBox40.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
                       new XElement("From", "Please connect pdn"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
@@ -2153,27 +2142,6 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please disconnect pdn"),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        textBox44.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please disconnect pdn"),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        textBox38.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
                 xComment = new XComment(" Jeong.Suyon ");
                 xApp.Add(xComment);
 
@@ -2436,17 +2404,8 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button84.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox41.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button83.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox40.Text);
-                i++;
                 worksheet.Cells[i, 0] = new Cell(button82.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox39.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button81.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox44.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button80.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox38.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button79.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox37.Text);
@@ -2459,6 +2418,15 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button76.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox34.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell("");
+                worksheet.Cells[i, 1] = new Cell("");
+                i++;
+                worksheet.Cells[i, 0] = new Cell("");
+                worksheet.Cells[i, 1] = new Cell("");
+                i++;
+                worksheet.Cells[i, 0] = new Cell("");
+                worksheet.Cells[i, 1] = new Cell("");
 
                 worksheet.Cells.ColumnWidth[0, 2] = 10000;
                 workbook.Worksheets.Add(worksheet);
@@ -2568,13 +2536,7 @@ namespace WindowsFormsApp2
                         i++;
                         textBox41.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox40.Text = worksheet.Cells[i, 1].ToString();
-                        i++;
                         textBox39.Text = worksheet.Cells[i, 1].ToString();
-                        i++;
-                        textBox44.Text = worksheet.Cells[i, 1].ToString();
-                        i++;
-                        textBox38.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox37.Text = worksheet.Cells[i, 1].ToString();
                         i++;
