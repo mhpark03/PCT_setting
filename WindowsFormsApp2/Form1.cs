@@ -2133,6 +2133,17 @@ namespace WindowsFormsApp2
 
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
+                      new XElement("From", "Please reboot phone"),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        textBox23.Text
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
                       new XElement("From", "Please connect pdn"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
@@ -2404,6 +2415,9 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button84.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox41.Text);
                 i++;
+                worksheet.Cells[i, 0] = new Cell(button69.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox23.Text);
+                i++;
                 worksheet.Cells[i, 0] = new Cell(button82.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox39.Text);
                 i++;
@@ -2418,9 +2432,6 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button76.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox34.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("");
-                worksheet.Cells[i, 1] = new Cell("");
                 i++;
                 worksheet.Cells[i, 0] = new Cell("");
                 worksheet.Cells[i, 1] = new Cell("");
@@ -2535,6 +2546,8 @@ namespace WindowsFormsApp2
                         textBox42.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox41.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox23.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox39.Text = worksheet.Cells[i, 1].ToString();
                         i++;

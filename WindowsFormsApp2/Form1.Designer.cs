@@ -35,6 +35,10 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.pnProxy = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.button44 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button62 = new System.Windows.Forms.Button();
             this.button73 = new System.Windows.Forms.Button();
@@ -108,14 +112,11 @@
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button37 = new System.Windows.Forms.Button();
             this.button38 = new System.Windows.Forms.Button();
             this.button39 = new System.Windows.Forms.Button();
             this.button42 = new System.Windows.Forms.Button();
-            this.button44 = new System.Windows.Forms.Button();
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
             this.button35 = new System.Windows.Forms.Button();
@@ -197,9 +198,11 @@
             this.btnModel = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.button69 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnProxy.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -208,7 +211,6 @@
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // cBoxBaudRate
@@ -288,6 +290,44 @@
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(1083, 736);
             this.pnProxy.TabIndex = 34;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button44);
+            this.groupBox8.Controls.Add(this.textBox2);
+            this.groupBox8.Controls.Add(this.textBox3);
+            this.groupBox8.Location = new System.Drawing.Point(13, 93);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(513, 87);
+            this.groupBox8.TabIndex = 43;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "AT COMMAND (ID=2)";
+            // 
+            // button44
+            // 
+            this.button44.Location = new System.Drawing.Point(8, 24);
+            this.button44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(196, 24);
+            this.button44.TabIndex = 0;
+            this.button44.Text = "ATD123456789;<CR><LF>";
+            this.button44.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(210, 27);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(291, 21);
+            this.textBox2.TabIndex = 16;
+            this.textBox2.Text = "at+cmec=2";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(210, 56);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(291, 21);
+            this.textBox3.TabIndex = 17;
+            this.textBox3.Text = "at+ckpd=\"123456789s\"";
             // 
             // comboBox3
             // 
@@ -496,6 +536,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.textBox23);
+            this.groupBox4.Controls.Add(this.button69);
             this.groupBox4.Controls.Add(this.textBox34);
             this.groupBox4.Controls.Add(this.button76);
             this.groupBox4.Controls.Add(this.textBox35);
@@ -512,14 +554,14 @@
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox4.Size = new System.Drawing.Size(513, 214);
+            this.groupBox4.Size = new System.Drawing.Size(513, 233);
             this.groupBox4.TabIndex = 36;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "AT COMMAND (ID=3) 2/2";
             // 
             // textBox34
             // 
-            this.textBox34.Location = new System.Drawing.Point(208, 175);
+            this.textBox34.Location = new System.Drawing.Point(208, 202);
             this.textBox34.Name = "textBox34";
             this.textBox34.Size = new System.Drawing.Size(291, 21);
             this.textBox34.TabIndex = 30;
@@ -527,7 +569,7 @@
             // 
             // button76
             // 
-            this.button76.Location = new System.Drawing.Point(6, 172);
+            this.button76.Location = new System.Drawing.Point(6, 199);
             this.button76.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button76.Name = "button76";
             this.button76.Size = new System.Drawing.Size(196, 24);
@@ -537,7 +579,7 @@
             // 
             // textBox35
             // 
-            this.textBox35.Location = new System.Drawing.Point(208, 143);
+            this.textBox35.Location = new System.Drawing.Point(208, 170);
             this.textBox35.Name = "textBox35";
             this.textBox35.Size = new System.Drawing.Size(291, 21);
             this.textBox35.TabIndex = 28;
@@ -545,7 +587,7 @@
             // 
             // button77
             // 
-            this.button77.Location = new System.Drawing.Point(6, 140);
+            this.button77.Location = new System.Drawing.Point(6, 167);
             this.button77.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button77.Name = "button77";
             this.button77.Size = new System.Drawing.Size(196, 24);
@@ -555,7 +597,7 @@
             // 
             // textBox36
             // 
-            this.textBox36.Location = new System.Drawing.Point(208, 112);
+            this.textBox36.Location = new System.Drawing.Point(208, 139);
             this.textBox36.Name = "textBox36";
             this.textBox36.Size = new System.Drawing.Size(291, 21);
             this.textBox36.TabIndex = 26;
@@ -563,7 +605,7 @@
             // 
             // button78
             // 
-            this.button78.Location = new System.Drawing.Point(6, 109);
+            this.button78.Location = new System.Drawing.Point(6, 136);
             this.button78.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button78.Name = "button78";
             this.button78.Size = new System.Drawing.Size(196, 24);
@@ -573,7 +615,7 @@
             // 
             // textBox37
             // 
-            this.textBox37.Location = new System.Drawing.Point(208, 84);
+            this.textBox37.Location = new System.Drawing.Point(208, 111);
             this.textBox37.Name = "textBox37";
             this.textBox37.Size = new System.Drawing.Size(291, 21);
             this.textBox37.TabIndex = 24;
@@ -581,7 +623,7 @@
             // 
             // button79
             // 
-            this.button79.Location = new System.Drawing.Point(6, 81);
+            this.button79.Location = new System.Drawing.Point(6, 108);
             this.button79.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button79.Name = "button79";
             this.button79.Size = new System.Drawing.Size(196, 24);
@@ -591,7 +633,7 @@
             // 
             // textBox39
             // 
-            this.textBox39.Location = new System.Drawing.Point(208, 50);
+            this.textBox39.Location = new System.Drawing.Point(208, 77);
             this.textBox39.Name = "textBox39";
             this.textBox39.Size = new System.Drawing.Size(291, 21);
             this.textBox39.TabIndex = 20;
@@ -607,7 +649,7 @@
             // 
             // button82
             // 
-            this.button82.Location = new System.Drawing.Point(6, 50);
+            this.button82.Location = new System.Drawing.Point(6, 77);
             this.button82.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button82.Name = "button82";
             this.button82.Size = new System.Drawing.Size(196, 24);
@@ -671,11 +713,11 @@
             this.groupBox3.Controls.Add(this.button38);
             this.groupBox3.Controls.Add(this.button39);
             this.groupBox3.Controls.Add(this.button42);
-            this.groupBox3.Location = new System.Drawing.Point(547, 21);
+            this.groupBox3.Location = new System.Drawing.Point(546, 46);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(513, 663);
+            this.groupBox3.Size = new System.Drawing.Size(513, 657);
             this.groupBox3.TabIndex = 35;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AT COMMAND (ID=3) 1/2";
@@ -1028,22 +1070,6 @@
             this.textBox4.TabIndex = 18;
             this.textBox4.Text = "AT+CGACT=0,1";
             // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(210, 56);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(291, 21);
-            this.textBox3.TabIndex = 17;
-            this.textBox3.Text = "at+ckpd=\"123456789s\"";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(210, 27);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(291, 21);
-            this.textBox2.TabIndex = 16;
-            this.textBox2.Text = "at+cmec=2";
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(212, 109);
@@ -1091,16 +1117,6 @@
             this.button42.TabIndex = 8;
             this.button42.Text = "Please disconnect pdn";
             this.button42.UseVisualStyleBackColor = true;
-            // 
-            // button44
-            // 
-            this.button44.Location = new System.Drawing.Point(8, 24);
-            this.button44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(196, 24);
-            this.button44.TabIndex = 0;
-            this.button44.Text = "ATD123456789;<CR><LF>";
-            this.button44.UseVisualStyleBackColor = true;
             // 
             // button40
             // 
@@ -2020,17 +2036,23 @@
             this.timer2.Interval = 10000;
             this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
             // 
-            // groupBox8
+            // textBox23
             // 
-            this.groupBox8.Controls.Add(this.button44);
-            this.groupBox8.Controls.Add(this.textBox2);
-            this.groupBox8.Controls.Add(this.textBox3);
-            this.groupBox8.Location = new System.Drawing.Point(13, 93);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(513, 87);
-            this.groupBox8.TabIndex = 43;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "AT COMMAND (ID=2)";
+            this.textBox23.Location = new System.Drawing.Point(210, 52);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(291, 21);
+            this.textBox23.TabIndex = 32;
+            this.textBox23.Text = "AT+CFUN=1,1";
+            // 
+            // button69
+            // 
+            this.button69.Location = new System.Drawing.Point(8, 49);
+            this.button69.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button69.Name = "button69";
+            this.button69.Size = new System.Drawing.Size(196, 24);
+            this.button69.TabIndex = 31;
+            this.button69.Text = "Please reboot phone";
+            this.button69.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2047,6 +2069,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.pnProxy.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -2061,8 +2085,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2237,6 +2259,8 @@
         private System.Windows.Forms.Button button63;
         private System.Windows.Forms.Button button68;
         private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox textBox23;
+        private System.Windows.Forms.Button button69;
     }
 }
 
