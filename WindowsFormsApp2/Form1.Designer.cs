@@ -60,6 +60,8 @@
             this.button74 = new System.Windows.Forms.Button();
             this.button75 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.button69 = new System.Windows.Forms.Button();
             this.textBox34 = new System.Windows.Forms.TextBox();
             this.button76 = new System.Windows.Forms.Button();
             this.textBox35 = new System.Windows.Forms.TextBox();
@@ -196,10 +198,6 @@
             this.btnIMSI = new System.Windows.Forms.Button();
             this.btnManufac = new System.Windows.Forms.Button();
             this.btnModel = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.textBox23 = new System.Windows.Forms.TextBox();
-            this.button69 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.pnProxy.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -286,7 +284,7 @@
             this.pnProxy.Controls.Add(this.groupBox3);
             this.pnProxy.Controls.Add(this.button40);
             this.pnProxy.Controls.Add(this.button41);
-            this.pnProxy.Location = new System.Drawing.Point(24, 61);
+            this.pnProxy.Location = new System.Drawing.Point(24, 70);
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(1083, 736);
             this.pnProxy.TabIndex = 34;
@@ -312,6 +310,7 @@
             this.button44.TabIndex = 0;
             this.button44.Text = "ATD123456789;<CR><LF>";
             this.button44.UseVisualStyleBackColor = true;
+            this.button44.Click += new System.EventHandler(this.button44_Click);
             // 
             // textBox2
             // 
@@ -409,6 +408,7 @@
             this.button61.TabIndex = 39;
             this.button61.Text = "AT+CGACT=1,1";
             this.button61.UseVisualStyleBackColor = true;
+            this.button61.Click += new System.EventHandler(this.button61_Click);
             // 
             // textBox25
             // 
@@ -427,6 +427,7 @@
             this.button64.TabIndex = 25;
             this.button64.Text = "PSM Off";
             this.button64.UseVisualStyleBackColor = true;
+            this.button64.Click += new System.EventHandler(this.button64_Click);
             // 
             // textBox26
             // 
@@ -445,6 +446,7 @@
             this.button65.TabIndex = 23;
             this.button65.Text = "PSM On";
             this.button65.UseVisualStyleBackColor = true;
+            this.button65.Click += new System.EventHandler(this.button65_Click);
             // 
             // textBox27
             // 
@@ -463,6 +465,7 @@
             this.button66.TabIndex = 21;
             this.button66.Text = "at+cfun=1";
             this.button66.UseVisualStyleBackColor = true;
+            this.button66.Click += new System.EventHandler(this.button66_Click);
             // 
             // textBox28
             // 
@@ -513,6 +516,7 @@
             this.button67.TabIndex = 14;
             this.button67.Text = "at+cfun=0";
             this.button67.UseVisualStyleBackColor = true;
+            this.button67.Click += new System.EventHandler(this.button67_Click);
             // 
             // button74
             // 
@@ -523,6 +527,7 @@
             this.button74.TabIndex = 10;
             this.button74.Text = "at+cops?";
             this.button74.UseVisualStyleBackColor = true;
+            this.button74.Click += new System.EventHandler(this.button74_Click);
             // 
             // button75
             // 
@@ -533,6 +538,7 @@
             this.button75.TabIndex = 8;
             this.button75.Text = "AT+CGACT=1=0,1";
             this.button75.UseVisualStyleBackColor = true;
+            this.button75.Click += new System.EventHandler(this.button75_Click);
             // 
             // groupBox4
             // 
@@ -559,6 +565,25 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "AT COMMAND (ID=3) 2/2";
             // 
+            // textBox23
+            // 
+            this.textBox23.Location = new System.Drawing.Point(210, 52);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(291, 21);
+            this.textBox23.TabIndex = 32;
+            this.textBox23.Text = "AT+CFUN=1,1";
+            // 
+            // button69
+            // 
+            this.button69.Location = new System.Drawing.Point(8, 49);
+            this.button69.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button69.Name = "button69";
+            this.button69.Size = new System.Drawing.Size(196, 24);
+            this.button69.TabIndex = 31;
+            this.button69.Text = "Please reboot phone";
+            this.button69.UseVisualStyleBackColor = true;
+            this.button69.Click += new System.EventHandler(this.button69_Click);
+            // 
             // textBox34
             // 
             this.textBox34.Location = new System.Drawing.Point(208, 202);
@@ -576,6 +601,7 @@
             this.button76.TabIndex = 29;
             this.button76.Text = "Activate Data PDN";
             this.button76.UseVisualStyleBackColor = true;
+            this.button76.Click += new System.EventHandler(this.button76_Click);
             // 
             // textBox35
             // 
@@ -594,6 +620,7 @@
             this.button77.TabIndex = 27;
             this.button77.Text = "Deactivate Data PDN";
             this.button77.UseVisualStyleBackColor = true;
+            this.button77.Click += new System.EventHandler(this.button77_Click);
             // 
             // textBox36
             // 
@@ -612,6 +639,7 @@
             this.button78.TabIndex = 25;
             this.button78.Text = "Please PSM Off";
             this.button78.UseVisualStyleBackColor = true;
+            this.button78.Click += new System.EventHandler(this.button78_Click);
             // 
             // textBox37
             // 
@@ -630,6 +658,7 @@
             this.button79.TabIndex = 23;
             this.button79.Text = "Please PSM On";
             this.button79.UseVisualStyleBackColor = true;
+            this.button79.Click += new System.EventHandler(this.button79_Click);
             // 
             // textBox39
             // 
@@ -656,6 +685,7 @@
             this.button82.TabIndex = 12;
             this.button82.Text = "Please connect pdn";
             this.button82.UseVisualStyleBackColor = true;
+            this.button82.Click += new System.EventHandler(this.button82_Click);
             // 
             // button84
             // 
@@ -666,6 +696,7 @@
             this.button84.TabIndex = 8;
             this.button84.Text = "Please set EMM/ESM cause";
             this.button84.UseVisualStyleBackColor = true;
+            this.button84.Click += new System.EventHandler(this.button84_Click);
             // 
             // groupBox3
             // 
@@ -731,6 +762,7 @@
             this.button60.TabIndex = 39;
             this.button60.Text = "Check PDN Address";
             this.button60.UseVisualStyleBackColor = true;
+            this.button60.Click += new System.EventHandler(this.button60_Click);
             // 
             // textBox22
             // 
@@ -749,6 +781,7 @@
             this.button59.TabIndex = 51;
             this.button59.Text = "Try Call End";
             this.button59.UseVisualStyleBackColor = true;
+            this.button59.Click += new System.EventHandler(this.button59_Click);
             // 
             // textBox21
             // 
@@ -767,6 +800,7 @@
             this.button58.TabIndex = 49;
             this.button58.Text = "Try Call Answer";
             this.button58.UseVisualStyleBackColor = true;
+            this.button58.Click += new System.EventHandler(this.button58_Click);
             // 
             // textBox20
             // 
@@ -785,6 +819,7 @@
             this.button57.TabIndex = 47;
             this.button57.Text = "Try MO Voice Call";
             this.button57.UseVisualStyleBackColor = true;
+            this.button57.Click += new System.EventHandler(this.button57_Click);
             // 
             // textBox19
             // 
@@ -803,6 +838,7 @@
             this.button56.TabIndex = 45;
             this.button56.Text = "Try MO Voice Call(15447769)";
             this.button56.UseVisualStyleBackColor = true;
+            this.button56.Click += new System.EventHandler(this.button56_Click);
             // 
             // textBox18
             // 
@@ -821,6 +857,7 @@
             this.button55.TabIndex = 43;
             this.button55.Text = "Please make voice call from the UE";
             this.button55.UseVisualStyleBackColor = true;
+            this.button55.Click += new System.EventHandler(this.button55_Click);
             // 
             // textBox17
             // 
@@ -839,6 +876,7 @@
             this.button43.TabIndex = 41;
             this.button43.Text = "Please power off the UE";
             this.button43.UseVisualStyleBackColor = true;
+            this.button43.Click += new System.EventHandler(this.button43_Click);
             // 
             // textBox16
             // 
@@ -865,6 +903,7 @@
             this.button54.TabIndex = 39;
             this.button54.Text = "Switch off the phone";
             this.button54.UseVisualStyleBackColor = true;
+            this.button54.Click += new System.EventHandler(this.button54_Click);
             // 
             // textBox15
             // 
@@ -891,6 +930,7 @@
             this.button53.TabIndex = 37;
             this.button53.Text = "Emergency call 125";
             this.button53.UseVisualStyleBackColor = true;
+            this.button53.Click += new System.EventHandler(this.button53_Click);
             // 
             // textBox14
             // 
@@ -909,6 +949,7 @@
             this.button52.TabIndex = 35;
             this.button52.Text = "Emergency call 122";
             this.button52.UseVisualStyleBackColor = true;
+            this.button52.Click += new System.EventHandler(this.button52_Click);
             // 
             // textBox13
             // 
@@ -927,6 +968,7 @@
             this.button51.TabIndex = 33;
             this.button51.Text = "Emergency call 119";
             this.button51.UseVisualStyleBackColor = true;
+            this.button51.Click += new System.EventHandler(this.button51_Click);
             // 
             // textBox12
             // 
@@ -945,6 +987,7 @@
             this.button85.TabIndex = 0;
             this.button85.Text = "End voice call from the UE";
             this.button85.UseVisualStyleBackColor = true;
+            this.button85.Click += new System.EventHandler(this.button85_Click);
             // 
             // button50
             // 
@@ -955,6 +998,7 @@
             this.button50.TabIndex = 31;
             this.button50.Text = "Emergency call 118";
             this.button50.UseVisualStyleBackColor = true;
+            this.button50.Click += new System.EventHandler(this.button50_Click);
             // 
             // textBox11
             // 
@@ -973,6 +1017,7 @@
             this.button49.TabIndex = 29;
             this.button49.Text = "Emergency call 117";
             this.button49.UseVisualStyleBackColor = true;
+            this.button49.Click += new System.EventHandler(this.button49_Click);
             // 
             // textBox10
             // 
@@ -991,6 +1036,7 @@
             this.button48.TabIndex = 27;
             this.button48.Text = "Emergency call 113";
             this.button48.UseVisualStyleBackColor = true;
+            this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
             // textBox9
             // 
@@ -1009,6 +1055,7 @@
             this.button47.TabIndex = 25;
             this.button47.Text = "Normal call 114";
             this.button47.UseVisualStyleBackColor = true;
+            this.button47.Click += new System.EventHandler(this.button47_Click);
             // 
             // textBox8
             // 
@@ -1027,6 +1074,7 @@
             this.button46.TabIndex = 23;
             this.button46.Text = "Emergency call 112";
             this.button46.UseVisualStyleBackColor = true;
+            this.button46.Click += new System.EventHandler(this.button46_Click);
             // 
             // textBox7
             // 
@@ -1045,6 +1093,7 @@
             this.button45.TabIndex = 21;
             this.button45.Text = "Emergency call 111";
             this.button45.UseVisualStyleBackColor = true;
+            this.button45.Click += new System.EventHandler(this.button45_Click);
             // 
             // textBox6
             // 
@@ -1087,6 +1136,7 @@
             this.button37.TabIndex = 14;
             this.button37.Text = "Try MO SMS";
             this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click);
             // 
             // button38
             // 
@@ -1097,6 +1147,7 @@
             this.button38.TabIndex = 12;
             this.button38.Text = "Activate SMS mode";
             this.button38.UseVisualStyleBackColor = true;
+            this.button38.Click += new System.EventHandler(this.button38_Click);
             // 
             // button39
             // 
@@ -1107,6 +1158,7 @@
             this.button39.TabIndex = 10;
             this.button39.Text = "Switch on the phone";
             this.button39.UseVisualStyleBackColor = true;
+            this.button39.Click += new System.EventHandler(this.button39_Click);
             // 
             // button42
             // 
@@ -1117,6 +1169,7 @@
             this.button42.TabIndex = 8;
             this.button42.Text = "Please disconnect pdn";
             this.button42.UseVisualStyleBackColor = true;
+            this.button42.Click += new System.EventHandler(this.button42_Click);
             // 
             // button40
             // 
@@ -1228,7 +1281,7 @@
             // 
             // button24
             // 
-            this.button24.Location = new System.Drawing.Point(417, 566);
+            this.button24.Location = new System.Drawing.Point(442, 566);
             this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(167, 24);
@@ -1239,7 +1292,7 @@
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(612, 566);
+            this.button23.Location = new System.Drawing.Point(637, 566);
             this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(167, 24);
@@ -1252,7 +1305,7 @@
             // 
             this.groupBox6.Controls.Add(this.cbNBIPVer);
             this.groupBox6.Controls.Add(this.button36);
-            this.groupBox6.Location = new System.Drawing.Point(411, 465);
+            this.groupBox6.Location = new System.Drawing.Point(438, 463);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1306,7 +1359,7 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Size = new System.Drawing.Size(368, 247);
+            this.groupBox5.Size = new System.Drawing.Size(419, 247);
             this.groupBox5.TabIndex = 25;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "VoLTE/SMS";
@@ -1315,7 +1368,7 @@
             // 
             this.tbDeviceType.Location = new System.Drawing.Point(215, 72);
             this.tbDeviceType.Name = "tbDeviceType";
-            this.tbDeviceType.Size = new System.Drawing.Size(126, 21);
+            this.tbDeviceType.Size = new System.Drawing.Size(197, 21);
             this.tbDeviceType.TabIndex = 28;
             this.tbDeviceType.Text = "modem";
             // 
@@ -1409,7 +1462,7 @@
             // 
             this.tbTTAVer.Location = new System.Drawing.Point(216, 99);
             this.tbTTAVer.Name = "tbTTAVer";
-            this.tbTTAVer.Size = new System.Drawing.Size(126, 21);
+            this.tbTTAVer.Size = new System.Drawing.Size(197, 21);
             this.tbTTAVer.TabIndex = 11;
             this.tbTTAVer.Text = "1.0";
             // 
@@ -1437,7 +1490,7 @@
             // 
             this.tbDeviceVer.Location = new System.Drawing.Point(216, 43);
             this.tbDeviceVer.Name = "tbDeviceVer";
-            this.tbDeviceVer.Size = new System.Drawing.Size(126, 21);
+            this.tbDeviceVer.Size = new System.Drawing.Size(197, 21);
             this.tbDeviceVer.TabIndex = 7;
             this.tbDeviceVer.Text = "BG96MAR03A07M1G";
             // 
@@ -1455,7 +1508,7 @@
             // 
             this.tbDeviceName.Location = new System.Drawing.Point(216, 15);
             this.tbDeviceName.Name = "tbDeviceName";
-            this.tbDeviceName.Size = new System.Drawing.Size(126, 21);
+            this.tbDeviceName.Size = new System.Drawing.Size(197, 21);
             this.tbDeviceName.TabIndex = 2;
             this.tbDeviceName.Text = "BG96";
             // 
@@ -1497,7 +1550,7 @@
             this.groupBox2.Controls.Add(this.button15);
             this.groupBox2.Controls.Add(this.button16);
             this.groupBox2.Controls.Add(this.button17);
-            this.groupBox2.Location = new System.Drawing.Point(411, 50);
+            this.groupBox2.Location = new System.Drawing.Point(438, 50);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1815,7 +1868,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(368, 305);
+            this.groupBox1.Size = new System.Drawing.Size(420, 305);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COMMON";
@@ -1842,7 +1895,7 @@
             this.cbImsPDN.Location = new System.Drawing.Point(216, 15);
             this.cbImsPDN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbImsPDN.Name = "cbImsPDN";
-            this.cbImsPDN.Size = new System.Drawing.Size(126, 20);
+            this.cbImsPDN.Size = new System.Drawing.Size(197, 20);
             this.cbImsPDN.TabIndex = 30;
             this.cbImsPDN.Text = "1번째";
             // 
@@ -1877,7 +1930,7 @@
             this.cbImsIP.Location = new System.Drawing.Point(216, 44);
             this.cbImsIP.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbImsIP.Name = "cbImsIP";
-            this.cbImsIP.Size = new System.Drawing.Size(126, 20);
+            this.cbImsIP.Size = new System.Drawing.Size(197, 20);
             this.cbImsIP.TabIndex = 4;
             this.cbImsIP.Text = "IPv4";
             // 
@@ -1898,7 +1951,7 @@
             // 
             this.tbIMEI.Location = new System.Drawing.Point(216, 184);
             this.tbIMEI.Name = "tbIMEI";
-            this.tbIMEI.Size = new System.Drawing.Size(126, 21);
+            this.tbIMEI.Size = new System.Drawing.Size(197, 21);
             this.tbIMEI.TabIndex = 23;
             this.tbIMEI.Text = "868446031424969";
             // 
@@ -1946,7 +1999,7 @@
             // 
             this.tbChannel3.Location = new System.Drawing.Point(216, 156);
             this.tbChannel3.Name = "tbChannel3";
-            this.tbChannel3.Size = new System.Drawing.Size(126, 21);
+            this.tbChannel3.Size = new System.Drawing.Size(197, 21);
             this.tbChannel3.TabIndex = 15;
             this.tbChannel3.Text = "3050";
             // 
@@ -1964,7 +2017,7 @@
             // 
             this.tbChannel2.Location = new System.Drawing.Point(216, 127);
             this.tbChannel2.Name = "tbChannel2";
-            this.tbChannel2.Size = new System.Drawing.Size(126, 21);
+            this.tbChannel2.Size = new System.Drawing.Size(197, 21);
             this.tbChannel2.TabIndex = 13;
             this.tbChannel2.Text = "100";
             // 
@@ -1982,7 +2035,7 @@
             // 
             this.tbChannel1.Location = new System.Drawing.Point(216, 99);
             this.tbChannel1.Name = "tbChannel1";
-            this.tbChannel1.Size = new System.Drawing.Size(126, 21);
+            this.tbChannel1.Size = new System.Drawing.Size(197, 21);
             this.tbChannel1.TabIndex = 11;
             this.tbChannel1.Text = "2600";
             // 
@@ -2025,34 +2078,6 @@
             this.btnModel.TabIndex = 0;
             this.btnModel.Text = "IMS PDN";
             this.btnModel.UseVisualStyleBackColor = true;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 15000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Interval = 10000;
-            this.timer2.Tick += new System.EventHandler(this.Timer2_Tick);
-            // 
-            // textBox23
-            // 
-            this.textBox23.Location = new System.Drawing.Point(210, 52);
-            this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(291, 21);
-            this.textBox23.TabIndex = 32;
-            this.textBox23.Text = "AT+CFUN=1,1";
-            // 
-            // button69
-            // 
-            this.button69.Location = new System.Drawing.Point(8, 49);
-            this.button69.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button69.Name = "button69";
-            this.button69.Size = new System.Drawing.Size(196, 24);
-            this.button69.TabIndex = 31;
-            this.button69.Text = "Please reboot phone";
-            this.button69.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -2099,8 +2124,6 @@
         private System.Windows.Forms.Button btnModel;
         private System.Windows.Forms.Button btnIMSI;
         private System.Windows.Forms.Button btnManufac;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Panel pnSetting;
         private System.Windows.Forms.TextBox tbChannel3;
         private System.Windows.Forms.Button button1;

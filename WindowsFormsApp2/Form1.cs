@@ -177,6 +177,8 @@ namespace WindowsFormsApp2
             getNWmode,
             autogetNWmode,
 
+            testatcmd,
+            atdtatcmd,
         }
 
         string dataIN = "";
@@ -185,6 +187,8 @@ namespace WindowsFormsApp2
                                     // states 값을 바꾸고 명령어를 전송하면 명령의 응답을 받기전 이전에 받았던 OK에 동작할 수 있다.
         string commmode = "catm1";
         string imsmode = "no";
+        string actionState = "idle";
+        Device dev = new Device();
 
         Dictionary<string, string> commands = new Dictionary<string, string>();
         Dictionary<char, int> bcdvalues = new Dictionary<char, int>();
@@ -203,6 +207,7 @@ namespace WindowsFormsApp2
             }
             else
             {
+                cBoxCOMPORT.Items.Clear();
                 cBoxCOMPORT.Items.AddRange(ports);
                 cBoxCOMPORT.SelectedIndex = 0;
             }
@@ -383,11 +388,6 @@ namespace WindowsFormsApp2
             groupBox5.Enabled = false;
         }
 
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.doOpenComPort();
-        }
-
         private void doOpenComPort()
         {
             if (!serialPort1.IsOpen)
@@ -409,8 +409,7 @@ namespace WindowsFormsApp2
                     groupBox1.Enabled = true;
                     logPrintInTextBox("COM PORT가 연결 되었습니다.", "");
 
-                    timer2.Interval = 1000;     //초기에는 1초 타이머로 동작 
-                    timer2.Start();
+                    getDeviveInfo();
                 }
                 catch (Exception err)
                 {
@@ -463,6 +462,10 @@ namespace WindowsFormsApp2
 
                     serialPort1.Write(sendmsg);
                     logPrintInTextBox(sendmsg, "tx");
+                }
+                else
+                {
+                    MessageBox.Show("COM 포트가 오픈되어 있지 않습니다.");
                 }
             }
             catch (Exception err)
@@ -694,204 +697,34 @@ namespace WindowsFormsApp2
             switch(s)
             {
                 case "OK":
-                    OKReceived();
+                    if (actionState == states.testatcmd.ToString())
+                    {
+                        MessageBox.Show("OK 응답을 받았습니다.");
+                        actionState = states.idle.ToString();
+                    }
+                    else if (actionState == states.atdtatcmd.ToString())
+                    {
+                        this.sendDataOut(textBox3.Text);
+                        actionState = states.testatcmd.ToString();
+                    }
+                    else
+                        OKReceived();
                     break;
                 case "ERROR":
                     nextcommand = "";
-                    timer1.Stop();
-
-                    timer2.Stop();
-                    break;
-                case "+CEREG:":
-                    // AT+CEREG의 응답으로 LTE attach 상태 확인하고 disable되어 있어면 attach 요청, 
-                    // attach가 완료되지 않았으면 1초 후에 재확인, (timer2 사용)
-                    // OK 응답이 따라온다
-                    timer2.Stop();
-
-                    // 수신한 데이터에 대해 space로 시작하는지 확인한다.
-                    if (str2.StartsWith(" "))
+                    if (actionState == states.testatcmd.ToString() || actionState == states.atdtatcmd.ToString())
                     {
-                        str2 = str2.Substring(1, str2.Length - 1);
-                    }
-
-                    string ltestatus = str2.Substring(0, 1);
-                    if (ltestatus == "0")
-                    {
-                        logPrintInTextBox("LTE 연결을 요청이 필요합니다.", "");
-                    }
-                    else if ((ltestatus == "1") || (ltestatus == "3"))
-                    {
-                        if (str2.Length > 1)
-                        {
-                            string lteregi = str2.Substring(2, 1);
-
-                            if (lteregi == "0")
-                            {
-                                /*
-                                network_chkcnt = 3;             // LTE attach disable일 경우 enable하고 getcereg 3회 확인
-                                if (tBoxModel.Text == "TPB23" || tBoxModel.Text.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                                {
-                                    nextcommand = states.setceregtpb23.ToString();
-                                }
-                                else
-                                {
-                                    nextcommand = states.setcereg.ToString();
-                                }
-                                */
-                                logPrintInTextBox("LTE 상태 확인이 필요합니다.", "");
-                            }
-                            else if ((lteregi == "1") || (lteregi == "5"))
-                            {
-                                timer2.Stop();
-                                logPrintInTextBox("LTE망에 연결 되었습니다.", "");
-                            }
-                            else
-                            {
-                                // LTE attach 시도 중
-                                timer2.Start();     // 1초 후에 AT+CEREG 호출
-                            }
-                        }
-                        else
-                        {
-                            if ((str2 == "1") || (str2 == "5"))
-                            {
-                                timer2.Stop();
-                                logPrintInTextBox("LTE망에 연결 되었습니다.", "");
-                            }
-                            else
-                            {
-                                // LTE attach 시도 중
-                                timer2.Start();     // 1초 후에 AT+CEREG 호출
-                            }
-                        }
-                    }
-                    else
-                    {
-                        timer2.Stop();
-                    }
-
-                    timer1.Stop();
-                    break;
-                case "$OM_AUTH_RSP=":
-                    // oneM2M 인증 결과
-                    if (str2 == "2000")
-                    {
-                        logPrintInTextBox("oneM2M서버 인증 성공하였습니다.", "");
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 인증 정보 확인이 필요합니다.", "");
-                    }
-
-                    timer1.Stop();
-                    timer2.Stop();
-                    nextcommand = "";
-                    break;
-                case "$OM_B_CSE_RSP=":
-                    // oneM2M CSEBase 조회 결과
-                    if (str2 == "2000")
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // (getCSEbase) - (getremoteCSE) - setremoteCSE - setcontainer - setsubscript,
-
-                        this.sendDataOut(commands["getremoteCSE"]);
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 인증 정보 확인이 필요합니다.", "");
+                        MessageBox.Show("ERROR 응답을 받았습니다.");
+                        actionState = states.idle.ToString();
                     }
                     break;
-                case "$OM_R_CSE_RSP=":
-                    // oneM2M remoteCSE 조회 결과, 4004이면 생성/2000 또는 2004이면 container 확인
-                    if (str2 == "2004" || str2 == "2000")
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // getCSEbase - (getremoteCSE) - setremoteCSE - (setcontainer) - setsubscript,
+                case "+CGSN:":
+                    dev.imei = str2;
+                    tbIMEI.Text = str2;
+                    logPrintInTextBox("IMEI를 저장하였습니다.", "");
+                    progressBar1.Value = 90;
 
-                        //this.sendDataOut(commands["setcontainer"]+tBoxDeviceSN.Text);
-                        //tBoxActionState.Text = states.setcontainer.ToString();
-
-                        // getCSEbase - (getremoteCSE) - (updateremoteCSE) - setcontainer - setsubscript,
-
-                        this.sendDataOut(commands["updateremoteCSE"]);
-                    }
-                    else
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // getCSEbase - (getremoteCSE) - (setremoteCSE) - setcontainer - setsubscript,
-
-                        this.sendDataOut(commands["setremoteCSE"]);
-                    }
-                    break;
-                case "$OM_U_CSE_RSP=":
-                    // oneM2M remoteCSE 업데이트 결과, 2004이면 container 생성 요청
-                    if (str2 == "2004" || str2 == "2000")
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // getCSEbase - getremoteCSE - (updateremoteCSE) - (setcontainer) - setsubscript,
-
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
-                    }
-                    break;
-                case "$OM_C_CON_RSP=":
-                    // oneM2M container 생성 결과, 2001이면 subscript 신청
-                    if (str2 == "2001" || str2 == "2000" || str2 == "4105")
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // getCSEbase - getremoteCSE - setremoteCSE - (setcontainer) - (setsubscript),
-
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
-                    }
-                    break;
-                case "$OM_C_SUB_RSP=":
-                    // oneM2M subscription 신청 결과
-                    if (str2 == "2001" || str2 == "2000" || str2 == "4105")
-                    {
-                        // 플랫폼 서버 remoteCSE, container 등록 요청
-                        // getCSEbase - getremoteCSE - setremoteCSE - setcontainer - (setsubscript),
-
-                        logPrintInTextBox("oneM2M서버 정상 등록을 완료하였습니다.", "");
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
-                    }
-                    break;
-                case "$OM_NOTI_IND=":
-                    // oneM2M subscription 설정에 의한 data 변경 이벤트
-                    // 플랫폼 서버에 data 수신 요청
-                    this.sendDataOut(commands["getonem2mdata"] + str2);
-                    break;
-                case "$OM_R_INS_RSP=":
-                    // 플랫폼 서버에 data 수신
-
-                    string[] rxwords = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (rxwords[0] == "2000")
-                    {
-                        // 수신한 데이터 사이즈 확이
-                        int rxsize = Convert.ToInt32(rxwords[1]);
-                        if(rxsize == rxwords[2].Length)
-                        {
-                            logPrintInTextBox(rxwords[2]+"를 수신하였습니다.", "");
-                        }
-                        else
-                        {
-                            logPrintInTextBox("수신한 데이터 사이즈를 확인하세요", "");
-                        }
-                    }
-                    else
-                    {
-                        logPrintInTextBox("oneM2M서버 동작 확인이 필요합니다.", "");
-                    }
-                    break;
-                case "+QLWEVENT:":
-                    timer2.Stop();
+                    nextcommand = states.autogetmodemvertpb23.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
                     break;
                 case "AT+MLWEVTIND=":
                 case "+QLWEVTIND:":
@@ -990,7 +823,6 @@ namespace WindowsFormsApp2
 
                     if (nextcommand == states.getcereg.ToString())
                         nextcommand = "";
-                    timer2.Stop();
                     break;
                 case "+QLWOBSERVE:":
                     // 모듈이 LWM2M서버와 초기 접속시 받은 데이터를 전달하는 이벤트,
@@ -1011,12 +843,10 @@ namespace WindowsFormsApp2
 
                     if (nextcommand == states.getcereg.ToString())
                         nextcommand = "";
-                    timer2.Stop();
                     break;
                 case "@NETSTI:":
                     // AMTEL booting end, device info rerequest
                     getDeviveInfo();
-                    timer2.Interval = 10000;        // 10초 타이머로 동작
                     break;
                 default:
                     break;
@@ -1025,39 +855,104 @@ namespace WindowsFormsApp2
 
         private void OKReceived()
         {
-            string ctn = string.Empty;
-
-
             // 마지막 응답(OK)을 받은 후에 후속 작업이 필요한지 확인한다.
             if (nextcommand != "skip")
             {
                 if (nextcommand != "")
                 {
                     this.sendDataOut(commands[nextcommand]);
+                    actionState = nextcommand;
                     nextcommand = "";
-
-                    timer1.Start();
-                }
-                else
-                {
-                    timer1.Stop();
                 }
             }
         }
 
         private void parseNoPrefixData(string str1)
         {
+            states state = (states)Enum.Parse(typeof(states), actionState);
+            switch (state)
+            {
+                // 단말 정보 자동 갱신 순서
+                // (autogetmanufac) - (autogetmodel) - autogetimei
+                case states.autogetmanufac:
+                    dev.maker = str1;
+                    progressBar1.Value = 60;
+                    this.logPrintInTextBox("제조사값이 저장되었습니다.", "");
+                    if (str1 == "AM Telecom" || str1 == "QUALCOMM INCORPORATED"
+                        || str1 == "LIME-I Co., Ltd")        //AMTEL 모듈은 OK가 오지 않음
+                    {
+                        this.sendDataOut(commands["autogetmodelgmm"]);
+                        actionState = states.autogetmodel.ToString();
+
+                        nextcommand = "skip";
+                    }
+                    else
+                    {
+                        actionState = states.idle.ToString();
+                        nextcommand = states.autogetmodel.ToString();
+                    }
+                    break;
+                // 단말 정보 자동 갱신 순서
+                // autogetmanufac - (autogetmodel) - (autogetimsi) - geticcid
+                case states.autogetmodel:
+                    dev.model = str1;
+                    progressBar1.Value = 70;
+                    tbDeviceName.Text = str1;
+                    this.logPrintInTextBox("모델값이 저장되었습니다.", "");
+
+                    setModelConfig(str1);
+
+                    actionState = states.idle.ToString();
+                    if (dev.model == "TPB23")
+                        nextcommand = states.autogetimeitpb23.ToString();
+                    else
+                        nextcommand = states.autogetimei.ToString();
+                    break;
+                case states.getimsi:
+                    if (str1.StartsWith("45006"))
+                    {
+                        string ctn = "0" + str1.Substring(5, str1.Length - 5);
+
+                        dev.imsi = ctn;
+                        textBox1.Text = ctn;
+                        actionState = states.idle.ToString();
+                        this.logPrintInTextBox("IMSI값이 저장되었습니다.", "");
+                    }
+                    else
+                        this.logPrintInTextBox("USIM 상태 확인이 필요합니다.", "");
+
+                    actionState = states.idle.ToString();
+                    break;
+                case states.getmanufac:
+                    dev.maker = str1;
+                    actionState = states.idle.ToString();
+                    this.logPrintInTextBox("제조사값이 저장되었습니다.", "");
+                    break;
+                case states.getmodemver:
+                case states.getmodemvertpb23:
+                    dev.version = str1;
+                    progressBar1.Value = 100;
+                    tbDeviceVer.Text = str1;
+                    actionState = states.idle.ToString();
+                    this.logPrintInTextBox("모뎀버전이 저장되었습니다.", "");
+
+                    break;
+                case states.autogetmodemver:
+                case states.autogetmodemvertpb23:
+                    dev.version = str1;
+                    progressBar1.Value = 100;
+                    tbDeviceVer.Text = str1;
+                    this.logPrintInTextBox("모뎀버전이 저장되었습니다.", "");
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void setModelConfig(string model)
         {
 
         }
-
-        private void InitinfoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            getDeviveInfo();
-         }
 
         private void getDeviveInfo()
         {
@@ -1066,16 +961,7 @@ namespace WindowsFormsApp2
             // 단말 정보 자동 갱신 순서
             // (autogetmanufac) - autogetmodel - autogetimsi - autogetimei - geticcid
             this.sendDataOut(commands["autogetmanufac"]);
-
-            timer1.Start();
-        }
-
-
-        // AT command를 요청하고 10초 동안 OK 응답이 없으면 COM port 재설정
-        private void Timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Stop();
-            this.doOpenComPort();
+            actionState = states.autogetmanufac.ToString();
         }
 
         // Hash an input string and return the hash as
@@ -1137,12 +1023,6 @@ namespace WindowsFormsApp2
                 hexstring += String.Format("{0:X}", value);
             }
             return hexstring;
-        }
-
-        private void Timer2_Tick(object sender, EventArgs e)
-        {
-            timer2.Stop();
-
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -2847,5 +2727,241 @@ namespace WindowsFormsApp2
             else
                 MessageBox.Show("NB-IoT에서는 IMS를 지원하지 않습니다.");
         }
+
+        private void button61_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox31.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button75_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox30.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button67_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox32.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button66_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox27.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button65_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox26.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button64_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox25.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button84_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox41.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button69_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox23.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button82_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox39.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button79_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox37.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button78_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox36.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button77_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox35.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button76_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox34.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button60_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox42.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button85_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox43.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button59_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox22.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button58_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox21.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button57_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox20.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button56_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox19.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button55_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox18.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button43_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox17.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button54_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox16.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button53_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox15.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button52_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox14.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button51_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox13.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button50_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox12.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button49_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox11.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button48_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox10.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button47_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox9.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button46_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox8.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button45_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox7.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button37_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox1.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button38_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox6.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button39_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox5.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button42_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox4.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button74_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox28.Text);
+            actionState = states.testatcmd.ToString();
+        }
+
+        private void button44_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox2.Text);
+            actionState = states.atdtatcmd.ToString();
+        }
+    }
+
+    public class Device
+    {
+        public string imsi { get; set; }            // 디바이스 전화번호
+        public string imei { get; set; }            // 디바이스 IMEI
+        public string iccid { get; set; }           // 디바이스 ICCID
+        public string entityId { get; set; }        // oneM2M 디바이스 EntityID
+
+        public string maker { get; set; }           // 모듈 제조사
+        public string model { get; set; }           // 모듈 모델명
+        public string version { get; set; }         // 모듈 펌웨어 버전
+
+        public string type { get; set; }            // 플랫폼 연동 방식 (None/oneM2M/LwM2M)
     }
 }
