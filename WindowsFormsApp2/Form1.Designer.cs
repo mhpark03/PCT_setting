@@ -34,6 +34,48 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pnOneM2M = new System.Windows.Forms.Panel();
+            this.button72 = new System.Windows.Forms.Button();
+            this.button81 = new System.Windows.Forms.Button();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.textBox24 = new System.Windows.Forms.TextBox();
+            this.button86 = new System.Windows.Forms.Button();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button71 = new System.Windows.Forms.Button();
+            this.button80 = new System.Windows.Forms.Button();
+            this.button83 = new System.Windows.Forms.Button();
+            this.textBox44 = new System.Windows.Forms.TextBox();
+            this.button88 = new System.Windows.Forms.Button();
+            this.textBox45 = new System.Windows.Forms.TextBox();
+            this.textBox46 = new System.Windows.Forms.TextBox();
+            this.textBox47 = new System.Windows.Forms.TextBox();
+            this.textBox48 = new System.Windows.Forms.TextBox();
+            this.textBox49 = new System.Windows.Forms.TextBox();
+            this.button89 = new System.Windows.Forms.Button();
+            this.button90 = new System.Windows.Forms.Button();
+            this.button91 = new System.Windows.Forms.Button();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.textBox50 = new System.Windows.Forms.TextBox();
+            this.button92 = new System.Windows.Forms.Button();
+            this.textBox51 = new System.Windows.Forms.TextBox();
+            this.button93 = new System.Windows.Forms.Button();
+            this.textBox52 = new System.Windows.Forms.TextBox();
+            this.button94 = new System.Windows.Forms.Button();
+            this.textBox53 = new System.Windows.Forms.TextBox();
+            this.button95 = new System.Windows.Forms.Button();
+            this.textBox54 = new System.Windows.Forms.TextBox();
+            this.button96 = new System.Windows.Forms.Button();
+            this.textBox55 = new System.Windows.Forms.TextBox();
+            this.textBox56 = new System.Windows.Forms.TextBox();
+            this.button97 = new System.Windows.Forms.Button();
+            this.button98 = new System.Windows.Forms.Button();
+            this.button70 = new System.Windows.Forms.Button();
             this.pnProxy = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button44 = new System.Windows.Forms.Button();
@@ -198,7 +240,15 @@
             this.btnIMSI = new System.Windows.Forms.Button();
             this.btnManufac = new System.Windows.Forms.Button();
             this.btnModel = new System.Windows.Forms.Button();
+            this.textBox33 = new System.Windows.Forms.TextBox();
+            this.textBox38 = new System.Windows.Forms.TextBox();
+            this.textBox40 = new System.Windows.Forms.TextBox();
+            this.textBox57 = new System.Windows.Forms.TextBox();
+            this.button87 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            this.pnOneM2M.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.pnProxy.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -258,6 +308,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button87);
+            this.panel1.Controls.Add(this.pnOneM2M);
+            this.panel1.Controls.Add(this.button70);
             this.panel1.Controls.Add(this.cBoxBaudRate);
             this.panel1.Controls.Add(this.progressBar1);
             this.panel1.Controls.Add(this.cBoxCOMPORT);
@@ -272,6 +325,467 @@
             this.panel1.Size = new System.Drawing.Size(1171, 818);
             this.panel1.TabIndex = 10;
             // 
+            // pnOneM2M
+            // 
+            this.pnOneM2M.Controls.Add(this.button72);
+            this.pnOneM2M.Controls.Add(this.button81);
+            this.pnOneM2M.Controls.Add(this.groupBox10);
+            this.pnOneM2M.Controls.Add(this.groupBox11);
+            this.pnOneM2M.Location = new System.Drawing.Point(40, 54);
+            this.pnOneM2M.Name = "pnOneM2M";
+            this.pnOneM2M.Size = new System.Drawing.Size(1083, 736);
+            this.pnOneM2M.TabIndex = 36;
+            this.pnOneM2M.Visible = false;
+            // 
+            // button72
+            // 
+            this.button72.Location = new System.Drawing.Point(108, 53);
+            this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button72.Name = "button72";
+            this.button72.Size = new System.Drawing.Size(117, 24);
+            this.button72.TabIndex = 42;
+            this.button72.Text = "엑셀 파일 읽기";
+            this.button72.UseVisualStyleBackColor = true;
+            this.button72.Click += new System.EventHandler(this.button62_Click);
+            // 
+            // button81
+            // 
+            this.button81.Location = new System.Drawing.Point(292, 56);
+            this.button81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button81.Name = "button81";
+            this.button81.Size = new System.Drawing.Size(121, 24);
+            this.button81.TabIndex = 41;
+            this.button81.Text = "엑셀 파일 쓰기";
+            this.button81.UseVisualStyleBackColor = true;
+            this.button81.Click += new System.EventHandler(this.button63_Click);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.textBox57);
+            this.groupBox10.Controls.Add(this.textBox40);
+            this.groupBox10.Controls.Add(this.textBox38);
+            this.groupBox10.Controls.Add(this.textBox33);
+            this.groupBox10.Controls.Add(this.textBox24);
+            this.groupBox10.Controls.Add(this.button86);
+            this.groupBox10.Controls.Add(this.checkBox6);
+            this.groupBox10.Controls.Add(this.checkBox5);
+            this.groupBox10.Controls.Add(this.checkBox4);
+            this.groupBox10.Controls.Add(this.checkBox3);
+            this.groupBox10.Controls.Add(this.checkBox1);
+            this.groupBox10.Controls.Add(this.label1);
+            this.groupBox10.Controls.Add(this.comboBox1);
+            this.groupBox10.Controls.Add(this.button71);
+            this.groupBox10.Controls.Add(this.button80);
+            this.groupBox10.Controls.Add(this.button83);
+            this.groupBox10.Controls.Add(this.textBox44);
+            this.groupBox10.Controls.Add(this.button88);
+            this.groupBox10.Controls.Add(this.textBox45);
+            this.groupBox10.Controls.Add(this.textBox46);
+            this.groupBox10.Controls.Add(this.textBox47);
+            this.groupBox10.Controls.Add(this.textBox48);
+            this.groupBox10.Controls.Add(this.textBox49);
+            this.groupBox10.Controls.Add(this.button89);
+            this.groupBox10.Controls.Add(this.button90);
+            this.groupBox10.Controls.Add(this.button91);
+            this.groupBox10.Location = new System.Drawing.Point(14, 101);
+            this.groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox10.Size = new System.Drawing.Size(513, 420);
+            this.groupBox10.TabIndex = 40;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "AT COMMAND (일반)";
+            // 
+            // textBox24
+            // 
+            this.textBox24.Location = new System.Drawing.Point(208, 352);
+            this.textBox24.Name = "textBox24";
+            this.textBox24.Size = new System.Drawing.Size(222, 21);
+            this.textBox24.TabIndex = 49;
+            this.textBox24.Text = "AT+NRB";
+            // 
+            // button86
+            // 
+            this.button86.Location = new System.Drawing.Point(6, 349);
+            this.button86.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button86.Name = "button86";
+            this.button86.Size = new System.Drawing.Size(196, 24);
+            this.button86.TabIndex = 48;
+            this.button86.Text = "DATA REBOOT";
+            this.button86.UseVisualStyleBackColor = true;
+            this.button86.Click += new System.EventHandler(this.button86_Click);
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Checked = true;
+            this.checkBox6.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox6.Location = new System.Drawing.Point(437, 324);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(78, 16);
+            this.checkBox6.TabIndex = 47;
+            this.checkBox6.Text = "OK follow";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Checked = true;
+            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox5.Location = new System.Drawing.Point(438, 269);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(78, 16);
+            this.checkBox5.TabIndex = 46;
+            this.checkBox5.Text = "OK follow";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(436, 210);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(78, 16);
+            this.checkBox4.TabIndex = 45;
+            this.checkBox4.Text = "OK follow";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Location = new System.Drawing.Point(436, 155);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(78, 16);
+            this.checkBox3.TabIndex = 44;
+            this.checkBox3.Text = "OK follow";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(437, 69);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(78, 16);
+            this.checkBox1.TabIndex = 42;
+            this.checkBox1.Text = "OK follow";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(461, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 12);
+            this.label1.TabIndex = 41;
+            this.label1.Text = "OK resp";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "oneM2M",
+            "LwM2M",
+            "미지원"});
+            this.comboBox1.Location = new System.Drawing.Point(209, 35);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(222, 20);
+            this.comboBox1.TabIndex = 30;
+            this.comboBox1.Text = "LwM2M";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // button71
+            // 
+            this.button71.Location = new System.Drawing.Point(7, 178);
+            this.button71.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button71.Name = "button71";
+            this.button71.Size = new System.Drawing.Size(196, 24);
+            this.button71.TabIndex = 40;
+            this.button71.Text = "ICCID";
+            this.button71.UseVisualStyleBackColor = true;
+            this.button71.Click += new System.EventHandler(this.button71_Click);
+            // 
+            // button80
+            // 
+            this.button80.Location = new System.Drawing.Point(7, 32);
+            this.button80.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button80.Name = "button80";
+            this.button80.Size = new System.Drawing.Size(194, 24);
+            this.button80.TabIndex = 0;
+            this.button80.Text = "Platform 종류";
+            this.button80.UseVisualStyleBackColor = true;
+            // 
+            // button83
+            // 
+            this.button83.Location = new System.Drawing.Point(7, 63);
+            this.button83.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button83.Name = "button83";
+            this.button83.Size = new System.Drawing.Size(196, 24);
+            this.button83.TabIndex = 39;
+            this.button83.Text = "제조사";
+            this.button83.UseVisualStyleBackColor = true;
+            this.button83.Click += new System.EventHandler(this.button83_Click);
+            // 
+            // textBox44
+            // 
+            this.textBox44.Location = new System.Drawing.Point(209, 293);
+            this.textBox44.Name = "textBox44";
+            this.textBox44.Size = new System.Drawing.Size(222, 21);
+            this.textBox44.TabIndex = 22;
+            this.textBox44.Text = "AT+CGMR";
+            // 
+            // button88
+            // 
+            this.button88.Location = new System.Drawing.Point(7, 290);
+            this.button88.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button88.Name = "button88";
+            this.button88.Size = new System.Drawing.Size(196, 24);
+            this.button88.TabIndex = 21;
+            this.button88.Text = "FW VERSION";
+            this.button88.UseVisualStyleBackColor = true;
+            this.button88.Click += new System.EventHandler(this.button88_Click);
+            // 
+            // textBox45
+            // 
+            this.textBox45.Location = new System.Drawing.Point(208, 181);
+            this.textBox45.Name = "textBox45";
+            this.textBox45.Size = new System.Drawing.Size(222, 21);
+            this.textBox45.TabIndex = 20;
+            this.textBox45.Text = "AT+MUICCID";
+            // 
+            // textBox46
+            // 
+            this.textBox46.Location = new System.Drawing.Point(209, 124);
+            this.textBox46.Name = "textBox46";
+            this.textBox46.Size = new System.Drawing.Size(222, 21);
+            this.textBox46.TabIndex = 19;
+            this.textBox46.Text = "AT+CIMI";
+            // 
+            // textBox47
+            // 
+            this.textBox47.Location = new System.Drawing.Point(208, 96);
+            this.textBox47.Name = "textBox47";
+            this.textBox47.Size = new System.Drawing.Size(222, 21);
+            this.textBox47.TabIndex = 18;
+            this.textBox47.Text = "AT+CGMM";
+            // 
+            // textBox48
+            // 
+            this.textBox48.Location = new System.Drawing.Point(208, 66);
+            this.textBox48.Name = "textBox48";
+            this.textBox48.Size = new System.Drawing.Size(222, 21);
+            this.textBox48.TabIndex = 17;
+            this.textBox48.Text = "AT+CGMI";
+            // 
+            // textBox49
+            // 
+            this.textBox49.Location = new System.Drawing.Point(209, 237);
+            this.textBox49.Name = "textBox49";
+            this.textBox49.Size = new System.Drawing.Size(222, 21);
+            this.textBox49.TabIndex = 15;
+            this.textBox49.Text = "AT+CGSN=1";
+            // 
+            // button89
+            // 
+            this.button89.Location = new System.Drawing.Point(7, 234);
+            this.button89.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button89.Name = "button89";
+            this.button89.Size = new System.Drawing.Size(196, 24);
+            this.button89.TabIndex = 14;
+            this.button89.Text = "IMEI";
+            this.button89.UseVisualStyleBackColor = true;
+            this.button89.Click += new System.EventHandler(this.button89_Click);
+            // 
+            // button90
+            // 
+            this.button90.Location = new System.Drawing.Point(7, 121);
+            this.button90.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button90.Name = "button90";
+            this.button90.Size = new System.Drawing.Size(196, 24);
+            this.button90.TabIndex = 10;
+            this.button90.Text = "IMSI";
+            this.button90.UseVisualStyleBackColor = true;
+            this.button90.Click += new System.EventHandler(this.button90_Click);
+            // 
+            // button91
+            // 
+            this.button91.Location = new System.Drawing.Point(6, 93);
+            this.button91.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button91.Name = "button91";
+            this.button91.Size = new System.Drawing.Size(196, 24);
+            this.button91.TabIndex = 8;
+            this.button91.Text = "모델";
+            this.button91.UseVisualStyleBackColor = true;
+            this.button91.Click += new System.EventHandler(this.button91_Click);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.textBox50);
+            this.groupBox11.Controls.Add(this.button92);
+            this.groupBox11.Controls.Add(this.textBox51);
+            this.groupBox11.Controls.Add(this.button93);
+            this.groupBox11.Controls.Add(this.textBox52);
+            this.groupBox11.Controls.Add(this.button94);
+            this.groupBox11.Controls.Add(this.textBox53);
+            this.groupBox11.Controls.Add(this.button95);
+            this.groupBox11.Controls.Add(this.textBox54);
+            this.groupBox11.Controls.Add(this.button96);
+            this.groupBox11.Controls.Add(this.textBox55);
+            this.groupBox11.Controls.Add(this.textBox56);
+            this.groupBox11.Controls.Add(this.button97);
+            this.groupBox11.Controls.Add(this.button98);
+            this.groupBox11.Location = new System.Drawing.Point(553, 110);
+            this.groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox11.Size = new System.Drawing.Size(513, 312);
+            this.groupBox11.TabIndex = 36;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "LwM2M COMMAND";
+            // 
+            // textBox50
+            // 
+            this.textBox50.Location = new System.Drawing.Point(210, 52);
+            this.textBox50.Name = "textBox50";
+            this.textBox50.Size = new System.Drawing.Size(291, 21);
+            this.textBox50.TabIndex = 32;
+            this.textBox50.Text = "AT+CFUN=1,1";
+            // 
+            // button92
+            // 
+            this.button92.Location = new System.Drawing.Point(8, 49);
+            this.button92.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button92.Name = "button92";
+            this.button92.Size = new System.Drawing.Size(196, 24);
+            this.button92.TabIndex = 31;
+            this.button92.Text = "Please reboot phone";
+            this.button92.UseVisualStyleBackColor = true;
+            // 
+            // textBox51
+            // 
+            this.textBox51.Location = new System.Drawing.Point(208, 202);
+            this.textBox51.Name = "textBox51";
+            this.textBox51.Size = new System.Drawing.Size(291, 21);
+            this.textBox51.TabIndex = 30;
+            this.textBox51.Text = "AT+CGACT=1,2";
+            // 
+            // button93
+            // 
+            this.button93.Location = new System.Drawing.Point(6, 199);
+            this.button93.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button93.Name = "button93";
+            this.button93.Size = new System.Drawing.Size(196, 24);
+            this.button93.TabIndex = 29;
+            this.button93.Text = "Device VERSION";
+            this.button93.UseVisualStyleBackColor = true;
+            // 
+            // textBox52
+            // 
+            this.textBox52.Location = new System.Drawing.Point(208, 170);
+            this.textBox52.Name = "textBox52";
+            this.textBox52.Size = new System.Drawing.Size(291, 21);
+            this.textBox52.TabIndex = 28;
+            this.textBox52.Text = "AT+CGACT=0,2";
+            // 
+            // button94
+            // 
+            this.button94.Location = new System.Drawing.Point(6, 167);
+            this.button94.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button94.Name = "button94";
+            this.button94.Size = new System.Drawing.Size(196, 24);
+            this.button94.TabIndex = 27;
+            this.button94.Text = "DEREGISTRATION";
+            this.button94.UseVisualStyleBackColor = true;
+            // 
+            // textBox53
+            // 
+            this.textBox53.Location = new System.Drawing.Point(208, 139);
+            this.textBox53.Name = "textBox53";
+            this.textBox53.Size = new System.Drawing.Size(291, 21);
+            this.textBox53.TabIndex = 26;
+            this.textBox53.Text = "AT+CPSMS=0";
+            // 
+            // button95
+            // 
+            this.button95.Location = new System.Drawing.Point(6, 136);
+            this.button95.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button95.Name = "button95";
+            this.button95.Size = new System.Drawing.Size(196, 24);
+            this.button95.TabIndex = 25;
+            this.button95.Text = "DATA SEND";
+            this.button95.UseVisualStyleBackColor = true;
+            // 
+            // textBox54
+            // 
+            this.textBox54.Location = new System.Drawing.Point(208, 111);
+            this.textBox54.Name = "textBox54";
+            this.textBox54.Size = new System.Drawing.Size(291, 21);
+            this.textBox54.TabIndex = 24;
+            this.textBox54.Text = "AT+CPSMS=1,,,\"10000101\",\"00100010\"";
+            // 
+            // button96
+            // 
+            this.button96.Location = new System.Drawing.Point(6, 108);
+            this.button96.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button96.Name = "button96";
+            this.button96.Size = new System.Drawing.Size(196, 24);
+            this.button96.TabIndex = 23;
+            this.button96.Text = "REGISTRATION";
+            this.button96.UseVisualStyleBackColor = true;
+            // 
+            // textBox55
+            // 
+            this.textBox55.Location = new System.Drawing.Point(208, 77);
+            this.textBox55.Name = "textBox55";
+            this.textBox55.Size = new System.Drawing.Size(291, 21);
+            this.textBox55.TabIndex = 20;
+            this.textBox55.Text = "AT+CGACT=1,1";
+            // 
+            // textBox56
+            // 
+            this.textBox56.Location = new System.Drawing.Point(208, 22);
+            this.textBox56.Name = "textBox56";
+            this.textBox56.Size = new System.Drawing.Size(291, 21);
+            this.textBox56.TabIndex = 18;
+            this.textBox56.Text = "AT+CNEC=24";
+            // 
+            // button97
+            // 
+            this.button97.Location = new System.Drawing.Point(6, 77);
+            this.button97.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button97.Name = "button97";
+            this.button97.Size = new System.Drawing.Size(196, 24);
+            this.button97.TabIndex = 12;
+            this.button97.Text = "BOOTSTRAP";
+            this.button97.UseVisualStyleBackColor = true;
+            // 
+            // button98
+            // 
+            this.button98.Location = new System.Drawing.Point(6, 19);
+            this.button98.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button98.Name = "button98";
+            this.button98.Size = new System.Drawing.Size(196, 24);
+            this.button98.TabIndex = 8;
+            this.button98.Text = "Server IP";
+            this.button98.UseVisualStyleBackColor = true;
+            // 
+            // button70
+            // 
+            this.button70.BackColor = System.Drawing.SystemColors.ButtonShadow;
+            this.button70.Location = new System.Drawing.Point(531, 22);
+            this.button70.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button70.Name = "button70";
+            this.button70.Size = new System.Drawing.Size(167, 24);
+            this.button70.TabIndex = 35;
+            this.button70.Text = "U+ PLATFORM";
+            this.button70.UseVisualStyleBackColor = false;
+            this.button70.Click += new System.EventHandler(this.button70_Click);
+            // 
             // pnProxy
             // 
             this.pnProxy.Controls.Add(this.groupBox8);
@@ -284,7 +798,7 @@
             this.pnProxy.Controls.Add(this.groupBox3);
             this.pnProxy.Controls.Add(this.button40);
             this.pnProxy.Controls.Add(this.button41);
-            this.pnProxy.Location = new System.Drawing.Point(24, 70);
+            this.pnProxy.Location = new System.Drawing.Point(64, 51);
             this.pnProxy.Name = "pnProxy";
             this.pnProxy.Size = new System.Drawing.Size(1083, 736);
             this.pnProxy.TabIndex = 34;
@@ -1196,7 +1710,7 @@
             // button35
             // 
             this.button35.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button35.Location = new System.Drawing.Point(372, 22);
+            this.button35.Location = new System.Drawing.Point(312, 22);
             this.button35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button35.Name = "button35";
             this.button35.Size = new System.Drawing.Size(167, 24);
@@ -1208,7 +1722,7 @@
             // button34
             // 
             this.button34.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.button34.Location = new System.Drawing.Point(173, 22);
+            this.button34.Location = new System.Drawing.Point(108, 22);
             this.button34.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(167, 24);
@@ -2079,6 +2593,47 @@
             this.btnModel.Text = "IMS PDN";
             this.btnModel.UseVisualStyleBackColor = true;
             // 
+            // textBox33
+            // 
+            this.textBox33.Location = new System.Drawing.Point(209, 152);
+            this.textBox33.Name = "textBox33";
+            this.textBox33.Size = new System.Drawing.Size(222, 21);
+            this.textBox33.TabIndex = 50;
+            // 
+            // textBox38
+            // 
+            this.textBox38.Location = new System.Drawing.Point(209, 208);
+            this.textBox38.Name = "textBox38";
+            this.textBox38.Size = new System.Drawing.Size(222, 21);
+            this.textBox38.TabIndex = 51;
+            this.textBox38.Text = "+MUICCID:";
+            // 
+            // textBox40
+            // 
+            this.textBox40.Location = new System.Drawing.Point(209, 266);
+            this.textBox40.Name = "textBox40";
+            this.textBox40.Size = new System.Drawing.Size(222, 21);
+            this.textBox40.TabIndex = 52;
+            this.textBox40.Text = "+CGSN:";
+            // 
+            // textBox57
+            // 
+            this.textBox57.Location = new System.Drawing.Point(209, 320);
+            this.textBox57.Name = "textBox57";
+            this.textBox57.Size = new System.Drawing.Size(222, 21);
+            this.textBox57.TabIndex = 53;
+            // 
+            // button87
+            // 
+            this.button87.Location = new System.Drawing.Point(1038, 23);
+            this.button87.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button87.Name = "button87";
+            this.button87.Size = new System.Drawing.Size(85, 24);
+            this.button87.TabIndex = 43;
+            this.button87.Text = "조회";
+            this.button87.UseVisualStyleBackColor = true;
+            this.button87.Click += new System.EventHandler(this.button87_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -2093,6 +2648,11 @@
             this.Text = "LGU+ ATcommand TEST";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            this.pnOneM2M.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.pnProxy.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -2284,6 +2844,53 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.TextBox textBox23;
         private System.Windows.Forms.Button button69;
+        private System.Windows.Forms.Panel pnOneM2M;
+        private System.Windows.Forms.Button button72;
+        private System.Windows.Forms.Button button81;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button71;
+        private System.Windows.Forms.Button button80;
+        private System.Windows.Forms.Button button83;
+        private System.Windows.Forms.TextBox textBox44;
+        private System.Windows.Forms.Button button88;
+        private System.Windows.Forms.TextBox textBox45;
+        private System.Windows.Forms.TextBox textBox46;
+        private System.Windows.Forms.TextBox textBox47;
+        private System.Windows.Forms.TextBox textBox48;
+        private System.Windows.Forms.TextBox textBox49;
+        private System.Windows.Forms.Button button89;
+        private System.Windows.Forms.Button button90;
+        private System.Windows.Forms.Button button91;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.TextBox textBox50;
+        private System.Windows.Forms.Button button92;
+        private System.Windows.Forms.TextBox textBox51;
+        private System.Windows.Forms.Button button93;
+        private System.Windows.Forms.TextBox textBox52;
+        private System.Windows.Forms.Button button94;
+        private System.Windows.Forms.TextBox textBox53;
+        private System.Windows.Forms.Button button95;
+        private System.Windows.Forms.TextBox textBox54;
+        private System.Windows.Forms.Button button96;
+        private System.Windows.Forms.TextBox textBox55;
+        private System.Windows.Forms.TextBox textBox56;
+        private System.Windows.Forms.Button button97;
+        private System.Windows.Forms.Button button98;
+        private System.Windows.Forms.Button button70;
+        private System.Windows.Forms.TextBox textBox24;
+        private System.Windows.Forms.Button button86;
+        private System.Windows.Forms.TextBox textBox57;
+        private System.Windows.Forms.TextBox textBox40;
+        private System.Windows.Forms.TextBox textBox38;
+        private System.Windows.Forms.TextBox textBox33;
+        private System.Windows.Forms.Button button87;
     }
 }
 

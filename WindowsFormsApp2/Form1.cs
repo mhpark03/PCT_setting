@@ -168,8 +168,6 @@ namespace WindowsFormsApp2
 
             getmodemver,
             autogetmodemver,
-            getmodemvertpb23,
-            autogetmodemvertpb23,
             getmodemvernt,
             autogetmodemvernt,
             getmodemverbc95,
@@ -181,10 +179,11 @@ namespace WindowsFormsApp2
             atdtatcmd,
         }
 
-        string dataIN = "";
-        string nextcommand = "";    //OK를 받은 후 전송할 명령어가 존재하는 경우
+        string dataIN = string.Empty;
+        string nextcommand = string.Empty;    //OK를 받은 후 전송할 명령어가 존재하는 경우
                                     //예를들어 +CEREG와 같이 OK를 포함한 응답 값을 받은 경우 OK처리 후에 명령어를 전송해야 한다
                                     // states 값을 바꾸고 명령어를 전송하면 명령의 응답을 받기전 이전에 받았던 OK에 동작할 수 있다.
+        string nextresponse = string.Empty;   //응답에 prefix가 존재하는 경우
         string commmode = "catm1";
         string imsmode = "no";
         string actionState = "idle";
@@ -370,8 +369,6 @@ namespace WindowsFormsApp2
 
             commands.Add("getmodemver", "AT+GMR");
             commands.Add("autogetmodemver", "AT+GMR");
-            commands.Add("getmodemvertpb23", "AT+CGMR");
-            commands.Add("autogetmodemvertpb23", "AT+CGMR");
             commands.Add("getmodemverbc95", "AT+CGMR");
             commands.Add("autogetmodemverbc95", "AT+CGMR");
             commands.Add("getmodemvernt", "AT*ST*INFO?");
@@ -408,8 +405,6 @@ namespace WindowsFormsApp2
                     progressBar1.Value = 50;
                     groupBox1.Enabled = true;
                     logPrintInTextBox("COM PORT가 연결 되었습니다.", "");
-
-                    getDeviveInfo();
                 }
                 catch (Exception err)
                 {
@@ -591,10 +586,8 @@ namespace WindowsFormsApp2
                 "ERROR",        // 오류 응답을 받은 경우, 동작을 중지한다.
                 "+ICCID:",      // ICCID 값을 저장한다.
                 "ICCID:",      // ICCID 값을 저장한다.
-                "+MUICCID:",    // ICCID (NB) 값을 저장한다.
                 "@ICCID:",    // ICCID (AMTEL) 값을 저장한다.
                 "+NCCID:",      // ICCID (BC95) 값을 저장한다.
-                "+CGSN:",       // IMEI (NB TPB23모델) 값을 저장한다.
                 "APPLICATION_A,",    // Modem verion (BC95) 값을 저장한다.
                 "AT+MLWDLDATA=",    // LWM2M서버에서 data 수신이벤트
                 "+NNMI:",    // LWM2M서버에서 data 수신이벤트
@@ -653,31 +646,49 @@ namespace WindowsFormsApp2
             logPrintInTextBox(rxMsg,"rx");          // 수신한 데이터 한줄을 표시
             bool find_msg = false;
 
-            // 후처리가 필요한 명령어 목록에서 하나씩 순서대로 읽어서 비교한다.
-            foreach (string s in sentences)
+            if (nextresponse != string.Empty && rxMsg.StartsWith(nextresponse, System.StringComparison.CurrentCultureIgnoreCase))
             {
-                //logPrintInTextBox(s,"");
+                //logPrintInTextBox(s + " : There is matching data.","");
 
-                // 수신한 데이터에 대해 후처리가 필요한 명령어가 포함되어 있는지 체크한다.
-                //if (System.Text.RegularExpressions.Regex.IsMatch(rxMsg, s, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                int first = rxMsg.IndexOf(nextresponse) + nextresponse.Length;
+                string str2 = "";
+                str2 = rxMsg.Substring(first, rxMsg.Length - first);
 
-                // 수신한 데이터에 대해 후처리가 필요한 명령어로 시작하는지 체크한다.
-                if (rxMsg.StartsWith(s, System.StringComparison.CurrentCultureIgnoreCase))
+                this.parseNextReceiveData(str2);
+                nextresponse = string.Empty;
+
+                find_msg = true;
+            }
+            else
+            {
+                // 후처리가 필요한 명령어 목록에서 하나씩 순서대로 읽어서 비교한다.
+                foreach (string s in sentences)
                 {
-                   //logPrintInTextBox(s + " : There is matching data.","");
+                    //logPrintInTextBox(s,"");
 
-                    // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
-                    int first = rxMsg.IndexOf(s) + s.Length;
-                    string str2 = "";
-                    str2 = rxMsg.Substring(first, rxMsg.Length - first);
-                    //logPrintInTextBox("남은 문자열 : " + str2,"");
+                    // 수신한 데이터에 대해 후처리가 필요한 명령어가 포함되어 있는지 체크한다.
+                    //if (System.Text.RegularExpressions.Regex.IsMatch(rxMsg, s, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
 
-                    this.parseReceiveData(s, str2);
+                    // 수신한 데이터에 대해 후처리가 필요한 명령어로 시작하는지 체크한다.
+                    if (rxMsg.StartsWith(s, System.StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        //logPrintInTextBox(s + " : There is matching data.","");
 
-                    find_msg = true;
-                    break;
+                        // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                        int first = rxMsg.IndexOf(s) + s.Length;
+                        string str2 = "";
+                        str2 = rxMsg.Substring(first, rxMsg.Length - first);
+                        //logPrintInTextBox("남은 문자열 : " + str2,"");
+
+                        this.parseReceiveData(s, str2);
+
+                        find_msg = true;
+                        break;
+                    }
                 }
             }
+
 
             // 후처리가 필요한 명령어인데 고정 값이 없고 data만 있는 경우
             //예를들어 IMSI, IMEI 요청에 대한 응답 값 등
@@ -688,6 +699,43 @@ namespace WindowsFormsApp2
                 this.parseNoPrefixData(rxMsg);
             }
 
+        }
+
+        private void parseNextReceiveData(string str2)
+        {
+            states state = (states)Enum.Parse(typeof(states), actionState);
+            switch (state)
+            {
+                case states.getimei:
+                    dev.imei = str2;
+                    tbIMEI.Text = str2;
+                    logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
+                    break;
+                case states.autogetimei:
+                    // 단말 정보 자동 갱신 순서
+                    // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
+                    dev.imei = str2;
+                    tbIMEI.Text = str2;
+                    logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
+                    progressBar1.Value = 90;
+
+                    nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
+                    break;
+                case states.geticcid:
+                    string[] strchs = str2.Split(' ');        // Remove first char ' '
+                    if (strchs.Length > 1)
+                        str2 = strchs[strchs.Length - 1];
+
+                    if (str2.Length > 19)
+                        dev.iccid = str2.Substring(str2.Length - 20, 19);
+                    else
+                        dev.iccid = str2;
+
+                    logPrintInTextBox("ICCID가 "+ dev.iccid + "로 저장되었습니다.", "");
+                    break;
+                default:
+                    break;
+            }
         }
 
         // 수신한 응답 값과 특정 값과 일치하는 경우
@@ -717,14 +765,6 @@ namespace WindowsFormsApp2
                         MessageBox.Show("ERROR 응답을 받았습니다.");
                         actionState = states.idle.ToString();
                     }
-                    break;
-                case "+CGSN:":
-                    dev.imei = str2;
-                    tbIMEI.Text = str2;
-                    logPrintInTextBox("IMEI를 저장하였습니다.", "");
-                    progressBar1.Value = 90;
-
-                    nextcommand = states.autogetmodemvertpb23.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
                     break;
                 case "AT+MLWEVTIND=":
                 case "+QLWEVTIND:":
@@ -860,8 +900,32 @@ namespace WindowsFormsApp2
             {
                 if (nextcommand != "")
                 {
-                    this.sendDataOut(commands[nextcommand]);
-                    actionState = nextcommand;
+                    states state = (states)Enum.Parse(typeof(states), nextcommand);
+                    switch (state)
+                    {
+                        // 단말 정보 자동 갱신 순서
+                        // autogetmanufac - (autogetmodel) - autogetimei - autogetmodemver
+                        case states.autogetmodel:
+                            this.sendDataOut(textBox47.Text);
+                            actionState = states.autogetmodel.ToString();
+                            break;
+                        // 단말 정보 자동 갱신 순서
+                        // autogetmanufac - autogetmodel - (autogetimei) - autogetmodemver
+                        case states.autogetimei:
+                            this.sendDataOut(textBox49.Text);
+                            nextresponse = textBox40.Text;
+                            actionState = states.autogetimei.ToString();
+                            break;
+                        // 단말 정보 자동 갱신 순서
+                        // autogetmanufac - autogetmodel - autogetimei - (autogetmodemver)
+                        case states.autogetmodemver:
+                            this.sendDataOut(textBox44.Text);
+                            nextresponse = textBox57.Text;
+                            actionState = states.autogetmodemver.ToString();
+                            break;
+                        default:
+                            break;
+                    }
                     nextcommand = "";
                 }
             }
@@ -872,19 +936,23 @@ namespace WindowsFormsApp2
             states state = (states)Enum.Parse(typeof(states), actionState);
             switch (state)
             {
+                case states.getmanufac:
+                    dev.maker = str1;
+                    actionState = states.idle.ToString();
+                    this.logPrintInTextBox("제조사값이 " + dev.maker + "로 저장되었습니다.", "");
+                    break;
                 // 단말 정보 자동 갱신 순서
-                // (autogetmanufac) - (autogetmodel) - autogetimei
+                // (autogetmanufac) - (autogetmodel) - autogetimei - autogetmodemver
                 case states.autogetmanufac:
                     dev.maker = str1;
                     progressBar1.Value = 60;
-                    this.logPrintInTextBox("제조사값이 저장되었습니다.", "");
-                    if (str1 == "AM Telecom" || str1 == "QUALCOMM INCORPORATED"
-                        || str1 == "LIME-I Co., Ltd")        //AMTEL 모듈은 OK가 오지 않음
+                    this.logPrintInTextBox("제조사값이 " + dev.maker + "로 저장되었습니다.", "");
+                    if (checkBox1.Checked == false)        //AMTEL등 OK가 오지 않음
                     {
-                        this.sendDataOut(commands["autogetmodelgmm"]);
+                        this.sendDataOut(textBox47.Text);
                         actionState = states.autogetmodel.ToString();
 
-                        nextcommand = "skip";
+                        nextcommand = "";
                     }
                     else
                     {
@@ -892,21 +960,22 @@ namespace WindowsFormsApp2
                         nextcommand = states.autogetmodel.ToString();
                     }
                     break;
+                case states.getmodel:
+                    dev.model = str1;
+                    tbDeviceName.Text = str1;
+                    this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
+                    break;
                 // 단말 정보 자동 갱신 순서
-                // autogetmanufac - (autogetmodel) - (autogetimsi) - geticcid
+                // autogetmanufac - (autogetmodel) - (autogetimei) - autogetmodemver
                 case states.autogetmodel:
                     dev.model = str1;
                     progressBar1.Value = 70;
                     tbDeviceName.Text = str1;
-                    this.logPrintInTextBox("모델값이 저장되었습니다.", "");
+                    this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
 
                     setModelConfig(str1);
 
-                    actionState = states.idle.ToString();
-                    if (dev.model == "TPB23")
-                        nextcommand = states.autogetimeitpb23.ToString();
-                    else
-                        nextcommand = states.autogetimei.ToString();
+                    nextcommand = states.autogetimei.ToString();
                     break;
                 case states.getimsi:
                     if (str1.StartsWith("45006"))
@@ -916,33 +985,25 @@ namespace WindowsFormsApp2
                         dev.imsi = ctn;
                         textBox1.Text = ctn;
                         actionState = states.idle.ToString();
-                        this.logPrintInTextBox("IMSI값이 저장되었습니다.", "");
+                        this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
                         this.logPrintInTextBox("USIM 상태 확인이 필요합니다.", "");
 
                     actionState = states.idle.ToString();
                     break;
-                case states.getmanufac:
-                    dev.maker = str1;
-                    actionState = states.idle.ToString();
-                    this.logPrintInTextBox("제조사값이 저장되었습니다.", "");
-                    break;
                 case states.getmodemver:
-                case states.getmodemvertpb23:
                     dev.version = str1;
-                    progressBar1.Value = 100;
                     tbDeviceVer.Text = str1;
                     actionState = states.idle.ToString();
-                    this.logPrintInTextBox("모뎀버전이 저장되었습니다.", "");
+                    this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
 
                     break;
                 case states.autogetmodemver:
-                case states.autogetmodemvertpb23:
                     dev.version = str1;
                     progressBar1.Value = 100;
                     tbDeviceVer.Text = str1;
-                    this.logPrintInTextBox("모뎀버전이 저장되었습니다.", "");
+                    this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
                     break;
                 default:
                     break;
@@ -959,39 +1020,9 @@ namespace WindowsFormsApp2
             this.logPrintInTextBox("DEVICE 정보 전체를 요청합니다.","");
 
             // 단말 정보 자동 갱신 순서
-            // (autogetmanufac) - autogetmodel - autogetimsi - autogetimei - geticcid
-            this.sendDataOut(commands["autogetmanufac"]);
+            // (autogetmanufac) - autogetmodel - autogetimei - autogetmodemver
+            this.sendDataOut(textBox48.Text);
             actionState = states.autogetmanufac.ToString();
-        }
-
-        // Hash an input string and return the hash as
-        // a 32 character hexadecimal string.
-        static string getMd5Hash(string input)
-        {
-            // Create a new instance of the MD5CryptoServiceProvider object.
-            MD5 md5Hasher = MD5.Create();
-
-            // Convert the input string to a byte array and compute the hash.
-            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
-                       
-            // Create a new Stringbuilder to collect the bytes
-            // and create a string.
-            StringBuilder sBuilder = new StringBuilder();
-                       
-            // Loop through each byte of the hashed data 
-            // and format each one as a hexadecimal string.
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-                       
-            // Return the hexadecimal string.
-            return sBuilder.ToString();
-        }
-
-        private bool isDeviceInfo()
-        {
-            return true;
         }
 
         private string BcdToString(char[] charValues)
@@ -2386,16 +2417,30 @@ namespace WindowsFormsApp2
         {
             button34.BackColor = SystemColors.ButtonHighlight;
             button35.BackColor = SystemColors.ButtonShadow;
+            button70.BackColor = SystemColors.ButtonShadow;
             pnSetting.Visible = true;
             pnProxy.Visible = false;
+            pnOneM2M.Visible = false;
         }
 
         private void button35_Click(object sender, EventArgs e)
         {
             button35.BackColor = SystemColors.ButtonHighlight;
             button34.BackColor = SystemColors.ButtonShadow;
+            button70.BackColor = SystemColors.ButtonShadow;
             pnSetting.Visible = false;
             pnProxy.Visible = true;
+            pnOneM2M.Visible = false;
+        }
+
+        private void button70_Click(object sender, EventArgs e)
+        {
+            button35.BackColor = SystemColors.ButtonShadow;
+            button34.BackColor = SystemColors.ButtonShadow;
+            button70.BackColor = SystemColors.ButtonHighlight;
+            pnSetting.Visible = false;
+            pnProxy.Visible = false;
+            pnOneM2M.Visible = true;
         }
 
         private void button63_Click(object sender, EventArgs e)
@@ -2543,6 +2588,59 @@ namespace WindowsFormsApp2
 
                 worksheet.Cells.ColumnWidth[0, 2] = 10000;
                 workbook.Worksheets.Add(worksheet);
+
+                i = 0;
+                worksheet = new Worksheet("atcommand3");
+                worksheet.Cells[i, 0] = new Cell(button80.Text);
+                worksheet.Cells[i, 1] = new Cell(comboBox1.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button83.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox48.Text);
+                if (checkBox1.Checked == true)
+                    worksheet.Cells[i, 3] = new Cell("on");
+                else
+                    worksheet.Cells[i, 3] = new Cell("off");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button91.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox47.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button90.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox46.Text);
+                worksheet.Cells[i, 2] = new Cell(textBox33.Text);
+                if (checkBox3.Checked == true)
+                    worksheet.Cells[i, 3] = new Cell("on");
+                else
+                    worksheet.Cells[i, 3] = new Cell("off");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button71.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox45.Text);
+                worksheet.Cells[i, 2] = new Cell(textBox38.Text);
+                if (checkBox4.Checked == true)
+                    worksheet.Cells[i, 3] = new Cell("on");
+                else
+                    worksheet.Cells[i, 3] = new Cell("off");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button89.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox49.Text);
+                worksheet.Cells[i, 2] = new Cell(textBox40.Text);
+                if (checkBox5.Checked == true)
+                    worksheet.Cells[i, 3] = new Cell("on");
+                else
+                    worksheet.Cells[i, 3] = new Cell("off");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button88.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox44.Text);
+                worksheet.Cells[i, 2] = new Cell(textBox57.Text);
+                if (checkBox6.Checked == true)
+                    worksheet.Cells[i, 3] = new Cell("on");
+                else
+                    worksheet.Cells[i, 3] = new Cell("off");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button86.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox24.Text);
+
+                worksheet.Cells.ColumnWidth[0, 2] = 10000;
+                workbook.Worksheets.Add(worksheet);
                 workbook.Save(pathname + filename);
             }
             catch (Exception err)
@@ -2650,6 +2748,52 @@ namespace WindowsFormsApp2
                         textBox26.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox25.Text = worksheet.Cells[i, 1].ToString();
+
+                        i = 0;
+                        worksheet = workbook.Worksheets[3];
+                        comboBox1.Text = worksheet.Cells[i, 1].ToString();
+                        if (comboBox1.SelectedIndex == 1)
+                            groupBox11.Enabled = true;
+                        else
+                            groupBox11.Enabled = false;
+                        i++;
+                        textBox48.Text = worksheet.Cells[i, 1].ToString();
+                        if (worksheet.Cells[i, 3].ToString() == "on")
+                            checkBox1.Checked = true;
+                        else
+                            checkBox1.Checked = false;
+                        i++;
+                        textBox47.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox46.Text = worksheet.Cells[i, 1].ToString();
+                        textBox33.Text = worksheet.Cells[i, 2].ToString();
+                        if (worksheet.Cells[i, 3].ToString() == "on")
+                            checkBox3.Checked = true;
+                        else
+                            checkBox3.Checked = false;
+                        i++;
+                        textBox45.Text = worksheet.Cells[i, 1].ToString();
+                        textBox38.Text = worksheet.Cells[i, 2].ToString();
+                        if (worksheet.Cells[i, 3].ToString() == "on")
+                            checkBox4.Checked = true;
+                        else
+                            checkBox4.Checked = false;
+                        i++;
+                        textBox49.Text = worksheet.Cells[i, 1].ToString();
+                        textBox40.Text = worksheet.Cells[i, 2].ToString();
+                        if (worksheet.Cells[i, 3].ToString() == "on")
+                            checkBox5.Checked = true;
+                        else
+                            checkBox5.Checked = false;
+                        i++;
+                        textBox44.Text = worksheet.Cells[i, 1].ToString();
+                        textBox57.Text = worksheet.Cells[i, 2].ToString();
+                        if (worksheet.Cells[i, 3].ToString() == "on")
+                            checkBox6.Checked = true;
+                        else
+                            checkBox6.Checked = false;
+                        i++;
+                        textBox24.Text = worksheet.Cells[i, 1].ToString();
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2948,6 +3092,65 @@ namespace WindowsFormsApp2
         {
             this.sendDataOut(textBox2.Text);
             actionState = states.atdtatcmd.ToString();
+        }
+
+        private void button83_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox48.Text);
+            actionState = states.getmanufac.ToString();
+        }
+
+        private void button91_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox47.Text);
+            actionState = states.getmodel.ToString();
+        }
+
+        private void button89_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox49.Text);
+            nextresponse = textBox40.Text;
+            actionState = states.getimei.ToString();
+        }
+
+        private void button88_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox44.Text);
+            nextresponse = textBox57.Text;
+            actionState = states.getmodemver.ToString();
+        }
+
+        private void button90_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox46.Text);
+            nextresponse = textBox33.Text;
+            actionState = states.getimsi.ToString();
+        }
+
+        private void button71_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox45.Text);
+            nextresponse = textBox38.Text;
+            actionState = states.geticcid.ToString();
+        }
+
+        private void button86_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox24.Text);
+            actionState = states.rfreset.ToString();
+        }
+
+        private void button87_Click(object sender, EventArgs e)
+        {
+            getDeviveInfo();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedIndex == 1)
+                groupBox11.Enabled = true;
+            else
+                groupBox11.Enabled = false;
         }
     }
 
