@@ -584,63 +584,7 @@ namespace WindowsFormsApp2
             {
                 "OK",           // 모든 응답이 완료한 경우, 다음 동작이 필요한지 확인 (nextcommand)
                 "ERROR",        // 오류 응답을 받은 경우, 동작을 중지한다.
-                "+ICCID:",      // ICCID 값을 저장한다.
-                "ICCID:",      // ICCID 값을 저장한다.
-                "@ICCID:",    // ICCID (AMTEL) 값을 저장한다.
-                "+NCCID:",      // ICCID (BC95) 값을 저장한다.
-                "APPLICATION_A,",    // Modem verion (BC95) 값을 저장한다.
-                "AT+MLWDLDATA=",    // LWM2M서버에서 data 수신이벤트
-                "+NNMI:",    // LWM2M서버에서 data 수신이벤트
-                "AT+MLWEVTIND=",    // LWM2M서버와 연동 상태 이벤트
-                "+QLWEVTIND:",    // LWM2M서버와 연동 상태 이벤트
-                "AT+CGMI",
-                "AT+MLWDFDLDATA=",  // LWM2M서버에서 26241 data 수신 이벤트 (모바일에코)
-                "AT",           // AT는 Device가 modem으로 요청하는 명령어로 무시하기 위함
-                //"AT+CIMI",
-                //"AT+GSN",
-                //"AT+CGMM",
-                //"AT+CGMI",
-                //"AT+CEREG=3",
-                //"AT+CEREG?",
-                "+CEREG:",      // LTE network 상태를 확인하고 연결이 되어 있지 않으면 재접속 시도
-                "+QLWEVENT:",    // 모듈 부팅시, LWM2M 등록 상태 이벤트, 진행 상태를 status bar에 진행율 표시
-                "+QLWDLDATA:",
-                "+QLWOBSERVE:",
-
-                "$OM_B_CSE_RSP=",
-                "$OM_R_CSE_RSP=",
-                "$OM_C_CSE_RSP=",
-                "$OM_C_CON_RSP=",
-                "$OM_C_SUB_RSP=",
-                "$OM_NOTI_IND=",
-                "$OM_R_INS_RSP=",
-                "$OM_C_MODEM_FWUP_RSP=",
-                "$OM_MODEM_FWUP_RSP=",
-                "$OM_PUSH_MODEM_FWUP_RSP=",
-                "$OM_MODEM_UPDATE_FINISH",
-                "$OM_DEV_FWUP_RSP=",
-                "$OM_PUSH_DEV_FWUP_RSP=",
-                "$OM_DEV_FWDL_FINISH",
-                "$LGTMPF=",
-
-                "*ST*INFO:",
-                "@NOTI:",
-                "@NETSTI:",
-                "$OM_AUTH_RSP=",
-                "$OM_U_CSE_RSP=",
-
-                "$OM_DEV_FWDL_START=",
-                "$BIN_DATA=",
-
-                "+QCFG: ",
-                "FW_VER: ",
-
-                "+QLWSERVERIP:BS,",
-                "+QLWSERVERIP:LWM2M,",
-                "+QLWEPNS: ",
-                "+QLWMBSPS: ",
-
-        };
+            };
 
 
             logPrintInTextBox(rxMsg,"rx");          // 수신한 데이터 한줄을 표시
@@ -657,8 +601,6 @@ namespace WindowsFormsApp2
 
                 this.parseNextReceiveData(str2);
                 nextresponse = string.Empty;
-
-                find_msg = true;
             }
             else
             {
@@ -687,18 +629,16 @@ namespace WindowsFormsApp2
                         break;
                     }
                 }
+
+                // 후처리가 필요한 명령어인데 고정 값이 없고 data만 있는 경우
+                //예를들어 IMSI, IMEI 요청에 대한 응답 값 등
+                if ((find_msg == false) && (rxMsg != "\r") && (rxMsg != "\n"))
+                {
+                    //logPrintInTextBox("No Matching Data!!!","");
+
+                    this.parseNoPrefixData(rxMsg);
+                }
             }
-
-
-            // 후처리가 필요한 명령어인데 고정 값이 없고 data만 있는 경우
-            //예를들어 IMSI, IMEI 요청에 대한 응답 값 등
-            if ((find_msg == false)&&(rxMsg!="\r") && (rxMsg != "\n"))
-            {
-                //logPrintInTextBox("No Matching Data!!!","");
-
-                this.parseNoPrefixData(rxMsg);
-            }
-
         }
 
         private void parseNextReceiveData(string str2)
