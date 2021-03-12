@@ -1322,15 +1322,9 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbMultiPDN.Checked = true;
-                            cbMultiPDN.Text = "지원";
-                        }
                         else
-                        {
                             cbMultiPDN.Checked = false;
-                            cbMultiPDN.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         tbChannel1.Text = rddata.Substring(11, rddata.Length - 11);
@@ -1343,39 +1337,21 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbAuto2ndPDN.Checked = true;
-                            cbAuto2ndPDN.Text = "올림";
-                        }
                         else
-                        {
                             cbAuto2ndPDN.Checked = false;
-                            cbAuto2ndPDN.Text = "안올림";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbEMC.Checked = true;
-                            cbEMC.Text = "지원";
-                        }
                         else
-                        {
                             cbEMC.Checked = false;
-                            cbEMC.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbCA.Checked = true;
-                            cbCA.Text = "지원";
-                        }
                         else
-                        {
                             cbCA.Checked = false;
-                            cbCA.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
@@ -1388,147 +1364,75 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbBand1.Checked = true;
-                            cbBand1.Text = "지원";
-                        }
                         else
-                        {
                             cbBand1.Checked = false;
-                            cbBand1.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("5"))
-                        {
                             cbBand5.Checked = true;
-                            cbBand5.Text = "지원";
-                        }
                         else
-                        {
                             cbBand5.Checked = false;
-                            cbBand5.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("7"))
-                        {
                             cbBand7.Checked = true;
-                            cbBand7.Text = "지원";
-                        }
                         else
-                        {
                             cbBand7.Checked = false;
-                            cbBand7.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbFGI4.Checked = true;
-                            cbFGI4.Text = "지원";
-                        }
                         else
-                        {
                             cbFGI4.Checked = false;
-                            cbFGI4.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbFGI5.Checked = true;
-                            cbFGI5.Text = "지원";
-                        }
                         else
-                        {
                             cbFGI5.Checked = false;
-                            cbFGI5.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbFGI17.Checked = true;
-                            cbFGI17.Text = "지원";
-                        }
                         else
-                        {
                             cbFGI17.Checked = false;
-                            cbFGI17.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbFGI18.Checked = true;
-                            cbFGI18.Text = "지원";
-                        }
                         else
-                        {
                             cbFGI18.Checked = false;
-                            cbFGI18.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
-                        {
                             cbFGI28.Checked = true;
-                            cbFGI28.Text = "지원";
-                        }
                         else
-                        {
                             cbFGI28.Checked = false;
-                            cbFGI28.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
-                        {
                             cbRachR9.Checked = true;
-                            cbRachR9.Text = "지원";
-                        }
                         else
-                        {
                             cbRachR9.Checked = false;
-                            cbRachR9.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
-                        {
                             cbLogR10.Checked = true;
-                            cbLogR10.Text = "지원";
-                        }
                         else
-                        {
                             cbLogR10.Checked = false;
-                            cbLogR10.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
-                        {
                             cbStandaloneGNSS.Checked = true;
-                            cbStandaloneGNSS.Text = "지원";
-                        }
                         else
-                        {
                             cbStandaloneGNSS.Checked = false;
-                            cbStandaloneGNSS.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
-                        {
                             cbBandCombin.Checked = true;
-                            cbBandCombin.Text = "지원";
-                        }
                         else
-                        {
                             cbBandCombin.Checked = false;
-                            cbBandCombin.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
@@ -1547,51 +1451,27 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbIPSec.Checked = true;
-                            cbIPSec.Text = "지원";
-                        }
                         else
-                        {
                             cbIPSec.Checked = false;
-                            cbIPSec.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbSMS.Checked = true;
-                            cbSMS.Text = "지원";
-                        }
                         else
-                        {
                             cbSMS.Checked = false;
-                            cbSMS.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbVoice.Checked = true;
-                            cbVoice.Text = "지원";
-                        }
                         else
-                        {
                             cbVoice.Checked = false;
-                            cbVoice.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
-                        {
                             cbVideo.Checked = true;
-                            cbVideo.Text = "지원";
-                        }
                         else
-                        {
                             cbVideo.Checked = false;
-                            cbVideo.Text = "미지원";
-                        }
 
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
