@@ -1172,10 +1172,12 @@ namespace WindowsFormsApp2
                 StreamWriter sw = new StreamWriter(fs);
 
                 sw.WriteLine("[Common]");
-                if (cbImsPDN.SelectedIndex == 0)
+                if (cbImsPDN.SelectedIndex == 1)
                     sw.WriteLine("imsPDN_number = " + "1");
-                else
+                else if (cbImsPDN.SelectedIndex == 2)
                     sw.WriteLine("imsPDN_number = " + "2");
+                else
+                    sw.WriteLine("imsPDN_number = " + "0");
                 sw.WriteLine("imsIPversion = " + cbImsIP.Text);
                 if(cbMultiPDN.Checked == true)
                     sw.WriteLine("Multiple_PDN = true");
@@ -1320,9 +1322,15 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbMultiPDN.Checked = true;
+                            cbMultiPDN.Text = "지원";
+                        }
                         else
+                        {
                             cbMultiPDN.Checked = false;
+                            cbMultiPDN.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         tbChannel1.Text = rddata.Substring(11, rddata.Length - 11);
@@ -1335,21 +1343,39 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbAuto2ndPDN.Checked = true;
+                            cbAuto2ndPDN.Text = "올림";
+                        }
                         else
+                        {
                             cbAuto2ndPDN.Checked = false;
+                            cbAuto2ndPDN.Text = "안올림";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbEMC.Checked = true;
+                            cbEMC.Text = "지원";
+                        }
                         else
+                        {
                             cbEMC.Checked = false;
+                            cbEMC.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbCA.Checked = true;
+                            cbCA.Text = "지원";
+                        }
                         else
+                        {
                             cbCA.Checked = false;
+                            cbCA.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
@@ -1362,75 +1388,147 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbBand1.Checked = true;
+                            cbBand1.Text = "지원";
+                        }
                         else
+                        {
                             cbBand1.Checked = false;
+                            cbBand1.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("5"))
+                        {
                             cbBand5.Checked = true;
+                            cbBand5.Text = "지원";
+                        }
                         else
+                        {
                             cbBand5.Checked = false;
+                            cbBand5.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("7"))
+                        {
                             cbBand7.Checked = true;
+                            cbBand7.Text = "지원";
+                        }
                         else
+                        {
                             cbBand7.Checked = false;
+                            cbBand7.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbFGI4.Checked = true;
+                            cbFGI4.Text = "지원";
+                        }
                         else
+                        {
                             cbFGI4.Checked = false;
+                            cbFGI4.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbFGI5.Checked = true;
+                            cbFGI5.Text = "지원";
+                        }
                         else
+                        {
                             cbFGI5.Checked = false;
+                            cbFGI5.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbFGI17.Checked = true;
+                            cbFGI17.Text = "지원";
+                        }
                         else
+                        {
                             cbFGI17.Checked = false;
+                            cbFGI17.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbFGI18.Checked = true;
+                            cbFGI18.Text = "지원";
+                        }
                         else
+                        {
                             cbFGI18.Checked = false;
+                            cbFGI18.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("1"))
+                        {
                             cbFGI28.Checked = true;
+                            cbFGI28.Text = "지원";
+                        }
                         else
+                        {
                             cbFGI28.Checked = false;
+                            cbFGI28.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
+                        {
                             cbRachR9.Checked = true;
+                            cbRachR9.Text = "지원";
+                        }
                         else
+                        {
                             cbRachR9.Checked = false;
+                            cbRachR9.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
+                        {
                             cbLogR10.Checked = true;
+                            cbLogR10.Text = "지원";
+                        }
                         else
+                        {
                             cbLogR10.Checked = false;
+                            cbLogR10.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
+                        {
                             cbStandaloneGNSS.Checked = true;
+                            cbStandaloneGNSS.Text = "지원";
+                        }
                         else
+                        {
                             cbStandaloneGNSS.Checked = false;
+                            cbStandaloneGNSS.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("supported"))
+                        {
                             cbBandCombin.Checked = true;
+                            cbBandCombin.Text = "지원";
+                        }
                         else
+                        {
                             cbBandCombin.Checked = false;
+                            cbBandCombin.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
@@ -1449,27 +1547,51 @@ namespace WindowsFormsApp2
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbIPSec.Checked = true;
+                            cbIPSec.Text = "지원";
+                        }
                         else
+                        {
                             cbIPSec.Checked = false;
+                            cbIPSec.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbSMS.Checked = true;
+                            cbSMS.Text = "지원";
+                        }
                         else
+                        {
                             cbSMS.Checked = false;
+                            cbSMS.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbVoice.Checked = true;
+                            cbVoice.Text = "지원";
+                        }
                         else
+                        {
                             cbVoice.Checked = false;
+                            cbVoice.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         if (rddata.EndsWith("true"))
+                        {
                             cbVideo.Checked = true;
+                            cbVideo.Text = "지원";
+                        }
                         else
+                        {
                             cbVideo.Checked = false;
+                            cbVideo.Text = "미지원";
+                        }
 
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
@@ -2600,6 +2722,116 @@ namespace WindowsFormsApp2
 
                 worksheet.Cells.ColumnWidth[0, 3] = 5000;
                 workbook.Worksheets.Add(worksheet);
+
+                i = 0;
+                worksheet = new Worksheet("smstset");
+                worksheet.Cells[i, 0] = new Cell("[Common]");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(btnModel.Text);
+                worksheet.Cells[i, 1] = new Cell(cbImsPDN.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(btnManufac.Text);
+                worksheet.Cells[i, 1] = new Cell(cbImsIP.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(btnIMSI.Text);
+                worksheet.Cells[i, 1] = new Cell(cbMultiPDN.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button3.Text);
+                worksheet.Cells[i, 1] = new Cell(tbChannel1.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button2.Text);
+                worksheet.Cells[i, 1] = new Cell(tbChannel2.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button1.Text);
+                worksheet.Cells[i, 1] = new Cell(tbChannel3.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button7.Text);
+                worksheet.Cells[i, 1] = new Cell(tbIMEI.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button6.Text);
+                worksheet.Cells[i, 1] = new Cell(cbAuto2ndPDN.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button5.Text);
+                worksheet.Cells[i, 1] = new Cell(cbEMC.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button4.Text);
+                worksheet.Cells[i, 1] = new Cell(cbCA.Text);
+                i += 2;
+                worksheet.Cells[i, 0] = new Cell("[Capability]");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button17.Text);
+                worksheet.Cells[i, 1] = new Cell(cbCatagory.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button16.Text);
+                worksheet.Cells[i, 1] = new Cell(cbBand1.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button15.Text);
+                worksheet.Cells[i, 1] = new Cell(cbBand5.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button14.Text);
+                worksheet.Cells[i, 1] = new Cell(cbBand7.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button13.Text);
+                worksheet.Cells[i, 1] = new Cell(cbFGI4.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button12.Text);
+                worksheet.Cells[i, 1] = new Cell(cbFGI5.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button8.Text);
+                worksheet.Cells[i, 1] = new Cell(cbFGI17.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button9.Text);
+                worksheet.Cells[i, 1] = new Cell(cbFGI18.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button10.Text);
+                worksheet.Cells[i, 1] = new Cell(cbFGI28.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button11.Text);
+                worksheet.Cells[i, 1] = new Cell(cbRachR9.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button18.Text);
+                worksheet.Cells[i, 1] = new Cell(cbLogR10.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button19.Text);
+                worksheet.Cells[i, 1] = new Cell(cbStandaloneGNSS.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button20.Text);
+                worksheet.Cells[i, 1] = new Cell(cbBandCombin.Text);
+                i += 2;
+                worksheet.Cells[i, 0] = new Cell("[VOLTE_SMS]");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button30.Text);
+                worksheet.Cells[i, 1] = new Cell(tbDeviceName.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button29.Text);
+                worksheet.Cells[i, 1] = new Cell(tbDeviceVer.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button28.Text);
+                worksheet.Cells[i, 1] = new Cell(tbDeviceType.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button27.Text);
+                worksheet.Cells[i, 1] = new Cell(tbTTAVer.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button26.Text);
+                worksheet.Cells[i, 1] = new Cell(cbIPSec.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button25.Text);
+                worksheet.Cells[i, 1] = new Cell(cbSMS.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button21.Text);
+                worksheet.Cells[i, 1] = new Cell(cbVoice.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button22.Text);
+                worksheet.Cells[i, 1] = new Cell(cbVideo.Text);
+                i += 2;
+                worksheet.Cells[i, 0] = new Cell("[NBIoT]");
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button36.Text);
+                worksheet.Cells[i, 1] = new Cell(cbNBIPVer.Text);
+
+                worksheet.Cells.ColumnWidth[0] = 5000;
+                workbook.Worksheets.Add(worksheet);
+
                 workbook.Save(pathname + filename);
             }
             catch (Exception err)
@@ -2755,6 +2987,152 @@ namespace WindowsFormsApp2
                         textBox24.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox58.Text = worksheet.Cells[i, 2].ToString();
+
+                        i = 1;
+                        worksheet = workbook.Worksheets[4];
+                        cbImsPDN.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        cbImsIP.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        cbMultiPDN.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbMultiPDN.Text == "지원")
+                            cbMultiPDN.Checked = true;
+                        else
+                            cbMultiPDN.Checked = false;
+                        i++;
+                        tbChannel1.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tbChannel2.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tbChannel3.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tbIMEI.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        cbAuto2ndPDN.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbAuto2ndPDN.Text == "올림")
+                            cbAuto2ndPDN.Checked = true;
+                        else
+                            cbAuto2ndPDN.Checked = false;
+                        i++;
+                        cbEMC.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbEMC.Text == "지원")
+                            cbEMC.Checked = true;
+                        else
+                            cbEMC.Checked = false;
+                        i++;
+                        cbCA.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbCA.Text == "지원")
+                            cbCA.Checked = true;
+                        else
+                            cbCA.Checked = false;
+                        i += 3;
+                        cbCatagory.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        cbBand1.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbBand1.Text == "지원")
+                            cbBand1.Checked = true;
+                        else
+                            cbBand1.Checked = false;
+                        i++;
+                        cbBand5.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbBand5.Text == "지원")
+                            cbBand5.Checked = true;
+                        else
+                            cbBand5.Checked = false;
+                        i++;
+                        cbBand7.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbBand7.Text == "지원")
+                            cbBand7.Checked = true;
+                        else
+                            cbBand7.Checked = false;
+                        i++;
+                        cbFGI4.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbFGI4.Text == "지원")
+                            cbFGI4.Checked = true;
+                        else
+                            cbFGI4.Checked = false;
+                        i++;
+                        cbFGI5.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbFGI5.Text == "지원")
+                            cbFGI5.Checked = true;
+                        else
+                            cbFGI5.Checked = false;
+                        i++;
+                        cbFGI17.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbFGI17.Text == "지원")
+                            cbFGI17.Checked = true;
+                        else
+                            cbFGI17.Checked = false;
+                        i++;
+                        cbFGI18.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbFGI18.Text == "지원")
+                            cbFGI18.Checked = true;
+                        else
+                            cbFGI18.Checked = false;
+                        i++;
+                        cbFGI28.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbFGI28.Text == "지원")
+                            cbFGI28.Checked = true;
+                        else
+                            cbFGI28.Checked = false;
+                        i++;
+                        cbRachR9.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbRachR9.Text == "지원")
+                            cbRachR9.Checked = true;
+                        else
+                            cbRachR9.Checked = false;
+                        i++;
+                        cbLogR10.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbLogR10.Text == "지원")
+                            cbLogR10.Checked = true;
+                        else
+                            cbLogR10.Checked = false;
+                        i++;
+                        cbStandaloneGNSS.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbStandaloneGNSS.Text == "지원")
+                            cbStandaloneGNSS.Checked = true;
+                        else
+                            cbStandaloneGNSS.Checked = false;
+                        i++;
+                        cbBandCombin.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbBandCombin.Text == "지원")
+                            cbBandCombin.Checked = true;
+                        else
+                            cbBandCombin.Checked = false;
+                        i += 3;
+                        tbDeviceName.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tbDeviceVer.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tbDeviceType.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tbTTAVer.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        cbIPSec.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbIPSec.Text == "지원")
+                            cbIPSec.Checked = true;
+                        else
+                            cbIPSec.Checked = false;
+                        i++;
+                        cbSMS.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbSMS.Text == "지원")
+                            cbSMS.Checked = true;
+                        else
+                            cbSMS.Checked = false;
+                        i++;
+                        cbVoice.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbVoice.Text == "지원")
+                            cbVoice.Checked = true;
+                        else
+                            cbVoice.Checked = false;
+                        i++;
+                        cbVideo.Text = worksheet.Cells[i, 1].ToString();
+                        if (cbVideo.Text == "지원")
+                            cbVideo.Checked = true;
+                        else
+                            cbVideo.Checked = false;
+                        i += 3;
+                        cbNBIPVer.Text = worksheet.Cells[i, 1].ToString();
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

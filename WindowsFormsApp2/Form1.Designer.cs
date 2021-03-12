@@ -34,10 +34,10 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button81 = new System.Windows.Forms.Button();
+            this.button72 = new System.Windows.Forms.Button();
             this.button87 = new System.Windows.Forms.Button();
             this.pnOneM2M = new System.Windows.Forms.Panel();
-            this.button72 = new System.Windows.Forms.Button();
-            this.button81 = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.textBox60 = new System.Windows.Forms.TextBox();
             this.button101 = new System.Windows.Forms.Button();
@@ -314,6 +314,7 @@
             // 
             this.panel1.Controls.Add(this.button81);
             this.panel1.Controls.Add(this.button72);
+            this.panel1.Controls.Add(this.pnSetting);
             this.panel1.Controls.Add(this.button87);
             this.panel1.Controls.Add(this.pnOneM2M);
             this.panel1.Controls.Add(this.button70);
@@ -323,13 +324,34 @@
             this.panel1.Controls.Add(this.pnProxy);
             this.panel1.Controls.Add(this.button35);
             this.panel1.Controls.Add(this.button34);
-            this.panel1.Controls.Add(this.pnSetting);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1171, 818);
             this.panel1.TabIndex = 10;
+            // 
+            // button81
+            // 
+            this.button81.Location = new System.Drawing.Point(1024, 11);
+            this.button81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button81.Name = "button81";
+            this.button81.Size = new System.Drawing.Size(72, 24);
+            this.button81.TabIndex = 41;
+            this.button81.Text = "엑셀 쓰기";
+            this.button81.UseVisualStyleBackColor = true;
+            this.button81.Click += new System.EventHandler(this.button63_Click);
+            // 
+            // button72
+            // 
+            this.button72.Location = new System.Drawing.Point(937, 12);
+            this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button72.Name = "button72";
+            this.button72.Size = new System.Drawing.Size(81, 24);
+            this.button72.TabIndex = 42;
+            this.button72.Text = "엑셀 읽기";
+            this.button72.UseVisualStyleBackColor = true;
+            this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
             // button87
             // 
@@ -351,28 +373,6 @@
             this.pnOneM2M.Size = new System.Drawing.Size(1083, 736);
             this.pnOneM2M.TabIndex = 36;
             this.pnOneM2M.Visible = false;
-            // 
-            // button72
-            // 
-            this.button72.Location = new System.Drawing.Point(937, 12);
-            this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button72.Name = "button72";
-            this.button72.Size = new System.Drawing.Size(81, 24);
-            this.button72.TabIndex = 42;
-            this.button72.Text = "엑셀 읽기";
-            this.button72.UseVisualStyleBackColor = true;
-            this.button72.Click += new System.EventHandler(this.button62_Click);
-            // 
-            // button81
-            // 
-            this.button81.Location = new System.Drawing.Point(1024, 11);
-            this.button81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button81.Name = "button81";
-            this.button81.Size = new System.Drawing.Size(72, 24);
-            this.button81.TabIndex = 41;
-            this.button81.Text = "엑셀 쓰기";
-            this.button81.UseVisualStyleBackColor = true;
-            this.button81.Click += new System.EventHandler(this.button63_Click);
             // 
             // groupBox10
             // 
@@ -1824,7 +1824,7 @@
             this.pnSetting.Controls.Add(this.groupBox5);
             this.pnSetting.Controls.Add(this.groupBox2);
             this.pnSetting.Controls.Add(this.groupBox1);
-            this.pnSetting.Location = new System.Drawing.Point(12, 70);
+            this.pnSetting.Location = new System.Drawing.Point(10, 40);
             this.pnSetting.Name = "pnSetting";
             this.pnSetting.Size = new System.Drawing.Size(809, 634);
             this.pnSetting.TabIndex = 13;
@@ -2485,6 +2485,7 @@
             // 
             this.cbImsPDN.FormattingEnabled = true;
             this.cbImsPDN.Items.AddRange(new object[] {
+            "미지원",
             "1번째",
             "2번째"});
             this.cbImsPDN.Location = new System.Drawing.Point(216, 15);
