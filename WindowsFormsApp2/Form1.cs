@@ -2535,51 +2535,70 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 1] = new Cell(comboBox1.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button83.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox48.Text);
+                worksheet.Cells[i, 1] = new Cell("getmanufac");
+                worksheet.Cells[i, 2] = new Cell(textBox48.Text);
                 if (checkBox1.Checked == true)
-                    worksheet.Cells[i, 3] = new Cell("on");
+                    worksheet.Cells[i, 4] = new Cell("on");
                 else
-                    worksheet.Cells[i, 3] = new Cell("off");
+                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button91.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox47.Text);
+                worksheet.Cells[i, 1] = new Cell("getmodel");
+                worksheet.Cells[i, 2] = new Cell(textBox47.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button90.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox46.Text);
-                worksheet.Cells[i, 2] = new Cell(textBox33.Text);
+                worksheet.Cells[i, 1] = new Cell("getimsi");
+                worksheet.Cells[i, 2] = new Cell(textBox46.Text);
+                worksheet.Cells[i, 3] = new Cell(textBox33.Text);
                 if (checkBox3.Checked == true)
-                    worksheet.Cells[i, 3] = new Cell("on");
+                    worksheet.Cells[i, 4] = new Cell("on");
                 else
-                    worksheet.Cells[i, 3] = new Cell("off");
+                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button71.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox45.Text);
-                worksheet.Cells[i, 2] = new Cell(textBox38.Text);
+                worksheet.Cells[i, 1] = new Cell("geticcid");
+                worksheet.Cells[i, 2] = new Cell(textBox45.Text);
+                worksheet.Cells[i, 3] = new Cell(textBox38.Text);
                 if (checkBox4.Checked == true)
-                    worksheet.Cells[i, 3] = new Cell("on");
+                    worksheet.Cells[i, 4] = new Cell("on");
                 else
-                    worksheet.Cells[i, 3] = new Cell("off");
+                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button89.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox49.Text);
-                worksheet.Cells[i, 2] = new Cell(textBox40.Text);
+                worksheet.Cells[i, 1] = new Cell("getimei");
+                worksheet.Cells[i, 2] = new Cell(textBox49.Text);
+                worksheet.Cells[i, 3] = new Cell(textBox40.Text);
                 if (checkBox5.Checked == true)
-                    worksheet.Cells[i, 3] = new Cell("on");
+                    worksheet.Cells[i, 4] = new Cell("on");
                 else
-                    worksheet.Cells[i, 3] = new Cell("off");
+                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button88.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox44.Text);
-                worksheet.Cells[i, 2] = new Cell(textBox57.Text);
+                worksheet.Cells[i, 1] = new Cell("getmodemver");
+                worksheet.Cells[i, 2] = new Cell(textBox44.Text);
+                worksheet.Cells[i, 3] = new Cell(textBox57.Text);
                 if (checkBox6.Checked == true)
-                    worksheet.Cells[i, 3] = new Cell("on");
+                    worksheet.Cells[i, 4] = new Cell("on");
                 else
-                    worksheet.Cells[i, 3] = new Cell("off");
+                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button86.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox24.Text);
+                worksheet.Cells[i, 1] = new Cell("rfreset");
+                worksheet.Cells[i, 2] = new Cell(textBox24.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button99.Text);
+                worksheet.Cells[i, 1] = new Cell("setcereg");
+                worksheet.Cells[i, 2] = new Cell(textBox58.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button100.Text);
+                worksheet.Cells[i, 1] = new Cell("rfon");
+                worksheet.Cells[i, 2] = new Cell(textBox59.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button101.Text);
+                worksheet.Cells[i, 1] = new Cell("rfoff");
+                worksheet.Cells[i, 2] = new Cell(textBox60.Text);
 
-                worksheet.Cells.ColumnWidth[0, 2] = 10000;
+                worksheet.Cells.ColumnWidth[0, 3] = 5000;
                 workbook.Worksheets.Add(worksheet);
                 workbook.Save(pathname + filename);
             }
@@ -2697,43 +2716,45 @@ namespace WindowsFormsApp2
                         else
                             groupBox11.Enabled = false;
                         i++;
-                        textBox48.Text = worksheet.Cells[i, 1].ToString();
-                        if (worksheet.Cells[i, 3].ToString() == "on")
+                        textBox48.Text = worksheet.Cells[i, 2].ToString();
+                        if (worksheet.Cells[i, 4].ToString() == "on")
                             checkBox1.Checked = true;
                         else
                             checkBox1.Checked = false;
                         i++;
-                        textBox47.Text = worksheet.Cells[i, 1].ToString();
+                        textBox47.Text = worksheet.Cells[i, 2].ToString();
                         i++;
-                        textBox46.Text = worksheet.Cells[i, 1].ToString();
-                        textBox33.Text = worksheet.Cells[i, 2].ToString();
-                        if (worksheet.Cells[i, 3].ToString() == "on")
+                        textBox46.Text = worksheet.Cells[i, 2].ToString();
+                        textBox33.Text = worksheet.Cells[i, 3].ToString();
+                        if (worksheet.Cells[i, 4].ToString() == "on")
                             checkBox3.Checked = true;
                         else
                             checkBox3.Checked = false;
                         i++;
-                        textBox45.Text = worksheet.Cells[i, 1].ToString();
-                        textBox38.Text = worksheet.Cells[i, 2].ToString();
-                        if (worksheet.Cells[i, 3].ToString() == "on")
+                        textBox45.Text = worksheet.Cells[i, 2].ToString();
+                        textBox38.Text = worksheet.Cells[i, 3].ToString();
+                        if (worksheet.Cells[i, 4].ToString() == "on")
                             checkBox4.Checked = true;
                         else
                             checkBox4.Checked = false;
                         i++;
-                        textBox49.Text = worksheet.Cells[i, 1].ToString();
-                        textBox40.Text = worksheet.Cells[i, 2].ToString();
-                        if (worksheet.Cells[i, 3].ToString() == "on")
+                        textBox49.Text = worksheet.Cells[i, 2].ToString();
+                        textBox40.Text = worksheet.Cells[i, 3].ToString();
+                        if (worksheet.Cells[i, 4].ToString() == "on")
                             checkBox5.Checked = true;
                         else
                             checkBox5.Checked = false;
                         i++;
-                        textBox44.Text = worksheet.Cells[i, 1].ToString();
-                        textBox57.Text = worksheet.Cells[i, 2].ToString();
-                        if (worksheet.Cells[i, 3].ToString() == "on")
+                        textBox44.Text = worksheet.Cells[i, 2].ToString();
+                        textBox57.Text = worksheet.Cells[i, 3].ToString();
+                        if (worksheet.Cells[i, 4].ToString() == "on")
                             checkBox6.Checked = true;
                         else
                             checkBox6.Checked = false;
                         i++;
-                        textBox24.Text = worksheet.Cells[i, 1].ToString();
+                        textBox24.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox58.Text = worksheet.Cells[i, 2].ToString();
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
