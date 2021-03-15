@@ -2599,8 +2599,77 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button101.Text);
                 worksheet.Cells[i, 1] = new Cell("rfoff");
                 worksheet.Cells[i, 2] = new Cell(textBox60.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button62.Text);
+                worksheet.Cells[i, 1] = new Cell("getcereg");
+                worksheet.Cells[i, 2] = new Cell(textBox61.Text);
 
                 worksheet.Cells.ColumnWidth[0, 3] = 5000;
+                workbook.Worksheets.Add(worksheet);
+
+
+                i = 0;
+                worksheet = new Worksheet("lwm2matcmd");
+                worksheet.Cells[i, 0] = new Cell(button63.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox62.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button102.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox63.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button104.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox65.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button103.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox64.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button98.Text);
+                worksheet.Cells[i, 1] = new Cell("setncdp");
+                worksheet.Cells[i, 2] = new Cell(textBox56.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button92.Text);
+                worksheet.Cells[i, 1] = new Cell("setepns");
+                worksheet.Cells[i, 2] = new Cell(textBox50.Text);
+                worksheet.Cells[i, 3] = new Cell(checkBox2.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button97.Text);
+                worksheet.Cells[i, 1] = new Cell("setmbsps");
+                worksheet.Cells[i, 2] = new Cell(textBox55.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button105.Text);
+                worksheet.Cells[i, 1] = new Cell("bootstrapmode");
+                worksheet.Cells[i, 2] = new Cell(textBox66.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button106.Text);
+                worksheet.Cells[i, 1] = new Cell("bootstrap");
+                worksheet.Cells[i, 2] = new Cell(textBox67.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button96.Text);
+                worksheet.Cells[i, 1] = new Cell("registert");
+                worksheet.Cells[i, 2] = new Cell(textBox54.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button95.Text);
+                worksheet.Cells[i, 1] = new Cell("sendmsghex");
+                worksheet.Cells[i, 2] = new Cell(textBox53.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button107.Text);
+                worksheet.Cells[i, 1] = new Cell("recvmsghex");
+                worksheet.Cells[i, 2] = new Cell(textBox68.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button94.Text);
+                worksheet.Cells[i, 1] = new Cell("deregister");
+                worksheet.Cells[i, 2] = new Cell(textBox52.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button93.Text);
+                worksheet.Cells[i, 1] = new Cell("sendmsgver");
+                worksheet.Cells[i, 2] = new Cell(textBox51.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button108.Text);
+                worksheet.Cells[i, 1] = new Cell("recvfota");
+                worksheet.Cells[i, 2] = new Cell(textBox69.Text);
+
+                worksheet.Cells.ColumnWidth[0] = 6000;
+                worksheet.Cells.ColumnWidth[1] = 5000;
+                worksheet.Cells.ColumnWidth[2] = 10000;
                 workbook.Worksheets.Add(worksheet);
 
                 i = 0;
@@ -2869,7 +2938,7 @@ namespace WindowsFormsApp2
                         textBox58.Text = worksheet.Cells[i, 2].ToString();
 
                         i = 1;
-                        worksheet = workbook.Worksheets[4];
+                        worksheet = workbook.Worksheets[5];
                         cbImsPDN.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         cbImsIP.Text = worksheet.Cells[i, 1].ToString();
@@ -3370,6 +3439,14 @@ namespace WindowsFormsApp2
                 groupBox11.Enabled = true;
             else
                 groupBox11.Enabled = false;
+        }
+
+        private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+                checkBox2.Text = "자동";
+            else
+                checkBox2.Text = "수동";
         }
     }
 
