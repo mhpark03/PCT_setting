@@ -584,6 +584,7 @@ namespace WindowsFormsApp2
             {
                 "OK",           // 모든 응답이 완료한 경우, 다음 동작이 필요한지 확인 (nextcommand)
                 "ERROR",        // 오류 응답을 받은 경우, 동작을 중지한다.
+                "AT",
             };
 
 
@@ -706,128 +707,6 @@ namespace WindowsFormsApp2
                         actionState = states.idle.ToString();
                     }
                     break;
-                case "AT+MLWEVTIND=":
-                case "+QLWEVTIND:":
-                    // 모듈이 LWM2M서버 연동 상태 이벤트,
-                    // OK 응답 발생하지 않음
-                    // AT+MLWEVTIND=<type>
-                    int type = Convert.ToInt32(str2);
-                    switch (str2)
-                    {
-                        case "0":
-                            logPrintInTextBox("registration completed", " ");
-                            break;
-                        case "1":
-                            logPrintInTextBox("deregistration completed", " ");
-                            break;
-                        case "2":
-                            logPrintInTextBox("registration update completed", " ");
-                            break;
-                        case "3":
-                            logPrintInTextBox("10250 object subscription completed", " ");
-                            break;
-                        case "4":
-                            logPrintInTextBox("Bootstrap finished", " ");
-                            break;
-                        case "5":
-                            logPrintInTextBox("5/0/3 object subscription completed", " ");
-                            break;
-                        case "6":
-                            logPrintInTextBox("fota downloading request", " ");
-                            break;
-                        case "7":
-                            logPrintInTextBox("fota update request", " ");
-                            break;
-                        case "8":
-                            logPrintInTextBox("26241 object subscription completed", " ");
-                            break;
-                    }
-                    break;
-                case "+NNMI:":
-                    // 모듈이 LWM2M서버에서 받은 데이터를 전달하는 이벤트,
-                    // OK 응답 발생하지 않고 bcd를 ascii로 변경해야함
-                    // +NNMI:<length>,<hex data>
-                    string[] rxdatasbc95 = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                                                               // 10250 DATA object RECEIVED!!!
-                    if (Convert.ToInt32(rxdatasbc95[0]) == rxdatasbc95[1].Length / 2)    // data size 비교
-                    {
-                        //received hex data make to ascii code
-                        string receiveDataIN = BcdToString(rxdatasbc95[1].ToCharArray());
-                        logPrintInTextBox("\"" + receiveDataIN + "\"를 수신하였습니다.", "");
-                    }
-                    else
-                    {
-                        logPrintInTextBox("data size가 맞지 않습니다.", "");
-                    }
-                    break;
-                case "+QLWDLDATA:":
-                    // 모듈이 LWM2M서버에서 받은 데이터를 전달하는 이벤트,
-                    // OK 응답 발생하지 않고 bcd를 ascii로 변경해야함
-                    string[] words = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (words[0] == " \"/10250/0/1\"")       // data object인지 확인
-                    {
-                        if (words[1] == "4")     // string data received
-                        {
-                            if (Convert.ToInt32(words[2]) == (words[3].Length - 2))    // data size 비교 (양쪽 끝의 " 크기 빼고)
-                            {
-                                logPrintInTextBox(words[3] + "를 수신하였습니다.", "");
-                            }
-                            else
-                            {
-                                logPrintInTextBox("data size가 맞지 않습니다.", "");
-                            }
-                        }
-                        else if (words[1] == "5")     // hex data received
-                        {
-                            if (Convert.ToInt32(words[2]) == (words[3].Length - 2) / 2)    // data size 비교 (양쪽 끝의 " 크기 빼고 2bytes가 1글자임)
-                            {
-                                //received hex data make to ascii code
-                                string hexInPut = words[3].Substring(1, words[3].Length - 2);
-                                string receiveDataIN = BcdToString(hexInPut.ToCharArray());
-                                logPrintInTextBox("\"" + receiveDataIN + "\"를 수신하였습니다.", "");
-                            }
-                            else
-                            {
-                                logPrintInTextBox("data size가 맞지 않습니다.", "");
-                            }
-                        }
-                        else
-                        {
-                            logPrintInTextBox("지원하지 않는 data object입니다.", "");
-                        }
-                    }
-                    else
-                    {
-                        logPrintInTextBox("지원하지 않는 data object입니다.", "");
-                    }
-
-                    if (nextcommand == states.getcereg.ToString())
-                        nextcommand = "";
-                    break;
-                case "+QLWOBSERVE:":
-                    // 모듈이 LWM2M서버와 초기 접속시 받은 데이터를 전달하는 이벤트,
-                    // OK 응답 발생하지 않고 bcd를 ascii로 변경해야함
-                    string[] observes = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (observes[1] == "\"/10250/0/0\"")       // data object인지 확인
-                    {
-                    }
-                    else if (observes[1] == "\"/26241/0/0\"")       // device firmware object인지 확인
-                    {
-                        // 서버에서 모듈 펌웨어 처리 후에 디바이스 펌웨어 체크 가능, 일정 시간 후에 동작해야 함.
-                        // DeviceFWVerSend(tBoxDeviceVer.Text, device_fota_state, device_fota_reseult);
-                    }
-                    else
-                    {
-                        logPrintInTextBox("지원하지 않는 data object입니다.", "");
-                    }
-
-                    if (nextcommand == states.getcereg.ToString())
-                        nextcommand = "";
-                    break;
-                case "@NETSTI:":
-                    // AMTEL booting end, device info rerequest
-                    getDeviveInfo();
-                    break;
                 default:
                     break;
             }
@@ -887,18 +766,7 @@ namespace WindowsFormsApp2
                     dev.maker = str1;
                     progressBar1.Value = 60;
                     this.logPrintInTextBox("제조사값이 " + dev.maker + "로 저장되었습니다.", "");
-                    if (checkBox1.Checked == false)        //AMTEL등 OK가 오지 않음
-                    {
-                        this.sendDataOut(textBox47.Text);
-                        actionState = states.autogetmodel.ToString();
-
-                        nextcommand = "";
-                    }
-                    else
-                    {
-                        actionState = states.idle.ToString();
-                        nextcommand = states.autogetmodel.ToString();
-                    }
+                    nextcommand = states.autogetmodel.ToString();
                     break;
                 case states.getmodel:
                     dev.model = str1;
@@ -914,8 +782,24 @@ namespace WindowsFormsApp2
                     this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
 
                     setModelConfig(str1);
-
                     nextcommand = states.autogetimei.ToString();
+                    break;
+                case states.getimei:
+                    dev.imei = str1;
+                    tbIMEI.Text = str1;
+                    logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
+
+                    actionState = states.idle.ToString();
+                    break;
+                case states.autogetimei:
+                    // 단말 정보 자동 갱신 순서
+                    // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
+                    dev.imei = str1;
+                    tbIMEI.Text = str1;
+                    logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
+                    progressBar1.Value = 90;
+
+                    nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
                     break;
                 case states.getimsi:
                     if (str1.StartsWith("45006"))
@@ -2539,10 +2423,6 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button83.Text);
                 worksheet.Cells[i, 1] = new Cell("getmanufac");
                 worksheet.Cells[i, 2] = new Cell(textBox48.Text);
-                if (checkBox1.Checked == true)
-                    worksheet.Cells[i, 4] = new Cell("on");
-                else
-                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button91.Text);
                 worksheet.Cells[i, 1] = new Cell("getmodel");
@@ -2552,37 +2432,21 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 1] = new Cell("getimsi");
                 worksheet.Cells[i, 2] = new Cell(textBox46.Text);
                 worksheet.Cells[i, 3] = new Cell(textBox33.Text);
-                if (checkBox3.Checked == true)
-                    worksheet.Cells[i, 4] = new Cell("on");
-                else
-                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button71.Text);
                 worksheet.Cells[i, 1] = new Cell("geticcid");
                 worksheet.Cells[i, 2] = new Cell(textBox45.Text);
                 worksheet.Cells[i, 3] = new Cell(textBox38.Text);
-                if (checkBox4.Checked == true)
-                    worksheet.Cells[i, 4] = new Cell("on");
-                else
-                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button89.Text);
                 worksheet.Cells[i, 1] = new Cell("getimei");
                 worksheet.Cells[i, 2] = new Cell(textBox49.Text);
                 worksheet.Cells[i, 3] = new Cell(textBox40.Text);
-                if (checkBox5.Checked == true)
-                    worksheet.Cells[i, 4] = new Cell("on");
-                else
-                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button88.Text);
                 worksheet.Cells[i, 1] = new Cell("getmodemver");
                 worksheet.Cells[i, 2] = new Cell(textBox44.Text);
                 worksheet.Cells[i, 3] = new Cell(textBox57.Text);
-                if (checkBox6.Checked == true)
-                    worksheet.Cells[i, 4] = new Cell("on");
-                else
-                    worksheet.Cells[i, 4] = new Cell("off");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button86.Text);
                 worksheet.Cells[i, 1] = new Cell("rfreset");
@@ -2801,6 +2665,7 @@ namespace WindowsFormsApp2
                 {
                     Workbook workbook = Workbook.Load(ofd.FileName);
 
+                    ///////////////////////////////////////////////////////////// PCT장비 AT command 자동/수동
                     Worksheet worksheet = workbook.Worksheets[0];
                     if (worksheet.Name == "options" && worksheet.Cells[0, 0].ToString() == button73.Text)
                     {
@@ -2809,6 +2674,7 @@ namespace WindowsFormsApp2
                         else
                             comboBox3.SelectedIndex = 1;
 
+                        ///////////////////////////////////////////////////////////////// PCT 장비 AT command 매핑 1
                         worksheet = workbook.Worksheets[1];
                         int i = 0;
                         textBox2.Text = worksheet.Cells[i, 1].ToString();
@@ -2872,6 +2738,7 @@ namespace WindowsFormsApp2
                         i++;
                         textBox34.Text = worksheet.Cells[i, 1].ToString();
 
+                        //////////////////////////////////////////////// PCT 장비 AT command 매핑 2
                         i = 0;
                         worksheet = workbook.Worksheets[2];
                         textBox31.Text = worksheet.Cells[i, 1].ToString();
@@ -2889,6 +2756,7 @@ namespace WindowsFormsApp2
                         i++;
                         textBox25.Text = worksheet.Cells[i, 1].ToString();
 
+                        /////////////////////////////////////////////// 플랫폼 검증 앱 공통 AT command
                         i = 0;
                         worksheet = workbook.Worksheets[3];
                         comboBox1.Text = worksheet.Cells[i, 1].ToString();
@@ -2898,45 +2766,66 @@ namespace WindowsFormsApp2
                             groupBox11.Enabled = false;
                         i++;
                         textBox48.Text = worksheet.Cells[i, 2].ToString();
-                        if (worksheet.Cells[i, 4].ToString() == "on")
-                            checkBox1.Checked = true;
-                        else
-                            checkBox1.Checked = false;
                         i++;
                         textBox47.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox46.Text = worksheet.Cells[i, 2].ToString();
                         textBox33.Text = worksheet.Cells[i, 3].ToString();
-                        if (worksheet.Cells[i, 4].ToString() == "on")
-                            checkBox3.Checked = true;
-                        else
-                            checkBox3.Checked = false;
                         i++;
                         textBox45.Text = worksheet.Cells[i, 2].ToString();
                         textBox38.Text = worksheet.Cells[i, 3].ToString();
-                        if (worksheet.Cells[i, 4].ToString() == "on")
-                            checkBox4.Checked = true;
-                        else
-                            checkBox4.Checked = false;
                         i++;
                         textBox49.Text = worksheet.Cells[i, 2].ToString();
                         textBox40.Text = worksheet.Cells[i, 3].ToString();
-                        if (worksheet.Cells[i, 4].ToString() == "on")
-                            checkBox5.Checked = true;
-                        else
-                            checkBox5.Checked = false;
                         i++;
                         textBox44.Text = worksheet.Cells[i, 2].ToString();
                         textBox57.Text = worksheet.Cells[i, 3].ToString();
-                        if (worksheet.Cells[i, 4].ToString() == "on")
-                            checkBox6.Checked = true;
-                        else
-                            checkBox6.Checked = false;
                         i++;
                         textBox24.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox58.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox59.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox60.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox61.Text = worksheet.Cells[i, 2].ToString();
 
+                        /////////////////////////////////////////////// 플랫폼 검증 앱 LwM2M AT command
+                        i = 0;
+                        worksheet = workbook.Worksheets[4];
+                        textBox62.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox63.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox65.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox64.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox56.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox50.Text = worksheet.Cells[i, 2].ToString();
+                        checkBox2.Text = worksheet.Cells[i, 3].ToString();
+                        i++;
+                        textBox55.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox66.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox67.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox54.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox53.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox68.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox52.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox51.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox69.Text = worksheet.Cells[i, 2].ToString();
+
+                        //////////////////////////////////////////////////////////////// PCT 장비 옵션 설정
                         i = 1;
                         worksheet = workbook.Worksheets[5];
                         cbImsPDN.Text = worksheet.Cells[i, 1].ToString();
