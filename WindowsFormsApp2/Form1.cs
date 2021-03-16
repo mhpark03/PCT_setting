@@ -2644,7 +2644,7 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 2] = new Cell(textBox67.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button96.Text);
-                worksheet.Cells[i, 1] = new Cell("registert");
+                worksheet.Cells[i, 1] = new Cell("register");
                 worksheet.Cells[i, 2] = new Cell(textBox54.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button95.Text);
