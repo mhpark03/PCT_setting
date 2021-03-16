@@ -2239,36 +2239,6 @@ namespace WindowsFormsApp2
             }
         }
 
-        private void button34_Click(object sender, EventArgs e)
-        {
-            button34.BackColor = SystemColors.ButtonHighlight;
-            button35.BackColor = SystemColors.ButtonShadow;
-            button70.BackColor = SystemColors.ButtonShadow;
-            pnSetting.Visible = true;
-            pnProxy.Visible = false;
-            pnOneM2M.Visible = false;
-        }
-
-        private void button35_Click(object sender, EventArgs e)
-        {
-            button35.BackColor = SystemColors.ButtonHighlight;
-            button34.BackColor = SystemColors.ButtonShadow;
-            button70.BackColor = SystemColors.ButtonShadow;
-            pnSetting.Visible = false;
-            pnProxy.Visible = true;
-            pnOneM2M.Visible = false;
-        }
-
-        private void button70_Click(object sender, EventArgs e)
-        {
-            button35.BackColor = SystemColors.ButtonShadow;
-            button34.BackColor = SystemColors.ButtonShadow;
-            button70.BackColor = SystemColors.ButtonHighlight;
-            pnSetting.Visible = false;
-            pnProxy.Visible = false;
-            pnOneM2M.Visible = true;
-        }
-
         private void button63_Click(object sender, EventArgs e)
         {
             string pathname = @"c:\temp\seriallog\";
