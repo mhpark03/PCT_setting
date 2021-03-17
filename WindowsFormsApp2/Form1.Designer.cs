@@ -198,11 +198,11 @@
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox92 = new System.Windows.Forms.TextBox();
-            this.listBoxCommon = new System.Windows.Forms.ListBox();
+            this.gbDeviceLog = new System.Windows.Forms.GroupBox();
+            this.tBoxDataIN = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.button63 = new System.Windows.Forms.Button();
+            this.textBox64 = new System.Windows.Forms.TextBox();
             this.textBox90 = new System.Windows.Forms.TextBox();
             this.textBox89 = new System.Windows.Forms.TextBox();
             this.textBox88 = new System.Windows.Forms.TextBox();
@@ -370,8 +370,11 @@
             this.label21 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
+            this.gbTCResult = new System.Windows.Forms.GroupBox();
+            this.tbTCResult = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -387,6 +390,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.gbDeviceLog.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -398,6 +402,8 @@
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.tabPage8.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.gbTCResult.SuspendLayout();
             this.SuspendLayout();
             // 
             // cBoxBaudRate
@@ -466,6 +472,7 @@
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage8);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(3, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -2257,10 +2264,7 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.label3);
-            this.tabPage4.Controls.Add(this.label2);
-            this.tabPage4.Controls.Add(this.textBox92);
-            this.tabPage4.Controls.Add(this.listBoxCommon);
+            this.tabPage4.Controls.Add(this.gbDeviceLog);
             this.tabPage4.Controls.Add(this.groupBox10);
             this.tabPage4.Controls.Add(this.progressBar1);
             this.tabPage4.Controls.Add(this.cBoxCOMPORT);
@@ -2273,43 +2277,33 @@
             this.tabPage4.Text = "COM port";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // gbDeviceLog
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(536, 394);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 12);
-            this.label3.TabIndex = 67;
-            this.label3.Text = "Recieved RESPONSE";
+            this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
+            this.gbDeviceLog.Location = new System.Drawing.Point(520, 68);
+            this.gbDeviceLog.Name = "gbDeviceLog";
+            this.gbDeviceLog.Size = new System.Drawing.Size(582, 535);
+            this.gbDeviceLog.TabIndex = 44;
+            this.gbDeviceLog.TabStop = false;
+            this.gbDeviceLog.Text = "Device Message";
             // 
-            // label2
+            // tBoxDataIN
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(536, 79);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(127, 12);
-            this.label2.TabIndex = 66;
-            this.label2.Text = "SEND AT COMMAND";
-            // 
-            // textBox92
-            // 
-            this.textBox92.Location = new System.Drawing.Point(536, 417);
-            this.textBox92.Multiline = true;
-            this.textBox92.Name = "textBox92";
-            this.textBox92.Size = new System.Drawing.Size(479, 186);
-            this.textBox92.TabIndex = 65;
-            // 
-            // listBoxCommon
-            // 
-            this.listBoxCommon.FormattingEnabled = true;
-            this.listBoxCommon.ItemHeight = 12;
-            this.listBoxCommon.Location = new System.Drawing.Point(536, 105);
-            this.listBoxCommon.Name = "listBoxCommon";
-            this.listBoxCommon.Size = new System.Drawing.Size(479, 280);
-            this.listBoxCommon.TabIndex = 64;
+            this.tBoxDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tBoxDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tBoxDataIN.Location = new System.Drawing.Point(3, 19);
+            this.tBoxDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.tBoxDataIN.Multiline = true;
+            this.tBoxDataIN.Name = "tBoxDataIN";
+            this.tBoxDataIN.ReadOnly = true;
+            this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tBoxDataIN.Size = new System.Drawing.Size(576, 513);
+            this.tBoxDataIN.TabIndex = 22;
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.button63);
+            this.groupBox10.Controls.Add(this.textBox64);
             this.groupBox10.Controls.Add(this.textBox90);
             this.groupBox10.Controls.Add(this.textBox89);
             this.groupBox10.Controls.Add(this.textBox88);
@@ -2350,6 +2344,24 @@
             this.groupBox10.TabIndex = 40;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "AT COMMAND (일반)";
+            // 
+            // button63
+            // 
+            this.button63.Location = new System.Drawing.Point(7, 35);
+            this.button63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button63.Name = "button63";
+            this.button63.Size = new System.Drawing.Size(147, 24);
+            this.button63.TabIndex = 69;
+            this.button63.Text = "ATCMD 전송";
+            this.button63.UseVisualStyleBackColor = true;
+            this.button63.Click += new System.EventHandler(this.button63_Click_1);
+            // 
+            // textBox64
+            // 
+            this.textBox64.Location = new System.Drawing.Point(157, 35);
+            this.textBox64.Name = "textBox64";
+            this.textBox64.Size = new System.Drawing.Size(310, 21);
+            this.textBox64.TabIndex = 68;
             // 
             // textBox90
             // 
@@ -3944,6 +3956,7 @@
             this.btnGetLogList.TabIndex = 43;
             this.btnGetLogList.Text = "Device 로그 조회";
             this.btnGetLogList.UseVisualStyleBackColor = true;
+            this.btnGetLogList.Click += new System.EventHandler(this.btnGetLogList_Click);
             // 
             // button124
             // 
@@ -3984,6 +3997,16 @@
             this.label20.Text = "요청시간      ID      ResultCode  결과 (요청  내용)";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.gbTCResult);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1126, 753);
+            this.tabPage3.TabIndex = 8;
+            this.tabPage3.Text = "시험절차서";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // button81
             // 
             this.button81.Location = new System.Drawing.Point(893, 796);
@@ -4005,6 +4028,25 @@
             this.button72.Text = "엑셀 읽기";
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
+            // 
+            // gbTCResult
+            // 
+            this.gbTCResult.Controls.Add(this.tbTCResult);
+            this.gbTCResult.Location = new System.Drawing.Point(632, 25);
+            this.gbTCResult.Name = "gbTCResult";
+            this.gbTCResult.Size = new System.Drawing.Size(472, 693);
+            this.gbTCResult.TabIndex = 38;
+            this.gbTCResult.TabStop = false;
+            this.gbTCResult.Text = "TestCase Message";
+            // 
+            // tbTCResult
+            // 
+            this.tbTCResult.Location = new System.Drawing.Point(0, 21);
+            this.tbTCResult.Multiline = true;
+            this.tbTCResult.Name = "tbTCResult";
+            this.tbTCResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbTCResult.Size = new System.Drawing.Size(466, 666);
+            this.tbTCResult.TabIndex = 35;
             // 
             // Form1
             // 
@@ -4042,7 +4084,8 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.gbDeviceLog.ResumeLayout(false);
+            this.gbDeviceLog.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.tabPage5.ResumeLayout(false);
@@ -4065,6 +4108,9 @@
             this.groupBox15.PerformLayout();
             this.tabPage8.ResumeLayout(false);
             this.tabPage8.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.gbTCResult.ResumeLayout(false);
+            this.gbTCResult.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4336,8 +4382,6 @@
         private System.Windows.Forms.TextBox textBox87;
         private System.Windows.Forms.TextBox textBox86;
         private System.Windows.Forms.TextBox textBox85;
-        private System.Windows.Forms.ListBox listBoxCommon;
-        private System.Windows.Forms.TextBox textBox92;
         private System.Windows.Forms.TextBox textBox93;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TextBox tBResultCode;
@@ -4360,8 +4404,6 @@
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button button127;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox77;
@@ -4413,6 +4455,13 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button button111;
+        private System.Windows.Forms.GroupBox gbDeviceLog;
+        private System.Windows.Forms.TextBox tBoxDataIN;
+        private System.Windows.Forms.Button button63;
+        private System.Windows.Forms.TextBox textBox64;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox gbTCResult;
+        private System.Windows.Forms.TextBox tbTCResult;
     }
 }
 
