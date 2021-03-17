@@ -254,6 +254,7 @@
             this.textBox74 = new System.Windows.Forms.TextBox();
             this.button110 = new System.Windows.Forms.Button();
             this.textBox75 = new System.Windows.Forms.TextBox();
+            this.button111 = new System.Windows.Forms.Button();
             this.textBox76 = new System.Windows.Forms.TextBox();
             this.button112 = new System.Windows.Forms.Button();
             this.textBox78 = new System.Windows.Forms.TextBox();
@@ -304,7 +305,10 @@
             this.button98 = new System.Windows.Forms.Button();
             this.button125 = new System.Windows.Forms.Button();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.button128 = new System.Windows.Forms.Button();
             this.textBox97 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -342,6 +346,8 @@
             this.label33 = new System.Windows.Forms.Label();
             this.tbSvcSvrNum = new System.Windows.Forms.TextBox();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.button127 = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
             this.tBResultCode = new System.Windows.Forms.TextBox();
@@ -366,12 +372,6 @@
             this.label20 = new System.Windows.Forms.Label();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.button111 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -2836,6 +2836,16 @@
             this.textBox75.TabIndex = 38;
             this.textBox75.Text = "365";
             // 
+            // button111
+            // 
+            this.button111.Location = new System.Drawing.Point(6, 92);
+            this.button111.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button111.Name = "button111";
+            this.button111.Size = new System.Drawing.Size(196, 24);
+            this.button111.TabIndex = 37;
+            this.button111.Text = "Service Server No";
+            this.button111.UseVisualStyleBackColor = true;
+            // 
             // textBox76
             // 
             this.textBox76.Location = new System.Drawing.Point(208, 67);
@@ -3334,6 +3344,24 @@
             this.tabPage7.Text = "Service Server";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // label23
+            // 
+            this.label23.Location = new System.Drawing.Point(160, 109);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(224, 22);
+            this.label23.TabIndex = 77;
+            this.label23.Text = ".";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(53, 114);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(99, 12);
+            this.label25.TabIndex = 76;
+            this.label25.Text = "Server EntityID : ";
+            // 
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.label14);
@@ -3351,6 +3379,15 @@
             this.groupBox13.TabIndex = 48;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "LwM2M Device DATA";
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(148, 70);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(224, 22);
+            this.label14.TabIndex = 57;
+            this.label14.Text = ".";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button128
             // 
@@ -3718,6 +3755,24 @@
             this.tabPage8.Text = "Platform LOG";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(56, 12);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(94, 22);
+            this.label18.TabIndex = 73;
+            this.label18.Text = "Platform 종류";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(55, 40);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(94, 22);
+            this.label16.TabIndex = 72;
+            this.label16.Text = "CTN";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // button127
             // 
             this.button127.Location = new System.Drawing.Point(935, 9);
@@ -3951,61 +4006,6 @@
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(148, 70);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(224, 22);
-            this.label14.TabIndex = 57;
-            this.label14.Text = ".";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label16
-            // 
-            this.label16.Location = new System.Drawing.Point(55, 40);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(94, 22);
-            this.label16.TabIndex = 72;
-            this.label16.Text = "CTN";
-            this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label18
-            // 
-            this.label18.Location = new System.Drawing.Point(56, 12);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(94, 22);
-            this.label18.TabIndex = 73;
-            this.label18.Text = "Platform 종류";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(160, 109);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(224, 22);
-            this.label23.TabIndex = 77;
-            this.label23.Text = ".";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(53, 114);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(99, 12);
-            this.label25.TabIndex = 76;
-            this.label25.Text = "Server EntityID : ";
-            // 
-            // button111
-            // 
-            this.button111.Location = new System.Drawing.Point(6, 92);
-            this.button111.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button111.Name = "button111";
-            this.button111.Size = new System.Drawing.Size(196, 24);
-            this.button111.TabIndex = 37;
-            this.button111.Text = "Service Server No";
-            this.button111.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -4019,6 +4019,7 @@
             this.Name = "Form1";
             this.Text = "LGU+ PCT";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

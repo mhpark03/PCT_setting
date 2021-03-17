@@ -2276,13 +2276,17 @@ namespace WindowsFormsApp2
             {
                 Workbook workbook = new Workbook();
                 Worksheet worksheet = new Worksheet("options");
+                int i = 0;
                 worksheet.Cells[0, 0] = new Cell(button73.Text);
                 worksheet.Cells[0, 1] = new Cell(comboBox3.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell("COM PORT");
+                worksheet.Cells[i, 1] = new Cell(cBoxCOMPORT.Text);
 
                 worksheet.Cells.ColumnWidth[0, 2] = 7000;
                 workbook.Worksheets.Add(worksheet);
 
-                int i = 0;
+                i = 0;
                 worksheet = new Worksheet("atcommand1");
                 worksheet.Cells[i, 0] = new Cell(button44.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox2.Text);
@@ -2651,6 +2655,11 @@ namespace WindowsFormsApp2
 
         private void button62_Click(object sender, EventArgs e)
         {
+            openExcelFile();
+        }
+
+        private void openExcelFile()
+        {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "xls";
             ofd.Filter = "text files (*.xls)|*.xls";
@@ -2665,14 +2674,17 @@ namespace WindowsFormsApp2
                     Worksheet worksheet = workbook.Worksheets[0];
                     if (worksheet.Name == "options" && worksheet.Cells[0, 0].ToString() == button73.Text)
                     {
+                        int i = 0;
                         if (worksheet.Cells[0, 1].ToString() == "자동")
                             comboBox3.SelectedIndex = 0;
                         else
                             comboBox3.SelectedIndex = 1;
+                        i++;
+                        cBoxCOMPORT.Text = worksheet.Cells[i, 1].ToString();
 
                         ///////////////////////////////////////////////////////////////// PCT 장비 AT command 매핑 1
                         worksheet = workbook.Worksheets[1];
-                        int i = 0;
+                        i = 0;
                         textBox2.Text = worksheet.Cells[i, 1].ToString();
                         textBox3.Text = worksheet.Cells[i, 2].ToString();
                         i++;
@@ -2976,7 +2988,6 @@ namespace WindowsFormsApp2
                     MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         private void button31_Click(object sender, EventArgs e)
@@ -3332,6 +3343,11 @@ namespace WindowsFormsApp2
                 checkBox2.Text = "자동";
             else
                 checkBox2.Text = "수동";
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            openExcelFile();
         }
     }
 
