@@ -493,7 +493,7 @@ namespace WindowsFormsApp2
             {
                 msg_form = "\r\n";
             }
-            msg_form += currenttime.ToString("hh:mm:ss.fff");
+            msg_form += currenttime.ToString("hh:mm:ss.fff") +"("+actionState+") ";
 
             if (kind == "tx")
             {
@@ -663,14 +663,15 @@ namespace WindowsFormsApp2
                     nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
                     break;
                 case states.geticcid:
+                case states.autogeticcid:
                     string[] strchs = str2.Split(' ');        // Remove first char ' '
                     if (strchs.Length > 1)
                         str2 = strchs[strchs.Length - 1];
 
                     if (str2.Length > 19)
-                        dev.iccid = str2.Substring(str2.Length - 20, 19);
+                        textBox88.Text = dev.iccid = str2.Substring(str2.Length - 20, 19);
                     else
-                        dev.iccid = str2;
+                        textBox88.Text = dev.iccid = str2;
 
                     logPrintInTextBox("ICCID가 "+ dev.iccid + "로 저장되었습니다.", "");
                     break;
@@ -742,6 +743,19 @@ namespace WindowsFormsApp2
                             nextresponse = textBox57.Text;
                             actionState = states.autogetmodemver.ToString();
                             break;
+                        // 단말 정보 자동 갱신 순서
+                        // autogetmanufac - autogetmodel - autogetimei - autogetmodemver - (autoimsi)
+                        case states.autogetimsi:
+
+                            this.sendDataOut(textBox46.Text);
+                            nextresponse = textBox33.Text;
+                            actionState = states.autogetimsi.ToString();
+                            break;
+                        case states.autogeticcid:
+                            this.sendDataOut(textBox45.Text);
+                            nextresponse = textBox38.Text;
+                            actionState = states.autogeticcid.ToString();
+                            break;
                         default:
                             break;
                     }
@@ -756,27 +770,27 @@ namespace WindowsFormsApp2
             switch (state)
             {
                 case states.getmanufac:
-                    dev.maker = str1;
+                    textBox85.Text = dev.maker = str1;
                     actionState = states.idle.ToString();
                     this.logPrintInTextBox("제조사값이 " + dev.maker + "로 저장되었습니다.", "");
                     break;
                 // 단말 정보 자동 갱신 순서
                 // (autogetmanufac) - (autogetmodel) - autogetimei - autogetmodemver
                 case states.autogetmanufac:
-                    dev.maker = str1;
+                    textBox85.Text = dev.maker = str1;
                     progressBar1.Value = 60;
                     this.logPrintInTextBox("제조사값이 " + dev.maker + "로 저장되었습니다.", "");
                     nextcommand = states.autogetmodel.ToString();
                     break;
                 case states.getmodel:
-                    dev.model = str1;
+                    textBox86.Text = dev.model = str1;
                     tbDeviceName.Text = str1;
                     this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
                     break;
                 // 단말 정보 자동 갱신 순서
                 // autogetmanufac - (autogetmodel) - (autogetimei) - autogetmodemver
                 case states.autogetmodel:
-                    dev.model = str1;
+                    textBox86.Text = dev.model = str1;
                     progressBar1.Value = 70;
                     tbDeviceName.Text = str1;
                     this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
@@ -785,8 +799,7 @@ namespace WindowsFormsApp2
                     nextcommand = states.autogetimei.ToString();
                     break;
                 case states.getimei:
-                    dev.imei = str1;
-                    tbIMEI.Text = str1;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str1;
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
 
                     actionState = states.idle.ToString();
@@ -794,7 +807,7 @@ namespace WindowsFormsApp2
                 case states.autogetimei:
                     // 단말 정보 자동 갱신 순서
                     // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
-                    dev.imei = str1;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str1;
                     tbIMEI.Text = str1;
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     progressBar1.Value = 90;
@@ -802,13 +815,12 @@ namespace WindowsFormsApp2
                     nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
                     break;
                 case states.getimsi:
+                    textBox87.Text = str1;
                     if (str1.StartsWith("45006"))
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        dev.imsi = ctn;
-                        textBox1.Text = ctn;
-                        actionState = states.idle.ToString();
+                        textBox93.Text = textBox97.Text = tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -816,18 +828,32 @@ namespace WindowsFormsApp2
 
                     actionState = states.idle.ToString();
                     break;
+                case states.autogetimsi:
+                    textBox87.Text = str1;
+                    if (str1.StartsWith("45006"))
+                    {
+                        string ctn = "0" + str1.Substring(5, str1.Length - 5);
+
+                        textBox93.Text = textBox97.Text = tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
+                        this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
+                    }
+                    else
+                        this.logPrintInTextBox("USIM 상태 확인이 필요합니다.", "");
+
+                    nextcommand = states.autogeticcid.ToString();
+                    break;
                 case states.getmodemver:
-                    dev.version = str1;
-                    tbDeviceVer.Text = str1;
+                    tbDeviceVer.Text = textBox90.Text = dev.version = str1;
                     actionState = states.idle.ToString();
                     this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
 
                     break;
                 case states.autogetmodemver:
-                    dev.version = str1;
+                    tbDeviceVer.Text = textBox90.Text = dev.version = str1;
                     progressBar1.Value = 100;
-                    tbDeviceVer.Text = str1;
                     this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
+
+                    nextcommand = states.autogetimsi.ToString();
                     break;
                 default:
                     break;
@@ -2387,7 +2413,7 @@ namespace WindowsFormsApp2
 
                 i = 0;
                 worksheet = new Worksheet("atcommand3");
-                worksheet.Cells[i, 0] = new Cell(button80.Text);
+                worksheet.Cells[i, 0] = new Cell(label18.Text);
                 worksheet.Cells[i, 1] = new Cell(comboBox1.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button83.Text);
@@ -2444,17 +2470,17 @@ namespace WindowsFormsApp2
 
                 i = 0;
                 worksheet = new Worksheet("lwm2matcmd");
-                worksheet.Cells[i, 0] = new Cell(button63.Text);
+                worksheet.Cells[i, 0] = new Cell(label31.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox62.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button102.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox63.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button104.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox65.Text);
+                worksheet.Cells[i, 0] = new Cell(label28.Text);
+                worksheet.Cells[i, 1] = new Cell(tbSvcSvrCd.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button103.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox64.Text);
+                worksheet.Cells[i, 0] = new Cell(label33.Text);
+                worksheet.Cells[i, 1] = new Cell(tbSvcSvrNum.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button98.Text);
                 worksheet.Cells[i, 1] = new Cell("setncdp");
@@ -2768,9 +2794,9 @@ namespace WindowsFormsApp2
                         i++;
                         textBox63.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox65.Text = worksheet.Cells[i, 1].ToString();
+                        tbSvcSvrCd.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox64.Text = worksheet.Cells[i, 1].ToString();
+                        tbSvcSvrNum.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox56.Text = worksheet.Cells[i, 2].ToString();
                         i++;
