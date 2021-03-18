@@ -263,7 +263,6 @@ namespace WindowsFormsApp2
         string nextresponse = string.Empty;   //응답에 prefix가 존재하는 경우
         string commmode = "catm1";
         string imsmode = "no";
-        string actionState = "idle";
         ServiceServer svr = new ServiceServer();
         Device dev = new Device();
         TCResult tc = new TCResult();
@@ -549,6 +548,7 @@ namespace WindowsFormsApp2
             tBoxDataIN.Text = string.Empty;
             tbLog.Text = string.Empty;
 
+            lbActionState.Text = "idle";
 
             commmode = "catm1";
             button31.BackColor = SystemColors.Control;
@@ -652,25 +652,18 @@ namespace WindowsFormsApp2
         {
             string displayMsg = makeLogPrintLine(message,kind);
 
-            Console.WriteLine(displayMsg);
+            tBoxDataIN.AppendText(Environment.NewLine);
+            tBoxDataIN.AppendText(displayMsg + message);
+            tBoxDataIN.SelectionStart = tBoxDataIN.TextLength;
+            tBoxDataIN.ScrollToCaret();
         }
 
         // 명령어에 대해 동작시각과 방향을 포함하여 저장한다.
         private string makeLogPrintLine(string msg, string kind)
         {
-            string msg_form = "";
+            string msg_form;
             DateTime currenttime = DateTime.Now;
-
-            msg = msg.Replace("\0", "");
-            msg = msg.Replace("\r", "");
-            msg = msg.Replace("\n", "");
-
-            if (kind == "tx")
-            {
-                msg_form = "\r\n";
-            }
-            msg_form += currenttime.ToString("hh:mm:ss.fff") +"("+actionState+") ";
-
+            msg_form = currenttime.ToString("hh:mm:ss.fff : ") + "(" + lbActionState.Text + ") ";
             if (kind == "tx")
             {
                 msg_form += "==> : ";
@@ -681,10 +674,8 @@ namespace WindowsFormsApp2
             }
             else
             {
-                msg_form += "     : ";
+                msg_form = "\t";
             }
-
-            msg_form = msg_form + msg + "\r\n";
             return msg_form;
         }
 
@@ -767,72 +758,69 @@ namespace WindowsFormsApp2
             logPrintInTextBox(rxMsg,"rx");          // 수신한 데이터 한줄을 표시
             bool find_msg = false;
 
-            if (nextresponse != string.Empty && rxMsg.StartsWith(nextresponse, System.StringComparison.CurrentCultureIgnoreCase))
+            // 후처리가 필요한 명령어 목록에서 하나씩 순서대로 읽어서 비교한다.
+            foreach (string s in sentences)
             {
-                //logPrintInTextBox(s + " : There is matching data.","");
+                //logPrintInTextBox(s,"");
 
-                // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
-                int first = rxMsg.IndexOf(nextresponse) + nextresponse.Length;
-                string str2 = "";
-                str2 = rxMsg.Substring(first, rxMsg.Length - first);
+                // 수신한 데이터에 대해 후처리가 필요한 명령어가 포함되어 있는지 체크한다.
+                //if (System.Text.RegularExpressions.Regex.IsMatch(rxMsg, s, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
 
-                this.parseNextReceiveData(str2);
-                nextresponse = string.Empty;
-            }
-            else
-            {
-                // 후처리가 필요한 명령어 목록에서 하나씩 순서대로 읽어서 비교한다.
-                foreach (string s in sentences)
+                // 수신한 데이터에 대해 후처리가 필요한 명령어로 시작하는지 체크한다.
+                if (rxMsg.StartsWith(s, System.StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //logPrintInTextBox(s,"");
+                    //logPrintInTextBox(s + " : There is matching data.","");
 
-                    // 수신한 데이터에 대해 후처리가 필요한 명령어가 포함되어 있는지 체크한다.
-                    //if (System.Text.RegularExpressions.Regex.IsMatch(rxMsg, s, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                    // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                    int first = rxMsg.IndexOf(s) + s.Length;
+                    string str2 = "";
+                    str2 = rxMsg.Substring(first, rxMsg.Length - first);
+                    //logPrintInTextBox("남은 문자열 : " + str2,"");
 
-                    // 수신한 데이터에 대해 후처리가 필요한 명령어로 시작하는지 체크한다.
-                    if (rxMsg.StartsWith(s, System.StringComparison.CurrentCultureIgnoreCase))
+                    this.parseReceiveData(s, str2);
+
+                    find_msg = true;
+                    break;
+                }
+            }
+
+            // 후처리가 필요한 명령어인데 고정 값이 없고 data만 있는 경우
+            //예를들어 IMSI, IMEI 요청에 대한 응답 값 등
+            if ((find_msg == false) && (rxMsg != "\r") && (rxMsg != "\n"))
+            {
+                //logPrintInTextBox("No Matching Data!!!","");
+
+                if (nextresponse != string.Empty)
+                {
+                    if (rxMsg.StartsWith(nextresponse, System.StringComparison.CurrentCultureIgnoreCase))
                     {
-                        //logPrintInTextBox(s + " : There is matching data.","");
-
                         // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
-                        int first = rxMsg.IndexOf(s) + s.Length;
+                        int first = rxMsg.IndexOf(nextresponse) + nextresponse.Length;
                         string str2 = "";
                         str2 = rxMsg.Substring(first, rxMsg.Length - first);
-                        //logPrintInTextBox("남은 문자열 : " + str2,"");
 
-                        this.parseReceiveData(s, str2);
-
-                        find_msg = true;
-                        break;
+                        this.parseNextReceiveData(str2);
+                        nextresponse = string.Empty;
                     }
                 }
-
-                // 후처리가 필요한 명령어인데 고정 값이 없고 data만 있는 경우
-                //예를들어 IMSI, IMEI 요청에 대한 응답 값 등
-                if ((find_msg == false) && (rxMsg != "\r") && (rxMsg != "\n"))
-                {
-                    //logPrintInTextBox("No Matching Data!!!","");
-
+                else
                     this.parseNoPrefixData(rxMsg);
-                }
             }
         }
 
         private void parseNextReceiveData(string str2)
         {
-            states state = (states)Enum.Parse(typeof(states), actionState);
+            states state = (states)Enum.Parse(typeof(states), lbActionState.Text);
             switch (state)
             {
                 case states.getimei:
-                    dev.imei = str2;
-                    tbIMEI.Text = str2;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str2;
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     break;
                 case states.autogetimei:
                     // 단말 정보 자동 갱신 순서
                     // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
-                    dev.imei = str2;
-                    tbIMEI.Text = str2;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str2;
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     progressBar1.Value = 90;
 
@@ -850,6 +838,8 @@ namespace WindowsFormsApp2
                         textBox88.Text = dev.iccid = str2;
 
                     logPrintInTextBox("ICCID가 "+ dev.iccid + "로 저장되었습니다.", "");
+
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 default:
                     break;
@@ -863,25 +853,25 @@ namespace WindowsFormsApp2
             switch(s)
             {
                 case "OK":
-                    if (actionState == states.testatcmd.ToString())
+                    if (lbActionState.Text == states.testatcmd.ToString())
                     {
                         MessageBox.Show("OK 응답을 받았습니다.");
-                        actionState = states.idle.ToString();
+                        lbActionState.Text = states.idle.ToString();
                     }
-                    else if (actionState == states.atdtatcmd.ToString())
+                    else if (lbActionState.Text == states.atdtatcmd.ToString())
                     {
                         this.sendDataOut(textBox3.Text);
-                        actionState = states.testatcmd.ToString();
+                        lbActionState.Text = states.testatcmd.ToString();
                     }
                     else
                         OKReceived();
                     break;
                 case "ERROR":
                     nextcommand = "";
-                    if (actionState == states.testatcmd.ToString() || actionState == states.atdtatcmd.ToString())
+                    if (lbActionState.Text == states.testatcmd.ToString() || lbActionState.Text == states.atdtatcmd.ToString())
                     {
                         MessageBox.Show("ERROR 응답을 받았습니다.");
-                        actionState = states.idle.ToString();
+                        lbActionState.Text = states.idle.ToString();
                     }
                     break;
                 default:
@@ -903,21 +893,21 @@ namespace WindowsFormsApp2
                         // autogetmanufac - (autogetmodel) - autogetimei - autogetmodemver
                         case states.autogetmodel:
                             this.sendDataOut(textBox47.Text);
-                            actionState = states.autogetmodel.ToString();
+                            lbActionState.Text = states.autogetmodel.ToString();
                             break;
                         // 단말 정보 자동 갱신 순서
                         // autogetmanufac - autogetmodel - (autogetimei) - autogetmodemver
                         case states.autogetimei:
                             this.sendDataOut(textBox49.Text);
                             nextresponse = textBox40.Text;
-                            actionState = states.autogetimei.ToString();
+                            lbActionState.Text = states.autogetimei.ToString();
                             break;
                         // 단말 정보 자동 갱신 순서
                         // autogetmanufac - autogetmodel - autogetimei - (autogetmodemver)
                         case states.autogetmodemver:
                             this.sendDataOut(textBox44.Text);
                             nextresponse = textBox57.Text;
-                            actionState = states.autogetmodemver.ToString();
+                            lbActionState.Text = states.autogetmodemver.ToString();
                             break;
                         // 단말 정보 자동 갱신 순서
                         // autogetmanufac - autogetmodel - autogetimei - autogetmodemver - (autoimsi)
@@ -925,12 +915,12 @@ namespace WindowsFormsApp2
 
                             this.sendDataOut(textBox46.Text);
                             nextresponse = textBox33.Text;
-                            actionState = states.autogetimsi.ToString();
+                            lbActionState.Text = states.autogetimsi.ToString();
                             break;
                         case states.autogeticcid:
                             this.sendDataOut(textBox45.Text);
                             nextresponse = textBox38.Text;
-                            actionState = states.autogeticcid.ToString();
+                            lbActionState.Text = states.autogeticcid.ToString();
                             break;
                         default:
                             break;
@@ -942,12 +932,12 @@ namespace WindowsFormsApp2
 
         private void parseNoPrefixData(string str1)
         {
-            states state = (states)Enum.Parse(typeof(states), actionState);
+            states state = (states)Enum.Parse(typeof(states), lbActionState.Text);
             switch (state)
             {
                 case states.getmanufac:
                     textBox85.Text = dev.maker = str1;
-                    actionState = states.idle.ToString();
+                    lbActionState.Text = states.idle.ToString();
                     this.logPrintInTextBox("제조사값이 " + dev.maker + "로 저장되었습니다.", "");
                     break;
                 // 단말 정보 자동 갱신 순서
@@ -978,13 +968,12 @@ namespace WindowsFormsApp2
                     textBox89.Text = tbIMEI.Text = dev.imei = str1;
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
 
-                    actionState = states.idle.ToString();
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 case states.autogetimei:
                     // 단말 정보 자동 갱신 순서
                     // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
                     textBox89.Text = tbIMEI.Text = dev.imei = str1;
-                    tbIMEI.Text = str1;
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     progressBar1.Value = 90;
 
@@ -1002,7 +991,7 @@ namespace WindowsFormsApp2
                     else
                         this.logPrintInTextBox("USIM 상태 확인이 필요합니다.", "");
 
-                    actionState = states.idle.ToString();
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 case states.autogetimsi:
                     textBox87.Text = str1;
@@ -1020,7 +1009,7 @@ namespace WindowsFormsApp2
                     break;
                 case states.getmodemver:
                     tbDeviceVer.Text = textBox90.Text = dev.version = str1;
-                    actionState = states.idle.ToString();
+                    lbActionState.Text = states.idle.ToString();
                     this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
 
                     break;
@@ -1048,7 +1037,7 @@ namespace WindowsFormsApp2
             // 단말 정보 자동 갱신 순서
             // (autogetmanufac) - autogetmodel - autogetimei - autogetmodemver
             this.sendDataOut(textBox48.Text);
-            actionState = states.autogetmanufac.ToString();
+            lbActionState.Text = states.autogetmanufac.ToString();
         }
 
         private string BcdToString(char[] charValues)
@@ -2651,7 +2640,7 @@ namespace WindowsFormsApp2
                 i = 0;
                 worksheet = new Worksheet("lwm2matcmd");
                 worksheet.Cells[i, 0] = new Cell(label31.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox62.Text);
+                worksheet.Cells[i, 1] = new Cell(tbServiceCode.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button102.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox63.Text);
@@ -2978,7 +2967,7 @@ namespace WindowsFormsApp2
                         /////////////////////////////////////////////// 플랫폼 검증 앱 LwM2M AT command
                         i = 0;
                         worksheet = workbook.Worksheets[4];
-                        textBox62.Text = worksheet.Cells[i, 1].ToString();
+                        tbServiceCode.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox63.Text = worksheet.Cells[i, 1].ToString();
                         i++;
@@ -3235,269 +3224,269 @@ namespace WindowsFormsApp2
         private void button61_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox31.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button75_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox30.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button67_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox32.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button66_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox27.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button65_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox26.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button64_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox25.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button84_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox41.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button69_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox23.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button82_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox39.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button79_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox37.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button78_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox36.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button77_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox35.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button76_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox34.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button60_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox42.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button85_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox43.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button59_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox22.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button58_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox21.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button57_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox20.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button56_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox19.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button55_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox18.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button43_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox17.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button54_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox16.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button53_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox15.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button52_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox14.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button51_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox13.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button50_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox12.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button49_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox11.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button48_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox10.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button47_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox9.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button46_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox8.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button45_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox7.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button37_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox1.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button38_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox6.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button39_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox5.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button42_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox4.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button74_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox28.Text);
-            actionState = states.testatcmd.ToString();
+            lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button44_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox2.Text);
-            actionState = states.atdtatcmd.ToString();
+            lbActionState.Text = states.atdtatcmd.ToString();
         }
 
         private void button83_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox48.Text);
-            actionState = states.getmanufac.ToString();
+            lbActionState.Text = states.getmanufac.ToString();
         }
 
         private void button91_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox47.Text);
-            actionState = states.getmodel.ToString();
+            lbActionState.Text = states.getmodel.ToString();
         }
 
         private void button89_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox49.Text);
             nextresponse = textBox40.Text;
-            actionState = states.getimei.ToString();
+            lbActionState.Text = states.getimei.ToString();
         }
 
         private void button88_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox44.Text);
             nextresponse = textBox57.Text;
-            actionState = states.getmodemver.ToString();
+            lbActionState.Text = states.getmodemver.ToString();
         }
 
         private void button90_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox46.Text);
             nextresponse = textBox33.Text;
-            actionState = states.getimsi.ToString();
+            lbActionState.Text = states.getimsi.ToString();
         }
 
         private void button71_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox45.Text);
             nextresponse = textBox38.Text;
-            actionState = states.geticcid.ToString();
+            lbActionState.Text = states.geticcid.ToString();
         }
 
         private void button86_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox24.Text);
-            actionState = states.rfreset.ToString();
+            lbActionState.Text = states.rfreset.ToString();
         }
 
         private void button87_Click(object sender, EventArgs e)
@@ -4803,36 +4792,13 @@ namespace WindowsFormsApp2
             tc.state = string.Empty;
         }
 
-        private void LogWrite(string data)
-        {
-            BeginInvoke(new Action(() =>
-            {
-                tbLog.AppendText(Environment.NewLine);
-                tbLog.AppendText(DateTime.Now.ToString("hh:mm:ss.fff") + " (" + actionState + ") : " + data);
-                tbLog.SelectionStart = tbLog.TextLength;
-                tbLog.ScrollToCaret();
-            }));
-        }
-
-        private void LogWriteNoTime(string data)
-        {
-            BeginInvoke(new Action(() =>
-            {
-                tbLog.AppendText(Environment.NewLine);
-                data = data.Replace("><", ">" + Environment.NewLine + "<");         // xml tag 위치에 줄바꿈 삽입
-                tbLog.AppendText(" " + data);
-                tbLog.SelectionStart = tbLog.TextLength;
-                tbLog.ScrollToCaret();
-            }));
-        }
-
         // 시험절차서 시험 결과를 tbTCResult에 표시.
         public void logPrintTC(string message)
         {
             BeginInvoke(new Action(() =>
             {
                 tbTCResult.AppendText(Environment.NewLine);
-                tbTCResult.AppendText(DateTime.Now.ToString("hh:mm:ss.fff") + " (" + actionState + ") : " + message);
+                tbTCResult.AppendText(DateTime.Now.ToString("hh:mm:ss.fff") + " (" + lbActionState.Text + ") : " + message);
                 tbTCResult.SelectionStart = tbTCResult.TextLength;
                 tbTCResult.ScrollToCaret();
             }));
@@ -4910,6 +4876,337 @@ namespace WindowsFormsApp2
             return resResult;
         }
 
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] values = listBox1.SelectedItem.ToString().Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+            textBox2.Text = values[1];
+            tBResultCode.Text = values[2];
+
+            getSvrEventLog(values[1], string.Empty, values[2], values[3]);
+        }
+
+        private void getSvrEventLog(string tlogid, string kind, string tresultCode, string tresultCodeName)
+        {
+            label21.Text = "서버로그 ID : " + tlogid + " 상세내역";
+
+            // oneM2M log server 응답 확인 (resultcode)
+            ReqHeader header = new ReqHeader();
+            header.Url = logUrl + "/apilog?logId=" + tlogid;
+            //header.Url = logUrl + "/apilog?Id=61";
+            header.Method = "GET";
+            header.ContentType = "application/json";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "LogDetail";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            string retStr = GetHttpLog(header, string.Empty);
+
+            listBox2.Items.Clear();
+            listBox3.Items.Clear();
+
+            if (retStr != string.Empty)
+            {
+                //LogWriteNoTime(retStr);
+                try
+                {
+                    JArray jarr = JArray.Parse(retStr); //json 객체로
+
+                    foreach (JObject jobj in jarr)
+                    {
+                        string time = jobj["logTime"].ToString();
+                        string logtime = time.Substring(8, 2) + ":" + time.Substring(10, 2) + ":" + time.Substring(12, 2);
+                        var pathInfo = jobj["pathInfo"] ?? " ";
+                        var resType = jobj["resType"] ?? " ";
+                        var trgAddr = jobj["trgAddr"] ?? " ";
+                        var logType = jobj["logType"] ?? " ";
+                        var logId = jobj["logId"] ?? " ";
+                        var resultCode = jobj["resultCode"] ?? " ";
+                        var resultCodeName = jobj["resultCodeName"] ?? " ";
+
+                        string path = pathInfo.ToString();
+                        if (path == " ")
+                            path = jobj["resType"].ToString() + " : " + trgAddr.ToString();
+
+                        listBox2.Items.Add(logtime + "\t" + logId.ToString() + "\t" + resultCode.ToString() + "\t   " + resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")");
+                    }
+
+                    if (kind != string.Empty)
+                    {
+                        getSvrDetailLog(tlogid, kind, tresultCode, tresultCodeName);
+                    }
+                    else if (listBox2.Items.Count != 0)
+                    {
+                        listBox2.SelectedIndex = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] values = listBox2.SelectedItem.ToString().Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+            tBResultCode.Text = values[2];
+            textBox3.Text = values[1];
+
+            getSvrDetailLog(values[1], string.Empty, values[2], values[3]);
+        }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected_msg = listBox3.SelectedItem.ToString();
+            string[] values = selected_msg.Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+
+            if (values[4] != " ")
+            {
+                string logs_msg = listBox1.SelectedItem.ToString();
+                string[] titles = logs_msg.Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+
+                MessageBox.Show(values[3] + "\n\n" + values[4], titles[2] + " 상세내역");
+            }
+        }
+
+        private void btnMEFAuth_Click(object sender, EventArgs e)
+        {
+            svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
+            //LogWrite("svr.svcSvrCd = " + svr.svcSvrCd);
+            svr.svcCd = tbServiceCode.Text; // 서비스 서버의 서비스코드
+            //LogWrite("svr.svcCd = " + svr.svcCd);
+            svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
+            //LogWrite("svr.svcSvrNum = " + svr.svcSvrNum);
+
+            if (svr.svcCd != string.Empty && svr.svcSvrCd != string.Empty && svr.svcSvrNum != string.Empty)
+                RequestMEF();
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        // 1. MEF 인증
+        private void RequestMEF()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = mefUrl + "/mef/server";
+            header.Method = "POST";
+            header.ContentType = "application/xml";
+            header.X_M2M_RI = string.Empty;
+            header.X_M2M_Origin = string.Empty;
+            header.X_MEF_TK = string.Empty;
+            header.X_MEF_EKI = string.Empty;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<auth>";
+            packetStr += "<svcSvrCd>" + svr.svcSvrCd + "</svcSvrCd>";
+            packetStr += "<svcCd>" + svr.svcCd + "</svcCd>";
+            packetStr += "<svcSvrNum>" + svr.svcSvrNum + "</svcSvrNum>";
+            packetStr += "</auth>";
+
+            LogWrite("----------MEF 인증----------");
+            string retStr = SendHttpRequest(header, packetStr); // xml
+            if (retStr != string.Empty)
+            {
+                ParsingXml(retStr);
+
+                string nameCSR = svr.entityId.Replace("-", "");
+                svr.remoteCSEName = "csr-" + nameCSR;
+                //LogWrite("svr.remoteCSEName = " + svr.remoteCSEName);
+            }
+        }
+
+        private void ParsingXml(string xml)
+        {
+            XmlDocument xDoc = new XmlDocument();
+            xDoc.LoadXml(xml);
+            //LogWrite(xDoc.OuterXml.ToString());
+
+            XmlNodeList xnList = xDoc.SelectNodes("/authdata/http"); //접근할 노드
+            foreach (XmlNode xn in xnList)
+            {
+                svr.enrmtKey = xn["enrmtKey"].InnerText; // oneM2M 인증 KeyID를 생성하기 위한 Key
+                svr.entityId = xn["entityId"].InnerText; // oneM2M에서 사용하는 단말 ID
+                svr.token = xn["token"].InnerText; // 인증구간 통신을 위해 발급하는 Token
+            }
+            Console.WriteLine("svr enrmtKey = " + svr.enrmtKey);
+            Console.WriteLine("svr entityId = " + svr.entityId);
+            Console.WriteLine("svr token = " + svr.token);
+
+            label23.Text = svr.entityId;
+
+            // EKI값 계산하기
+            // short uuid구하기
+            string suuid = svr.entityId.Substring(10, 10);
+            //LogWrite("suuid = " + suuid);
+
+            // KeyData Base64URL Decoding
+            string output = svr.enrmtKey;
+            output = output.Replace('-', '+'); // 62nd char of encoding
+            output = output.Replace('_', '/'); // 63rd char of encoding
+
+            switch (output.Length % 4) // Pad with trailing '='s
+            {
+                case 0:
+                    break; // No pad chars in this case
+                case 2:
+                    output += "==";
+                    break; // Two pad chars
+                case 3:
+                    output += "=";
+                    break; // One pad char
+                default:
+                    throw new ArgumentOutOfRangeException(
+                        nameof(svr.enrmtKey), "Illegal base64url string!");
+            }
+
+            var converted = Convert.FromBase64String(output); // Standard base64 decoder
+
+            // keyData로 AES 128비트 비밀키 생성
+            System.Text.UTF8Encoding UTF8 = new System.Text.UTF8Encoding();
+            AesManaged tdes = new AesManaged();
+            tdes.Key = converted;
+            tdes.Mode = CipherMode.ECB;
+            tdes.Padding = PaddingMode.PKCS7;
+            ICryptoTransform crypt = tdes.CreateEncryptor();
+            byte[] plain = Encoding.UTF8.GetBytes(suuid);
+            byte[] cipher = crypt.TransformFinalBlock(plain, 0, plain.Length);
+            String enrmtKeyId = Convert.ToBase64String(cipher);
+
+            enrmtKeyId = enrmtKeyId.Split('=')[0]; // Remove any trailing '='s
+            enrmtKeyId = enrmtKeyId.Replace('+', '-'); // 62nd char of encoding
+            enrmtKeyId = enrmtKeyId.Replace('/', '_'); // 63rd char of encoding
+
+            svr.enrmtKeyId = enrmtKeyId;
+            //LogWrite("svr.enrmtKeyId = " + svr.enrmtKeyId);
+        }
+
+        delegate void Ctr_Involk(Control ctr, string text);
+
+        private void SetText(Control ctr, string txtValue)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (ctr.InvokeRequired)
+            {
+                Ctr_Involk CI = new Ctr_Involk(SetText);
+                ctr.Invoke(CI, ctr, txtValue);
+            }
+            else
+            {
+                ctr.Text = txtValue;
+            }
+        }
+
+        public string SendHttpRequest(ReqHeader header, string data)
+        {
+            string resResult = string.Empty;
+
+            try
+            {
+                wReq = (HttpWebRequest)WebRequest.Create(header.Url);
+                wReq.Method = header.Method;
+                if (header.Accept != string.Empty)
+                    wReq.Accept = header.Accept;
+                if (header.ContentType != string.Empty)
+                    wReq.ContentType = header.ContentType;
+                if (header.X_M2M_RI != string.Empty)
+                    wReq.Headers.Add("X-M2M-RI", header.X_M2M_RI);
+                if (header.X_M2M_Origin != string.Empty)
+                    wReq.Headers.Add("X-M2M-Origin", header.X_M2M_Origin);
+                if (header.X_M2M_NM != string.Empty)
+                    wReq.Headers.Add("X-M2M-NM", header.X_M2M_NM);
+                if (header.X_MEF_TK != string.Empty)
+                    wReq.Headers.Add("X-MEF-TK", header.X_MEF_TK);
+                if (header.X_MEF_EKI != string.Empty)
+                    wReq.Headers.Add("X-MEF-EKI", header.X_MEF_EKI);
+
+                LogWrite(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
+                Console.WriteLine(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
+                Console.WriteLine("");
+                for (int i = 0; i < wReq.Headers.Count; ++i)
+                    Console.WriteLine(wReq.Headers.Keys[i] + ": " + wReq.Headers[i]);
+                Console.WriteLine("");
+                Console.WriteLine(data);
+                Console.WriteLine("");
+
+                // POST 전송일 경우      
+                if (header.Method == "POST")
+                {
+                    byte[] byteArray = Encoding.UTF8.GetBytes(data);
+                    Stream dataStream = wReq.GetRequestStream();
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    dataStream.Close();
+                }
+
+                LogWrite("----------Response from oneM2M----------");
+                wReq.Timeout = 20000;          // 서버 응답을 20초동안 기다림
+                using (wRes = (HttpWebResponse)wReq.GetResponse())
+                {
+                    LogWriteNoTime("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
+                    Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
+                    Console.WriteLine("");
+                    for (int i = 0; i < wRes.Headers.Count; ++i)
+                        Console.WriteLine("[" + wRes.Headers.Keys[i] + "] " + wRes.Headers[i]);
+                    Console.WriteLine("");
+
+                    Stream respPostStream = wRes.GetResponseStream();
+                    StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
+                    resResult = readerPost.ReadToEnd();
+                    Console.WriteLine(resResult);
+                    Console.WriteLine("");
+                }
+            }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
+                {
+                    var resp = (HttpWebResponse)ex.Response;
+                    LogWrite("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
+                    Console.WriteLine("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
+                    Console.WriteLine("");
+                    for (int i = 0; i < resp.Headers.Count; ++i)
+                        Console.WriteLine(" " + resp.Headers.Keys[i] + ": " + resp.Headers[i]);
+                    Console.WriteLine("");
+
+                    Stream respPostStream = resp.GetResponseStream();
+                    StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
+                    string resError = readerPost.ReadToEnd();
+                    Console.WriteLine(resError);
+                    Console.WriteLine("");
+                    //Console.WriteLine("[" + (int)resp.StatusCode + "] " + resp.StatusCode.ToString());
+                }
+                else
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            return resResult;
+        }
+
+        private void LogWrite(string data)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                tbLog.AppendText(Environment.NewLine);
+                tbLog.AppendText(DateTime.Now.ToString("hh:mm:ss.fff") + " (" + lbActionState.Text + ") : " + data);
+                tbLog.SelectionStart = tbLog.TextLength;
+                tbLog.ScrollToCaret();
+            }));
+        }
+
+        private void LogWriteNoTime(string data)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                tbLog.AppendText(Environment.NewLine);
+                data = data.Replace("><", ">" + Environment.NewLine + "<");         // xml tag 위치에 줄바꿈 삽입
+                tbLog.AppendText(" " + data);
+                tbLog.SelectionStart = tbLog.TextLength;
+                tbLog.ScrollToCaret();
+            }));
+        }
     }
 
     public class TCResult
