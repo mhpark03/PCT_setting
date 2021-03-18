@@ -833,9 +833,9 @@ namespace WindowsFormsApp2
                         str2 = strchs[strchs.Length - 1];
 
                     if (str2.Length > 19)
-                        textBox88.Text = dev.iccid = str2.Substring(str2.Length - 20, 19);
+                        lbIccid.Text = dev.iccid = str2.Substring(str2.Length - 20, 19);
                     else
-                        textBox88.Text = dev.iccid = str2;
+                        lbIccid.Text = dev.iccid = str2;
 
                     logPrintInTextBox("ICCID가 "+ dev.iccid + "로 저장되었습니다.", "");
 
@@ -1008,13 +1008,13 @@ namespace WindowsFormsApp2
                     nextcommand = states.autogeticcid.ToString();
                     break;
                 case states.getmodemver:
-                    tbDeviceVer.Text = textBox90.Text = dev.version = str1;
+                    tbDeviceVer.Text = lbModemVer.Text = dev.version = str1;
                     lbActionState.Text = states.idle.ToString();
                     this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
 
                     break;
                 case states.autogetmodemver:
-                    tbDeviceVer.Text = textBox90.Text = dev.version = str1;
+                    tbDeviceVer.Text = lbModemVer.Text = dev.version = str1;
                     progressBar1.Value = 100;
                     this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
 
@@ -2640,7 +2640,7 @@ namespace WindowsFormsApp2
                 i = 0;
                 worksheet = new Worksheet("lwm2matcmd");
                 worksheet.Cells[i, 0] = new Cell(label31.Text);
-                worksheet.Cells[i, 1] = new Cell(tbServiceCode.Text);
+                worksheet.Cells[i, 1] = new Cell(tbSvcCd.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button102.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox63.Text);
@@ -2967,7 +2967,7 @@ namespace WindowsFormsApp2
                         /////////////////////////////////////////////// 플랫폼 검증 앱 LwM2M AT command
                         i = 0;
                         worksheet = workbook.Worksheets[4];
-                        tbServiceCode.Text = worksheet.Cells[i, 1].ToString();
+                        tbSvcCd.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox63.Text = worksheet.Cells[i, 1].ToString();
                         i++;
@@ -3568,7 +3568,7 @@ namespace WindowsFormsApp2
                             path = resType.ToString() + " : " + trgAddr.ToString();
 
                         tcmsg = string.Empty;
-                        if (dev.type == "onem2m")
+                        if (comboBox1.SelectedIndex == 0)
                             OneM2MTcResultReport(jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString(), trgAddr.ToString(), oprType.ToString());
                         else
                             LwM2MTcResultReport(path, jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString());
@@ -4973,7 +4973,7 @@ namespace WindowsFormsApp2
         {
             svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
             //LogWrite("svr.svcSvrCd = " + svr.svcSvrCd);
-            svr.svcCd = tbServiceCode.Text; // 서비스 서버의 서비스코드
+            svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
             //LogWrite("svr.svcCd = " + svr.svcCd);
             svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
             //LogWrite("svr.svcSvrNum = " + svr.svcSvrNum);
@@ -5206,6 +5206,276 @@ namespace WindowsFormsApp2
                 tbLog.SelectionStart = tbLog.TextLength;
                 tbLog.ScrollToCaret();
             }));
+        }
+
+        private void button127_Click(object sender, EventArgs e)
+        {
+            if (svr.entityId != string.Empty)
+                getSvrLoglists("entityId=" + svr.entityId, "man");
+            else
+                MessageBox.Show("서비스서버 MEF인증 후 사용이 가능합니다");
+        }
+
+        private void button126_Click(object sender, EventArgs e)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = logUrl + "/resultCode?value=" + tBResultCode.Text;
+            header.Method = "GET";
+            header.ContentType = "application/json";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "ResultCode";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            string retStr = GetHttpLog(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                //LogWriteNoTime(retStr);
+                try
+                {
+                    JObject obj = JObject.Parse(retStr);
+
+                    var resultCode = obj["resultCode"] ?? tBResultCode.Text;
+                    var codeName = obj["codeName"] ?? "NULL";
+                    var desc = obj["desc"] ?? "NULL";
+
+                    MessageBox.Show("message = " + codeName.ToString() + "\ndescription = " + desc.ToString(), "Resultcode=" + resultCode.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            else
+                MessageBox.Show("message = " + "Unknown" + "\ndescription = " + "Resultcode 값이 존재하지 않습니다.", "Resultcode=" + tBResultCode.Text);
+        }
+
+        private void button124_Click(object sender, EventArgs e)
+        {
+            if (textBox93.Text != string.Empty)
+            {
+                ReqHeader header = new ReqHeader();
+                header.Url = logUrl + "/device?ctn=" + textBox93.Text;
+                //header.Url = logUrl + "/device?ctn=99977665825";
+                header.Method = "GET";
+                header.ContentType = "application/json";
+                header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "DeviceGet";
+                header.X_M2M_Origin = svr.entityId;
+                header.X_MEF_TK = svr.token;
+                header.X_MEF_EKI = svr.enrmtKeyId;
+                string retStr = GetHttpLog(header, string.Empty);
+                if (retStr != string.Empty)
+                {
+                    //LogWriteNoTime(retStr);
+                    try
+                    {
+                        JArray jarr = JArray.Parse(retStr); //json 객체로
+
+                        JObject obj = JObject.Parse(jarr[0].ToString());
+
+                        var ctn = obj["ctn"] ?? textBox93.Text;
+                        var deviceModel = obj["deviceModel"] ?? " ";
+                        var modemModel = obj["modemModel"] ?? " ";
+                        var serviceCode = obj["serviceCode"] ?? " ";
+                        var deviceSerialNo = obj["deviceSerialNo"] ?? " ";
+                        var iccId = obj["iccId"] ?? " ";
+                        var m2mmType = obj["m2mmType"] ?? " ";
+
+                        if (iccId.ToString() != " ")
+                        {
+                            tBoxDeviceModel.Text = deviceModel.ToString();
+                            textBox86.Text = modemModel.ToString();
+                            tbSvcCd.Text = serviceCode.ToString();
+                            tBoxDeviceSN.Text = deviceSerialNo.ToString();
+
+                            if (m2mmType.ToString().StartsWith("ONEM2M"))
+                            {
+                                dev.type = "onem2m";
+
+                                for (int i = 0; i < (int)onem2mtc.tc021401 + 1; i++)
+                                {
+                                    tc.onem2m[i, 0] = "Not TEST";
+                                    tc.onem2m[i, 1] = string.Empty;
+                                    tc.onem2m[i, 2] = string.Empty;
+                                    tc.onem2m[i, 3] = string.Empty;
+                                    tc.onem2m[i, 4] = string.Empty;
+                                }
+                            }
+                            else
+                            {
+                                dev.type = "lwm2m";
+
+                                for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
+                                {
+                                    tc.lwm2m[i, 0] = "Not TEST";
+                                    tc.lwm2m[i, 1] = string.Empty;
+                                    tc.lwm2m[i, 2] = string.Empty;
+                                    tc.lwm2m[i, 3] = string.Empty;
+                                    tc.lwm2m[i, 4] = string.Empty;
+                                }
+                            }
+
+                            textBox93.Text = textBox97.Text = tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn.ToString();
+                            lbIccid.Text = dev.iccid = iccId.ToString();
+                            setDeviceEntityID(dev.iccid);
+                            if (tbSvcCd.Text == "CATM")
+                            {
+                                tbSvcSvrCd.Text = "300";
+                                tbSvcSvrNum.Text = "1";
+
+                                svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
+                                svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
+                                svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
+                                RequestMEF();
+                            }
+                            else if (tbSvcCd.Text == "CATO")
+                            {
+                                tbSvcSvrCd.Text = "365";
+                                tbSvcSvrNum.Text = "1";
+
+                                svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
+                                svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
+                                svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
+                                RequestMEF();
+                            }
+
+                            GetPlatformFWVer("NO");
+                            tBoxDeviceVer.Text = lbdevicever.Text;
+                            lbModemVer.Text = lbmodemfwrver.Text;
+
+                            MessageBox.Show("디바이스 모델명 : " + deviceModel.ToString() + "\n모듈 모델명 : " + modemModel.ToString() + "\n서비스코드 : "
+                                + serviceCode.ToString() + "\n디바이스 일련번호 : " + deviceSerialNo.ToString() + "\nICCID : " + iccId.ToString() + "\nTYPE : " + m2mmType.ToString(),
+                                ctn.ToString() + " DEVICE 상태 정보");
+                        }
+                        else
+                            MessageBox.Show("디바이스 정보가 없습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", ctn.ToString() + " DEVICE 상태 정보");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
+                    }
+                }
+                else
+                    MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
+            }
+            else
+                MessageBox.Show("CTN 정보가 없습니다.\nCTN을 확인하세요");
+        }
+
+        private void setDeviceEntityID(string str)
+        {
+            string[] strchs = str.Split(' ');        // Remove first char ' '
+            if (strchs.Length > 1)
+                str = strchs[strchs.Length - 1];
+
+            if (str.Length > 19)
+                lbIccid.Text = str.Substring(str.Length - 20, 19);
+            else
+                lbIccid.Text = str;
+
+            dev.iccid = lbIccid.Text;
+            if (dev.imsi.Length == 11)
+            {
+                String md5value = getMd5Hash(dev.imsi + dev.iccid);
+                //logPrintInTextBox(md5value, "");
+
+                string epn = md5value.Substring(0, 5) + md5value.Substring(md5value.Length - 5, 5);
+                string entityid = "ASN_CSE-D-" + epn + "-" + tbSvcCd.Text;
+
+                if (dev.entityId != entityid)
+                {
+                    dev.entityId = entityid;
+                    lbDevEntityId.Text = dev.entityId;
+                    logPrintInTextBox("Device EntityID가 " + dev.entityId + "수정되었습니다.", "");
+                }
+
+                if (tc.state == "tc0201")
+                {
+                    if (dev.type == "onem2m")
+                    {
+                        tbTCResult.Text = string.Empty;
+                        tc.state = string.Empty;
+                    }
+                    else
+                        endLwM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
+                }
+            }
+        }
+
+        // Hash an input string and return the hash as
+        // a 32 character hexadecimal string.
+        static string getMd5Hash(string input)
+        {
+            // Create a new instance of the MD5CryptoServiceProvider object.
+            MD5 md5Hasher = MD5.Create();
+
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            StringBuilder sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data 
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
+        }
+
+        private void GetPlatformFWVer(string mode)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = logUrl + "/Firmware?entityId=" + dev.entityId;
+            //header.Url = logUrl + "/Firmware?entityId=ASN_CSE-D-71221153fb-T001";
+            header.Method = "GET";
+            header.ContentType = "application/json";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "FWVerGet";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            string retStr = GetHttpLog(header, string.Empty);
+
+            if (retStr != string.Empty)
+            {
+                //LogWriteNoTime(retStr);
+
+                try
+                {
+                    JObject obj = JObject.Parse(retStr);
+
+                    var deviceVer = obj["deviceVersion"] ?? "unknown";
+                    lbdevicever.Text = deviceVer.ToString();
+
+                    var modemVer = obj["modemVersion"] ?? "unknown";
+                    lbmodemfwrver.Text = modemVer.ToString();
+
+                    if (mode == "YES")
+                    {
+                        string state = "대기중";
+                        var inProgress = obj["inProgress"] ?? "unknown";
+                        if (inProgress.ToString() == "true")
+                            state = "진행 중";
+                        var deviceModel = obj["deviceModel"] ?? "unknown";
+                        var lastCheckTime = obj["lastCheckTime"] ?? "unknown";
+                        var lastDeviceCheckTime = obj["lastDeviceCheckTime"] ?? "unknown";
+                        var lastUpdateTime = obj["lastUpdateTime"] ?? "unknown";
+
+                        MessageBox.Show("디바이스 모델명 : " + deviceModel.ToString() + "\n진행상태 : " + state + "\n\n디바이스 버전 : " + deviceVer.ToString()
+                            + "\n디바이스 체크시간 : " + lastDeviceCheckTime.ToString() + "\n\n모듈 버전 : " + modemVer.ToString()
+                            + "\n모듈 체크시간 : " + lastCheckTime.ToString() + "\n\n업데이트 시간 : " + lastUpdateTime.ToString(), "펌웨어 업데이트 진행 상태");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
         }
     }
 
