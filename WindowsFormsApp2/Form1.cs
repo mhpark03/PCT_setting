@@ -179,6 +179,115 @@ namespace WindowsFormsApp2
 
             testatcmd,
             atdtatcmd,
+
+            lwm2mtc0201,
+            lwm2mtc02021,
+            lwm2mtc02022,
+            lwm2mtc02023,
+            lwm2mtc02024,
+            lwm2mtc02025,
+            lwm2mtc0203,
+
+            lwm2mtc03011,
+            lwm2mtc03012,
+            lwm2mtc0302,
+            lwm2mtc0303,
+
+            lwm2mtc0401,
+
+            lwm2mtc0501,
+            lwm2mtc0502,
+            lwm2mtc0503,
+
+            lwm2mtc0601,
+            lwm2mtc0602,
+            lwm2mtc06031,
+            lwm2mtc06032,
+
+            onem2mtc0201011,        // MEF server 설정
+            onem2mtc0201012,        // BRK server 설정
+            onem2mtc0201013,        // server 설정 값 확인
+            onem2mtc0201021,        // 플랫폼 Agent 동작 확인
+            onem2mtc0201022,        // 플랫폼 Agent  동작 설정
+            onem2mtc0201023,        // 플랫폼 Agent 설정 결과 확인
+            onem2mtc0201024,        // 플랫폼 Agent 설정 완료
+
+            onem2mtc020201,         // MEF 인증 요청
+
+            onem2mtc020301,         // remoteCSE 조회 결과에 따라 remoteCSE 신규생성/업데이트 분기 
+
+            onem2mtc020401,         // CSEBase  조회
+
+            onem2mtc0205011,        // remoteCSE 조회-업데이트-삭제후 생성
+            onem2mtc0205012,        // remoteCSE 신규 생성 - 업데이트
+            onem2mtc0205021,        // 수신 폴더 생성 1회 요청- 성공시 송신 폴더 생성/오류시 수신 폴더 삭제 요청
+            onem2mtc0205022,        // 송신 폴더 생성 성공/오류 무관하게 구독 설정 시험 진행
+            onem2mtc0205023,        // 수신 폴더 중복 생성 오류 - 삭제 후 생성 요청
+            onem2mtc0205031,        // 구독 1회 신청 - 성공시 데이터 전송/오류시 구독 삭제 요청
+            onem2mtc0205032,        // 구독 재 생성 - 데이터 전송
+            onem2mtc020504,         // 서버 동작시 송신 폴더에 데이터 생성 / 단말 단독 실행시 수신 폴더에 데이터 생성
+            onem2mtc0205051,        // remote 업데이트 - 삭제/생성 후 폴더 생성
+            onem2mtc0205052,        // remote 업데이트 - 폴더 생성
+
+            onem2mtc020601,         // data noti 이벤트 
+            onem2mtc020602,         // data 수신 모드 설정 (자동)
+            onem2mtc020603,         // 자동수신
+            onem2mtc0206041,         // 구독신청 - data 수신
+            onem2mtc0206042,         // 자동수신 - 수동설정 - data 수신
+
+            onem2mtc020701,
+
+            onem2mtc0208011,        // 모듈 OFF
+            onem2mtc0208012,        // 모듈 ON - POA 업데이트 이벤트 대기
+
+            onem2mtc0209011,        // ACP 1회 생성
+            onem2mtc0209012,        // ACP 생성 오류(존재)/삭제후 생성
+            onem2mtc0209013,        // ACP 조회오류(미존재)/생성
+            onem2mtc020902,         // ACP 조회
+            onem2mtc020903,
+            onem2mtc0209041,
+            onem2mtc0209042,
+
+            onem2mtc021001,
+            onem2mtc021002,         // push test는 별도 수동 진행
+            onem2mtc021003,
+            onem2mtc0210031,        // 쿼텔 FW DATA FILE LIST 읽기
+            onem2mtc0210032,        // 쿼텔 FW DATA FILE 읽기 요청 (open)
+            onem2mtc0210033,        // 쿼텔 FW DATA 읽기 요청
+            onem2mtc0210034,        // 쿼텔 FW DATA 읽기
+            onem2mtc0210035,        // 쿼텔 FW DATA 읽기 중
+            onem2mtc0210036,        // 쿼텔 FW DATA FILE close
+            onem2mtc0210037,        // 쿼텔 FW DATA FILE 읽기 완료 (close)
+            onem2mtc021004,
+
+            onem2mtc021101,
+            onem2mtc021102,         //  push test는 별도 수동 진행
+            onem2mtc0211031,
+            onem2mtc0211032,        // EC21/EC25 upgrade 이후 oneM2M 모드 설정
+            onem2mtc0211033,        // EC21/EC25 upgrade 이후 oneM2M 모드 report
+            onem2mtc0211034,        // EC21/EC25 upgrade 이후 oneM2M 설정 완료
+            onem2mtc0211041,        // module version finsh를 위해 MEF인증 요청
+            onem2mtc0211042,        // module version report 요청
+            onem2mtc0211043,        // module version 완료
+            onem2mtc0211044,        // 결과 확인을 위해 module version read
+
+            //onem2mtc021201,         // 데이터 삭제 시험 불필요
+            onem2mtc0212021,         // 구독 등록 존재하여 삭제 후 생성 요청
+            onem2mtc0212022,         // 구독 삭제 - 폴더 삭제 시험
+            onem2mtc0212031,        // 수신 폴더 존재하여 삭제 후 생성 요청
+            onem2mtc0212032,        // 폴더 삭제 - remoteCSE 삭제 시험
+            onem2mtc0212041,        // remoteCSE 존재하여 삭제 후 생성 요청
+            onem2mtc0212042,        // remoteCSE 삭제 (TC 마지막)
+
+            onem2mtc021301,         // 디바이스 데이터 forwarding
+            onem2mtc021302,         // Device control data
+            onem2mtc0213031,         // Waiting Device Status Check
+            onem2mtc0213032,         // Response Device Status Check
+
+            onem2mtc0214011,         // 원격 재부팅 수신
+            onem2mtc0214012,         // oneM2M Client 구동 요청
+            onem2mtc0214013,         // MEF 인증 요청
+            onem2mtc0214014,         // MEF 인증 요청
         }
 
         private enum lwm2mtc
@@ -266,6 +375,19 @@ namespace WindowsFormsApp2
         ServiceServer svr = new ServiceServer();
         Device dev = new Device();
         TCResult tc = new TCResult();
+
+        string device_fota_state = "1";
+        string device_fota_reseult = "0";
+        string device_fota_index = "0";
+        string device_total_index = "0";
+        string device_fota_checksum = "";
+        UInt32 oneM2Mtotalsize = 0;
+        UInt32 oneM2Mrcvsize = 0;
+
+        string oneM2MMEFIP = "106.103.234.198";
+        string oneM2MMEFPort = "80";
+        string oneM2MBRKIP = "106.103.234.117";
+        string oneM2MBRKPort = "80";
 
         Dictionary<string, string> commands = new Dictionary<string, string>();
         Dictionary<char, int> bcdvalues = new Dictionary<char, int>();
@@ -518,7 +640,7 @@ namespace WindowsFormsApp2
 
             /////   디바이스 초기값 설정
             dev.entityId = string.Empty;
-            dev.type = string.Empty;
+            dev.type = "onem2m";
 
             /////   서버 초기값 설정
             svr.enrmtKeyId = string.Empty;
@@ -839,6 +961,8 @@ namespace WindowsFormsApp2
 
                     logPrintInTextBox("ICCID가 "+ dev.iccid + "로 저장되었습니다.", "");
 
+                    setDeviceEntityID();
+
                     lbActionState.Text = states.idle.ToString();
                     break;
                 default:
@@ -881,13 +1005,20 @@ namespace WindowsFormsApp2
 
         private void OKReceived()
         {
+            states state = (states)Enum.Parse(typeof(states), lbActionState.Text);
+            switch (state)
+            {
+                default:
+                    break;
+            }
+
             // 마지막 응답(OK)을 받은 후에 후속 작업이 필요한지 확인한다.
             if (nextcommand != "skip")
             {
                 if (nextcommand != "")
                 {
-                    states state = (states)Enum.Parse(typeof(states), nextcommand);
-                    switch (state)
+                    states nextstate = (states)Enum.Parse(typeof(states), nextcommand);
+                    switch (nextstate)
                     {
                         // 단말 정보 자동 갱신 순서
                         // autogetmanufac - (autogetmodel) - autogetimei - autogetmodemver
@@ -921,6 +1052,21 @@ namespace WindowsFormsApp2
                             this.sendDataOut(textBox45.Text);
                             nextresponse = textBox38.Text;
                             lbActionState.Text = states.autogeticcid.ToString();
+                            break;
+                        case states.lwm2mtc02022:
+                            // LWM2M bootstrap 자동 요청 순서 (V150)
+                            // (setncdp) - (setepnstpb23) - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
+                            // End Point Name Parameter 설정
+                            //AT+MLWEPNS="LWM2M 서버 entityID"
+                            setDeviceEntityID();
+                            string atcmd = textBox50.Text;
+                            if (checkBox2.Checked == false)
+                                atcmd += dev.entityId;
+                            else
+                                atcmd += tbSvcCd.Text;
+                            this.sendDataOut(atcmd);
+                            lbActionState.Text = states.lwm2mtc02022.ToString();
+                            nextcommand = "skip";
                             break;
                         default:
                             break;
@@ -985,7 +1131,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        textBox93.Text = textBox97.Text = tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = textBox97.Text = textBox1.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -999,7 +1145,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        textBox93.Text = textBox97.Text = tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = textBox97.Text = textBox1.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -2642,8 +2788,8 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(label31.Text);
                 worksheet.Cells[i, 1] = new Cell(tbSvcCd.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button102.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox63.Text);
+                worksheet.Cells[i, 0] = new Cell(label2.Text);
+                worksheet.Cells[i, 1] = new Cell(tBoxDeviceModel.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(label28.Text);
                 worksheet.Cells[i, 1] = new Cell(tbSvcSvrCd.Text);
@@ -2668,11 +2814,11 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 1] = new Cell("bootstrapmode");
                 worksheet.Cells[i, 2] = new Cell(textBox66.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button106.Text);
+                worksheet.Cells[i, 0] = new Cell(btnBootstrap.Text);
                 worksheet.Cells[i, 1] = new Cell("bootstrap");
                 worksheet.Cells[i, 2] = new Cell(textBox67.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button96.Text);
+                worksheet.Cells[i, 0] = new Cell(btnRegister.Text);
                 worksheet.Cells[i, 1] = new Cell("register");
                 worksheet.Cells[i, 2] = new Cell(textBox54.Text);
                 i++;
@@ -2684,11 +2830,11 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 1] = new Cell("recvmsghex");
                 worksheet.Cells[i, 2] = new Cell(textBox68.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button94.Text);
+                worksheet.Cells[i, 0] = new Cell(btnDeregister.Text);
                 worksheet.Cells[i, 1] = new Cell("deregister");
                 worksheet.Cells[i, 2] = new Cell(textBox52.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button93.Text);
+                worksheet.Cells[i, 0] = new Cell(btnDeviceVerLwM2M.Text);
                 worksheet.Cells[i, 1] = new Cell("sendmsgver");
                 worksheet.Cells[i, 2] = new Cell(textBox51.Text);
                 i++;
@@ -2934,9 +3080,9 @@ namespace WindowsFormsApp2
                         worksheet = workbook.Worksheets[3];
                         comboBox1.Text = worksheet.Cells[i, 1].ToString();
                         if (comboBox1.SelectedIndex == 1)
-                            groupBox11.Enabled = true;
+                            dev.type = "lwm2m";
                         else
-                            groupBox11.Enabled = false;
+                            dev.type = "onem2m";
                         i++;
                         textBox48.Text = worksheet.Cells[i, 2].ToString();
                         i++;
@@ -2969,7 +3115,7 @@ namespace WindowsFormsApp2
                         worksheet = workbook.Worksheets[4];
                         tbSvcCd.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox63.Text = worksheet.Cells[i, 1].ToString();
+                        tBoxDeviceModel.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         tbSvcSvrCd.Text = worksheet.Cells[i, 1].ToString();
                         i++;
@@ -3497,9 +3643,9 @@ namespace WindowsFormsApp2
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex == 1)
-                groupBox11.Enabled = true;
+                dev.type = "lwm2m";
             else
-                groupBox11.Enabled = false;
+                dev.type = "onem2m";
         }
 
         private void checkBox2_CheckedChanged_1(object sender, EventArgs e)
@@ -3522,11 +3668,9 @@ namespace WindowsFormsApp2
 
         private void btnGetLogList_Click(object sender, EventArgs e)
         {
-            string kind = "type=lwm2m";
-            if (comboBox1.Text == "oneM2M")
-                kind = "type=onem2m";
-            if (textBox93.Text != string.Empty)
-                kind += "&ctn=" + textBox93.Text;
+            string kind = "type="+dev.type;
+            if (tbDeviceCTN.Text != string.Empty)
+                kind += "&ctn=" + tbDeviceCTN.Text;
             //if (tcStartTime != string.Empty)
             //    kind += "&from=" + tcStartTime;
             getSvrLoglists(kind, "man");
@@ -3568,7 +3712,7 @@ namespace WindowsFormsApp2
                             path = resType.ToString() + " : " + trgAddr.ToString();
 
                         tcmsg = string.Empty;
-                        if (comboBox1.SelectedIndex == 0)
+                        if (dev.type == "onem2m")
                             OneM2MTcResultReport(jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString(), trgAddr.ToString(), oprType.ToString());
                         else
                             LwM2MTcResultReport(path, jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString());
@@ -4617,7 +4761,7 @@ namespace WindowsFormsApp2
                 case "lbkre":
                     if (resultCode == "20000000")
                     {
-                        LogWrite("registration device parameter checking");
+                        Console.WriteLine("registration device parameter checking");
                         getSvrDetailLog(logId, "tc0302", resultCode, resultCodeName);
                         if (tcmsg == string.Empty)
                         {
@@ -4665,7 +4809,7 @@ namespace WindowsFormsApp2
                     }
                     else
                     {
-                        LogWrite("device control checking");
+                        Console.WriteLine("device control checking");
                         getSvrDetailLog(logId, "tc0502", resultCode, resultCodeName);
                         if (tcmsg == string.Empty)
                         {
@@ -4825,7 +4969,7 @@ namespace WindowsFormsApp2
                     wReq.Headers.Add("X-MEF-EKI", header.X_MEF_EKI);
                 */
 
-                //LogWrite(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
+                LogWrite(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
                 Console.WriteLine(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
                 Console.WriteLine("");
                 for (int i = 0; i < wReq.Headers.Count; ++i)
@@ -4879,7 +5023,7 @@ namespace WindowsFormsApp2
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string[] values = listBox1.SelectedItem.ToString().Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-            textBox2.Text = values[1];
+            textBox95.Text = values[1];
             tBResultCode.Text = values[2];
 
             getSvrEventLog(values[1], string.Empty, values[2], values[3]);
@@ -4950,7 +5094,7 @@ namespace WindowsFormsApp2
         {
             string[] values = listBox2.SelectedItem.ToString().Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
             tBResultCode.Text = values[2];
-            textBox3.Text = values[1];
+            textBox94.Text = values[1];
 
             getSvrDetailLog(values[1], string.Empty, values[2], values[3]);
         }
@@ -5251,130 +5395,125 @@ namespace WindowsFormsApp2
 
         private void button124_Click(object sender, EventArgs e)
         {
-            if (textBox93.Text != string.Empty)
+            if (serialPort1.IsOpen == false)
             {
-                ReqHeader header = new ReqHeader();
-                header.Url = logUrl + "/device?ctn=" + textBox93.Text;
-                //header.Url = logUrl + "/device?ctn=99977665825";
-                header.Method = "GET";
-                header.ContentType = "application/json";
-                header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "DeviceGet";
-                header.X_M2M_Origin = svr.entityId;
-                header.X_MEF_TK = svr.token;
-                header.X_MEF_EKI = svr.enrmtKeyId;
-                string retStr = GetHttpLog(header, string.Empty);
-                if (retStr != string.Empty)
+                if (tbDeviceCTN.Text != string.Empty)
                 {
-                    //LogWriteNoTime(retStr);
-                    try
+                    ReqHeader header = new ReqHeader();
+                    header.Url = logUrl + "/device?ctn=" + tbDeviceCTN.Text;
+                    //header.Url = logUrl + "/device?ctn=99977665825";
+                    header.Method = "GET";
+                    header.ContentType = "application/json";
+                    header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "DeviceGet";
+                    header.X_M2M_Origin = svr.entityId;
+                    header.X_MEF_TK = svr.token;
+                    header.X_MEF_EKI = svr.enrmtKeyId;
+                    string retStr = GetHttpLog(header, string.Empty);
+                    if (retStr != string.Empty)
                     {
-                        JArray jarr = JArray.Parse(retStr); //json 객체로
-
-                        JObject obj = JObject.Parse(jarr[0].ToString());
-
-                        var ctn = obj["ctn"] ?? textBox93.Text;
-                        var deviceModel = obj["deviceModel"] ?? " ";
-                        var modemModel = obj["modemModel"] ?? " ";
-                        var serviceCode = obj["serviceCode"] ?? " ";
-                        var deviceSerialNo = obj["deviceSerialNo"] ?? " ";
-                        var iccId = obj["iccId"] ?? " ";
-                        var m2mmType = obj["m2mmType"] ?? " ";
-
-                        if (iccId.ToString() != " ")
+                        //LogWriteNoTime(retStr);
+                        try
                         {
-                            tBoxDeviceModel.Text = deviceModel.ToString();
-                            textBox86.Text = modemModel.ToString();
-                            tbSvcCd.Text = serviceCode.ToString();
-                            tBoxDeviceSN.Text = deviceSerialNo.ToString();
+                            JArray jarr = JArray.Parse(retStr); //json 객체로
 
-                            if (m2mmType.ToString().StartsWith("ONEM2M"))
+                            JObject obj = JObject.Parse(jarr[0].ToString());
+
+                            var ctn = obj["ctn"] ?? tbDeviceCTN.Text;
+                            var deviceModel = obj["deviceModel"] ?? " ";
+                            var modemModel = obj["modemModel"] ?? " ";
+                            var serviceCode = obj["serviceCode"] ?? " ";
+                            var deviceSerialNo = obj["deviceSerialNo"] ?? " ";
+                            var iccId = obj["iccId"] ?? " ";
+                            var m2mmType = obj["m2mmType"] ?? " ";
+
+                            if (iccId.ToString() != " ")
                             {
-                                dev.type = "onem2m";
+                                tBoxDeviceModel.Text = deviceModel.ToString();
+                                textBox86.Text = modemModel.ToString();
+                                tbSvcCd.Text = serviceCode.ToString();
+                                tBoxDeviceSN.Text = deviceSerialNo.ToString();
 
-                                for (int i = 0; i < (int)onem2mtc.tc021401 + 1; i++)
+                                if (m2mmType.ToString().StartsWith("ONEM2M"))
                                 {
-                                    tc.onem2m[i, 0] = "Not TEST";
-                                    tc.onem2m[i, 1] = string.Empty;
-                                    tc.onem2m[i, 2] = string.Empty;
-                                    tc.onem2m[i, 3] = string.Empty;
-                                    tc.onem2m[i, 4] = string.Empty;
+                                    comboBox1.SelectedIndex = 0;
+
+                                    for (int i = 0; i < (int)onem2mtc.tc021401 + 1; i++)
+                                    {
+                                        tc.onem2m[i, 0] = "Not TEST";
+                                        tc.onem2m[i, 1] = string.Empty;
+                                        tc.onem2m[i, 2] = string.Empty;
+                                        tc.onem2m[i, 3] = string.Empty;
+                                        tc.onem2m[i, 4] = string.Empty;
+                                    }
                                 }
+                                else
+                                {
+                                    comboBox1.SelectedIndex = 1;
+
+                                    for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
+                                    {
+                                        tc.lwm2m[i, 0] = "Not TEST";
+                                        tc.lwm2m[i, 1] = string.Empty;
+                                        tc.lwm2m[i, 2] = string.Empty;
+                                        tc.lwm2m[i, 3] = string.Empty;
+                                        tc.lwm2m[i, 4] = string.Empty;
+                                    }
+                                }
+
+                                tbDeviceCTN.Text = textBox97.Text = textBox1.Text = dev.imsi = ctn.ToString();
+                                lbIccid.Text = dev.iccid = iccId.ToString();
+                                setDeviceEntityID();
+                                if (tbSvcCd.Text == "CATM")
+                                {
+                                    tbSvcSvrCd.Text = "300";
+                                    tbSvcSvrNum.Text = "1";
+
+                                    svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
+                                    svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
+                                    svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
+                                    RequestMEF();
+                                }
+                                else if (tbSvcCd.Text == "CATO")
+                                {
+                                    tbSvcSvrCd.Text = "365";
+                                    tbSvcSvrNum.Text = "1";
+
+                                    svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
+                                    svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
+                                    svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
+                                    RequestMEF();
+                                }
+
+                                GetPlatformFWVer("NO");
+                                tBoxDeviceVer.Text = lbdevicever.Text;
+                                lbModemVer.Text = lbmodemfwrver.Text;
+
+                                MessageBox.Show("디바이스 모델명 : " + deviceModel.ToString() + "\n모듈 모델명 : " + modemModel.ToString() + "\n서비스코드 : "
+                                    + serviceCode.ToString() + "\n디바이스 일련번호 : " + deviceSerialNo.ToString() + "\nICCID : " + iccId.ToString() + "\nTYPE : " + m2mmType.ToString(),
+                                    ctn.ToString() + " DEVICE 상태 정보");
                             }
                             else
-                            {
-                                dev.type = "lwm2m";
+                                MessageBox.Show("디바이스 정보가 없습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", ctn.ToString() + " DEVICE 상태 정보");
 
-                                for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
-                                {
-                                    tc.lwm2m[i, 0] = "Not TEST";
-                                    tc.lwm2m[i, 1] = string.Empty;
-                                    tc.lwm2m[i, 2] = string.Empty;
-                                    tc.lwm2m[i, 3] = string.Empty;
-                                    tc.lwm2m[i, 4] = string.Empty;
-                                }
-                            }
-
-                            textBox93.Text = textBox97.Text = tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn.ToString();
-                            lbIccid.Text = dev.iccid = iccId.ToString();
-                            setDeviceEntityID(dev.iccid);
-                            if (tbSvcCd.Text == "CATM")
-                            {
-                                tbSvcSvrCd.Text = "300";
-                                tbSvcSvrNum.Text = "1";
-
-                                svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
-                                svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
-                                svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
-                                RequestMEF();
-                            }
-                            else if (tbSvcCd.Text == "CATO")
-                            {
-                                tbSvcSvrCd.Text = "365";
-                                tbSvcSvrNum.Text = "1";
-
-                                svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
-                                svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
-                                svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
-                                RequestMEF();
-                            }
-
-                            GetPlatformFWVer("NO");
-                            tBoxDeviceVer.Text = lbdevicever.Text;
-                            lbModemVer.Text = lbmodemfwrver.Text;
-
-                            MessageBox.Show("디바이스 모델명 : " + deviceModel.ToString() + "\n모듈 모델명 : " + modemModel.ToString() + "\n서비스코드 : "
-                                + serviceCode.ToString() + "\n디바이스 일련번호 : " + deviceSerialNo.ToString() + "\nICCID : " + iccId.ToString() + "\nTYPE : " + m2mmType.ToString(),
-                                ctn.ToString() + " DEVICE 상태 정보");
                         }
-                        else
-                            MessageBox.Show("디바이스 정보가 없습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", ctn.ToString() + " DEVICE 상태 정보");
-
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                            MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.ToString());
+                    else
                         MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
-                    }
                 }
                 else
-                    MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
+                    MessageBox.Show("CTN 정보가 없습니다.\nCTN을 확인하세요");
             }
             else
-                MessageBox.Show("CTN 정보가 없습니다.\nCTN을 확인하세요");
+                MessageBox.Show("모듈이 연결된 상태에서는 동작하지 않습니다.");
         }
 
-        private void setDeviceEntityID(string str)
+        private void setDeviceEntityID()
         {
-            string[] strchs = str.Split(' ');        // Remove first char ' '
-            if (strchs.Length > 1)
-                str = strchs[strchs.Length - 1];
-
-            if (str.Length > 19)
-                lbIccid.Text = str.Substring(str.Length - 20, 19);
-            else
-                lbIccid.Text = str;
-
-            dev.iccid = lbIccid.Text;
             if (dev.imsi.Length == 11)
             {
                 String md5value = getMd5Hash(dev.imsi + dev.iccid);
@@ -5476,6 +5615,303 @@ namespace WindowsFormsApp2
                     Console.WriteLine(ex.ToString());
                 }
             }
+        }
+
+        private void button123_Click(object sender, EventArgs e)
+        {
+            getSvrEventLog(textBox95.Text, string.Empty, string.Empty, string.Empty);
+        }
+
+        private void button122_Click(object sender, EventArgs e)
+        {
+            getSvrDetailLog(textBox94.Text, string.Empty, string.Empty, string.Empty);
+        }
+
+        private void btnDeviceCheck_Click(object sender, EventArgs e)
+        {
+            if (dev.type == "onem2m")
+            {
+                //RetrivePoaToPlatform();
+                RetriveDverToPlatform();
+                RetriveMverToPlatform();
+            }
+            else
+                GetPlatformFWVer("YES");
+        }
+
+        private void RetriveDverToPlatform()
+        {
+            ReqHeader header = new ReqHeader();
+            //header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_01222990847";
+            if (dev.maker == "QUALCOMM INCORPORATED" || dev.model == "EC21" || dev.model == "EC25")
+                header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + dev.imsi + "/nod-m2m_" + dev.imsi + "/fwr-m2m_D_" + dev.imsi;
+            else
+                header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + dev.imsi + "/nod-m2m_" + dev.imsi + "/fwr-m2m_D" + dev.imsi;
+            header.Method = "GET";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "device_CSR_retrive";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = string.Empty;
+
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    value = xn["vr"].InnerText; // data value
+                }
+                lbdevicever.Text = value;
+            }
+        }
+
+        private void RetriveMverToPlatform()
+        {
+            ReqHeader header = new ReqHeader();
+            //header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_01222990847";
+            if (dev.maker == "QUALCOMM INCORPORATED")
+                header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + dev.imsi + "/nod-m2m_" + dev.imsi + "/fwr-m2m_" + dev.imsi;
+            else if (dev.model == "EC21" || dev.model == "EC25")
+                header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + dev.imsi + "/nod-m2m_" + dev.imsi + "/fwr-m2m_M_" + dev.imsi;
+            else
+                header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + dev.imsi + "/nod-m2m_" + dev.imsi + "/fwr-m2m_M" + dev.imsi;
+            header.Method = "GET";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "device_CSR_retrive";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = string.Empty;
+
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    value = xn["vr"].InnerText; // data value
+                }
+                lbmodemfwrver.Text = value;
+            }
+        }
+
+        private void tbSvcCd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (dev.entityId != string.Empty)
+                    setDeviceEntityID();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            startLwM2MTC("tc0301");
+            this.sendDataOut(textBox54.Text);
+            lbActionState.Text = states.registertpb23.ToString();
+        }
+
+        private void button125_Click(object sender, EventArgs e)
+        {
+            firmwareInitial("man");
+        }
+
+        private void firmwareInitial(string mode)
+        {
+            if (dev.entityId != string.Empty)
+            {
+                ReqHeader header = new ReqHeader();
+                header.Url = logUrl + "/initFirmware?entityId=" + dev.entityId;
+                //header.Url = logUrl + "/initFirmware?entityId=ASN_CSE-D-71221153fb-T001";
+                header.Method = "GET";
+                header.ContentType = "application/json";
+                header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "FWVerInit";
+                header.X_M2M_Origin = svr.entityId;
+                header.X_MEF_TK = svr.token;
+                header.X_MEF_EKI = svr.enrmtKeyId;
+                string retStr = GetHttpLog(header, string.Empty);
+
+                if (retStr != string.Empty && mode == "man")
+                {
+                    //LogWriteNoTime(retStr);
+
+                    try
+                    {
+                        string state = "대기중";
+                        JObject obj = JObject.Parse(retStr);
+
+                        var deviceVer = obj["deviceVersion"] ?? "unknown";
+                        lbdevicever.Text = deviceVer.ToString();
+
+                        var modemVer = obj["modemVersion"] ?? "unknown";
+                        lbmodemfwrver.Text = modemVer.ToString();
+
+                        var inProgress = obj["inProgress"] ?? "unknown";
+                        if (inProgress.ToString() == "true")
+                            state = "진행 중";
+                        var deviceModel = obj["deviceModel"] ?? "unknown";
+                        var lastCheckTime = obj["lastCheckTime"] ?? "unknown";
+                        var lastDeviceCheckTime = obj["lastDeviceCheckTime"] ?? "unknown";
+                        var lastUpdateTime = obj["lastUpdateTime"] ?? "unknown";
+
+                        MessageBox.Show("디바이스 모델명 : " + deviceModel.ToString() + "\n진행상태 : " + state + "\n\n디바이스 버전 : " + deviceVer.ToString()
+                            + "\n디바이스 체크시간 : " + lastDeviceCheckTime.ToString() + "\n\n모듈 버전 : " + modemVer.ToString()
+                            + "\n모듈 체크시간 : " + lastCheckTime.ToString() + "\n\n업데이트 시간 : " + lastUpdateTime.ToString(), "펌웨어 업데이트 진행 상태");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                    }
+                }
+            }
+            else
+                MessageBox.Show("모듈 정보가 없습니다.\n모듈 EntityID를 확인하세요.");
+        }
+
+        private void btnBootstrap_Click(object sender, EventArgs e)
+        {
+            startLwM2MTC("tc0202");
+
+            this.sendDataOut(textBox67.Text);
+            lbActionState.Text = states.bootstrap.ToString();
+        }
+
+        private void button113_Click(object sender, EventArgs e)
+        {
+            firmwareInitial("auto");
+
+            tcStartTime = DateTime.Now.ToString("yyyyMMddHHmm" + "00");
+            for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
+            {
+                tc.lwm2m[i, 0] = "Not TEST";
+                tc.lwm2m[i, 1] = string.Empty;
+                tc.lwm2m[i, 2] = string.Empty;
+                tc.lwm2m[i, 3] = string.Empty;
+                tc.lwm2m[i, 4] = string.Empty;
+            }
+
+            this.sendDataOut(textBox71.Text);
+            lbActionState.Text = states.lwm2mtc0201.ToString();
+            nextcommand = states.lwm2mtc02022.ToString();
+        }
+
+        private void button98_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox56.Text);
+            lbActionState.Text = states.setncdp.ToString();
+        }
+
+        private void button92_Click(object sender, EventArgs e)
+        {
+            setDeviceEntityID();
+            string atcmd = textBox50.Text;
+            if (checkBox2.Checked == false)
+                atcmd += dev.entityId;
+            else
+                atcmd += tbSvcCd.Text;
+            this.sendDataOut(atcmd);
+            lbActionState.Text = states.setepnstpb23.ToString();
+        }
+
+        private void button97_Click(object sender, EventArgs e)
+        {
+            //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
+
+            string command = "serviceCode=" + tbSvcCd.Text + " | deviceSerialNo=";
+            command += tBoxDeviceSN.Text + "|ctn=";
+            command += dev.imsi + "|iccId=";
+
+            string iccid = dev.iccid;
+            command += iccid.Substring(iccid.Length - 6, 6) + "|deviceModel=";
+            command += tBoxDeviceModel.Text + "|mac=";
+
+            this.sendDataOut(textBox55.Text + command);
+            lbActionState.Text = states.setmbspstpb23.ToString();
+        }
+
+        private void button105_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox66.Text);
+            lbActionState.Text = states.bootstrapmodetpb23.ToString();
+        }
+
+        private void button95_Click(object sender, EventArgs e)
+        {
+            string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+            lbDevLwM2MData.Text = txData;
+
+            startLwM2MTC("tc0501");
+            string hexOutput = StringToBCD(txData.ToCharArray());
+
+            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+            lbActionState.Text = states.sendmsghex.ToString();
+        }
+
+        private void btnDeregister_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox52.Text);
+            lbActionState.Text = states.deregistertpb23.ToString();
+        }
+
+        private void btnDeviceVerLwM2M_Click(object sender, EventArgs e)
+        {
+            // Device firmware 버전 등록 전문 예 : fwVr=1.0|fwSt=1|fwRt=0
+            // fwVr ={ VERSION}| fwSt ={ STATUS}| fwRt ={ RESULT_CODE}(|fwIn={index})(|szx={buffersize})
+            // fwVr: 현재 Device Firmware 버전
+            // fwSt: Firmware Status
+            //      1: Success
+            //      2: Progress
+            //      3: Failure
+            // fwRt : Firmware Update 결과(OMA Spec 과 같은 값 사용)
+            //      0: Initial value.
+            //      1: Firmware updated successfully
+            //      2: Not enough flash memory
+            //      3: Out of RAM during downloading process.
+            //      4: Connection lost during downloading process.
+            //      5: Integrity check failure
+            //      6: Unsupported package type.
+            //      8: Firmware update failed
+            //  fwIn : 단말에서 문제가 발생 하여 특정 Index부터 다시 받고 싶을 때 사용
+            //      만약 fwSt 가 2(Progress)이면서 fwIn 에 특정 Index 를 보내면
+            //      기존에 upload Process 는 중지 하고 해당 Index 부터 다시 Upload 시작 함
+            //      fwSt 가 2 가 아닐 경우, fwIn 값이 없거나 0 보다 작을 경우 이어 받기 동작하지 않음
+            //      fwIn 의 값이 전체 Index 보다 클 경우 이전 내려받기는 취소 되고 에러 처리 됨
+            // szx : FOTA buffer size (1:32, 2:64, 3:128, 4:256, 5:512(default), 6:1024 
+
+            string text = "fwVr=" + tBoxDeviceVer.Text + "|fwSt=1|fwRt=0|fwIn=0";
+
+            if (dev.model != "TPB23" && !dev.model.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
+            {
+                text += "|szx=6";       // FOTA buffer size set 1024bytes.
+            }
+
+            string hexOutput = StringToBCD(text.ToCharArray());
+            this.sendDataOut(textBox51.Text + hexOutput.Length / 2 + "," + hexOutput);
+            lbActionState.Text = states.sendmsgvertpb23.ToString();
+        }
+
+        private void button35_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox71.Text);
+            lbActionState.Text = states.rfreset.ToString();
         }
     }
 
