@@ -15,11 +15,14 @@ using System.Xml.Linq;
 using ExcelLibrary.SpreadSheet;
 using System.Net;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
+        private Thread rTh;
+
         private enum states
         {
             booting,
@@ -5517,7 +5520,7 @@ namespace WindowsFormsApp2
 
         private void setDeviceEntityID()
         {
-            if (dev.imsi.Length == 11)
+            if (dev.imei != null && dev.imsi.Length == 11)
             {
                 String md5value = getMd5Hash(dev.imsi + dev.iccid);
                 //logPrintInTextBox(md5value, "");
@@ -5543,6 +5546,8 @@ namespace WindowsFormsApp2
                         endLwM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
                 }
             }
+            else
+                MessageBox.Show("CTN이 등록되어 있지 않습니다. 확인이 필요합니다.");
         }
 
         // Hash an input string and return the hash as
@@ -6076,7 +6081,7 @@ namespace WindowsFormsApp2
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<cnf>text/plain</cnf>";
-            packetStr += "<con>" + tbData.Text + "</con>";
+            packetStr += "<con>" + textBox72.Text + "</con>";
             packetStr += "</m2m:cin>";
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
@@ -6085,22 +6090,31 @@ namespace WindowsFormsApp2
 
         private void btnLwM2MData_Click(object sender, EventArgs e)
         {
-            LogWrite("----------DATA SEND----------");
             if (svr.enrmtKeyId != string.Empty)
             {
-                if (lbDevEntityId.Text == ".")
-                    MessageBox.Show("Device 정보가 없습니다.");
+                if (lbDevEntityId.Text != ".")
+                {
+                    LogWrite("----------DATA SEND----------");
+                    string[] param = { "lwm2m", "tc0502" };
+                    rTh = new Thread(new ParameterizedThreadStart(SendDataToLwM2M));
+                    rTh.Start(param);
+                }
                 else
-                    SendDataToPlatformL();
+                    MessageBox.Show("CTN이 등록되어 있지 않습니다.확인이 필요합니다.");
             }
             else
                 MessageBox.Show("서버인증파라미터 세팅하세요");
         }
 
-        private void SendDataToPlatformL()
+        private void SendDataToLwM2M(object param)
         {
+            string[] data = param as string[];
+
             ReqHeader header = new ReqHeader();
-            header.Url = brkUrlL + "/" + lbDevEntityId.Text + "/10250/0/1";
+            setDeviceEntityID();
+            header.Url = brkUrlL + "/" + dev.entityId + "/10250/0/1";
+            //header.Url = brkUrlL + "/IN_CSE-BASE-1/cb-1/" + deviceEntityId + "/10250/0/1";
+
             header.Method = "POST";
             header.X_M2M_Origin = svr.entityId;
             header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
@@ -6110,42 +6124,57 @@ namespace WindowsFormsApp2
             header.Accept = "application/vnd.onem2m-res+xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
 
-            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-            packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            string packetStr = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<cnf>text/plain</cnf>";
-            packetStr += "<con>" + tbLwM2MData.Text + "</con>";
+            string txData = string.Empty;
+            if ((lbActionState.Text == states.onem2mtc020504.ToString()) || (lbActionState.Text == states.onem2mtc020601.ToString()) || (lbActionState.Text == states.onem2mtc020603.ToString()) || (lbActionState.Text == states.onem2mtc0206041.ToString()))
+                txData = lbSendedData.Text;
+            else
+                txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " server";
+            packetStr += "<con>" + txData + "</con>";
             packetStr += "</m2m:cin>";
+
+            SetText(label13, txData);
+
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
             //    LogWrite(retStr);
         }
 
-        private void btnDeviceStatusCheck_Click(object sender, EventArgs e)
+    private void btnDeviceStatusCheck_Click(object sender, EventArgs e)
         {
-            LogWrite("----------DEVICE STATUS CHECK----------");
             if (svr.enrmtKeyId != string.Empty)
             {
-                if (lbDevEntityId.Text == ".")
-                    MessageBox.Show("Device 정보가 없습니다.");
+                if (lbDevEntityId.Text != ".")
+                {
+                    LogWrite("----------DEVICE CHECK STATUS----------");
+                    string[] param = { "lwm2m" };
+                    rTh = new Thread(new ParameterizedThreadStart(RetriveDataToLwM2M));
+                    rTh.Start(param);
+                }
                 else
-                    DeviceCheckToPlatform();
+                    MessageBox.Show("CTN이 등록되어 있지 않습니다.확인이 필요합니다.");
             }
             else
                 MessageBox.Show("서버인증파라미터 세팅하세요");
         }
 
-        private void DeviceCheckToPlatform()
+        private void RetriveDataToLwM2M(object param)
         {
+            string[] data = param as string[];
+
             ReqHeader header = new ReqHeader();
-            header.Url = brkUrlL + "/" + lbDevEntityId.Text + "/10250/0/1";
+            setDeviceEntityID();
+            header.Url = brkUrlL + "/" + dev.entityId + "/10250/0/0";
+
             header.Method = "GET";
             header.X_M2M_Origin = svr.entityId;
-            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "device_status";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_retrive";
             header.X_MEF_TK = svr.token;
             header.X_MEF_EKI = svr.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
-            header.Accept = "application/vnd.onem2m-res+xml";
-            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+            header.Accept = "application/xml";
+            header.ContentType = string.Empty;
 
             string retStr = SendHttpRequest(header, string.Empty);
             if (retStr != string.Empty)
@@ -6167,9 +6196,94 @@ namespace WindowsFormsApp2
                 //LogWrite("format = " + format);
 
                 if (format == "application/octet-stream")
-                    lbLwM2MRxData.Text = Encoding.UTF8.GetString(Convert.FromBase64String(value));
+                {
+                    if (value.Length % 4 == 1)
+                    {
+                        value += "===";
+                    }
+                    else if (value.Length % 4 == 2)
+                    {
+                        value += "==";
+                    }
+                    else if (value.Length % 4 == 3)
+                    {
+                        value += "=";
+                    }
+                    //LogWrite("value = " + value);
+                    SetText(lbDirectRxData, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
+                }
                 else
-                    lbLwM2MRxData.Text = value;
+                    SetText(lbDirectRxData, value);
+
+                if (lbDirectRxData.Text == lbDirectTxData.Text)
+                {
+                    if (tc.state == "tc0503")
+                        endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
+                }
+                else
+                {
+                    if (tc.state == "tc0503")
+                        endLwM2MTC(tc.state, string.Empty, "20000100", lbDirectRxData.Text, string.Empty);
+                }
+
+                if (lbActionState.Text == states.lwm2mtc0503.ToString())
+                {
+                    startLwM2MTC("tc0401");
+
+                    if (dev.model == "BG96")
+                    {
+                        // 플랫폼 등록해제 요청
+                        //AT+QLWM2M="deregister"
+                        this.sendDataOut(commands["deregister"]);
+                        SetText(lbActionState, states.lwm2mtc0401.ToString());
+                    }
+                    else if (dev.model.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        // 플랫폼 등록해제 요청
+                        //AT+QLWSREGIND=1
+                        this.sendDataOut(commands["deregisterbc95"]);
+                        SetText(lbActionState, states.lwm2mtc0401.ToString());
+                    }
+                    else
+                    {
+                        // 플랫폼 등록해제 요청
+                        //AT+MLWSREGIND=1
+                        this.sendDataOut(commands["deregistertpb23"]);
+                        SetText(lbActionState, states.lwm2mtc0401.ToString());
+                    }
+                }
+            }
+            else
+            {
+                if (tc.state == "tc0503")
+                    endLwM2MTC(tc.state, string.Empty, "20000100", "BAD RESPONSE", string.Empty);
+
+                if (lbActionState.Text == states.lwm2mtc0503.ToString())
+                {
+                    startLwM2MTC("tc0401");
+
+                    if (dev.model == "BG96")
+                    {
+                        // 플랫폼 등록해제 요청
+                        //AT+QLWM2M="deregister"
+                        this.sendDataOut(commands["deregister"]);
+                        SetText(lbActionState, states.lwm2mtc0401.ToString());
+                    }
+                    else if (dev.model.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        // 플랫폼 등록해제 요청
+                        //AT+QLWSREGIND=1
+                        this.sendDataOut(commands["deregisterbc95"]);
+                        SetText(lbActionState, states.lwm2mtc0401.ToString());
+                    }
+                    else
+                    {
+                        // 플랫폼 등록해제 요청
+                        //AT+MLWSREGIND=1
+                        this.sendDataOut(commands["deregistertpb23"]);
+                        SetText(lbActionState, states.lwm2mtc0401.ToString());
+                    }
+                }
             }
         }
 
@@ -6179,6 +6293,166 @@ namespace WindowsFormsApp2
                 MessageBox.Show("Device 정보가 없습니다.");
             else
                 GetPlatformFWVer("YES");
+        }
+
+        private void button96_Click(object sender, EventArgs e)
+        {
+            if (svr.enrmtKeyId != string.Empty)
+            {
+                if (lbDevEntityId.Text != ".")
+                {
+                    LogWrite("----------DEVICE CHECK STATUS----------");
+                    string[] param = { "onem2m" };
+                    rTh = new Thread(new ParameterizedThreadStart(RetriveDataToDevice));
+                    rTh.Start(param);
+                }
+                else
+                    MessageBox.Show("CTN이 등록되어 있지 않습니다.확인이 필요합니다.");
+            }
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void RetriveDataToDevice(object param)
+        {
+            string[] data = param as string[];
+
+            ReqHeader header = new ReqHeader();
+            setDeviceEntityID();
+            header.Url = brkUrl + "/" + dev.entityId + "/TEST";
+
+            header.Method = "GET";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_retrive";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = string.Empty;
+
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string format = string.Empty;
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    format = xn["cnf"].InnerText; // data format
+                    value = xn["con"].InnerText; // data value
+                }
+                //LogWrite("value = " + value);
+                //LogWrite("format = " + format);
+
+                if (format == "application/octet-stream")
+                {
+                    if (value.Length % 4 == 1)
+                    {
+                        value += "===";
+                    }
+                    else if (value.Length % 4 == 2)
+                    {
+                        value += "==";
+                    }
+                    else if (value.Length % 4 == 3)
+                    {
+                        value += "=";
+                    }
+                    //LogWrite("value = " + value);
+                    SetText(label37, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
+                }
+                else
+                    SetText(label37, value);
+
+                if (label37.Text == lbDirectTxData.Text)
+                {
+                    if (tc.state == "tc021303")
+                        endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
+                }
+                else
+                {
+                    if (tc.state == "tc021303")
+                        endoneM2MTC(tc.state, string.Empty, "20000100", lbDirectRxData.Text, string.Empty);
+                }
+
+                if (lbActionState.Text == states.onem2mtc0213032.ToString())
+                {
+                    startoneM2MTC("tc020901");
+                    this.sendDataOut(commands["setACP"]);
+                    SetText(lbActionState, states.onem2mtc0209011.ToString());
+                }
+            }
+            else
+            {
+                if (tc.state == "tc021303")
+                    endoneM2MTC(tc.state, string.Empty, "20000100", "BAD RESPONSE", string.Empty);
+
+                if (lbActionState.Text == states.onem2mtc0213032.ToString())
+                {
+                    startoneM2MTC("tc020901");
+                    this.sendDataOut(commands["setACP"]);
+                    SetText(lbActionState, states.onem2mtc0209011.ToString());
+                }
+            }
+        }
+
+        private void button94_Click(object sender, EventArgs e)
+        {
+            if (svr.enrmtKeyId != string.Empty)
+            {
+                if (lbDevEntityId.Text != ".")
+                {
+                    LogWrite("----------DATA SEND----------");
+                    string[] param = { "oneDevice", "oneDevice" };
+                    rTh = new Thread(new ParameterizedThreadStart(SendDataToOneM2M));
+                    rTh.Start(param);
+                }
+                else
+                    MessageBox.Show("CTN이 등록되어 있지 않습니다.확인이 필요합니다.");
+            }
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void SendDataToOneM2M(object param)
+        {
+            string[] data = param as string[];
+
+            ReqHeader header = new ReqHeader();
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + dev.imsi + "/cnt-StoD";
+
+            header.Method = "POST";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string packetStr = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cnf>text/plain</cnf>";
+            string txData = string.Empty;
+            if ((lbActionState.Text == states.onem2mtc020504.ToString()) || (lbActionState.Text == states.onem2mtc020601.ToString()) || (lbActionState.Text == states.onem2mtc020603.ToString()) || (lbActionState.Text == states.onem2mtc0206041.ToString()))
+                txData = lbSendedData.Text;
+            else
+                txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " server";
+            packetStr += "<con>" + txData + "</con>";
+            packetStr += "</m2m:cin>";
+
+            if (data[1] == "oneDevice")
+                SetText(label38, txData);
+            else if (data[1] == "tc020601")
+                SetText(tbData, txData);
+
+            string retStr = SendHttpRequest(header, packetStr);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
         }
     }
 

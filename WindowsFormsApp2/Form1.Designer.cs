@@ -317,21 +317,35 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.lbDevEntityId = new System.Windows.Forms.Label();
+            this.button93 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.lbLwM2MRxData = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.btnDeviceStatusCheck = new System.Windows.Forms.Button();
+            this.label36 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tbLwM2MData = new System.Windows.Forms.TextBox();
             this.btnLwM2MData = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label37 = new System.Windows.Forms.Label();
             this.lboneM2MRxData = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
             this.btnDataRetrive = new System.Windows.Forms.Button();
+            this.button94 = new System.Windows.Forms.Button();
             this.tbContainer = new System.Windows.Forms.TextBox();
+            this.button96 = new System.Windows.Forms.Button();
+            this.lbmodemfwrver = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.btnDeviceCheck = new System.Windows.Forms.Button();
+            this.lbdevicever = new System.Windows.Forms.Label();
             this.tbData = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.btnSendData = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.tbSeverPort = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -351,14 +365,9 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.button127 = new System.Windows.Forms.Button();
-            this.lbmodemfwrver = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
-            this.btnDeviceCheck = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
             this.tBResultCode = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.button126 = new System.Windows.Forms.Button();
-            this.lbdevicever = new System.Windows.Forms.Label();
             this.button122 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.textBox94 = new System.Windows.Forms.TextBox();
@@ -391,11 +400,7 @@
             this.tbTCResult = new System.Windows.Forms.TextBox();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.button93 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
+            this.textBox72 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -3469,6 +3474,7 @@
             // 
             this.tabPage7.Controls.Add(this.label23);
             this.tabPage7.Controls.Add(this.label25);
+            this.tabPage7.Controls.Add(this.label38);
             this.tabPage7.Controls.Add(this.groupBox13);
             this.tabPage7.Controls.Add(this.groupBox12);
             this.tabPage7.Controls.Add(this.groupBox14);
@@ -3525,6 +3531,15 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "LwM2M Device DATA";
             // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(210, 142);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(164, 16);
+            this.label8.TabIndex = 48;
+            this.label8.Text = ".";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lbDevEntityId
             // 
             this.lbDevEntityId.Location = new System.Drawing.Point(104, 17);
@@ -3533,6 +3548,25 @@
             this.lbDevEntityId.TabIndex = 57;
             this.lbDevEntityId.Text = ".";
             this.lbDevEntityId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button93
+            // 
+            this.button93.Location = new System.Drawing.Point(15, 115);
+            this.button93.Name = "button93";
+            this.button93.Size = new System.Drawing.Size(126, 42);
+            this.button93.TabIndex = 47;
+            this.button93.Text = "펌웨어 버전";
+            this.button93.UseVisualStyleBackColor = true;
+            this.button93.Click += new System.EventHandler(this.button93_Click);
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(210, 115);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(164, 16);
+            this.label10.TabIndex = 50;
+            this.label10.Text = ".";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbLwM2MRxData
             // 
@@ -3543,6 +3577,15 @@
             this.lbLwM2MRxData.Text = ".";
             this.lbLwM2MRxData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label35
+            // 
+            this.label35.Location = new System.Drawing.Point(147, 115);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(61, 16);
+            this.label35.TabIndex = 51;
+            this.label35.Text = "device =";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // btnDeviceStatusCheck
             // 
             this.btnDeviceStatusCheck.Location = new System.Drawing.Point(15, 42);
@@ -3552,6 +3595,15 @@
             this.btnDeviceStatusCheck.Text = "상태조회(단말)";
             this.btnDeviceStatusCheck.UseVisualStyleBackColor = true;
             this.btnDeviceStatusCheck.Click += new System.EventHandler(this.btnDeviceStatusCheck_Click);
+            // 
+            // label36
+            // 
+            this.label36.Location = new System.Drawing.Point(150, 140);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(60, 17);
+            this.label36.TabIndex = 49;
+            this.label36.Text = "modem =";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label11
             // 
@@ -3601,9 +3653,13 @@
             // 
             // groupBox14
             // 
+            this.groupBox14.Controls.Add(this.textBox72);
+            this.groupBox14.Controls.Add(this.label37);
             this.groupBox14.Controls.Add(this.lboneM2MRxData);
             this.groupBox14.Controls.Add(this.btnDataRetrive);
+            this.groupBox14.Controls.Add(this.button94);
             this.groupBox14.Controls.Add(this.tbContainer);
+            this.groupBox14.Controls.Add(this.button96);
             this.groupBox14.Controls.Add(this.lbmodemfwrver);
             this.groupBox14.Controls.Add(this.label9);
             this.groupBox14.Controls.Add(this.btnDeviceCheck);
@@ -3619,6 +3675,15 @@
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "oneM2M Device DATA";
             // 
+            // label37
+            // 
+            this.label37.Location = new System.Drawing.Point(153, 112);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(242, 22);
+            this.label37.TabIndex = 81;
+            this.label37.Text = "No received data";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lboneM2MRxData
             // 
             this.lboneM2MRxData.Location = new System.Drawing.Point(150, 45);
@@ -3627,6 +3692,16 @@
             this.lboneM2MRxData.TabIndex = 16;
             this.lboneM2MRxData.Text = ".";
             this.lboneM2MRxData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(499, 390);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(49, 12);
+            this.label38.TabIndex = 80;
+            this.label38.Text = "No data";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // btnDataRetrive
             // 
@@ -3638,6 +3713,16 @@
             this.btnDataRetrive.UseVisualStyleBackColor = true;
             this.btnDataRetrive.Click += new System.EventHandler(this.btnDataRetrive_Click);
             // 
+            // button94
+            // 
+            this.button94.Location = new System.Drawing.Point(15, 141);
+            this.button94.Name = "button94";
+            this.button94.Size = new System.Drawing.Size(116, 23);
+            this.button94.TabIndex = 79;
+            this.button94.Text = "데이터 전송 (단말)";
+            this.button94.UseVisualStyleBackColor = true;
+            this.button94.Click += new System.EventHandler(this.button94_Click);
+            // 
             // tbContainer
             // 
             this.tbContainer.Location = new System.Drawing.Point(109, 18);
@@ -3645,6 +3730,25 @@
             this.tbContainer.Size = new System.Drawing.Size(205, 21);
             this.tbContainer.TabIndex = 10;
             this.tbContainer.Text = "TEST";
+            // 
+            // button96
+            // 
+            this.button96.Location = new System.Drawing.Point(15, 112);
+            this.button96.Name = "button96";
+            this.button96.Size = new System.Drawing.Size(118, 23);
+            this.button96.TabIndex = 78;
+            this.button96.Text = "데이터 확인 (단말)";
+            this.button96.UseVisualStyleBackColor = true;
+            this.button96.Click += new System.EventHandler(this.button96_Click);
+            // 
+            // lbmodemfwrver
+            // 
+            this.lbmodemfwrver.Location = new System.Drawing.Point(210, 192);
+            this.lbmodemfwrver.Name = "lbmodemfwrver";
+            this.lbmodemfwrver.Size = new System.Drawing.Size(164, 16);
+            this.lbmodemfwrver.TabIndex = 43;
+            this.lbmodemfwrver.Text = ".";
+            this.lbmodemfwrver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label9
             // 
@@ -3655,6 +3759,25 @@
             this.label9.Text = "폴더명";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnDeviceCheck
+            // 
+            this.btnDeviceCheck.Location = new System.Drawing.Point(15, 171);
+            this.btnDeviceCheck.Name = "btnDeviceCheck";
+            this.btnDeviceCheck.Size = new System.Drawing.Size(126, 37);
+            this.btnDeviceCheck.TabIndex = 40;
+            this.btnDeviceCheck.Text = "펌웨어 버전";
+            this.btnDeviceCheck.UseVisualStyleBackColor = true;
+            this.btnDeviceCheck.Click += new System.EventHandler(this.btnDeviceCheck_Click);
+            // 
+            // lbdevicever
+            // 
+            this.lbdevicever.Location = new System.Drawing.Point(210, 171);
+            this.lbdevicever.Name = "lbdevicever";
+            this.lbdevicever.Size = new System.Drawing.Size(164, 16);
+            this.lbdevicever.TabIndex = 45;
+            this.lbdevicever.Text = ".";
+            this.lbdevicever.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // tbData
             // 
             this.tbData.Location = new System.Drawing.Point(153, 76);
@@ -3663,15 +3786,33 @@
             this.tbData.TabIndex = 4;
             this.tbData.Text = "1234";
             // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(147, 171);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 16);
+            this.label7.TabIndex = 46;
+            this.label7.Text = "device =";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // btnSendData
             // 
             this.btnSendData.Location = new System.Drawing.Point(15, 74);
             this.btnSendData.Name = "btnSendData";
             this.btnSendData.Size = new System.Drawing.Size(126, 23);
             this.btnSendData.TabIndex = 3;
-            this.btnSendData.Text = "데이터 보내기";
+            this.btnSendData.Text = "데이터 전송 (DB)";
             this.btnSendData.UseVisualStyleBackColor = true;
             this.btnSendData.Click += new System.EventHandler(this.btnSendData_Click);
+            // 
+            // label14
+            // 
+            this.label14.Location = new System.Drawing.Point(150, 190);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 17);
+            this.label14.TabIndex = 44;
+            this.label14.Text = "modem =";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // groupBox15
             // 
@@ -3877,15 +4018,6 @@
             this.button127.UseVisualStyleBackColor = true;
             this.button127.Click += new System.EventHandler(this.button127_Click);
             // 
-            // lbmodemfwrver
-            // 
-            this.lbmodemfwrver.Location = new System.Drawing.Point(210, 192);
-            this.lbmodemfwrver.Name = "lbmodemfwrver";
-            this.lbmodemfwrver.Size = new System.Drawing.Size(164, 16);
-            this.lbmodemfwrver.TabIndex = 43;
-            this.lbmodemfwrver.Text = ".";
-            this.lbmodemfwrver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label27
             // 
             this.label27.AutoSize = true;
@@ -3896,25 +4028,6 @@
             this.label27.Text = "LogID";
             this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnDeviceCheck
-            // 
-            this.btnDeviceCheck.Location = new System.Drawing.Point(15, 171);
-            this.btnDeviceCheck.Name = "btnDeviceCheck";
-            this.btnDeviceCheck.Size = new System.Drawing.Size(126, 37);
-            this.btnDeviceCheck.TabIndex = 40;
-            this.btnDeviceCheck.Text = "펌웨어 버전";
-            this.btnDeviceCheck.UseVisualStyleBackColor = true;
-            this.btnDeviceCheck.Click += new System.EventHandler(this.btnDeviceCheck_Click);
-            // 
-            // label14
-            // 
-            this.label14.Location = new System.Drawing.Point(150, 190);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 17);
-            this.label14.TabIndex = 44;
-            this.label14.Text = "modem =";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // tBResultCode
             // 
             this.tBResultCode.Location = new System.Drawing.Point(685, 89);
@@ -3923,15 +4036,6 @@
             this.tBResultCode.TabIndex = 53;
             this.tBResultCode.Text = "20000000";
             this.tBResultCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label7
-            // 
-            this.label7.Location = new System.Drawing.Point(147, 171);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 16);
-            this.label7.TabIndex = 46;
-            this.label7.Text = "device =";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // button126
             // 
@@ -3942,15 +4046,6 @@
             this.button126.Text = "코드조회";
             this.button126.UseVisualStyleBackColor = true;
             this.button126.Click += new System.EventHandler(this.button126_Click);
-            // 
-            // lbdevicever
-            // 
-            this.lbdevicever.Location = new System.Drawing.Point(210, 171);
-            this.lbdevicever.Name = "lbdevicever";
-            this.lbdevicever.Size = new System.Drawing.Size(164, 16);
-            this.lbdevicever.TabIndex = 45;
-            this.lbdevicever.Text = ".";
-            this.lbdevicever.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button122
             // 
@@ -4277,51 +4372,13 @@
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
-            // label8
+            // textBox72
             // 
-            this.label8.Location = new System.Drawing.Point(210, 142);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(164, 16);
-            this.label8.TabIndex = 48;
-            this.label8.Text = ".";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // button93
-            // 
-            this.button93.Location = new System.Drawing.Point(15, 115);
-            this.button93.Name = "button93";
-            this.button93.Size = new System.Drawing.Size(126, 42);
-            this.button93.TabIndex = 47;
-            this.button93.Text = "펌웨어 버전";
-            this.button93.UseVisualStyleBackColor = true;
-            this.button93.Click += new System.EventHandler(this.button93_Click);
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(210, 115);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(164, 16);
-            this.label10.TabIndex = 50;
-            this.label10.Text = ".";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label35
-            // 
-            this.label35.Location = new System.Drawing.Point(147, 115);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(61, 16);
-            this.label35.TabIndex = 51;
-            this.label35.Text = "device =";
-            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label36
-            // 
-            this.label36.Location = new System.Drawing.Point(150, 140);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(60, 17);
-            this.label36.TabIndex = 49;
-            this.label36.Text = "modem =";
-            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.textBox72.Location = new System.Drawing.Point(152, 143);
+            this.textBox72.Name = "textBox72";
+            this.textBox72.Size = new System.Drawing.Size(244, 21);
+            this.textBox72.TabIndex = 82;
+            this.textBox72.Text = "1234";
             // 
             // Form1
             // 
@@ -4763,6 +4820,11 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Button button94;
+        private System.Windows.Forms.Button button96;
+        private System.Windows.Forms.TextBox textBox72;
     }
 }
 
