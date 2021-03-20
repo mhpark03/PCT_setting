@@ -318,9 +318,6 @@
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.lbDevEntityId = new System.Windows.Forms.Label();
-            this.button128 = new System.Windows.Forms.Button();
-            this.textBox97 = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.lbLwM2MRxData = new System.Windows.Forms.Label();
             this.btnDeviceStatusCheck = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
@@ -394,6 +391,11 @@
             this.tbTCResult = new System.Windows.Forms.TextBox();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button93 = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -3505,79 +3507,55 @@
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.lbDevEntityId);
-            this.groupBox13.Controls.Add(this.button128);
-            this.groupBox13.Controls.Add(this.textBox97);
             this.groupBox13.Controls.Add(this.label8);
+            this.groupBox13.Controls.Add(this.lbDevEntityId);
+            this.groupBox13.Controls.Add(this.button93);
+            this.groupBox13.Controls.Add(this.label10);
             this.groupBox13.Controls.Add(this.lbLwM2MRxData);
+            this.groupBox13.Controls.Add(this.label35);
             this.groupBox13.Controls.Add(this.btnDeviceStatusCheck);
+            this.groupBox13.Controls.Add(this.label36);
             this.groupBox13.Controls.Add(this.label11);
             this.groupBox13.Controls.Add(this.tbLwM2MData);
             this.groupBox13.Controls.Add(this.btnLwM2MData);
             this.groupBox13.Location = new System.Drawing.Point(11, 520);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(529, 184);
+            this.groupBox13.Size = new System.Drawing.Size(458, 184);
             this.groupBox13.TabIndex = 48;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "LwM2M Device DATA";
             // 
             // lbDevEntityId
             // 
-            this.lbDevEntityId.Location = new System.Drawing.Point(148, 70);
+            this.lbDevEntityId.Location = new System.Drawing.Point(104, 17);
             this.lbDevEntityId.Name = "lbDevEntityId";
             this.lbDevEntityId.Size = new System.Drawing.Size(224, 22);
             this.lbDevEntityId.TabIndex = 57;
             this.lbDevEntityId.Text = ".";
             this.lbDevEntityId.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // button128
-            // 
-            this.button128.Location = new System.Drawing.Point(331, 31);
-            this.button128.Name = "button128";
-            this.button128.Size = new System.Drawing.Size(87, 19);
-            this.button128.TabIndex = 56;
-            this.button128.Text = "Device 정보 조회";
-            this.button128.UseVisualStyleBackColor = true;
-            this.button128.Click += new System.EventHandler(this.button124_Click);
-            // 
-            // textBox97
-            // 
-            this.textBox97.Location = new System.Drawing.Point(112, 29);
-            this.textBox97.Name = "textBox97";
-            this.textBox97.Size = new System.Drawing.Size(205, 21);
-            this.textBox97.TabIndex = 22;
-            this.textBox97.Text = "01222991234";
-            // 
-            // label8
-            // 
-            this.label8.Location = new System.Drawing.Point(13, 29);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(94, 22);
-            this.label8.TabIndex = 21;
-            this.label8.Text = "CTN";
-            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // lbLwM2MRxData
             // 
-            this.lbLwM2MRxData.Location = new System.Drawing.Point(156, 101);
+            this.lbLwM2MRxData.Location = new System.Drawing.Point(150, 43);
             this.lbLwM2MRxData.Name = "lbLwM2MRxData";
-            this.lbLwM2MRxData.Size = new System.Drawing.Size(224, 22);
+            this.lbLwM2MRxData.Size = new System.Drawing.Size(245, 22);
             this.lbLwM2MRxData.TabIndex = 19;
             this.lbLwM2MRxData.Text = ".";
             this.lbLwM2MRxData.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnDeviceStatusCheck
             // 
-            this.btnDeviceStatusCheck.Location = new System.Drawing.Point(15, 100);
+            this.btnDeviceStatusCheck.Location = new System.Drawing.Point(15, 42);
             this.btnDeviceStatusCheck.Name = "btnDeviceStatusCheck";
             this.btnDeviceStatusCheck.Size = new System.Drawing.Size(126, 23);
             this.btnDeviceStatusCheck.TabIndex = 18;
             this.btnDeviceStatusCheck.Text = "상태조회(단말)";
             this.btnDeviceStatusCheck.UseVisualStyleBackColor = true;
+            this.btnDeviceStatusCheck.Click += new System.EventHandler(this.btnDeviceStatusCheck_Click);
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(32, 70);
+            this.label11.Location = new System.Drawing.Point(13, 17);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(94, 22);
             this.label11.TabIndex = 13;
@@ -3586,7 +3564,7 @@
             // 
             // tbLwM2MData
             // 
-            this.tbLwM2MData.Location = new System.Drawing.Point(158, 131);
+            this.tbLwM2MData.Location = new System.Drawing.Point(151, 80);
             this.tbLwM2MData.Name = "tbLwM2MData";
             this.tbLwM2MData.Size = new System.Drawing.Size(244, 21);
             this.tbLwM2MData.TabIndex = 12;
@@ -3594,12 +3572,13 @@
             // 
             // btnLwM2MData
             // 
-            this.btnLwM2MData.Location = new System.Drawing.Point(15, 129);
+            this.btnLwM2MData.Location = new System.Drawing.Point(15, 78);
             this.btnLwM2MData.Name = "btnLwM2MData";
             this.btnLwM2MData.Size = new System.Drawing.Size(127, 23);
             this.btnLwM2MData.TabIndex = 11;
             this.btnLwM2MData.Text = "데이터 보내기";
             this.btnLwM2MData.UseVisualStyleBackColor = true;
+            this.btnLwM2MData.Click += new System.EventHandler(this.btnLwM2MData_Click);
             // 
             // groupBox12
             // 
@@ -3625,19 +3604,24 @@
             this.groupBox14.Controls.Add(this.lboneM2MRxData);
             this.groupBox14.Controls.Add(this.btnDataRetrive);
             this.groupBox14.Controls.Add(this.tbContainer);
+            this.groupBox14.Controls.Add(this.lbmodemfwrver);
             this.groupBox14.Controls.Add(this.label9);
+            this.groupBox14.Controls.Add(this.btnDeviceCheck);
+            this.groupBox14.Controls.Add(this.lbdevicever);
             this.groupBox14.Controls.Add(this.tbData);
+            this.groupBox14.Controls.Add(this.label7);
             this.groupBox14.Controls.Add(this.btnSendData);
+            this.groupBox14.Controls.Add(this.label14);
             this.groupBox14.Location = new System.Drawing.Point(8, 249);
             this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(529, 177);
+            this.groupBox14.Size = new System.Drawing.Size(461, 231);
             this.groupBox14.TabIndex = 47;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "oneM2M Device DATA";
             // 
             // lboneM2MRxData
             // 
-            this.lboneM2MRxData.Location = new System.Drawing.Point(156, 100);
+            this.lboneM2MRxData.Location = new System.Drawing.Point(150, 45);
             this.lboneM2MRxData.Name = "lboneM2MRxData";
             this.lboneM2MRxData.Size = new System.Drawing.Size(246, 22);
             this.lboneM2MRxData.TabIndex = 16;
@@ -3646,16 +3630,17 @@
             // 
             // btnDataRetrive
             // 
-            this.btnDataRetrive.Location = new System.Drawing.Point(16, 100);
+            this.btnDataRetrive.Location = new System.Drawing.Point(15, 45);
             this.btnDataRetrive.Name = "btnDataRetrive";
             this.btnDataRetrive.Size = new System.Drawing.Size(127, 23);
             this.btnDataRetrive.TabIndex = 14;
             this.btnDataRetrive.Text = "데이터 확인 (DB)";
             this.btnDataRetrive.UseVisualStyleBackColor = true;
+            this.btnDataRetrive.Click += new System.EventHandler(this.btnDataRetrive_Click);
             // 
             // tbContainer
             // 
-            this.tbContainer.Location = new System.Drawing.Point(114, 69);
+            this.tbContainer.Location = new System.Drawing.Point(109, 18);
             this.tbContainer.Name = "tbContainer";
             this.tbContainer.Size = new System.Drawing.Size(205, 21);
             this.tbContainer.TabIndex = 10;
@@ -3663,7 +3648,7 @@
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(21, 68);
+            this.label9.Location = new System.Drawing.Point(16, 17);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(94, 22);
             this.label9.TabIndex = 9;
@@ -3672,7 +3657,7 @@
             // 
             // tbData
             // 
-            this.tbData.Location = new System.Drawing.Point(158, 129);
+            this.tbData.Location = new System.Drawing.Point(153, 76);
             this.tbData.Name = "tbData";
             this.tbData.Size = new System.Drawing.Size(244, 21);
             this.tbData.TabIndex = 4;
@@ -3680,12 +3665,13 @@
             // 
             // btnSendData
             // 
-            this.btnSendData.Location = new System.Drawing.Point(15, 129);
+            this.btnSendData.Location = new System.Drawing.Point(15, 74);
             this.btnSendData.Name = "btnSendData";
             this.btnSendData.Size = new System.Drawing.Size(126, 23);
             this.btnSendData.TabIndex = 3;
             this.btnSendData.Text = "데이터 보내기";
             this.btnSendData.UseVisualStyleBackColor = true;
+            this.btnSendData.Click += new System.EventHandler(this.btnSendData_Click);
             // 
             // groupBox15
             // 
@@ -3745,6 +3731,7 @@
             this.btnDelRemoteCSE.TabIndex = 2;
             this.btnDelRemoteCSE.Text = "CSR 삭제";
             this.btnDelRemoteCSE.UseVisualStyleBackColor = true;
+            this.btnDelRemoteCSE.Click += new System.EventHandler(this.btnDelRemoteCSE_Click);
             // 
             // btnSetRemoteCSE
             // 
@@ -3754,6 +3741,7 @@
             this.btnSetRemoteCSE.TabIndex = 0;
             this.btnSetRemoteCSE.Text = "CSR 생성";
             this.btnSetRemoteCSE.UseVisualStyleBackColor = true;
+            this.btnSetRemoteCSE.Click += new System.EventHandler(this.btnSetRemoteCSE_Click);
             // 
             // btnGetRemoteCSE
             // 
@@ -3763,6 +3751,7 @@
             this.btnGetRemoteCSE.TabIndex = 0;
             this.btnGetRemoteCSE.Text = "CSR 조회";
             this.btnGetRemoteCSE.UseVisualStyleBackColor = true;
+            this.btnGetRemoteCSE.Click += new System.EventHandler(this.btnGetRemoteCSE_Click);
             // 
             // btnMEFAuth
             // 
@@ -3832,14 +3821,9 @@
             this.tabPage8.Controls.Add(this.label18);
             this.tabPage8.Controls.Add(this.label16);
             this.tabPage8.Controls.Add(this.button127);
-            this.tabPage8.Controls.Add(this.lbmodemfwrver);
             this.tabPage8.Controls.Add(this.label27);
-            this.tabPage8.Controls.Add(this.btnDeviceCheck);
-            this.tabPage8.Controls.Add(this.label14);
             this.tabPage8.Controls.Add(this.tBResultCode);
-            this.tabPage8.Controls.Add(this.label7);
             this.tabPage8.Controls.Add(this.button126);
-            this.tabPage8.Controls.Add(this.lbdevicever);
             this.tabPage8.Controls.Add(this.button122);
             this.tabPage8.Controls.Add(this.label19);
             this.tabPage8.Controls.Add(this.textBox94);
@@ -3895,7 +3879,7 @@
             // 
             // lbmodemfwrver
             // 
-            this.lbmodemfwrver.Location = new System.Drawing.Point(656, 29);
+            this.lbmodemfwrver.Location = new System.Drawing.Point(210, 192);
             this.lbmodemfwrver.Name = "lbmodemfwrver";
             this.lbmodemfwrver.Size = new System.Drawing.Size(164, 16);
             this.lbmodemfwrver.TabIndex = 43;
@@ -3914,9 +3898,9 @@
             // 
             // btnDeviceCheck
             // 
-            this.btnDeviceCheck.Location = new System.Drawing.Point(461, 12);
+            this.btnDeviceCheck.Location = new System.Drawing.Point(15, 171);
             this.btnDeviceCheck.Name = "btnDeviceCheck";
-            this.btnDeviceCheck.Size = new System.Drawing.Size(116, 32);
+            this.btnDeviceCheck.Size = new System.Drawing.Size(126, 37);
             this.btnDeviceCheck.TabIndex = 40;
             this.btnDeviceCheck.Text = "펌웨어 버전";
             this.btnDeviceCheck.UseVisualStyleBackColor = true;
@@ -3924,7 +3908,7 @@
             // 
             // label14
             // 
-            this.label14.Location = new System.Drawing.Point(596, 27);
+            this.label14.Location = new System.Drawing.Point(150, 190);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(60, 17);
             this.label14.TabIndex = 44;
@@ -3942,7 +3926,7 @@
             // 
             // label7
             // 
-            this.label7.Location = new System.Drawing.Point(593, 12);
+            this.label7.Location = new System.Drawing.Point(147, 171);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(61, 16);
             this.label7.TabIndex = 46;
@@ -3961,7 +3945,7 @@
             // 
             // lbdevicever
             // 
-            this.lbdevicever.Location = new System.Drawing.Point(656, 12);
+            this.lbdevicever.Location = new System.Drawing.Point(210, 171);
             this.lbdevicever.Name = "lbdevicever";
             this.lbdevicever.Size = new System.Drawing.Size(164, 16);
             this.lbdevicever.TabIndex = 45;
@@ -4292,6 +4276,52 @@
             this.button72.Text = "엑셀 읽기";
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(210, 142);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(164, 16);
+            this.label8.TabIndex = 48;
+            this.label8.Text = ".";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // button93
+            // 
+            this.button93.Location = new System.Drawing.Point(15, 115);
+            this.button93.Name = "button93";
+            this.button93.Size = new System.Drawing.Size(126, 42);
+            this.button93.TabIndex = 47;
+            this.button93.Text = "펌웨어 버전";
+            this.button93.UseVisualStyleBackColor = true;
+            this.button93.Click += new System.EventHandler(this.button93_Click);
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(210, 115);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(164, 16);
+            this.label10.TabIndex = 50;
+            this.label10.Text = ".";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label35
+            // 
+            this.label35.Location = new System.Drawing.Point(147, 115);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(61, 16);
+            this.label35.TabIndex = 51;
+            this.label35.Text = "device =";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label36
+            // 
+            this.label36.Location = new System.Drawing.Point(150, 140);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(60, 17);
+            this.label36.TabIndex = 49;
+            this.label36.Text = "modem =";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
@@ -4627,9 +4657,6 @@
         private System.Windows.Forms.ListBox listBox4;
         private System.Windows.Forms.Button button113;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.Button button128;
-        private System.Windows.Forms.TextBox textBox97;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lbLwM2MRxData;
         private System.Windows.Forms.Button btnDeviceStatusCheck;
         private System.Windows.Forms.Label label11;
@@ -4731,6 +4758,11 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox71;
         private System.Windows.Forms.Button button35;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button93;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label36;
     }
 }
 

@@ -384,11 +384,6 @@ namespace WindowsFormsApp2
         UInt32 oneM2Mtotalsize = 0;
         UInt32 oneM2Mrcvsize = 0;
 
-        string oneM2MMEFIP = "106.103.234.198";
-        string oneM2MMEFPort = "80";
-        string oneM2MBRKIP = "106.103.234.117";
-        string oneM2MBRKPort = "80";
-
         Dictionary<string, string> commands = new Dictionary<string, string>();
         Dictionary<char, int> bcdvalues = new Dictionary<char, int>();
         Dictionary<string, string> lwm2mtclist = new Dictionary<string, string>();
@@ -1131,7 +1126,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        tbDeviceCTN.Text = textBox97.Text = textBox1.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -1145,7 +1140,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        tbDeviceCTN.Text = textBox97.Text = textBox1.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -5345,8 +5340,16 @@ namespace WindowsFormsApp2
             BeginInvoke(new Action(() =>
             {
                 tbLog.AppendText(Environment.NewLine);
-                data = data.Replace("><", ">" + Environment.NewLine + "<");         // xml tag 위치에 줄바꿈 삽입
-                tbLog.AppendText(" " + data);
+                if (data.StartsWith("<?xml"))
+                {
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.LoadXml(data);
+                    StringWriter writer = new StringWriter();
+                    xDoc.Save(writer);
+                    tbLog.AppendText(writer.ToString());
+                }
+                else
+                    tbLog.AppendText(" " + data);
                 tbLog.SelectionStart = tbLog.TextLength;
                 tbLog.ScrollToCaret();
             }));
@@ -5460,7 +5463,7 @@ namespace WindowsFormsApp2
                                     }
                                 }
 
-                                tbDeviceCTN.Text = textBox97.Text = textBox1.Text = dev.imsi = ctn.ToString();
+                                tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn.ToString();
                                 lbIccid.Text = dev.iccid = iccId.ToString();
                                 setDeviceEntityID();
                                 if (tbSvcCd.Text == "CATM")
@@ -5629,14 +5632,8 @@ namespace WindowsFormsApp2
 
         private void btnDeviceCheck_Click(object sender, EventArgs e)
         {
-            if (dev.type == "onem2m")
-            {
-                //RetrivePoaToPlatform();
-                RetriveDverToPlatform();
-                RetriveMverToPlatform();
-            }
-            else
-                GetPlatformFWVer("YES");
+            RetriveDverToPlatform();
+            RetriveMverToPlatform();
         }
 
         private void RetriveDverToPlatform()
@@ -5912,6 +5909,276 @@ namespace WindowsFormsApp2
         {
             this.sendDataOut(textBox71.Text);
             lbActionState.Text = states.rfreset.ToString();
+        }
+
+        private void btnGetRemoteCSE_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------remoteCSE GET----------");
+            if (svr.enrmtKeyId != string.Empty)
+                ReqRemoteCSEGet();
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void ReqRemoteCSEGet()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/" + svr.remoteCSEName;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Retrieve";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+                LogWriteNoTime(retStr);
+        }
+
+        private void btnSetRemoteCSE_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------remoteCSE SET----------");
+            if (svr.enrmtKeyId != string.Empty)
+                ReqRemoteCSECreate();
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        // 3. RemoteCSE-Create
+        private void ReqRemoteCSECreate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1";
+            header.Method = "POST";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=16";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Create";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = svr.remoteCSEName;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cst>3</cst>";
+            packetStr += "<csi>/" + svr.entityId + "</csi>";
+            packetStr += "<cb>/" + svr.entityId + "/cb-1</cb>";
+            packetStr += "<rr>true</rr>";
+            packetStr += "<poa>" + tbSeverIP.Text + ":" + tbSeverPort.Text + "</poa>";
+            packetStr += "</m2m:csr>";
+
+            string retStr = SendHttpRequest(header, packetStr);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
+        }
+
+        private void btnDelRemoteCSE_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------remoteCSE DEL----------");
+            if (svr.enrmtKeyId != string.Empty)
+                ReqRemoteCSEDEL();
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        // 3. RemoteCSE-Delete
+        private void ReqRemoteCSEDEL()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/" + svr.remoteCSEName;
+            header.Method = "DELETE";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Delete";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = SendHttpRequest(header, string.Empty);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
+        }
+
+        private void btnDataRetrive_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------DATA RECIEVE----------");
+            if (svr.enrmtKeyId != string.Empty)
+                RetriveDataToPlatform();
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void RetriveDataToPlatform()
+        {
+            ReqHeader header = new ReqHeader();
+            //header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_01222990847/cnt-TEMP/la";
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + tbDeviceCTN.Text + "/cnt-" + tbContainer.Text + "/la";
+            header.Method = "GET";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_retrive";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = string.Empty;
+
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string format = string.Empty;
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    format = xn["cnf"].InnerText; // data format
+                    value = xn["con"].InnerText; // data value
+                }
+                //LogWrite("value = " + value);
+                //LogWrite("format = " + format);
+
+                if (format == "application/octet-stream")
+                    lboneM2MRxData.Text = Encoding.UTF8.GetString(Convert.FromBase64String(value));
+                else
+                    lboneM2MRxData.Text = value;
+            }
+        }
+
+        private void btnSendData_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------DATA SEND----------");
+            if (svr.enrmtKeyId != string.Empty)
+            {
+                SendDataToPlatform();
+            }
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void SendDataToPlatform()
+        {
+            ReqHeader header = new ReqHeader();
+
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + tbDeviceCTN.Text + "/cnt-" + tbContainer.Text;
+            header.Method = "POST";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cnf>text/plain</cnf>";
+            packetStr += "<con>" + tbData.Text + "</con>";
+            packetStr += "</m2m:cin>";
+            string retStr = SendHttpRequest(header, packetStr);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
+        }
+
+        private void btnLwM2MData_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------DATA SEND----------");
+            if (svr.enrmtKeyId != string.Empty)
+            {
+                if (lbDevEntityId.Text == ".")
+                    MessageBox.Show("Device 정보가 없습니다.");
+                else
+                    SendDataToPlatformL();
+            }
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void SendDataToPlatformL()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = brkUrlL + "/" + lbDevEntityId.Text + "/10250/0/1";
+            header.Method = "POST";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cnf>text/plain</cnf>";
+            packetStr += "<con>" + tbLwM2MData.Text + "</con>";
+            packetStr += "</m2m:cin>";
+            string retStr = SendHttpRequest(header, packetStr);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
+        }
+
+        private void btnDeviceStatusCheck_Click(object sender, EventArgs e)
+        {
+            LogWrite("----------DEVICE STATUS CHECK----------");
+            if (svr.enrmtKeyId != string.Empty)
+            {
+                if (lbDevEntityId.Text == ".")
+                    MessageBox.Show("Device 정보가 없습니다.");
+                else
+                    DeviceCheckToPlatform();
+            }
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void DeviceCheckToPlatform()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = brkUrlL + "/" + lbDevEntityId.Text + "/10250/0/1";
+            header.Method = "GET";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "device_status";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string format = string.Empty;
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    format = xn["cnf"].InnerText; // data format
+                    value = xn["con"].InnerText; // data value
+                }
+                //LogWrite("value = " + value);
+                //LogWrite("format = " + format);
+
+                if (format == "application/octet-stream")
+                    lbLwM2MRxData.Text = Encoding.UTF8.GetString(Convert.FromBase64String(value));
+                else
+                    lbLwM2MRxData.Text = value;
+            }
+        }
+
+        private void button93_Click(object sender, EventArgs e)
+        {
+            if (lbDevEntityId.Text == ".")
+                MessageBox.Show("Device 정보가 없습니다.");
+            else
+                GetPlatformFWVer("YES");
         }
     }
 
