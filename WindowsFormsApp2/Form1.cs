@@ -4890,11 +4890,21 @@ namespace WindowsFormsApp2
             tc.state = tcindex;
             logPrintTC(lwm2mtclist[tcindex] + " [시작]");
             lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
-            tc.lwm2m[(int)index, 0] = "TESTING";             // 시험 결과 초기 값(FAIL) 설정, 테스트 후 결과 수정
-            tc.lwm2m[(int)index, 1] = string.Empty;
-            tc.lwm2m[(int)index, 2] = string.Empty;
-            tc.lwm2m[(int)index, 3] = string.Empty;
-            tc.lwm2m[(int)index, 4] = string.Empty;
+            if (tc.lwm2m[(int)index, 0] != "FAIL")
+            {
+                tc.lwm2m[(int)index, 0] = "START";             // 시험 결과 초기 값(FAIL) 설정, 테스트 후 결과 수정
+                tc.lwm2m[(int)index, 1] = string.Empty;
+                tc.lwm2m[(int)index, 2] = string.Empty;
+                tc.lwm2m[(int)index, 3] = string.Empty;
+                tc.lwm2m[(int)index, 4] = string.Empty;
+
+                listView2.Items[(int)index].SubItems[1].Text = "START";
+                listView2.Items[(int)index].SubItems[2].Text = string.Empty;
+                listView2.Items[(int)index].SubItems[3].Text = string.Empty;
+                listView2.Items[(int)index].SubItems[4].Text = string.Empty;
+                listView2.Items[(int)index].SubItems[5].Text = string.Empty;
+                listView2.Items[(int)index].BackColor = Color.White;
+            }
         }
 
         private void endLwM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
@@ -4916,6 +4926,13 @@ namespace WindowsFormsApp2
                     tc.lwm2m[(int)index, 2] = logId;
                     tc.lwm2m[(int)index, 3] = resultCodeName;
                     tc.lwm2m[(int)index, 4] = remark;
+
+                    listView2.Items[(int)index].SubItems[1].Text = "PASS";             // 시험 결과 저장
+                    listView2.Items[(int)index].SubItems[2].Text = resultCode;
+                    listView2.Items[(int)index].SubItems[3].Text = logId;
+                    listView2.Items[(int)index].SubItems[4].Text = resultCodeName;
+                    listView2.Items[(int)index].SubItems[5].Text = remark;
+                    listView2.Items[(int)index].BackColor = Color.LightBlue;
                 }
             }
             else
@@ -4928,7 +4945,14 @@ namespace WindowsFormsApp2
                 tc.lwm2m[(int)index, 1] = resultCode;
                 tc.lwm2m[(int)index, 2] = logId;
                 tc.lwm2m[(int)index, 3] = resultCodeName;
-                tc.lwm2m[(int)index, 4] = "";
+                tc.lwm2m[(int)index, 4] = remark;
+
+                listView2.Items[(int)index].SubItems[1].Text = "FAIL";             // 시험 결과 저장
+                listView2.Items[(int)index].SubItems[2].Text = resultCode;
+                listView2.Items[(int)index].SubItems[3].Text = logId;
+                listView2.Items[(int)index].SubItems[4].Text = resultCodeName;
+                listView2.Items[(int)index].SubItems[5].Text = remark;
+                listView2.Items[(int)index].BackColor = Color.OrangeRed;
             }
             tc.state = string.Empty;
         }
@@ -4938,11 +4962,21 @@ namespace WindowsFormsApp2
             tc.state = tcindex;
             logPrintTC(onem2mtclist[tcindex] + " [시작]");
             onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
-            tc.onem2m[(int)index, 0] = "TESTING";             // 시험 결과 초기 값(FAIL) 설정, 테스트 후 결과 수정
-            tc.onem2m[(int)index, 1] = string.Empty;
-            tc.onem2m[(int)index, 2] = string.Empty;
-            tc.onem2m[(int)index, 3] = string.Empty;
-            tc.onem2m[(int)index, 4] = string.Empty;
+            if (tc.onem2m[(int)index, 0] != "FAIL")
+            {
+                tc.onem2m[(int)index, 0] = "START";             // 시험 결과 초기 값(FAIL) 설정, 테스트 후 결과 수정
+                tc.onem2m[(int)index, 1] = string.Empty;
+                tc.onem2m[(int)index, 2] = string.Empty;
+                tc.onem2m[(int)index, 3] = string.Empty;
+                tc.onem2m[(int)index, 4] = string.Empty;
+
+                listView1.Items[(int)index].SubItems[1].Text = "START";
+                listView1.Items[(int)index].SubItems[2].Text = string.Empty;
+                listView1.Items[(int)index].SubItems[3].Text = string.Empty;
+                listView1.Items[(int)index].SubItems[4].Text = string.Empty;
+                listView1.Items[(int)index].SubItems[5].Text = string.Empty;
+                listView1.Items[(int)index].BackColor = Color.White;
+            }
         }
 
         private void endoneM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
@@ -4964,6 +4998,13 @@ namespace WindowsFormsApp2
                     tc.onem2m[(int)index, 2] = logId;
                     tc.onem2m[(int)index, 3] = resultCodeName;
                     tc.onem2m[(int)index, 4] = remark;
+
+                    listView1.Items[(int)index].SubItems[1].Text = "PASS";             // 시험 결과 저장
+                    listView1.Items[(int)index].SubItems[2].Text = resultCode;
+                    listView1.Items[(int)index].SubItems[3].Text = logId;
+                    listView1.Items[(int)index].SubItems[4].Text = resultCodeName;
+                    listView1.Items[(int)index].SubItems[5].Text = remark;
+                    listView1.Items[(int)index].BackColor = Color.LightBlue;
                 }
             }
             else
@@ -4976,7 +5017,14 @@ namespace WindowsFormsApp2
                 tc.onem2m[(int)index, 1] = resultCode;
                 tc.onem2m[(int)index, 2] = logId;
                 tc.onem2m[(int)index, 3] = resultCodeName;
-                tc.onem2m[(int)index, 4] = "";
+                tc.onem2m[(int)index, 4] = remark;
+
+                listView1.Items[(int)index].SubItems[1].Text = "FAIL";             // 시험 결과 저장
+                listView1.Items[(int)index].SubItems[2].Text = resultCode;
+                listView1.Items[(int)index].SubItems[3].Text = logId;
+                listView1.Items[(int)index].SubItems[4].Text = resultCodeName;
+                listView1.Items[(int)index].SubItems[5].Text = remark;
+                listView1.Items[(int)index].BackColor = Color.OrangeRed;
             }
             tc.state = string.Empty;
         }
@@ -6272,7 +6320,7 @@ namespace WindowsFormsApp2
                 else
                     SetText(lbDirectRxData, value);
 
-                if (lbDirectRxData.Text == lbDirectTxData.Text)
+                if (lbDirectRxData.Text == lbSendedData.Text)
                 {
                     if (tc.state == "tc0503")
                         endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -6426,7 +6474,7 @@ namespace WindowsFormsApp2
                 else
                     SetText(lbDirectRxData, value);
 
-                if (lbDirectRxData.Text == lbDirectTxData.Text)
+                if (lbDirectRxData.Text == lbSendedData.Text)
                 {
                     if (tc.state == "tc021303")
                         endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -6526,7 +6574,6 @@ namespace WindowsFormsApp2
 
                     tabControl1.SelectedTab = tabLOG;
                 }
-                item.BackColor = Color.OrangeRed;
             }
         }
 
@@ -6544,8 +6591,29 @@ namespace WindowsFormsApp2
 
                     tabControl1.SelectedTab = tabLOG;
                 }
-                item.BackColor = Color.LightBlue;
             }
+        }
+
+        private void button62_Click_1(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox61.Text);
+            lbActionState.Text = states.getcereg.ToString();
+        }
+
+        private void button99_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox58.Text);
+            lbActionState.Text = states.setcereg.ToString();
+        }
+
+        private void button100_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox59.Text);
+        }
+
+        private void button101_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox60.Text);
         }
     }
 
