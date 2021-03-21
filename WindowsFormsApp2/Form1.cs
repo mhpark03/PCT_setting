@@ -666,6 +666,8 @@ namespace WindowsFormsApp2
 
             tbTCResult.Text = string.Empty;
             tBoxDataIN.Text = string.Empty;
+            tbOneM2MDataIN.Text = string.Empty;
+            tbLwM2MDataIN.Text = string.Empty;
             tbLog.Text = string.Empty;
 
             lbActionState.Text = "idle";
@@ -679,6 +681,44 @@ namespace WindowsFormsApp2
             groupBox2.Enabled = false;
             groupBox6.Enabled = false;
             groupBox5.Enabled = false;
+
+            listView1.View = View.Details;
+            listView1.GridLines = true;
+            listView1.FullRowSelect = true;
+            listView1.CheckBoxes = false;
+
+            listView1.Columns.Add("시험 항목", 300, HorizontalAlignment.Center);
+            listView1.Columns.Add("결과", 100, HorizontalAlignment.Center);
+            listView1.Columns.Add("resultCode", 100, HorizontalAlignment.Center);
+            listView1.Columns.Add("logId", 100, HorizontalAlignment.Center);
+            listView1.Columns.Add("설명", 200, HorizontalAlignment.Center);
+            listView1.Columns.Add("비고", 200, HorizontalAlignment.Center);
+
+            foreach (string tcindex in Enum.GetNames(typeof(onem2mtc)))
+            {
+                onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
+                ListViewItem newitem = new ListViewItem(new string[] { onem2mtclist[tcindex], tc.onem2m[(int)index, 0], tc.onem2m[(int)index, 1], tc.onem2m[(int)index, 2], tc.onem2m[(int)index, 3], tc.onem2m[(int)index, 4] });
+                listView1.Items.Add(newitem);
+            }
+
+            listView2.View = View.Details;
+            listView2.GridLines = true;
+            listView2.FullRowSelect = true;
+            listView2.CheckBoxes = false;
+
+            listView2.Columns.Add("시험 항목", 300, HorizontalAlignment.Center);
+            listView2.Columns.Add("결과", 100, HorizontalAlignment.Center);
+            listView2.Columns.Add("resultCode", 100, HorizontalAlignment.Center);
+            listView2.Columns.Add("logId", 100, HorizontalAlignment.Center);
+            listView2.Columns.Add("설명", 200, HorizontalAlignment.Center);
+            listView2.Columns.Add("비고", 200, HorizontalAlignment.Center);
+
+            foreach (string tcindex in Enum.GetNames(typeof(lwm2mtc)))
+            {
+                lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
+                ListViewItem newitem = new ListViewItem(new string[] { lwm2mtclist[tcindex], tc.lwm2m[(int)index, 0], tc.lwm2m[(int)index, 1], tc.lwm2m[(int)index, 2], tc.lwm2m[(int)index, 3], tc.lwm2m[(int)index, 4] });
+                listView2.Items.Add(newitem);
+            }
         }
 
         private void doOpenComPort()
@@ -770,12 +810,19 @@ namespace WindowsFormsApp2
         // 송수신 명령/응답 값과 동작 설명을 textbox에 삽입하고 앱 종료시 로그파일로 저장한다.
         public void logPrintInTextBox(string message, string kind)
         {
-            string displayMsg = makeLogPrintLine(message,kind);
+            string displayMsg = Environment.NewLine + makeLogPrintLine(message,kind);
 
-            tBoxDataIN.AppendText(Environment.NewLine);
             tBoxDataIN.AppendText(displayMsg + message);
             tBoxDataIN.SelectionStart = tBoxDataIN.TextLength;
             tBoxDataIN.ScrollToCaret();
+
+            tbOneM2MDataIN.AppendText(displayMsg + message);
+            tbOneM2MDataIN.SelectionStart = tbOneM2MDataIN.TextLength;
+            tbOneM2MDataIN.ScrollToCaret();
+
+            tbLwM2MDataIN.AppendText(displayMsg + message);
+            tbLwM2MDataIN.SelectionStart = tbLwM2MDataIN.TextLength;
+            tbLwM2MDataIN.ScrollToCaret();
         }
 
         // 명령어에 대해 동작시각과 방향을 포함하여 저장한다.
@@ -5637,8 +5684,18 @@ namespace WindowsFormsApp2
 
         private void btnDeviceCheck_Click(object sender, EventArgs e)
         {
-            RetriveDverToPlatform();
-            RetriveMverToPlatform();
+            if (svr.enrmtKeyId != string.Empty)
+            {
+                if (lbDevEntityId.Text != ".")
+                {
+                    RetriveDverToPlatform();
+                    RetriveMverToPlatform();
+                }
+                else
+                    MessageBox.Show("CTN이 등록되어 있지 않습니다.확인이 필요합니다.");
+            }
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
         }
 
         private void RetriveDverToPlatform()
@@ -6134,7 +6191,7 @@ namespace WindowsFormsApp2
             packetStr += "<con>" + txData + "</con>";
             packetStr += "</m2m:cin>";
 
-            SetText(label13, txData);
+            SetText(tbLwM2MData, txData);
 
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
@@ -6364,12 +6421,12 @@ namespace WindowsFormsApp2
                         value += "=";
                     }
                     //LogWrite("value = " + value);
-                    SetText(label37, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
+                    SetText(lbDirectRxData, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
                 }
                 else
-                    SetText(label37, value);
+                    SetText(lbDirectRxData, value);
 
-                if (label37.Text == lbDirectTxData.Text)
+                if (lbDirectRxData.Text == lbDirectTxData.Text)
                 {
                     if (tc.state == "tc021303")
                         endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
@@ -6446,13 +6503,18 @@ namespace WindowsFormsApp2
             packetStr += "</m2m:cin>";
 
             if (data[1] == "oneDevice")
-                SetText(label38, txData);
+                SetText(lboneM2MRxData, txData);
             else if (data[1] == "tc020601")
                 SetText(tbData, txData);
 
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
             //    LogWrite(retStr);
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
