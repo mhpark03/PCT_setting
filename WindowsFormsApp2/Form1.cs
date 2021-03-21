@@ -6514,7 +6514,38 @@ namespace WindowsFormsApp2
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ListView.SelectedListViewItemCollection itemColl = listView1.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                if (item.SubItems[3].Text != string.Empty)
+                {
+                    textBox95.Text = item.SubItems[3].Text;
+                    tBResultCode.Text = item.SubItems[2].Text;
 
+                    getSvrEventLog(item.SubItems[3].Text, string.Empty, item.SubItems[2].Text, item.SubItems[4].Text);
+
+                    tabControl1.SelectedTab = tabLOG;
+                }
+                item.BackColor = Color.OrangeRed;
+            }
+        }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView2.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                if (item.SubItems[3].Text != string.Empty)
+                {
+                    textBox95.Text = item.SubItems[3].Text;
+                    tBResultCode.Text = item.SubItems[2].Text;
+
+                    getSvrEventLog(item.SubItems[3].Text, string.Empty, item.SubItems[2].Text, item.SubItems[4].Text);
+
+                    tabControl1.SelectedTab = tabLOG;
+                }
+                item.BackColor = Color.LightBlue;
+            }
         }
     }
 

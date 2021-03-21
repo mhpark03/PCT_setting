@@ -35,7 +35,7 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabCOM = new System.Windows.Forms.TabPage();
             this.button63 = new System.Windows.Forms.Button();
             this.textBox64 = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -49,6 +49,10 @@
             this.textBox60 = new System.Windows.Forms.TextBox();
             this.textBox61 = new System.Windows.Forms.TextBox();
             this.button62 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbActionState = new System.Windows.Forms.Label();
+            this.gbDeviceLog = new System.Windows.Forms.GroupBox();
+            this.tBoxDataIN = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.lbModemVer = new System.Windows.Forms.TextBox();
             this.textBox89 = new System.Windows.Forms.TextBox();
@@ -73,7 +77,7 @@
             this.button90 = new System.Windows.Forms.Button();
             this.button91 = new System.Windows.Forms.Button();
             this.button87 = new System.Windows.Forms.Button();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabSMST = new System.Windows.Forms.TabPage();
             this.pnSetting = new System.Windows.Forms.Panel();
             this.button68 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
@@ -149,7 +153,7 @@
             this.btnIMSI = new System.Windows.Forms.Button();
             this.btnManufac = new System.Windows.Forms.Button();
             this.btnModel = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPROXY = new System.Windows.Forms.TabPage();
             this.pnProxy = new System.Windows.Forms.Panel();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button44 = new System.Windows.Forms.Button();
@@ -235,7 +239,9 @@
             this.button42 = new System.Windows.Forms.Button();
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabOneM2M = new System.Windows.Forms.TabPage();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.tbOneM2MDataIN = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.gbOneM2MDevice = new System.Windows.Forms.GroupBox();
             this.btReset = new System.Windows.Forms.Button();
@@ -267,15 +273,13 @@
             this.label34 = new System.Windows.Forms.Label();
             this.textBox70 = new System.Windows.Forms.TextBox();
             this.textBox65 = new System.Windows.Forms.TextBox();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.tabLwM2M = new System.Windows.Forms.TabPage();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.tbLwM2MDataIN = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
-            this.gbDeviceLog = new System.Windows.Forms.GroupBox();
-            this.tBoxDataIN = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lbActionState = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.textBox71 = new System.Windows.Forms.TextBox();
             this.button35 = new System.Windows.Forms.Button();
@@ -309,7 +313,7 @@
             this.button125 = new System.Windows.Forms.Button();
             this.tBoxDeviceSN = new System.Windows.Forms.TextBox();
             this.tBoxDeviceModel = new System.Windows.Forms.TextBox();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.tabServer = new System.Windows.Forms.TabPage();
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
@@ -357,7 +361,7 @@
             this.tbSvcSvrCd = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.tbSvcSvrNum = new System.Windows.Forms.TextBox();
-            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.tabLOG = new System.Windows.Forms.TabPage();
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.button127 = new System.Windows.Forms.Button();
@@ -382,53 +386,49 @@
             this.label21 = new System.Windows.Forms.Label();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabTC = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.gbTCResult = new System.Windows.Forms.GroupBox();
             this.tbTCResult = new System.Windows.Forms.TextBox();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.tbLwM2MDataIN = new System.Windows.Forms.TextBox();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.tbOneM2MDataIN = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this.tabCOM.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.gbDeviceLog.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabSMST.SuspendLayout();
             this.pnSetting.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPROXY.SuspendLayout();
             this.pnProxy.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tabOneM2M.SuspendLayout();
+            this.groupBox17.SuspendLayout();
             this.gbOneM2MDevice.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            this.gbDeviceLog.SuspendLayout();
+            this.tabLwM2M.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            this.tabPage7.SuspendLayout();
+            this.tabServer.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.groupBox15.SuspendLayout();
-            this.tabPage8.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabLOG.SuspendLayout();
+            this.tabTC.SuspendLayout();
             this.gbTCResult.SuspendLayout();
-            this.groupBox16.SuspendLayout();
-            this.groupBox17.SuspendLayout();
             this.SuspendLayout();
             // 
             // cBoxBaudRate
@@ -490,39 +490,39 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage5);
-            this.tabControl1.Controls.Add(this.tabPage6);
-            this.tabControl1.Controls.Add(this.tabPage7);
-            this.tabControl1.Controls.Add(this.tabPage8);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabCOM);
+            this.tabControl1.Controls.Add(this.tabSMST);
+            this.tabControl1.Controls.Add(this.tabPROXY);
+            this.tabControl1.Controls.Add(this.tabOneM2M);
+            this.tabControl1.Controls.Add(this.tabLwM2M);
+            this.tabControl1.Controls.Add(this.tabServer);
+            this.tabControl1.Controls.Add(this.tabLOG);
+            this.tabControl1.Controls.Add(this.tabTC);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1140, 779);
             this.tabControl1.TabIndex = 44;
             // 
-            // tabPage4
+            // tabCOM
             // 
-            this.tabPage4.Controls.Add(this.button63);
-            this.tabPage4.Controls.Add(this.textBox64);
-            this.tabPage4.Controls.Add(this.groupBox9);
-            this.tabPage4.Controls.Add(this.label6);
-            this.tabPage4.Controls.Add(this.lbActionState);
-            this.tabPage4.Controls.Add(this.gbDeviceLog);
-            this.tabPage4.Controls.Add(this.groupBox10);
-            this.tabPage4.Controls.Add(this.progressBar1);
-            this.tabPage4.Controls.Add(this.cBoxCOMPORT);
-            this.tabPage4.Controls.Add(this.cBoxBaudRate);
-            this.tabPage4.Controls.Add(this.button87);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "COM port";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabCOM.Controls.Add(this.button63);
+            this.tabCOM.Controls.Add(this.textBox64);
+            this.tabCOM.Controls.Add(this.groupBox9);
+            this.tabCOM.Controls.Add(this.label6);
+            this.tabCOM.Controls.Add(this.lbActionState);
+            this.tabCOM.Controls.Add(this.gbDeviceLog);
+            this.tabCOM.Controls.Add(this.groupBox10);
+            this.tabCOM.Controls.Add(this.progressBar1);
+            this.tabCOM.Controls.Add(this.cBoxCOMPORT);
+            this.tabCOM.Controls.Add(this.cBoxBaudRate);
+            this.tabCOM.Controls.Add(this.button87);
+            this.tabCOM.Location = new System.Drawing.Point(4, 22);
+            this.tabCOM.Name = "tabCOM";
+            this.tabCOM.Size = new System.Drawing.Size(1132, 753);
+            this.tabCOM.TabIndex = 3;
+            this.tabCOM.Text = "COM port";
+            this.tabCOM.UseVisualStyleBackColor = true;
             // 
             // button63
             // 
@@ -651,6 +651,48 @@
             this.button62.TabIndex = 60;
             this.button62.Text = "NW STATUS";
             this.button62.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(784, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 12);
+            this.label6.TabIndex = 57;
+            this.label6.Text = "동작상태 :";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbActionState
+            // 
+            this.lbActionState.AutoSize = true;
+            this.lbActionState.Location = new System.Drawing.Point(851, 49);
+            this.lbActionState.Name = "lbActionState";
+            this.lbActionState.Size = new System.Drawing.Size(43, 12);
+            this.lbActionState.TabIndex = 58;
+            this.lbActionState.Text = "closed";
+            // 
+            // gbDeviceLog
+            // 
+            this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
+            this.gbDeviceLog.Location = new System.Drawing.Point(532, 64);
+            this.gbDeviceLog.Name = "gbDeviceLog";
+            this.gbDeviceLog.Size = new System.Drawing.Size(582, 682);
+            this.gbDeviceLog.TabIndex = 44;
+            this.gbDeviceLog.TabStop = false;
+            this.gbDeviceLog.Text = "Device Message";
+            // 
+            // tBoxDataIN
+            // 
+            this.tBoxDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tBoxDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tBoxDataIN.Location = new System.Drawing.Point(3, 19);
+            this.tBoxDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.tBoxDataIN.Multiline = true;
+            this.tBoxDataIN.Name = "tBoxDataIN";
+            this.tBoxDataIN.ReadOnly = true;
+            this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tBoxDataIN.Size = new System.Drawing.Size(576, 660);
+            this.tBoxDataIN.TabIndex = 22;
             // 
             // groupBox10
             // 
@@ -882,16 +924,16 @@
             this.button87.UseVisualStyleBackColor = true;
             this.button87.Click += new System.EventHandler(this.button87_Click);
             // 
-            // tabPage1
+            // tabSMST
             // 
-            this.tabPage1.Controls.Add(this.pnSetting);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "SMST setting";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabSMST.Controls.Add(this.pnSetting);
+            this.tabSMST.Location = new System.Drawing.Point(4, 22);
+            this.tabSMST.Name = "tabSMST";
+            this.tabSMST.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSMST.Size = new System.Drawing.Size(1132, 753);
+            this.tabSMST.TabIndex = 0;
+            this.tabSMST.Text = "SMST setting";
+            this.tabSMST.UseVisualStyleBackColor = true;
             // 
             // pnSetting
             // 
@@ -1756,16 +1798,16 @@
             this.btnModel.Text = "IMS PDN";
             this.btnModel.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPROXY
             // 
-            this.tabPage2.Controls.Add(this.pnProxy);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "PROXY setting";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPROXY.Controls.Add(this.pnProxy);
+            this.tabPROXY.Location = new System.Drawing.Point(4, 22);
+            this.tabPROXY.Name = "tabPROXY";
+            this.tabPROXY.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPROXY.Size = new System.Drawing.Size(1132, 753);
+            this.tabPROXY.TabIndex = 1;
+            this.tabPROXY.Text = "PROXY setting";
+            this.tabPROXY.UseVisualStyleBackColor = true;
             // 
             // pnProxy
             // 
@@ -2665,23 +2707,46 @@
             this.button41.UseVisualStyleBackColor = true;
             this.button41.Click += new System.EventHandler(this.button41_Click);
             // 
-            // tabPage5
+            // tabOneM2M
             // 
-            this.tabPage5.Controls.Add(this.groupBox17);
-            this.tabPage5.Controls.Add(this.label30);
-            this.tabPage5.Controls.Add(this.gbOneM2MDevice);
-            this.tabPage5.Controls.Add(this.textBox62);
-            this.tabPage5.Controls.Add(this.btnoneM2MFullTest);
-            this.tabPage5.Controls.Add(this.label32);
-            this.tabPage5.Controls.Add(this.label34);
-            this.tabPage5.Controls.Add(this.textBox70);
-            this.tabPage5.Controls.Add(this.textBox65);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "oneM2M Device";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tabOneM2M.Controls.Add(this.groupBox17);
+            this.tabOneM2M.Controls.Add(this.label30);
+            this.tabOneM2M.Controls.Add(this.gbOneM2MDevice);
+            this.tabOneM2M.Controls.Add(this.textBox62);
+            this.tabOneM2M.Controls.Add(this.btnoneM2MFullTest);
+            this.tabOneM2M.Controls.Add(this.label32);
+            this.tabOneM2M.Controls.Add(this.label34);
+            this.tabOneM2M.Controls.Add(this.textBox70);
+            this.tabOneM2M.Controls.Add(this.textBox65);
+            this.tabOneM2M.Location = new System.Drawing.Point(4, 22);
+            this.tabOneM2M.Name = "tabOneM2M";
+            this.tabOneM2M.Size = new System.Drawing.Size(1132, 753);
+            this.tabOneM2M.TabIndex = 4;
+            this.tabOneM2M.Text = "oneM2M Device";
+            this.tabOneM2M.UseVisualStyleBackColor = true;
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.tbOneM2MDataIN);
+            this.groupBox17.Location = new System.Drawing.Point(527, 55);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(582, 682);
+            this.groupBox17.TabIndex = 46;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Device Message";
+            // 
+            // tbOneM2MDataIN
+            // 
+            this.tbOneM2MDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tbOneM2MDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbOneM2MDataIN.Location = new System.Drawing.Point(3, 19);
+            this.tbOneM2MDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.tbOneM2MDataIN.Multiline = true;
+            this.tbOneM2MDataIN.Name = "tbOneM2MDataIN";
+            this.tbOneM2MDataIN.ReadOnly = true;
+            this.tbOneM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbOneM2MDataIN.Size = new System.Drawing.Size(576, 660);
+            this.tbOneM2MDataIN.TabIndex = 22;
             // 
             // label30
             // 
@@ -2992,24 +3057,47 @@
             this.textBox65.Text = "123456";
             this.textBox65.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tabPage6
+            // tabLwM2M
             // 
-            this.tabPage6.Controls.Add(this.groupBox16);
-            this.tabPage6.Controls.Add(this.label2);
-            this.tabPage6.Controls.Add(this.label1);
-            this.tabPage6.Controls.Add(this.tBoxDeviceVer);
-            this.tabPage6.Controls.Add(this.button113);
-            this.tabPage6.Controls.Add(this.groupBox11);
-            this.tabPage6.Controls.Add(this.label3);
-            this.tabPage6.Controls.Add(this.button125);
-            this.tabPage6.Controls.Add(this.tBoxDeviceSN);
-            this.tabPage6.Controls.Add(this.tBoxDeviceModel);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "LwM2M Device";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.tabLwM2M.Controls.Add(this.groupBox16);
+            this.tabLwM2M.Controls.Add(this.label2);
+            this.tabLwM2M.Controls.Add(this.label1);
+            this.tabLwM2M.Controls.Add(this.tBoxDeviceVer);
+            this.tabLwM2M.Controls.Add(this.button113);
+            this.tabLwM2M.Controls.Add(this.groupBox11);
+            this.tabLwM2M.Controls.Add(this.label3);
+            this.tabLwM2M.Controls.Add(this.button125);
+            this.tabLwM2M.Controls.Add(this.tBoxDeviceSN);
+            this.tabLwM2M.Controls.Add(this.tBoxDeviceModel);
+            this.tabLwM2M.Location = new System.Drawing.Point(4, 22);
+            this.tabLwM2M.Name = "tabLwM2M";
+            this.tabLwM2M.Size = new System.Drawing.Size(1132, 753);
+            this.tabLwM2M.TabIndex = 5;
+            this.tabLwM2M.Text = "LwM2M Device";
+            this.tabLwM2M.UseVisualStyleBackColor = true;
+            // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.tbLwM2MDataIN);
+            this.groupBox16.Location = new System.Drawing.Point(540, 65);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(582, 682);
+            this.groupBox16.TabIndex = 45;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Device Message";
+            // 
+            // tbLwM2MDataIN
+            // 
+            this.tbLwM2MDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.tbLwM2MDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbLwM2MDataIN.Location = new System.Drawing.Point(3, 19);
+            this.tbLwM2MDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
+            this.tbLwM2MDataIN.Multiline = true;
+            this.tbLwM2MDataIN.Name = "tbLwM2MDataIN";
+            this.tbLwM2MDataIN.ReadOnly = true;
+            this.tbLwM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbLwM2MDataIN.Size = new System.Drawing.Size(576, 660);
+            this.tbLwM2MDataIN.TabIndex = 22;
             // 
             // label2
             // 
@@ -3038,29 +3126,6 @@
             this.tBoxDeviceVer.Text = "1.0.0";
             this.tBoxDeviceVer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // gbDeviceLog
-            // 
-            this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
-            this.gbDeviceLog.Location = new System.Drawing.Point(532, 64);
-            this.gbDeviceLog.Name = "gbDeviceLog";
-            this.gbDeviceLog.Size = new System.Drawing.Size(582, 682);
-            this.gbDeviceLog.TabIndex = 44;
-            this.gbDeviceLog.TabStop = false;
-            this.gbDeviceLog.Text = "Device Message";
-            // 
-            // tBoxDataIN
-            // 
-            this.tBoxDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tBoxDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tBoxDataIN.Location = new System.Drawing.Point(3, 19);
-            this.tBoxDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tBoxDataIN.Multiline = true;
-            this.tBoxDataIN.Name = "tBoxDataIN";
-            this.tBoxDataIN.ReadOnly = true;
-            this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxDataIN.Size = new System.Drawing.Size(576, 660);
-            this.tBoxDataIN.TabIndex = 22;
-            // 
             // button113
             // 
             this.button113.Location = new System.Drawing.Point(197, 24);
@@ -3070,25 +3135,6 @@
             this.button113.Text = "시험절차서 전체 실행";
             this.button113.UseVisualStyleBackColor = true;
             this.button113.Click += new System.EventHandler(this.button113_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(784, 49);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 12);
-            this.label6.TabIndex = 57;
-            this.label6.Text = "동작상태 :";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lbActionState
-            // 
-            this.lbActionState.AutoSize = true;
-            this.lbActionState.Location = new System.Drawing.Point(851, 49);
-            this.lbActionState.Name = "lbActionState";
-            this.lbActionState.Size = new System.Drawing.Size(43, 12);
-            this.lbActionState.TabIndex = 58;
-            this.lbActionState.Text = "closed";
             // 
             // groupBox11
             // 
@@ -3430,27 +3476,27 @@
             this.tBoxDeviceModel.TabIndex = 36;
             this.tBoxDeviceModel.Text = "LWEMG";
             // 
-            // tabPage7
+            // tabServer
             // 
-            this.tabPage7.Controls.Add(this.label23);
-            this.tabPage7.Controls.Add(this.label25);
-            this.tabPage7.Controls.Add(this.groupBox13);
-            this.tabPage7.Controls.Add(this.groupBox12);
-            this.tabPage7.Controls.Add(this.groupBox14);
-            this.tabPage7.Controls.Add(this.groupBox15);
-            this.tabPage7.Controls.Add(this.btnMEFAuth);
-            this.tabPage7.Controls.Add(this.tbSvcCd);
-            this.tabPage7.Controls.Add(this.label28);
-            this.tabPage7.Controls.Add(this.label31);
-            this.tabPage7.Controls.Add(this.tbSvcSvrCd);
-            this.tabPage7.Controls.Add(this.label33);
-            this.tabPage7.Controls.Add(this.tbSvcSvrNum);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Service Server";
-            this.tabPage7.UseVisualStyleBackColor = true;
+            this.tabServer.Controls.Add(this.label23);
+            this.tabServer.Controls.Add(this.label25);
+            this.tabServer.Controls.Add(this.groupBox13);
+            this.tabServer.Controls.Add(this.groupBox12);
+            this.tabServer.Controls.Add(this.groupBox14);
+            this.tabServer.Controls.Add(this.groupBox15);
+            this.tabServer.Controls.Add(this.btnMEFAuth);
+            this.tabServer.Controls.Add(this.tbSvcCd);
+            this.tabServer.Controls.Add(this.label28);
+            this.tabServer.Controls.Add(this.label31);
+            this.tabServer.Controls.Add(this.tbSvcSvrCd);
+            this.tabServer.Controls.Add(this.label33);
+            this.tabServer.Controls.Add(this.tbSvcSvrNum);
+            this.tabServer.Location = new System.Drawing.Point(4, 22);
+            this.tabServer.Name = "tabServer";
+            this.tabServer.Size = new System.Drawing.Size(1132, 753);
+            this.tabServer.TabIndex = 6;
+            this.tabServer.Text = "Service Server";
+            this.tabServer.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
@@ -3915,38 +3961,38 @@
             this.tbSvcSvrNum.TabIndex = 7;
             this.tbSvcSvrNum.Text = "1";
             // 
-            // tabPage8
+            // tabLOG
             // 
-            this.tabPage8.Controls.Add(this.label18);
-            this.tabPage8.Controls.Add(this.label16);
-            this.tabPage8.Controls.Add(this.button127);
-            this.tabPage8.Controls.Add(this.label27);
-            this.tabPage8.Controls.Add(this.tBResultCode);
-            this.tabPage8.Controls.Add(this.button126);
-            this.tabPage8.Controls.Add(this.button122);
-            this.tabPage8.Controls.Add(this.label19);
-            this.tabPage8.Controls.Add(this.textBox94);
-            this.tabPage8.Controls.Add(this.tbDeviceCTN);
-            this.tabPage8.Controls.Add(this.label26);
-            this.tabPage8.Controls.Add(this.label24);
-            this.tabPage8.Controls.Add(this.label22);
-            this.tabPage8.Controls.Add(this.button123);
-            this.tabPage8.Controls.Add(this.listBox3);
-            this.tabPage8.Controls.Add(this.comboBox1);
-            this.tabPage8.Controls.Add(this.textBox95);
-            this.tabPage8.Controls.Add(this.label12);
-            this.tabPage8.Controls.Add(this.listBox1);
-            this.tabPage8.Controls.Add(this.btnGetLogList);
-            this.tabPage8.Controls.Add(this.button124);
-            this.tabPage8.Controls.Add(this.label21);
-            this.tabPage8.Controls.Add(this.listBox2);
-            this.tabPage8.Controls.Add(this.label20);
-            this.tabPage8.Location = new System.Drawing.Point(4, 22);
-            this.tabPage8.Name = "tabPage8";
-            this.tabPage8.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage8.TabIndex = 7;
-            this.tabPage8.Text = "Platform LOG";
-            this.tabPage8.UseVisualStyleBackColor = true;
+            this.tabLOG.Controls.Add(this.label18);
+            this.tabLOG.Controls.Add(this.label16);
+            this.tabLOG.Controls.Add(this.button127);
+            this.tabLOG.Controls.Add(this.label27);
+            this.tabLOG.Controls.Add(this.tBResultCode);
+            this.tabLOG.Controls.Add(this.button126);
+            this.tabLOG.Controls.Add(this.button122);
+            this.tabLOG.Controls.Add(this.label19);
+            this.tabLOG.Controls.Add(this.textBox94);
+            this.tabLOG.Controls.Add(this.tbDeviceCTN);
+            this.tabLOG.Controls.Add(this.label26);
+            this.tabLOG.Controls.Add(this.label24);
+            this.tabLOG.Controls.Add(this.label22);
+            this.tabLOG.Controls.Add(this.button123);
+            this.tabLOG.Controls.Add(this.listBox3);
+            this.tabLOG.Controls.Add(this.comboBox1);
+            this.tabLOG.Controls.Add(this.textBox95);
+            this.tabLOG.Controls.Add(this.label12);
+            this.tabLOG.Controls.Add(this.listBox1);
+            this.tabLOG.Controls.Add(this.btnGetLogList);
+            this.tabLOG.Controls.Add(this.button124);
+            this.tabLOG.Controls.Add(this.label21);
+            this.tabLOG.Controls.Add(this.listBox2);
+            this.tabLOG.Controls.Add(this.label20);
+            this.tabLOG.Location = new System.Drawing.Point(4, 22);
+            this.tabLOG.Name = "tabLOG";
+            this.tabLOG.Size = new System.Drawing.Size(1132, 753);
+            this.tabLOG.TabIndex = 7;
+            this.tabLOG.Text = "Platform LOG";
+            this.tabLOG.UseVisualStyleBackColor = true;
             // 
             // label18
             // 
@@ -4186,19 +4232,59 @@
             this.label20.Text = "요청시간      ID      ResultCode  결과 (요청  내용)";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tabPage3
+            // tabTC
             // 
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.listView2);
-            this.tabPage3.Controls.Add(this.listView1);
-            this.tabPage3.Controls.Add(this.gbTCResult);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1132, 753);
-            this.tabPage3.TabIndex = 8;
-            this.tabPage3.Text = "시험절차서";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabTC.Controls.Add(this.label5);
+            this.tabTC.Controls.Add(this.label4);
+            this.tabTC.Controls.Add(this.listView2);
+            this.tabTC.Controls.Add(this.listView1);
+            this.tabTC.Controls.Add(this.gbTCResult);
+            this.tabTC.Location = new System.Drawing.Point(4, 22);
+            this.tabTC.Name = "tabTC";
+            this.tabTC.Size = new System.Drawing.Size(1132, 753);
+            this.tabTC.TabIndex = 8;
+            this.tabTC.Text = "시험절차서";
+            this.tabTC.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("나눔고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Location = new System.Drawing.Point(587, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(329, 24);
+            this.label5.TabIndex = 48;
+            this.label5.Text = "LwM2M 디바이스 시험절차서 결과";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("나눔고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label4.Location = new System.Drawing.Point(45, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(342, 24);
+            this.label4.TabIndex = 47;
+            this.label4.Text = "OneM2M 디바이스 시험절차서 결과";
+            // 
+            // listView2
+            // 
+            this.listView2.HideSelection = false;
+            this.listView2.Location = new System.Drawing.Point(565, 60);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(523, 363);
+            this.listView2.TabIndex = 46;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
+            // 
+            // listView1
+            // 
+            this.listView1.HideSelection = false;
+            this.listView1.Location = new System.Drawing.Point(8, 60);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(523, 637);
+            this.listView1.TabIndex = 45;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // gbTCResult
             // 
@@ -4242,91 +4328,6 @@
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
-            // groupBox16
-            // 
-            this.groupBox16.Controls.Add(this.tbLwM2MDataIN);
-            this.groupBox16.Location = new System.Drawing.Point(540, 65);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(582, 682);
-            this.groupBox16.TabIndex = 45;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Device Message";
-            // 
-            // tbLwM2MDataIN
-            // 
-            this.tbLwM2MDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbLwM2MDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbLwM2MDataIN.Location = new System.Drawing.Point(3, 19);
-            this.tbLwM2MDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tbLwM2MDataIN.Multiline = true;
-            this.tbLwM2MDataIN.Name = "tbLwM2MDataIN";
-            this.tbLwM2MDataIN.ReadOnly = true;
-            this.tbLwM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLwM2MDataIN.Size = new System.Drawing.Size(576, 660);
-            this.tbLwM2MDataIN.TabIndex = 22;
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.tbOneM2MDataIN);
-            this.groupBox17.Location = new System.Drawing.Point(527, 55);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(582, 682);
-            this.groupBox17.TabIndex = 46;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Device Message";
-            // 
-            // tbOneM2MDataIN
-            // 
-            this.tbOneM2MDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbOneM2MDataIN.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbOneM2MDataIN.Location = new System.Drawing.Point(3, 19);
-            this.tbOneM2MDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tbOneM2MDataIN.Multiline = true;
-            this.tbOneM2MDataIN.Name = "tbOneM2MDataIN";
-            this.tbOneM2MDataIN.ReadOnly = true;
-            this.tbOneM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOneM2MDataIN.Size = new System.Drawing.Size(576, 660);
-            this.tbOneM2MDataIN.TabIndex = 22;
-            // 
-            // listView1
-            // 
-            this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(8, 60);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(523, 637);
-            this.listView1.TabIndex = 45;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-            // 
-            // listView2
-            // 
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(565, 60);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(523, 363);
-            this.listView2.TabIndex = 46;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("나눔고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label4.Location = new System.Drawing.Point(45, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(342, 24);
-            this.label4.TabIndex = 47;
-            this.label4.Text = "OneM2M 디바이스 시험절차서 결과";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("나눔고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label5.Location = new System.Drawing.Point(587, 29);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(329, 24);
-            this.label5.TabIndex = 48;
-            this.label5.Text = "LwM2M 디바이스 시험절차서 결과";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -4343,13 +4344,15 @@
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
+            this.tabCOM.ResumeLayout(false);
+            this.tabCOM.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.gbDeviceLog.ResumeLayout(false);
+            this.gbDeviceLog.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
+            this.tabSMST.ResumeLayout(false);
             this.pnSetting.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
@@ -4358,7 +4361,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPROXY.ResumeLayout(false);
             this.pnProxy.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -4368,18 +4371,20 @@
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.tabOneM2M.ResumeLayout(false);
+            this.tabOneM2M.PerformLayout();
+            this.groupBox17.ResumeLayout(false);
+            this.groupBox17.PerformLayout();
             this.gbOneM2MDevice.ResumeLayout(false);
             this.gbOneM2MDevice.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
-            this.gbDeviceLog.ResumeLayout(false);
-            this.gbDeviceLog.PerformLayout();
+            this.tabLwM2M.ResumeLayout(false);
+            this.tabLwM2M.PerformLayout();
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
+            this.tabServer.ResumeLayout(false);
+            this.tabServer.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
@@ -4388,16 +4393,12 @@
             this.groupBox14.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
-            this.tabPage8.ResumeLayout(false);
-            this.tabPage8.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabLOG.ResumeLayout(false);
+            this.tabLOG.PerformLayout();
+            this.tabTC.ResumeLayout(false);
+            this.tabTC.PerformLayout();
             this.gbTCResult.ResumeLayout(false);
             this.gbTCResult.PerformLayout();
-            this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
-            this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4623,13 +4624,13 @@
         private System.Windows.Forms.Button button90;
         private System.Windows.Forms.Button button91;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.TabPage tabPage6;
-        private System.Windows.Forms.TabPage tabPage7;
-        private System.Windows.Forms.TabPage tabPage8;
+        private System.Windows.Forms.TabPage tabSMST;
+        private System.Windows.Forms.TabPage tabPROXY;
+        private System.Windows.Forms.TabPage tabCOM;
+        private System.Windows.Forms.TabPage tabOneM2M;
+        private System.Windows.Forms.TabPage tabLwM2M;
+        private System.Windows.Forms.TabPage tabServer;
+        private System.Windows.Forms.TabPage tabLOG;
         private System.Windows.Forms.TextBox lbModemVer;
         private System.Windows.Forms.TextBox textBox89;
         private System.Windows.Forms.TextBox lbIccid;
@@ -4697,7 +4698,7 @@
         private System.Windows.Forms.TextBox tBoxDataIN;
         private System.Windows.Forms.Button button63;
         private System.Windows.Forms.TextBox textBox64;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabTC;
         private System.Windows.Forms.GroupBox gbTCResult;
         private System.Windows.Forms.TextBox tbTCResult;
         private System.Windows.Forms.GroupBox gbOneM2MDevice;
