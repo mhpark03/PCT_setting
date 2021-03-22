@@ -400,7 +400,7 @@ namespace WindowsFormsApp2
         string mefUrl = "https://testmef.onem2m.uplus.co.kr:443"; // MEF(개발기)
         string logUrl = "http://106.103.228.184/api/v1"; // oneM2M log(개발기)
 
-        string tcStartTime = string.Empty;
+        DateTime tcStartTime = DateTime.Now.AddHours(-1);
         string tcmsg = string.Empty;
 
         public Form1()
@@ -3713,11 +3713,12 @@ namespace WindowsFormsApp2
 
         private void btnGetLogList_Click(object sender, EventArgs e)
         {
-            string kind = "type="+dev.type;
+            string kind = "type=onem2m";
+            if (comboBox1.SelectedIndex == 1)
+                kind = "type=lwm2m";
             if (tbDeviceCTN.Text != string.Empty)
                 kind += "&ctn=" + tbDeviceCTN.Text;
-            //if (tcStartTime != string.Empty)
-            //    kind += "&from=" + tcStartTime;
+            kind += "&from=" + tcStartTime.ToString("yyyyMMddHHmmss");
             getSvrLoglists(kind, "man");
         }
 
@@ -5905,7 +5906,9 @@ namespace WindowsFormsApp2
         {
             firmwareInitial("auto");
 
-            tcStartTime = DateTime.Now.ToString("yyyyMMddHHmm" + "00");
+            tcStartTime = DateTime.Now.AddMinutes(-1);
+            dateTimePicker1.Value = tcStartTime;
+
             for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
             {
                 tc.lwm2m[i, 0] = "Not TEST";
@@ -6619,6 +6622,26 @@ namespace WindowsFormsApp2
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Console.WriteLine(webBrowser1.Url.ToString());
+        }
+
+        private void btnoneM2MFullTest_Click(object sender, EventArgs e)
+        {
+            tcStartTime = DateTime.Now.AddMinutes(-1);
+            dateTimePicker1.Value = tcStartTime;
+
+            for (int i = 1; i < (int)onem2mtc.tc021401 + 1; i++)
+            {
+                tc.onem2m[i, 0] = "Not TEST";
+                tc.onem2m[i, 1] = string.Empty;
+                tc.onem2m[i, 2] = string.Empty;
+                tc.onem2m[i, 3] = string.Empty;
+                tc.onem2m[i, 4] = string.Empty;
+            }
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            tcStartTime = dateTimePicker1.Value;
         }
     }
 

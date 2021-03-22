@@ -374,6 +374,7 @@
             this.label33 = new System.Windows.Forms.Label();
             this.tbSvcSvrNum = new System.Windows.Forms.TextBox();
             this.tabLOG = new System.Windows.Forms.TabPage();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.button127 = new System.Windows.Forms.Button();
@@ -405,12 +406,12 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.gbTCResult = new System.Windows.Forms.GroupBox();
             this.tbTCResult = new System.Windows.Forms.TextBox();
+            this.webpage = new System.Windows.Forms.TabPage();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.webpage = new System.Windows.Forms.TabPage();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -504,7 +505,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1448, 829);
+            this.panel1.Size = new System.Drawing.Size(1208, 829);
             this.panel1.TabIndex = 10;
             // 
             // tabControl1
@@ -539,7 +540,7 @@
             this.tabCOM.Controls.Add(this.button87);
             this.tabCOM.Location = new System.Drawing.Point(4, 22);
             this.tabCOM.Name = "tabCOM";
-            this.tabCOM.Size = new System.Drawing.Size(1132, 753);
+            this.tabCOM.Size = new System.Drawing.Size(1196, 765);
             this.tabCOM.TabIndex = 3;
             this.tabCOM.Text = "COM port";
             this.tabCOM.UseVisualStyleBackColor = true;
@@ -954,7 +955,7 @@
             this.tabSMST.Location = new System.Drawing.Point(4, 22);
             this.tabSMST.Name = "tabSMST";
             this.tabSMST.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSMST.Size = new System.Drawing.Size(1132, 753);
+            this.tabSMST.Size = new System.Drawing.Size(1196, 765);
             this.tabSMST.TabIndex = 0;
             this.tabSMST.Text = "SMST setting";
             this.tabSMST.UseVisualStyleBackColor = true;
@@ -974,7 +975,7 @@
             this.pnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSetting.Location = new System.Drawing.Point(3, 3);
             this.pnSetting.Name = "pnSetting";
-            this.pnSetting.Size = new System.Drawing.Size(1126, 747);
+            this.pnSetting.Size = new System.Drawing.Size(1190, 759);
             this.pnSetting.TabIndex = 13;
             // 
             // button68
@@ -1828,7 +1829,7 @@
             this.tabPROXY.Location = new System.Drawing.Point(4, 22);
             this.tabPROXY.Name = "tabPROXY";
             this.tabPROXY.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPROXY.Size = new System.Drawing.Size(1132, 753);
+            this.tabPROXY.Size = new System.Drawing.Size(1196, 765);
             this.tabPROXY.TabIndex = 1;
             this.tabPROXY.Text = "PROXY setting";
             this.tabPROXY.UseVisualStyleBackColor = true;
@@ -1846,7 +1847,7 @@
             this.pnProxy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnProxy.Location = new System.Drawing.Point(3, 3);
             this.pnProxy.Name = "pnProxy";
-            this.pnProxy.Size = new System.Drawing.Size(1126, 747);
+            this.pnProxy.Size = new System.Drawing.Size(1190, 759);
             this.pnProxy.TabIndex = 34;
             // 
             // groupBox8
@@ -2748,7 +2749,7 @@
             this.tabOneM2M.Controls.Add(this.textBox65);
             this.tabOneM2M.Location = new System.Drawing.Point(4, 22);
             this.tabOneM2M.Name = "tabOneM2M";
-            this.tabOneM2M.Size = new System.Drawing.Size(1132, 753);
+            this.tabOneM2M.Size = new System.Drawing.Size(1196, 765);
             this.tabOneM2M.TabIndex = 4;
             this.tabOneM2M.Text = "oneM2M Device";
             this.tabOneM2M.UseVisualStyleBackColor = true;
@@ -3146,6 +3147,7 @@
             this.btnoneM2MFullTest.TabIndex = 41;
             this.btnoneM2MFullTest.Text = "시험절차서 전체 실행";
             this.btnoneM2MFullTest.UseVisualStyleBackColor = true;
+            this.btnoneM2MFullTest.Click += new System.EventHandler(this.btnoneM2MFullTest_Click);
             // 
             // label32
             // 
@@ -3197,7 +3199,7 @@
             this.tabLwM2M.Controls.Add(this.tBoxDeviceModel);
             this.tabLwM2M.Location = new System.Drawing.Point(4, 22);
             this.tabLwM2M.Name = "tabLwM2M";
-            this.tabLwM2M.Size = new System.Drawing.Size(1132, 753);
+            this.tabLwM2M.Size = new System.Drawing.Size(1196, 765);
             this.tabLwM2M.TabIndex = 5;
             this.tabLwM2M.Text = "LwM2M Device";
             this.tabLwM2M.UseVisualStyleBackColor = true;
@@ -3619,7 +3621,7 @@
             this.tabServer.Controls.Add(this.tbSvcSvrNum);
             this.tabServer.Location = new System.Drawing.Point(4, 22);
             this.tabServer.Name = "tabServer";
-            this.tabServer.Size = new System.Drawing.Size(1132, 753);
+            this.tabServer.Size = new System.Drawing.Size(1196, 765);
             this.tabServer.TabIndex = 6;
             this.tabServer.Text = "Service Server";
             this.tabServer.UseVisualStyleBackColor = true;
@@ -4114,6 +4116,7 @@
             // 
             // tabLOG
             // 
+            this.tabLOG.Controls.Add(this.dateTimePicker1);
             this.tabLOG.Controls.Add(this.label18);
             this.tabLOG.Controls.Add(this.label16);
             this.tabLOG.Controls.Add(this.button127);
@@ -4140,10 +4143,21 @@
             this.tabLOG.Controls.Add(this.label20);
             this.tabLOG.Location = new System.Drawing.Point(4, 22);
             this.tabLOG.Name = "tabLOG";
-            this.tabLOG.Size = new System.Drawing.Size(1132, 753);
+            this.tabLOG.Size = new System.Drawing.Size(1196, 765);
             this.tabLOG.TabIndex = 7;
             this.tabLOG.Text = "Platform LOG";
             this.tabLOG.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker1.Location = new System.Drawing.Point(768, 37);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.ShowUpDown = true;
+            this.dateTimePicker1.Size = new System.Drawing.Size(116, 21);
+            this.dateTimePicker1.TabIndex = 74;
+            this.dateTimePicker1.Value = new System.DateTime(2021, 3, 22, 9, 17, 8, 0);
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // label18
             // 
@@ -4392,7 +4406,7 @@
             this.tabTC.Controls.Add(this.gbTCResult);
             this.tabTC.Location = new System.Drawing.Point(4, 22);
             this.tabTC.Name = "tabTC";
-            this.tabTC.Size = new System.Drawing.Size(1132, 753);
+            this.tabTC.Size = new System.Drawing.Size(1196, 765);
             this.tabTC.TabIndex = 8;
             this.tabTC.Text = "시험절차서";
             this.tabTC.UseVisualStyleBackColor = true;
@@ -4457,6 +4471,27 @@
             this.tbTCResult.Size = new System.Drawing.Size(517, 381);
             this.tbTCResult.TabIndex = 35;
             // 
+            // webpage
+            // 
+            this.webpage.Controls.Add(this.webBrowser1);
+            this.webpage.Location = new System.Drawing.Point(4, 22);
+            this.webpage.Name = "webpage";
+            this.webpage.Size = new System.Drawing.Size(1196, 765);
+            this.webpage.TabIndex = 9;
+            this.webpage.Text = "Admin page";
+            this.webpage.UseVisualStyleBackColor = true;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(1196, 765);
+            this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.Url = new System.Uri("https://testadm.onem2m.uplus.co.kr:8443", System.UriKind.Absolute);
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            // 
             // button81
             // 
             this.button81.Location = new System.Drawing.Point(1112, 796);
@@ -4479,32 +4514,11 @@
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
-            // webpage
-            // 
-            this.webpage.Controls.Add(this.webBrowser1);
-            this.webpage.Location = new System.Drawing.Point(4, 22);
-            this.webpage.Name = "webpage";
-            this.webpage.Size = new System.Drawing.Size(1196, 765);
-            this.webpage.TabIndex = 9;
-            this.webpage.Text = "Admin page";
-            this.webpage.UseVisualStyleBackColor = true;
-            // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1196, 765);
-            this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://testadm.onem2m.uplus.co.kr:8443", System.UriKind.Absolute);
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1448, 829);
+            this.ClientSize = new System.Drawing.Size(1208, 829);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
@@ -4963,6 +4977,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TabPage webpage;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
 
