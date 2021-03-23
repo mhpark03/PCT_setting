@@ -25,7 +25,7 @@ namespace WindowsFormsApp2
 
         private enum states
         {
-            booting,
+            closed,
             idle,
             getmodel,
             getmanufac,
@@ -98,6 +98,7 @@ namespace WindowsFormsApp2
             updateremoteCSE,
             delremoteCSE,
             setcontainer,
+            setrxcontainer,
             delcontainer,
             setsubscript,
             delsubscript,
@@ -155,14 +156,27 @@ namespace WindowsFormsApp2
             autogeticcidbc95,
 
             getmodemSvrVer,
-            modemFWUPfinish,
+            modemFWUPreport,
             modemFWUPfinishLTE,
             modemFWUPstart,
+            modemFWUPfinish,
+            modemFWUPboot,
+            modemFWUPmodechk,
+            modemFWUPmodeset,
 
             getdeviceSvrVer,
             setdeviceSvrVer,
             deviceFWUPfinish,
             deviceFWUPstart,
+            deviceFWDLfinsh,
+
+            deviceFWList,
+            deviceFWOpen,
+            deviceFWOpened,
+            deviceFWRead,
+            deviceFWReading,
+            deviceFWClose,
+            deviceFWClosed,
 
             catm1check,
             catm1set,
@@ -385,14 +399,19 @@ namespace WindowsFormsApp2
 
         string dataIN = string.Empty;
         string nextcommand = string.Empty;    //OK를 받은 후 전송할 명령어가 존재하는 경우
-                                    //예를들어 +CEREG와 같이 OK를 포함한 응답 값을 받은 경우 OK처리 후에 명령어를 전송해야 한다
-                                    // states 값을 바꾸고 명령어를 전송하면 명령의 응답을 받기전 이전에 받았던 OK에 동작할 수 있다.
+                                              //예를들어 +CEREG와 같이 OK를 포함한 응답 값을 받은 경우 OK처리 후에 명령어를 전송해야 한다
+                                              // states 값을 바꾸고 명령어를 전송하면 명령의 응답을 받기전 이전에 받았던 OK에 동작할 수 있다.
+        string nextcmdexts = string.Empty;
         string nextresponse = string.Empty;   //응답에 prefix가 존재하는 경우
         string commmode = "catm1";
         string imsmode = "no";
         ServiceServer svr = new ServiceServer();
         Device dev = new Device();
         TCResult tc = new TCResult();
+
+        UInt32 oneM2Mtotalsize = 0;
+        UInt32 oneM2Mrcvsize = 0;
+        string filecode = string.Empty;
 
         string oneM2MMEFIP = "106.103.234.198";
         string oneM2MMEFPort = "80";
@@ -416,6 +435,8 @@ namespace WindowsFormsApp2
 
         DateTime tcStartTime = DateTime.Now.AddHours(-1);
         string tcmsg = string.Empty;
+        int timer1_count = 0;
+        int retry_count = 0;
 
         public Form1()
         {
@@ -522,6 +543,7 @@ namespace WindowsFormsApp2
             commands.Add("updateremoteCSE", "AT$OM_U_CSE_REQ");
             commands.Add("delremoteCSE", "AT$OM_D_CSE_REQ");
             commands.Add("setcontainer", "AT$OM_C_CON_REQ=");
+            commands.Add("setrxcontainer", "AT$OM_C_CON_REQ=");
             commands.Add("delcontainer", "AT$OM_D_CON_REQ=");
             commands.Add("setsubscript", "AT$OM_C_SUB_REQ=");
             commands.Add("delsubscript", "AT$OM_D_SUB_REQ=");
@@ -575,7 +597,7 @@ namespace WindowsFormsApp2
 
             commands.Add("getmodemSvrVer", "AT$OM_MODEM_FWUP_REQ");
             commands.Add("setmodemver", "AT$OM_C_MODEM_FWUP_REQ");
-            commands.Add("modemFWUPfinish", "AT$OM_MODEM_FWUP_FINISH");
+            commands.Add("modemFWUPreport", "AT$OM_MODEM_FWUP_FINISH");
             commands.Add("modemFWUPfinishLTE", "AT$OM_MOD_FWUP_FINISH");
             commands.Add("modemFWUPstart", "AT$OM_MODEM_FWUP_START");
 
@@ -583,6 +605,10 @@ namespace WindowsFormsApp2
             commands.Add("setdeviceSrvver", "AT$OM_C_DEV_FWUP_REQ");
             commands.Add("deviceFWUPfinish", "AT$OM_DEV_FWUP_FINISH");
             commands.Add("deviceFWUPstart", "AT$OM_DEV_FWUP_START");
+            commands.Add("deviceFWList", "AT+QFLST=\"*\"");
+            commands.Add("deviceFWOpen", "AT+QFOPEN=");
+            commands.Add("deviceFWRead", "AT+QFREAD=");
+            commands.Add("deviceFWClose", "AT+QFCLOSE=");
 
             commands.Add("catm1check","AT+QCFG=\"iotopmode\"");
             commands.Add("catm1set", "AT+QCFG=\"iotopmode\",0");
@@ -767,34 +793,33 @@ namespace WindowsFormsApp2
                     serialPort1.WriteTimeout = (int)500;
 
                     serialPort1.Open();
-                    progressBar1.Value = 50;
-                    groupBox1.Enabled = true;
-                    logPrintInTextBox("COM PORT가 연결 되었습니다.", "");
+
+                    if (lbActionState.Text == states.closed.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    
+                    if (dev.entityId == string.Empty)
+                        progressBar1.Value = 50;
+                    else
+                        progressBar1.Value = 100;
+                    timer1.Start();
+                    logPrintInTextBox("COM PORT가 연결 되었습니다.", "tx");
                 }
                 catch (Exception err)
                 {
-                    logPrintInTextBox(err.Message, "");
-
-                    this.doCloseComPort();
+                    logPrintInTextBox(err.Message, "tx");
                 }
             }
 
-        }
-
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen)
-            {
-                this.doCloseComPort();
-            }
         }
 
         private void doCloseComPort()
         {
             progressBar1.Value = 0;
-            groupBox1.Enabled = false;
             serialPort1.Close();
-            logPrintInTextBox("COM PORT가 해제 되었습니다.","");
+            if (lbActionState.Text == states.idle.ToString())
+                lbActionState.Text = states.closed.ToString();
+            timer1.Stop();
+            logPrintInTextBox("COM PORT가 해제 되었습니다.","tx");
 
         }
 
@@ -822,17 +847,29 @@ namespace WindowsFormsApp2
 
                     serialPort1.Write(sendmsg);
                     logPrintInTextBox(sendmsg, "tx");
+                    retry_count = 0;
                 }
                 else
                 {
                     MessageBox.Show("COM 포트가 오픈되어 있지 않습니다.");
+                    this.doOpenComPort();     // Serial port가 끊어진 것으로 판단, 포트 재오픈
+
+                    if (++retry_count > 3)
+                        sendDataOut(dataOUT);
                 }
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                this.doOpenComPort();     // Serial port가 끊어진 것으로 판단, 포트 재오픈
+                if (++retry_count > 3)
+                {
+                    doCloseComPort();
+                    Thread.Sleep(1000);
+                    doOpenComPort();
+
+                    sendDataOut(dataOUT);
+                }
             }
         }
 
@@ -880,6 +917,7 @@ namespace WindowsFormsApp2
         {
             dataIN += serialPort1.ReadExisting();    // 수신한 버퍼에 있는 데이터 모두 받음
             this.Invoke(new EventHandler(ShowData));
+            timer1_count = 0;
         }
 
         // 수신 데이터 처리 thread 시작
@@ -964,11 +1002,23 @@ namespace WindowsFormsApp2
                 }
                 else if (rxMsg == "ERROR")
                 {
-                    nextcommand = "";
                     if (lbActionState.Text == states.testatcmd.ToString() || lbActionState.Text == states.atdtatcmd.ToString())
                     {
                         MessageBox.Show("ERROR 응답을 받았습니다.");
                         lbActionState.Text = states.idle.ToString();
+                        nextcommand = "";
+                    }
+                    else if (lbActionState.Text == states.modemFWUPboot.ToString())
+                    {
+                        Thread.Sleep(2000);
+                        this.sendDataOut(commands["getonem2mmode"]);
+                        lbActionState.Text = states.modemFWUPmodechk.ToString();
+                        nextresponse = "$LGTMPF=";
+                    }
+                    else
+                    {
+                        lbActionState.Text = states.idle.ToString();
+                        nextcommand = "";
                     }
                 }
                 else if (rxMsg.StartsWith("$OM_NOTI_IND=", System.StringComparison.CurrentCultureIgnoreCase))
@@ -979,12 +1029,76 @@ namespace WindowsFormsApp2
                     // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
                     string cmd = "$OM_NOTI_IND =";
                     int first = rxMsg.IndexOf(cmd) + cmd.Length;
-                    string str2 = "";
-                    str2 = rxMsg.Substring(first, rxMsg.Length - first);
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
 
                     this.sendDataOut(commands["getonem2mdata"] + str2);
                     lbActionState.Text = states.getonem2mdata.ToString();
                     nextresponse = "$OM_R_INS_RSP=";
+                }
+                else if (rxMsg.StartsWith("$OM_DEV_FWUP_RSP=", System.StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                    string cmd = "$OM_DEV_FWUP_RSP =";
+                    int first = rxMsg.IndexOf(cmd) + cmd.Length;
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
+
+                    string[] deviceverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                    if (deviceverinfos[0] == "2000")
+                    {
+                        if (tc.state == "tc021001")
+                            endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, string.Empty);
+                        else
+                            endoneM2MTC("tc021002", string.Empty, string.Empty, string.Empty, string.Empty);        // oneM2M Device FOTA start 수신 이벤트
+
+                        tBoxDeviceVer.Text = deviceverinfos[1];
+                        logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
+
+                        this.sendDataOut(commands["deviceFWUPstart"]);
+                        lbActionState.Text = states.deviceFWUPstart.ToString();
+                        nextresponse = "$OM_DEV_FWDL_START=";
+
+                        oneM2Mrcvsize = 0;
+                        oneM2Mtotalsize = 0;
+                    }
+                    else if (deviceverinfos[0] == "9001")
+                    {
+                        if (tc.state == "tc021001")
+                            endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, string.Empty);
+                        logPrintInTextBox("현재 DEVICE 버전이 최신버전입니다.", "");
+                        lbActionState.Text = states.idle.ToString();
+                    }
+                    else
+                        lbActionState.Text = states.idle.ToString();
+                }
+                else if (rxMsg.StartsWith("$OM_MODEM_FWUP_RSP=", System.StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                    string cmd = "$OM_MODEM_FWUP_RSP=";
+                    int first = rxMsg.IndexOf(cmd) + cmd.Length;
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
+
+                    string[] deviceverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                    if (deviceverinfos[0] == "2000")
+                    {
+                        if (tc.state == "tc021101")
+                            endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, string.Empty);
+                        else
+                            endoneM2MTC("tc021102", string.Empty, string.Empty, string.Empty, string.Empty);        // oneM2M Module FOTA start 수신 이벤트
+
+                        logPrintInTextBox("수신한 MODEM의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
+
+                        this.sendDataOut(commands["modemFWUPstart"]);
+                        lbActionState.Text = states.modemFWUPstart.ToString();
+                        nextresponse = "$OM_MODEM_FWDL_FINISH";
+                    }
+                    else if (deviceverinfos[0] == "9001")
+                    {
+                        endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, string.Empty);
+                        MessageBox.Show("현재 MODEM 버전이 최신버전입니다.", "");
+                        lbActionState.Text = states.idle.ToString();
+                    }
+                    else
+                        lbActionState.Text = states.idle.ToString();
                 }
                 else if (nextresponse != string.Empty)
                 {
@@ -996,7 +1110,6 @@ namespace WindowsFormsApp2
                         str2 = rxMsg.Substring(first, rxMsg.Length - first);
 
                         this.parseNextReceiveData(str2);
-                        nextresponse = string.Empty;
                     }
                 }
                 else if (rxMsg.StartsWith("AT") == false)
@@ -1047,6 +1160,20 @@ namespace WindowsFormsApp2
                         endoneM2MTC("tc020102", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbActionState.Text = states.idle.ToString();
                     break;
+                case states.modemFWUPmodechk:
+                    if (str2 == "5")
+                    {
+                        nextcommand = states.modemFWUPmodeset.ToString();
+
+                        // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+/*                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                        lbActionState.Text = states.mfotamefauth.ToString();
+                        nextresponse = "$OM_AUTH_RSP=";
+  */
+                        }
+                    else
+                        nextcommand = states.modemFWUPboot.ToString();
+                    break;
                 case states.getserverinfo:
                     // oneM2M server 정보 확인
                     string[] servers = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
@@ -1065,7 +1192,7 @@ namespace WindowsFormsApp2
                     // oneM2M 인증 결과
                     if (str2 == "2000")
                     {
-                        this.sendDataOut(commands[textBox73.Text]);
+                        this.sendDataOut(commands["deviceFWUPfinish"]);
                         lbActionState.Text = states.deviceFWUPfinish.ToString();
                         nextresponse = "$OM_DEV_FWUP_FINISH=";
                     }
@@ -1081,14 +1208,14 @@ namespace WindowsFormsApp2
                     // oneM2M 인증 결과
                     if (str2 == "2000")
                     {
-                        this.sendDataOut(commands["modemFWUPfinish"]);
-                        lbActionState.Text = states.modemFWUPfinish.ToString();
-                        nextresponse = "$OM_MODEM_FWUP_RSP=";
+                        this.sendDataOut(textBox73.Text);
+                        lbActionState.Text = states.modemFWUPreport.ToString();
+                        nextresponse = textBox73.Text.Substring(2, textBox73.Text.Length-2) + "=";
                     }
                     else
                         lbActionState.Text = states.idle.ToString();
                     break;
-                case states.modemFWUPfinish:
+                case states.modemFWUPreport:
                     if (str2 == "2004" || str2 == "2000")
                         endoneM2MTC("tc021104", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbActionState.Text = states.idle.ToString();
@@ -1131,6 +1258,10 @@ namespace WindowsFormsApp2
                         endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, string.Empty);
                     else if (str2 == "4105")
                         MessageBox.Show("동일한 폴더 이름이 있습니다.");
+                    this.sendDataOut(commands["setcontainer"] + "DtoS");
+                    lbActionState.Text = states.setrxcontainer.ToString();
+                    break;
+                case states.setrxcontainer:
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.delcontainer:
@@ -1184,6 +1315,91 @@ namespace WindowsFormsApp2
                         endoneM2MTC("tc021301", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbActionState.Text = states.idle.ToString();
                     break;
+                case states.getdeviceSvrVer:
+                    string[] deviceverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                    if (deviceverinfos[0] == "2000")
+                    {
+                        endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        tBoxDeviceVer.Text = deviceverinfos[1];
+                        logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
+
+                        this.sendDataOut(commands["deviceFWUPstart"]);
+                        lbActionState.Text = states.deviceFWUPstart.ToString();
+                        nextresponse = "$OM_DEV_FWDL_START=";
+
+                        oneM2Mrcvsize = 0;
+                        oneM2Mtotalsize = 0;
+                    }
+                    else if (deviceverinfos[0] == "9001")
+                    {
+                        endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, string.Empty);
+                        logPrintInTextBox("현재 DEVICE 버전이 최신버전입니다.", "");
+                        lbActionState.Text = states.idle.ToString();
+                    }
+                    else
+                        lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.deviceFWUPstart:
+                    oneM2Mtotalsize = Convert.ToUInt32(str2);
+                    logPrintInTextBox("FOTA 이미지 크기는 " + str2 + "입니다.", "");
+                    lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                    nextresponse = "$OM_DEV_FWDL_FINISH";
+                    break;
+                case states.deviceFWDLfinsh:
+                    if (dev.model == "EC25" || dev.model == "EC21")               //쿼텔/oneM2M 모듈
+                    {
+                        logPrintInTextBox("수신한 데이터를 읽기 시작합다.", "");
+
+                        this.sendDataOut(commands["deviceFWList"]);
+                        lbActionState.Text = states.deviceFWList.ToString();
+                        nextresponse = "+QFLST: ";
+                    }
+                    else
+                    {
+                        logPrintInTextBox(oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
+
+                        if (tc.state == "tc021003" && oneM2Mrcvsize == oneM2Mtotalsize)
+                            endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        startoneM2MTC("tc021004");
+                        // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                        lbActionState.Text = states.fotamefauthnt.ToString();
+                        nextresponse = "$OM_AUTH_RSP=";
+                    }
+                    break;
+                case states.deviceFWList:
+                    rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+
+                    if (oneM2Mtotalsize == Convert.ToUInt32(rcvdatas[1]))
+                    {
+                        nextcmdexts = rcvdatas[0];
+                        nextcommand = states.deviceFWOpen.ToString();
+                    }
+                    break;
+                case states.deviceFWOpen:
+                    filecode = str2;
+                    nextcmdexts = filecode + ",512";
+                    nextcommand = states.deviceFWRead.ToString();
+                    break;
+                case states.deviceFWRead:
+                    oneM2Mrcvsize += Convert.ToUInt32(str2);
+                    logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
+                    if (str2 != "512" || oneM2Mrcvsize >= oneM2Mtotalsize)
+                    {
+                        if (oneM2Mrcvsize == oneM2Mtotalsize)
+                            endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        nextcmdexts = filecode;
+                        nextcommand = states.deviceFWClose.ToString();
+                    }
+                    else
+                    {
+                        nextcmdexts = filecode + ",512";
+                        nextcommand = states.deviceFWRead.ToString();
+                    }
+                    break;
                 case states.getmodemSvrVer:
                     string[] modemverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
                     if (modemverinfos[0] == "2000")
@@ -1192,7 +1408,7 @@ namespace WindowsFormsApp2
 
                         this.sendDataOut(commands["modemFWUPstart"]);
                         lbActionState.Text = states.modemFWUPstart.ToString();
-                        nextresponse = "$OM_MODEM_UPDATE_FINISH";
+                        nextresponse = "$OM_MODEM_FWDL_FINISH";
                     }
                     else if (modemverinfos[0] == "9001")
                     {
@@ -1204,9 +1420,17 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.idle.ToString();
                     break;
                 case states.modemFWUPstart:
-                    endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, string.Empty);
+                    startoneM2MTC("tc021103");
+                    logPrintInTextBox("MODEM FOTA 다운로드 완료되었습니다.", "");
+                    lbActionState.Text = states.modemFWUPfinish.ToString();
+                    nextresponse = textBox72.Text;
+                    break;
+                case states.modemFWUPfinish:
+                    endoneM2MTC("tc021103", string.Empty, string.Empty, string.Empty, string.Empty);
                     logPrintInTextBox("MODEM 업데이트가 완료되었습니다.", "");
-                    lbActionState.Text = states.idle.ToString();
+                    this.sendDataOut(commands["getonem2mmode"]);
+                    lbActionState.Text = states.modemFWUPmodechk.ToString();
+                    nextresponse = "$LGTMPF=";
                     break;
                 case states.setACP:
                     if (str2 == "2001")
@@ -1229,9 +1453,23 @@ namespace WindowsFormsApp2
                         endoneM2MTC("tc020904", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbActionState.Text = states.idle.ToString();
                     break;
+                case states.resetmefauth:
+                    this.sendDataOut(commands["resetreport"]);
+                    lbActionState.Text = states.resetreport.ToString();
+                    nextresponse = "$OM_RESET_FINISH=";
+                    break;
+                case states.resetreport:
+                    if (str2 == "2004" || str2 == "2000")
+                        endoneM2MTC("tc021401", string.Empty, string.Empty, string.Empty, string.Empty);
+                    lbActionState.Text = states.idle.ToString();
+                    break;
                 default:
+                    lbActionState.Text = states.idle.ToString();
                     break;
             }
+
+            if (lbActionState.Text == states.idle.ToString())
+                nextresponse = string.Empty;
         }
 
         private void OKReceived()
@@ -1239,6 +1477,14 @@ namespace WindowsFormsApp2
             states state = (states)Enum.Parse(typeof(states), lbActionState.Text);
             switch (state)
             {
+                case states.deviceFWClose:
+                    startoneM2MTC("tc021004");
+                    // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                    lbActionState.Text = states.fotamefauthnt.ToString();
+                    nextresponse = "$OM_AUTH_RSP=";
+                    nextcommand = string.Empty;
+                    break;
                 default:
                     break;
             }
@@ -1296,6 +1542,34 @@ namespace WindowsFormsApp2
                         this.sendDataOut(atcmd);
                         lbActionState.Text = states.lwm2mtc02022.ToString();
                         break;
+                    case states.deviceFWOpen:
+                        this.sendDataOut(commands["deviceFWOpen"] + nextcmdexts);
+                        lbActionState.Text = states.deviceFWOpen.ToString();
+                        nextresponse = "+QFOPEN: ";
+                        nextcmdexts = string.Empty;
+                        break;
+                    case states.deviceFWRead:
+                        this.sendDataOut(commands["deviceFWRead"] + nextcmdexts);
+                        lbActionState.Text = states.deviceFWRead.ToString();
+                        nextresponse = "CONNECT ";
+                        nextcmdexts = string.Empty;
+                        break;
+                    case states.deviceFWClose:
+                        this.sendDataOut(commands["deviceFWClose"] + nextcmdexts);
+                        lbActionState.Text = states.deviceFWClose.ToString();
+                        nextcmdexts = string.Empty;
+                        break;
+                    case states.modemFWUPboot:
+                        this.sendDataOut(commands["getonem2mmode"]);
+                        lbActionState.Text = states.modemFWUPmodechk.ToString();
+                        nextresponse = "$LGTMPF=";
+                        break;
+                    case states.modemFWUPmodeset:
+                        // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                        lbActionState.Text = states.mfotamefauth.ToString();
+                        nextresponse = "$OM_AUTH_RSP=";
+                        break;
                     default:
                         break;
                 }
@@ -1324,16 +1598,14 @@ namespace WindowsFormsApp2
                     nextcommand = states.autogetmodel.ToString();
                     break;
                 case states.getmodel:
-                    textBox86.Text = dev.model = str1;
-                    tbDeviceName.Text = str1;
+                    tbDeviceName.Text = textBox86.Text = dev.model = str1;
                     this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
                     break;
                 // 단말 정보 자동 갱신 순서
                 // autogetmanufac - (autogetmodel) - (autogetimei) - autogetmodemver
                 case states.autogetmodel:
-                    textBox86.Text = dev.model = str1;
+                    tbDeviceName.Text = textBox86.Text = dev.model = str1;
                     progressBar1.Value = 70;
-                    tbDeviceName.Text = str1;
                     this.logPrintInTextBox("모델값이 " + dev.model + "로 저장되었습니다.", "");
 
                     setModelConfig(str1);
@@ -1888,7 +2160,7 @@ namespace WindowsFormsApp2
                         rddata = sr.ReadLine();
 
                         rddata = sr.ReadLine();
-                        tbDeviceName.Text = rddata.Substring(14, rddata.Length - 14);
+                        tbDeviceName.Text = textBox86.Text = dev.model = rddata.Substring(14, rddata.Length - 14);
 
                         rddata = sr.ReadLine();
                         tbDeviceVer.Text = rddata.Substring(17, rddata.Length - 17);
@@ -3195,7 +3467,13 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(btnoneM2MModuleVer.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox73.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label13.Text);
+                worksheet.Cells[i, 1] = new Cell(comboBox2.Text);
                 worksheet.Cells.ColumnWidth[0] = 5000;
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label38.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox72.Text);
                 workbook.Worksheets.Add(worksheet);
 
                 workbook.Save(pathname + filename);
@@ -3499,7 +3777,7 @@ namespace WindowsFormsApp2
                         else
                             cbBandCombin.Checked = false;
                         i += 3;
-                        tbDeviceName.Text = worksheet.Cells[i, 1].ToString();
+                        tbDeviceName.Text = textBox86.Text = dev.model = worksheet.Cells[i, 1].ToString();
                         i++;
                         tbDeviceVer.Text = worksheet.Cells[i, 1].ToString();
                         i++;
@@ -3541,6 +3819,10 @@ namespace WindowsFormsApp2
                         textBox65.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox73.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        comboBox2.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        textBox72.Text = worksheet.Cells[i, 1].ToString();
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -6331,7 +6613,7 @@ namespace WindowsFormsApp2
         {
             ReqHeader header = new ReqHeader();
             //header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_01222990847/cnt-TEMP/la";
-            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + tbDeviceCTN.Text + "/cnt-" + tbContainer.Text + "/la";
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + tbDeviceCTN.Text + "/cnt-DtoS/la";
             header.Method = "GET";
             header.X_M2M_Origin = svr.entityId;
             header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_retrive";
@@ -6382,7 +6664,7 @@ namespace WindowsFormsApp2
         {
             ReqHeader header = new ReqHeader();
 
-            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + tbDeviceCTN.Text + "/cnt-" + tbContainer.Text;
+            header.Url = brkUrl + "/IN_CSE-BASE-1/cb-1/csr-m2m_" + tbDeviceCTN.Text + "/cnt-StoD";
             header.Method = "POST";
             header.X_M2M_Origin = svr.entityId;
             header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
@@ -6395,8 +6677,12 @@ namespace WindowsFormsApp2
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<cnf>text/plain</cnf>";
-            packetStr += "<con>" + textBox72.Text + "</con>";
+
+            string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " server";
+            packetStr += "<con>" + txData + "</con>";
             packetStr += "</m2m:cin>";
+
+            SetText(label9, txData);
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
             //    LogWrite(retStr);
@@ -6762,7 +7048,7 @@ namespace WindowsFormsApp2
             if (data[1] == "oneDevice")
                 SetText(lboneM2MRxData, txData);
             else if (data[1] == "tc020601")
-                SetText(tbData, txData);
+                SetText(label9, txData);
 
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
@@ -6988,7 +7274,7 @@ namespace WindowsFormsApp2
             // Data send to SERVER (string original)
             //AT$OM_C_INS_REQ=<object>,<length>,<data>
             string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " oneM2M device";
-            this.sendDataOut(commands["sendonemsgstr"] + "StoD" + "," + txData.Length + "," + txData);
+            this.sendDataOut(commands["sendonemsgstr"] + "DtoS" + "," + txData.Length + "," + txData);
 
             lbActionState.Text = states.sendonemsgstr.ToString();
             lbSendedData.Text = txData;
@@ -7009,6 +7295,7 @@ namespace WindowsFormsApp2
             startoneM2MTC("tc021001");
             this.sendDataOut(commands["getdeviceSvrVer"]);
             lbActionState.Text = states.getdeviceSvrVer.ToString();
+            nextresponse = "$OM_DEV_FWUP_RSP=";
         }
 
         private void btnoneM2MModuleVer_Click(object sender, EventArgs e)
@@ -7033,6 +7320,7 @@ namespace WindowsFormsApp2
             // RESET 상태 등록을 위해 플랫폼 서버 MEF AUTH 요청
             this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
             lbActionState.Text = states.resetmefauth.ToString();
+            nextresponse = "$OM_AUTH_RSP=";
         }
 
         private void button103_Click(object sender, EventArgs e)
@@ -7082,6 +7370,40 @@ namespace WindowsFormsApp2
             }
             else
                 MessageBox.Show("서비스서버 정보가 없습니다.");
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                if (lbActionState.Text != states.idle.ToString())
+                    doOpenComPort();
+                else if (progressBar1.Value != 0)
+                {
+                    logPrintInTextBox("잠시 후 COM 포트 재오픈이 필요합니다.", "");
+
+                    lbActionState.Text = states.closed.ToString();
+                    timer1.Stop();
+                    progressBar1.Value = 0;
+                }
+            }
+            else
+            {
+                if (lbActionState.Text == states.onem2mtc0211031.ToString() || lbActionState.Text == states.onem2mtc0211032.ToString() || lbActionState.Text == states.modemFWUPfinish.ToString())
+                {
+                    timer1_count++;
+                    if (timer1_count >= 6)
+                    {
+                        timer1_count = 0;
+
+                        doCloseComPort();
+                        Thread.Sleep(1000);
+                        doOpenComPort();
+                    }
+                }
+                else
+                    timer1_count = 0;
+            }
         }
     }
 
