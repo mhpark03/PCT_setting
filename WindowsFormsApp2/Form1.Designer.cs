@@ -271,6 +271,7 @@
             this.tbOneM2MDataIN = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.gbOneM2MDevice = new System.Windows.Forms.GroupBox();
+            this.button114 = new System.Windows.Forms.Button();
             this.button112 = new System.Windows.Forms.Button();
             this.button111 = new System.Windows.Forms.Button();
             this.button110 = new System.Windows.Forms.Button();
@@ -412,6 +413,7 @@
             this.button72 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.textBox73 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -2756,6 +2758,7 @@
             // 
             // groupBox21
             // 
+            this.groupBox21.Controls.Add(this.textBox73);
             this.groupBox21.Controls.Add(this.button104);
             this.groupBox21.Controls.Add(this.btReset);
             this.groupBox21.Controls.Add(this.btnDeviceFOTA);
@@ -2777,15 +2780,17 @@
             this.button104.TabIndex = 49;
             this.button104.Text = "DeviceFW 보고";
             this.button104.UseVisualStyleBackColor = true;
+            this.button104.Click += new System.EventHandler(this.button104_Click);
             // 
             // btReset
             // 
-            this.btReset.Location = new System.Drawing.Point(25, 81);
+            this.btReset.Location = new System.Drawing.Point(234, 81);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(118, 21);
             this.btReset.TabIndex = 44;
             this.btReset.Text = "RESET 보고";
             this.btReset.UseVisualStyleBackColor = true;
+            this.btReset.Click += new System.EventHandler(this.btReset_Click);
             // 
             // btnDeviceFOTA
             // 
@@ -2796,6 +2801,7 @@
             this.btnDeviceFOTA.TabIndex = 23;
             this.btnDeviceFOTA.Text = "DeviceFW 조회";
             this.btnDeviceFOTA.UseVisualStyleBackColor = true;
+            this.btnDeviceFOTA.Click += new System.EventHandler(this.btnDeviceFOTA_Click);
             // 
             // btnoneM2MModuleVer
             // 
@@ -2806,15 +2812,17 @@
             this.btnoneM2MModuleVer.TabIndex = 40;
             this.btnoneM2MModuleVer.Text = "ModemFW 보고";
             this.btnoneM2MModuleVer.UseVisualStyleBackColor = true;
+            this.btnoneM2MModuleVer.Click += new System.EventHandler(this.btnoneM2MModuleVer_Click);
             // 
             // btnModemFOTA
             // 
-            this.btnModemFOTA.Location = new System.Drawing.Point(234, 49);
+            this.btnModemFOTA.Location = new System.Drawing.Point(25, 76);
             this.btnModemFOTA.Name = "btnModemFOTA";
             this.btnModemFOTA.Size = new System.Drawing.Size(118, 26);
             this.btnModemFOTA.TabIndex = 24;
             this.btnModemFOTA.Text = "ModemFW 조회";
             this.btnModemFOTA.UseVisualStyleBackColor = true;
+            this.btnModemFOTA.Click += new System.EventHandler(this.btnModemFOTA_Click);
             // 
             // groupBox20
             // 
@@ -2838,6 +2846,7 @@
             this.button70.TabIndex = 46;
             this.button70.Text = "권한 관리 정보 생성";
             this.button70.UseVisualStyleBackColor = true;
+            this.button70.Click += new System.EventHandler(this.button70_Click);
             // 
             // button102
             // 
@@ -2848,6 +2857,7 @@
             this.button102.TabIndex = 48;
             this.button102.Text = "권한 관리 정보 삭제";
             this.button102.UseVisualStyleBackColor = true;
+            this.button102.Click += new System.EventHandler(this.button102_Click);
             // 
             // button103
             // 
@@ -2858,6 +2868,7 @@
             this.button103.TabIndex = 45;
             this.button103.Text = "권한 관리 정보 조회";
             this.button103.UseVisualStyleBackColor = true;
+            this.button103.Click += new System.EventHandler(this.button103_Click);
             // 
             // button80
             // 
@@ -2868,6 +2879,7 @@
             this.button80.TabIndex = 47;
             this.button80.Text = "권한 관리 정보 수정";
             this.button80.UseVisualStyleBackColor = true;
+            this.button80.Click += new System.EventHandler(this.button80_Click);
             // 
             // groupBox19
             // 
@@ -2895,6 +2907,7 @@
             this.btnSetRxContainer.TabIndex = 36;
             this.btnSetRxContainer.Text = "폴더생성";
             this.btnSetRxContainer.UseVisualStyleBackColor = true;
+            this.btnSetRxContainer.Click += new System.EventHandler(this.btnSetRxContainer_Click);
             // 
             // btnSendDataOneM2M
             // 
@@ -2904,6 +2917,7 @@
             this.btnSendDataOneM2M.TabIndex = 19;
             this.btnSendDataOneM2M.Text = "데이터전송 (DB)";
             this.btnSendDataOneM2M.UseVisualStyleBackColor = true;
+            this.btnSendDataOneM2M.Click += new System.EventHandler(this.btnSendDataOneM2M_Click);
             // 
             // btnRcvDataOneM2M
             // 
@@ -2913,6 +2927,7 @@
             this.btnRcvDataOneM2M.TabIndex = 30;
             this.btnRcvDataOneM2M.Text = "데이터 수신";
             this.btnRcvDataOneM2M.UseVisualStyleBackColor = true;
+            this.btnRcvDataOneM2M.Click += new System.EventHandler(this.btnRcvDataOneM2M_Click);
             // 
             // lboneM2MRcvData
             // 
@@ -2932,6 +2947,7 @@
             this.btnSetSubscript.TabIndex = 34;
             this.btnSetSubscript.Text = "구독신청";
             this.btnSetSubscript.UseVisualStyleBackColor = true;
+            this.btnSetSubscript.Click += new System.EventHandler(this.btnSetSubscript_Click);
             // 
             // btnDelRxContainer
             // 
@@ -2941,6 +2957,7 @@
             this.btnDelRxContainer.TabIndex = 37;
             this.btnDelRxContainer.Text = "폴더삭제";
             this.btnDelRxContainer.UseVisualStyleBackColor = true;
+            this.btnDelRxContainer.Click += new System.EventHandler(this.btnDelRxContainer_Click);
             // 
             // button34
             // 
@@ -2950,6 +2967,7 @@
             this.button34.TabIndex = 42;
             this.button34.Text = "데이터전송 (서버)";
             this.button34.UseVisualStyleBackColor = true;
+            this.button34.Click += new System.EventHandler(this.button34_Click);
             // 
             // lbSendedData
             // 
@@ -2969,6 +2987,7 @@
             this.btnDelSubscript.TabIndex = 39;
             this.btnDelSubscript.Text = "구독삭제";
             this.btnDelSubscript.UseVisualStyleBackColor = true;
+            this.btnDelSubscript.Click += new System.EventHandler(this.btnDelSubscript_Click);
             // 
             // groupBox18
             // 
@@ -2992,6 +3011,7 @@
             this.btnGetCSED.TabIndex = 21;
             this.btnGetCSED.Text = "CSEBase 조회";
             this.btnGetCSED.UseVisualStyleBackColor = true;
+            this.btnGetCSED.Click += new System.EventHandler(this.btnGetCSED_Click);
             // 
             // btnGetDeviceCSR
             // 
@@ -3001,6 +3021,7 @@
             this.btnGetDeviceCSR.TabIndex = 22;
             this.btnGetDeviceCSR.Text = "CSR 조회";
             this.btnGetDeviceCSR.UseVisualStyleBackColor = true;
+            this.btnGetDeviceCSR.Click += new System.EventHandler(this.btnGetDeviceCSR_Click);
             // 
             // btnCreateDeviceCSR
             // 
@@ -3010,6 +3031,7 @@
             this.btnCreateDeviceCSR.TabIndex = 25;
             this.btnCreateDeviceCSR.Text = "CSR 생성";
             this.btnCreateDeviceCSR.UseVisualStyleBackColor = true;
+            this.btnCreateDeviceCSR.Click += new System.EventHandler(this.btnCreateDeviceCSR_Click);
             // 
             // btnDelDeviceCSR
             // 
@@ -3019,6 +3041,7 @@
             this.btnDelDeviceCSR.TabIndex = 26;
             this.btnDelDeviceCSR.Text = "CSR 삭제";
             this.btnDelDeviceCSR.UseVisualStyleBackColor = true;
+            this.btnDelDeviceCSR.Click += new System.EventHandler(this.btnDelDeviceCSR_Click);
             // 
             // btnDeviceUpdateCSR
             // 
@@ -3028,6 +3051,7 @@
             this.btnDeviceUpdateCSR.TabIndex = 32;
             this.btnDeviceUpdateCSR.Text = "CSR 수정";
             this.btnDeviceUpdateCSR.UseVisualStyleBackColor = true;
+            this.btnDeviceUpdateCSR.Click += new System.EventHandler(this.btnDeviceUpdateCSR_Click);
             // 
             // groupBox17
             // 
@@ -3063,6 +3087,7 @@
             // 
             // gbOneM2MDevice
             // 
+            this.gbOneM2MDevice.Controls.Add(this.button114);
             this.gbOneM2MDevice.Controls.Add(this.button112);
             this.gbOneM2MDevice.Controls.Add(this.button111);
             this.gbOneM2MDevice.Controls.Add(this.button110);
@@ -3076,14 +3101,25 @@
             this.gbOneM2MDevice.TabStop = false;
             this.gbOneM2MDevice.Text = "oneM2M";
             // 
+            // button114
+            // 
+            this.button114.Location = new System.Drawing.Point(316, 46);
+            this.button114.Name = "button114";
+            this.button114.Size = new System.Drawing.Size(121, 20);
+            this.button114.TabIndex = 39;
+            this.button114.Text = "FOTA서버 설정";
+            this.button114.UseVisualStyleBackColor = true;
+            this.button114.Click += new System.EventHandler(this.button114_Click);
+            // 
             // button112
             // 
-            this.button112.Location = new System.Drawing.Point(321, 46);
+            this.button112.Location = new System.Drawing.Point(6, 46);
             this.button112.Name = "button112";
             this.button112.Size = new System.Drawing.Size(121, 20);
             this.button112.TabIndex = 38;
             this.button112.Text = "MEF서버 설정";
             this.button112.UseVisualStyleBackColor = true;
+            this.button112.Click += new System.EventHandler(this.button112_Click);
             // 
             // button111
             // 
@@ -3093,15 +3129,17 @@
             this.button111.TabIndex = 37;
             this.button111.Text = "BRK서버 설정";
             this.button111.UseVisualStyleBackColor = true;
+            this.button111.Click += new System.EventHandler(this.button111_Click);
             // 
             // button110
             // 
-            this.button110.Location = new System.Drawing.Point(6, 46);
+            this.button110.Location = new System.Drawing.Point(6, 72);
             this.button110.Name = "button110";
             this.button110.Size = new System.Drawing.Size(121, 20);
             this.button110.TabIndex = 36;
             this.button110.Text = "서버 설정 조회";
             this.button110.UseVisualStyleBackColor = true;
+            this.button110.Click += new System.EventHandler(this.button110_Click);
             // 
             // button109
             // 
@@ -3111,6 +3149,7 @@
             this.button109.TabIndex = 35;
             this.button109.Text = "oneM2M모드 설정";
             this.button109.UseVisualStyleBackColor = true;
+            this.button109.Click += new System.EventHandler(this.button109_Click);
             // 
             // button106
             // 
@@ -3120,15 +3159,17 @@
             this.button106.TabIndex = 34;
             this.button106.Text = "oneM2M모드 조회";
             this.button106.UseVisualStyleBackColor = true;
+            this.button106.Click += new System.EventHandler(this.button106_Click);
             // 
             // btnMEFAuthD
             // 
-            this.btnMEFAuthD.Location = new System.Drawing.Point(6, 72);
+            this.btnMEFAuthD.Location = new System.Drawing.Point(169, 72);
             this.btnMEFAuthD.Name = "btnMEFAuthD";
             this.btnMEFAuthD.Size = new System.Drawing.Size(121, 20);
             this.btnMEFAuthD.TabIndex = 33;
             this.btnMEFAuthD.Text = "MEF 인증";
             this.btnMEFAuthD.UseVisualStyleBackColor = true;
+            this.btnMEFAuthD.Click += new System.EventHandler(this.btnMEFAuthD_Click);
             // 
             // textBox62
             // 
@@ -4514,6 +4555,14 @@
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
+            // textBox73
+            // 
+            this.textBox73.Location = new System.Drawing.Point(169, 54);
+            this.textBox73.Name = "textBox73";
+            this.textBox73.Size = new System.Drawing.Size(228, 21);
+            this.textBox73.TabIndex = 50;
+            this.textBox73.Text = "AT$OM_MODEM_FWUP_FINISH";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -4560,6 +4609,7 @@
             this.tabOneM2M.ResumeLayout(false);
             this.tabOneM2M.PerformLayout();
             this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
@@ -4978,6 +5028,8 @@
         private System.Windows.Forms.TabPage webpage;
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Button button114;
+        private System.Windows.Forms.TextBox textBox73;
     }
 }
 
