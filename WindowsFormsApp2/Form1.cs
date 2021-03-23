@@ -7114,6 +7114,39 @@ namespace WindowsFormsApp2
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Console.WriteLine(webBrowser1.Url.ToString());
+            if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/login")
+            {
+                string filePath = Application.StartupPath + @"\testFile.txt";
+                if (File.Exists(filePath))
+                {
+                    try
+                    {
+                        FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                        // Open a file to read to.
+                        StreamReader sr = new StreamReader(fs);
+
+                        string rddata = sr.ReadLine();
+                        HtmlElement searchBox = webBrowser1.Document.GetElementById("txtId");
+                        searchBox.SetAttribute("value", rddata);
+
+                        rddata = sr.ReadLine();
+                        searchBox = webBrowser1.Document.GetElementById("txtPassword");
+                        searchBox.SetAttribute("value", rddata);
+
+                        sr.Close();
+                        fs.Close();
+
+                        searchBox = webBrowser1.Document.GetElementById("btnLogin");
+                        //searchBox.InvokeMember("submit");
+                        if (searchBox != null)
+                            searchBox.InvokeMember("SUBMIT");
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
 
         private void btnoneM2MFullTest_Click(object sender, EventArgs e)
@@ -7403,6 +7436,14 @@ namespace WindowsFormsApp2
                 }
                 else
                     timer1_count = 0;
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Name == "webpage")
+            {
+                webBrowser1.Navigate("https://testadm.onem2m.uplus.co.kr:8443");
             }
         }
     }

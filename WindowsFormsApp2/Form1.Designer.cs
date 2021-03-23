@@ -241,6 +241,9 @@
             this.button41 = new System.Windows.Forms.Button();
             this.tabOneM2M = new System.Windows.Forms.TabPage();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.textBox72 = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
             this.textBox73 = new System.Windows.Forms.TextBox();
             this.button104 = new System.Windows.Forms.Button();
             this.btReset = new System.Windows.Forms.Button();
@@ -343,6 +346,8 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.lbDirectRxData = new System.Windows.Forms.Label();
@@ -410,11 +415,6 @@
             this.button72 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label9 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.textBox72 = new System.Windows.Forms.TextBox();
-            this.label38 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -527,6 +527,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1204, 791);
             this.tabControl1.TabIndex = 44;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabCOM
             // 
@@ -2775,6 +2776,36 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "oneM2M Firmware";
             // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label38.Location = new System.Drawing.Point(32, 112);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(101, 11);
+            this.label38.TabIndex = 53;
+            this.label38.Text = "재부팅 완료 이벤트";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox72
+            // 
+            this.textBox72.Location = new System.Drawing.Point(133, 108);
+            this.textBox72.Name = "textBox72";
+            this.textBox72.Size = new System.Drawing.Size(228, 21);
+            this.textBox72.TabIndex = 52;
+            this.textBox72.Text = "+QIND: PB DONE";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label37.Location = new System.Drawing.Point(32, 85);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(95, 11);
+            this.label37.TabIndex = 51;
+            this.label37.Text = "모듈FOTA 명령어";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // textBox73
             // 
             this.textBox73.Location = new System.Drawing.Point(133, 81);
@@ -3862,6 +3893,24 @@
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "oneM2M Device DATA";
             // 
+            // label29
+            // 
+            this.label29.Location = new System.Drawing.Point(150, 112);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(242, 22);
+            this.label29.TabIndex = 86;
+            this.label29.Text = ".";
+            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(150, 74);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(242, 22);
+            this.label9.TabIndex = 85;
+            this.label9.Text = ".";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
@@ -4507,7 +4556,7 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(1196, 765);
             this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://testadm.onem2m.uplus.co.kr:8443", System.UriKind.Absolute);
+            this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // button81
@@ -4536,54 +4585,6 @@
             // 
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label9
-            // 
-            this.label9.Location = new System.Drawing.Point(150, 74);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(242, 22);
-            this.label9.TabIndex = 85;
-            this.label9.Text = ".";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label29
-            // 
-            this.label29.Location = new System.Drawing.Point(150, 112);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(242, 22);
-            this.label29.TabIndex = 86;
-            this.label29.Text = ".";
-            this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label37.Location = new System.Drawing.Point(32, 85);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(95, 11);
-            this.label37.TabIndex = 51;
-            this.label37.Text = "모듈FOTA 명령어";
-            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox72
-            // 
-            this.textBox72.Location = new System.Drawing.Point(133, 108);
-            this.textBox72.Name = "textBox72";
-            this.textBox72.Size = new System.Drawing.Size(228, 21);
-            this.textBox72.TabIndex = 52;
-            this.textBox72.Text = "+QIND: PB DONE";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label38.Location = new System.Drawing.Point(32, 112);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(101, 11);
-            this.label38.TabIndex = 53;
-            this.label38.Text = "재부팅 완료 이벤트";
-            this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
