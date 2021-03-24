@@ -163,6 +163,7 @@ namespace WindowsFormsApp2
             modemFWUPfinish,
             modemFWUPboot,
             modemFWUPmodechk,
+            modemFWUPmodechked,
             modemFWUPmodeset,
 
             getdeviceSvrVer,
@@ -1013,10 +1014,10 @@ namespace WindowsFormsApp2
                     }
                     else if (lbActionState.Text == states.modemFWUPboot.ToString())
                     {
-                        Thread.Sleep(2000);
-                        this.sendDataOut(commands["getonem2mmode"]);
-                        lbActionState.Text = states.modemFWUPmodechk.ToString();
-                        nextresponse = "$LGTMPF=";
+                        // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                        lbActionState.Text = states.mfotamefauth.ToString();
+                        nextresponse = "$OM_AUTH_RSP=";
                     }
                     else
                     {
@@ -1103,7 +1104,7 @@ namespace WindowsFormsApp2
                     else
                         lbActionState.Text = states.idle.ToString();
                 }
-                else if (rxMsg.StartsWith("$OM_RESET", System.StringComparison.CurrentCultureIgnoreCase))
+                else if (rxMsg == "$OM_RESET")
                 {
                     logPrintInTextBox("플렛폼으로부터 원격재부팅 명령을 수신하였습니다.", "");
 
@@ -1172,17 +1173,10 @@ namespace WindowsFormsApp2
                     break;
                 case states.modemFWUPmodechk:
                     if (str2 == "5")
-                    {
                         nextcommand = states.modemFWUPmodeset.ToString();
-
-                        // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-/*                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
-                        lbActionState.Text = states.mfotamefauth.ToString();
-                        nextresponse = "$OM_AUTH_RSP=";
-  */
-                        }
                     else
                         nextcommand = states.modemFWUPboot.ToString();
+                    lbActionState.Text = states.modemFWUPmodechked.ToString();
                     break;
                 case states.getserverinfo:
                     // oneM2M server 정보 확인
@@ -1478,9 +1472,7 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.resetreceived:
-                    doCloseComPort();
-                    doOpenComPort();
-
+                    startoneM2MTC("tc021401");
                     // RESET 상태 등록을 위해 플랫폼 서버 MEF AUTH 요청
                     this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
                     lbActionState.Text = states.resetmefauth.ToString();
@@ -1506,6 +1498,13 @@ namespace WindowsFormsApp2
                     this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
                     lbActionState.Text = states.fotamefauthnt.ToString();
                     nextresponse = "$OM_AUTH_RSP=";
+                    nextcommand = string.Empty;
+                    break;
+                case states.modemFWUPboot:
+                case states.modemFWUPmodechk:               // $$LGTMPF= 응답 없이 OK가 응답된 경우 예외처리를 위해
+                    this.sendDataOut(commands["getonem2mmode"]);
+                    lbActionState.Text = states.modemFWUPmodechk.ToString();
+                    nextresponse = "$LGTMPF=";
                     nextcommand = string.Empty;
                     break;
                 default:
@@ -1583,8 +1582,8 @@ namespace WindowsFormsApp2
                         nextcmdexts = string.Empty;
                         break;
                     case states.modemFWUPboot:
-                        this.sendDataOut(commands["getonem2mmode"]);
-                        lbActionState.Text = states.modemFWUPmodechk.ToString();
+                        this.sendDataOut(commands["setonem2mmode"]);
+                        lbActionState.Text = states.modemFWUPboot.ToString();
                         nextresponse = "$LGTMPF=";
                         break;
                     case states.modemFWUPmodeset:
@@ -7443,7 +7442,7 @@ namespace WindowsFormsApp2
 
         private void btnoneM2MModuleVer_Click(object sender, EventArgs e)
         {
-            if (lbActionState.Text == states.modemFWUPfinish.ToString())
+            if (lbActionState.Text == states.modemFWUPfinish.ToString() || lbActionState.Text == states.modemFWUPmodechk.ToString() || lbActionState.Text == states.modemFWUPmodechked.ToString())
             {
                 this.sendDataOut(commands["getonem2mmode"]);
                 lbActionState.Text = states.modemFWUPmodechk.ToString();

@@ -464,7 +464,7 @@
             "38400",
             "76800",
             "115200"});
-            this.cBoxBaudRate.Location = new System.Drawing.Point(201, 22);
+            this.cBoxBaudRate.Location = new System.Drawing.Point(221, 797);
             this.cBoxBaudRate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
             this.cBoxBaudRate.Size = new System.Drawing.Size(93, 20);
@@ -476,7 +476,7 @@
             this.cBoxCOMPORT.FormattingEnabled = true;
             this.cBoxCOMPORT.Items.AddRange(new object[] {
             "COM103"});
-            this.cBoxCOMPORT.Location = new System.Drawing.Point(70, 22);
+            this.cBoxCOMPORT.Location = new System.Drawing.Point(90, 797);
             this.cBoxCOMPORT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
             this.cBoxCOMPORT.Size = new System.Drawing.Size(108, 20);
@@ -487,7 +487,7 @@
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBar1.Location = new System.Drawing.Point(24, 25);
+            this.progressBar1.Location = new System.Drawing.Point(44, 800);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(35, 18);
@@ -504,6 +504,11 @@
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.button81);
             this.panel1.Controls.Add(this.button72);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.lbActionState);
+            this.panel1.Controls.Add(this.progressBar1);
+            this.panel1.Controls.Add(this.cBoxBaudRate);
+            this.panel1.Controls.Add(this.cBoxCOMPORT);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -534,14 +539,8 @@
             this.tabCOM.Controls.Add(this.button63);
             this.tabCOM.Controls.Add(this.textBox64);
             this.tabCOM.Controls.Add(this.groupBox9);
-            this.tabCOM.Controls.Add(this.label6);
-            this.tabCOM.Controls.Add(this.lbActionState);
             this.tabCOM.Controls.Add(this.gbDeviceLog);
             this.tabCOM.Controls.Add(this.groupBox10);
-            this.tabCOM.Controls.Add(this.progressBar1);
-            this.tabCOM.Controls.Add(this.cBoxCOMPORT);
-            this.tabCOM.Controls.Add(this.cBoxBaudRate);
-            this.tabCOM.Controls.Add(this.button87);
             this.tabCOM.Location = new System.Drawing.Point(4, 22);
             this.tabCOM.Name = "tabCOM";
             this.tabCOM.Size = new System.Drawing.Size(1196, 765);
@@ -551,7 +550,7 @@
             // 
             // button63
             // 
-            this.button63.Location = new System.Drawing.Point(31, 98);
+            this.button63.Location = new System.Drawing.Point(24, 518);
             this.button63.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button63.Name = "button63";
             this.button63.Size = new System.Drawing.Size(147, 24);
@@ -562,7 +561,7 @@
             // 
             // textBox64
             // 
-            this.textBox64.Location = new System.Drawing.Point(181, 98);
+            this.textBox64.Location = new System.Drawing.Point(174, 518);
             this.textBox64.Name = "textBox64";
             this.textBox64.Size = new System.Drawing.Size(310, 21);
             this.textBox64.TabIndex = 68;
@@ -579,16 +578,16 @@
             this.groupBox9.Controls.Add(this.textBox60);
             this.groupBox9.Controls.Add(this.textBox61);
             this.groupBox9.Controls.Add(this.button62);
-            this.groupBox9.Location = new System.Drawing.Point(24, 541);
+            this.groupBox9.Location = new System.Drawing.Point(24, 569);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(490, 206);
+            this.groupBox9.Size = new System.Drawing.Size(490, 177);
             this.groupBox9.TabIndex = 59;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "NW CONTROL";
             // 
             // button86
             // 
-            this.button86.Location = new System.Drawing.Point(6, 34);
+            this.button86.Location = new System.Drawing.Point(6, 19);
             this.button86.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button86.Name = "button86";
             this.button86.Size = new System.Drawing.Size(147, 24);
@@ -599,7 +598,7 @@
             // 
             // textBox24
             // 
-            this.textBox24.Location = new System.Drawing.Point(157, 34);
+            this.textBox24.Location = new System.Drawing.Point(157, 19);
             this.textBox24.Name = "textBox24";
             this.textBox24.Size = new System.Drawing.Size(252, 21);
             this.textBox24.TabIndex = 49;
@@ -607,7 +606,7 @@
             // 
             // button99
             // 
-            this.button99.Location = new System.Drawing.Point(5, 128);
+            this.button99.Location = new System.Drawing.Point(5, 113);
             this.button99.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button99.Name = "button99";
             this.button99.Size = new System.Drawing.Size(147, 24);
@@ -618,7 +617,7 @@
             // 
             // textBox58
             // 
-            this.textBox58.Location = new System.Drawing.Point(156, 128);
+            this.textBox58.Location = new System.Drawing.Point(156, 113);
             this.textBox58.Name = "textBox58";
             this.textBox58.Size = new System.Drawing.Size(252, 21);
             this.textBox58.TabIndex = 55;
@@ -626,7 +625,7 @@
             // 
             // button100
             // 
-            this.button100.Location = new System.Drawing.Point(6, 62);
+            this.button100.Location = new System.Drawing.Point(6, 47);
             this.button100.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button100.Name = "button100";
             this.button100.Size = new System.Drawing.Size(147, 24);
@@ -637,7 +636,7 @@
             // 
             // textBox59
             // 
-            this.textBox59.Location = new System.Drawing.Point(157, 62);
+            this.textBox59.Location = new System.Drawing.Point(157, 47);
             this.textBox59.Name = "textBox59";
             this.textBox59.Size = new System.Drawing.Size(252, 21);
             this.textBox59.TabIndex = 57;
@@ -645,7 +644,7 @@
             // 
             // button101
             // 
-            this.button101.Location = new System.Drawing.Point(6, 90);
+            this.button101.Location = new System.Drawing.Point(6, 75);
             this.button101.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button101.Name = "button101";
             this.button101.Size = new System.Drawing.Size(147, 24);
@@ -656,7 +655,7 @@
             // 
             // textBox60
             // 
-            this.textBox60.Location = new System.Drawing.Point(157, 90);
+            this.textBox60.Location = new System.Drawing.Point(157, 75);
             this.textBox60.Name = "textBox60";
             this.textBox60.Size = new System.Drawing.Size(252, 21);
             this.textBox60.TabIndex = 59;
@@ -664,7 +663,7 @@
             // 
             // textBox61
             // 
-            this.textBox61.Location = new System.Drawing.Point(157, 156);
+            this.textBox61.Location = new System.Drawing.Point(157, 141);
             this.textBox61.Name = "textBox61";
             this.textBox61.Size = new System.Drawing.Size(252, 21);
             this.textBox61.TabIndex = 61;
@@ -672,7 +671,7 @@
             // 
             // button62
             // 
-            this.button62.Location = new System.Drawing.Point(6, 156);
+            this.button62.Location = new System.Drawing.Point(6, 141);
             this.button62.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button62.Name = "button62";
             this.button62.Size = new System.Drawing.Size(147, 24);
@@ -684,17 +683,17 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(784, 23);
+            this.label6.Location = new System.Drawing.Point(342, 800);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 12);
+            this.label6.Size = new System.Drawing.Size(125, 12);
             this.label6.TabIndex = 57;
-            this.label6.Text = "동작상태 :";
+            this.label6.Text = "Serial 통신 동작상태 :";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbActionState
             // 
             this.lbActionState.AutoSize = true;
-            this.lbActionState.Location = new System.Drawing.Point(851, 23);
+            this.lbActionState.Location = new System.Drawing.Point(473, 800);
             this.lbActionState.Name = "lbActionState";
             this.lbActionState.Size = new System.Drawing.Size(43, 12);
             this.lbActionState.TabIndex = 58;
@@ -703,9 +702,9 @@
             // gbDeviceLog
             // 
             this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
-            this.gbDeviceLog.Location = new System.Drawing.Point(532, 38);
+            this.gbDeviceLog.Location = new System.Drawing.Point(532, 18);
             this.gbDeviceLog.Name = "gbDeviceLog";
-            this.gbDeviceLog.Size = new System.Drawing.Size(582, 708);
+            this.gbDeviceLog.Size = new System.Drawing.Size(582, 728);
             this.gbDeviceLog.TabIndex = 44;
             this.gbDeviceLog.TabStop = false;
             this.gbDeviceLog.Text = "Device Message";
@@ -720,7 +719,7 @@
             this.tBoxDataIN.Name = "tBoxDataIN";
             this.tBoxDataIN.ReadOnly = true;
             this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxDataIN.Size = new System.Drawing.Size(576, 688);
+            this.tBoxDataIN.Size = new System.Drawing.Size(576, 708);
             this.tBoxDataIN.TabIndex = 22;
             // 
             // groupBox10
@@ -730,6 +729,7 @@
             this.groupBox10.Controls.Add(this.lbIccid);
             this.groupBox10.Controls.Add(this.textBox87);
             this.groupBox10.Controls.Add(this.textBox86);
+            this.groupBox10.Controls.Add(this.button87);
             this.groupBox10.Controls.Add(this.textBox85);
             this.groupBox10.Controls.Add(this.textBox57);
             this.groupBox10.Controls.Add(this.textBox40);
@@ -747,14 +747,14 @@
             this.groupBox10.Controls.Add(this.button89);
             this.groupBox10.Controls.Add(this.button90);
             this.groupBox10.Controls.Add(this.button91);
-            this.groupBox10.Location = new System.Drawing.Point(24, 161);
+            this.groupBox10.Location = new System.Drawing.Point(24, 18);
             this.groupBox10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox10.Size = new System.Drawing.Size(490, 334);
+            this.groupBox10.Size = new System.Drawing.Size(490, 351);
             this.groupBox10.TabIndex = 40;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "AT COMMAND (일반)";
+            this.groupBox10.Text = "Device 정보";
             // 
             // lbModemVer
             // 
@@ -944,10 +944,11 @@
             // 
             // button87
             // 
-            this.button87.Location = new System.Drawing.Point(310, 19);
+            this.button87.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button87.Location = new System.Drawing.Point(132, 316);
             this.button87.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button87.Name = "button87";
-            this.button87.Size = new System.Drawing.Size(123, 24);
+            this.button87.Size = new System.Drawing.Size(156, 24);
             this.button87.TabIndex = 43;
             this.button87.Text = "단말 정보 조회";
             this.button87.UseVisualStyleBackColor = true;
@@ -4601,6 +4602,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabCOM.ResumeLayout(false);
             this.tabCOM.PerformLayout();
