@@ -109,6 +109,7 @@ namespace WindowsFormsApp2
             delACP,
             setrcvauto,
             setrcvmanu,
+            resetreceived,
             resetmefauth,
             resetreport,
 
@@ -435,7 +436,6 @@ namespace WindowsFormsApp2
 
         DateTime tcStartTime = DateTime.Now.AddHours(-1);
         string tcmsg = string.Empty;
-        int timer1_count = 0;
         int retry_count = 0;
 
         public Form1()
@@ -855,7 +855,9 @@ namespace WindowsFormsApp2
                     this.doOpenComPort();     // Serial port가 끊어진 것으로 판단, 포트 재오픈
 
                     if (++retry_count > 3)
+                    {
                         sendDataOut(dataOUT);
+                    }
                 }
             }
             catch (Exception err)
@@ -864,6 +866,7 @@ namespace WindowsFormsApp2
 
                 if (++retry_count > 3)
                 {
+                    Thread.Sleep(5000);
                     doCloseComPort();
                     Thread.Sleep(1000);
                     doOpenComPort();
@@ -917,7 +920,6 @@ namespace WindowsFormsApp2
         {
             dataIN += serialPort1.ReadExisting();    // 수신한 버퍼에 있는 데이터 모두 받음
             this.Invoke(new EventHandler(ShowData));
-            timer1_count = 0;
         }
 
         // 수신 데이터 처리 thread 시작
@@ -1099,6 +1101,13 @@ namespace WindowsFormsApp2
                     }
                     else
                         lbActionState.Text = states.idle.ToString();
+                }
+                else if (rxMsg.StartsWith("$OM_RESET", System.StringComparison.CurrentCultureIgnoreCase))
+                {
+                    logPrintInTextBox("플렛폼으로부터 원격재부팅 명령을 수신하였습니다.", "");
+
+                    lbActionState.Text = states.resetreceived.ToString();
+                    nextresponse = textBox72.Text;
                 }
                 else if (nextresponse != string.Empty)
                 {
@@ -1427,6 +1436,10 @@ namespace WindowsFormsApp2
                     break;
                 case states.modemFWUPfinish:
                     endoneM2MTC("tc021103", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    doCloseComPort();
+                    doOpenComPort();
+
                     logPrintInTextBox("MODEM 업데이트가 완료되었습니다.", "");
                     this.sendDataOut(commands["getonem2mmode"]);
                     lbActionState.Text = states.modemFWUPmodechk.ToString();
@@ -1462,6 +1475,15 @@ namespace WindowsFormsApp2
                     if (str2 == "2004" || str2 == "2000")
                         endoneM2MTC("tc021401", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.resetreceived:
+                    doCloseComPort();
+                    doOpenComPort();
+
+                    // RESET 상태 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                    lbActionState.Text = states.resetmefauth.ToString();
+                    nextresponse = "$OM_AUTH_RSP=";
                     break;
                 default:
                     lbActionState.Text = states.idle.ToString();
@@ -3079,11 +3101,6 @@ namespace WindowsFormsApp2
 
         private void button63_Click(object sender, EventArgs e)
         {
-            string pathname = @"c:\temp\seriallog\";
-            string filename = "LTD_" + tbDeviceName.Text + "_proxy.xls";
-
-            Directory.CreateDirectory(pathname);
-
             try
             {
                 Workbook workbook = new Workbook();
@@ -3476,7 +3493,7 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 1] = new Cell(textBox72.Text);
                 workbook.Worksheets.Add(worksheet);
 
-                workbook.Save(pathname + filename);
+                workbook.Save(Application.StartupPath + @"/" + tbDeviceName.Text + "_config.xls");
             }
             catch (Exception err)
             {
@@ -3493,7 +3510,9 @@ namespace WindowsFormsApp2
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "xls";
+            ofd.InitialDirectory = Application.StartupPath;
             ofd.Filter = "text files (*.xls)|*.xls";
+            ofd.Title = "테스트 모델 정보 선택";
             ofd.ShowDialog();
             if (ofd.FileName.Length > 0)
             {
@@ -7114,38 +7133,47 @@ namespace WindowsFormsApp2
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Console.WriteLine(webBrowser1.Url.ToString());
-            if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/login")
+            try
             {
-                string filePath = Application.StartupPath + @"\testFile.txt";
-                if (File.Exists(filePath))
+                if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/login")
                 {
-                    try
+                    string filePath = Application.StartupPath + @"\configure.txt";
+                    if (File.Exists(filePath))
                     {
                         FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
                         // Open a file to read to.
                         StreamReader sr = new StreamReader(fs);
 
                         string rddata = sr.ReadLine();
-                        HtmlElement searchBox = webBrowser1.Document.GetElementById("txtId");
-                        searchBox.SetAttribute("value", rddata);
+                        webBrowser1.Document.GetElementById("txtId").SetAttribute("value", rddata);
 
                         rddata = sr.ReadLine();
-                        searchBox = webBrowser1.Document.GetElementById("txtPassword");
-                        searchBox.SetAttribute("value", rddata);
+                        webBrowser1.Document.GetElementById("txtPassword").SetAttribute("value", rddata);
 
                         sr.Close();
                         fs.Close();
-
-                        searchBox = webBrowser1.Document.GetElementById("btnLogin");
-                        //searchBox.InvokeMember("submit");
-                        if (searchBox != null)
-                            searchBox.InvokeMember("SUBMIT");
-                    }
-                    catch (Exception err)
-                    {
-                        MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/login/twofactor")
+                {
+                    webBrowser1.Document.GetElementById("smsNum").SetAttribute("value", "1234");
+                }
+                else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/logging/realtime")
+                {
+                    webBrowser1.Navigate("https://testadm.onem2m.uplus.co.kr:8443/terminal");
+                }
+                else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/terminal")
+                {
+                    webBrowser1.Document.GetElementById("txtEsn").SetAttribute("value", dev.imsi);
+                }
+                else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/deviceMgmt")
+                {
+                    webBrowser1.Document.GetElementById("txtEntId").SetAttribute("value", dev.entityId);
+                }
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -7333,11 +7361,20 @@ namespace WindowsFormsApp2
 
         private void btnoneM2MModuleVer_Click(object sender, EventArgs e)
         {
-            startoneM2MTC("tc021104");
-            // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-            this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
-            lbActionState.Text = states.mfotamefauth.ToString();
-            nextresponse = "$OM_AUTH_RSP=";
+            if (lbActionState.Text == states.modemFWUPfinish.ToString())
+            {
+                this.sendDataOut(commands["getonem2mmode"]);
+                lbActionState.Text = states.modemFWUPmodechk.ToString();
+                nextresponse = "$LGTMPF=";
+            }
+            else
+            {
+                startoneM2MTC("tc021104");
+                // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + textBox70.Text + "," + textBox62.Text + "," + textBox65.Text);
+                lbActionState.Text = states.mfotamefauth.ToString();
+                nextresponse = "$OM_AUTH_RSP=";
+            }
         }
 
         private void btnModemFOTA_Click(object sender, EventArgs e)
@@ -7419,31 +7456,6 @@ namespace WindowsFormsApp2
                     timer1.Stop();
                     progressBar1.Value = 0;
                 }
-            }
-            else
-            {
-                if (lbActionState.Text == states.onem2mtc0211031.ToString() || lbActionState.Text == states.onem2mtc0211032.ToString() || lbActionState.Text == states.modemFWUPfinish.ToString())
-                {
-                    timer1_count++;
-                    if (timer1_count >= 6)
-                    {
-                        timer1_count = 0;
-
-                        doCloseComPort();
-                        Thread.Sleep(1000);
-                        doOpenComPort();
-                    }
-                }
-                else
-                    timer1_count = 0;
-            }
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedTab.Name == "webpage")
-            {
-                webBrowser1.Navigate("https://testadm.onem2m.uplus.co.kr:8443");
             }
         }
     }
