@@ -693,6 +693,7 @@ namespace WindowsFormsApp2
 
             /////   디바이스 초기값 설정
             dev.entityId = string.Empty;
+            dev.uuid = string.Empty;
             dev.type = "onem2m";
 
             /////   서버 초기값 설정
@@ -6127,6 +6128,7 @@ namespace WindowsFormsApp2
             {
                 String md5value = getMd5Hash(dev.imsi + dev.iccid);
                 //logPrintInTextBox(md5value, "");
+                dev.uuid = md5value;
 
                 string epn = md5value.Substring(0, 5) + md5value.Substring(md5value.Length - 5, 5);
                 string entityid = "ASN_CSE-D-" + epn + "-" + tbSvcCd.Text;
@@ -7137,6 +7139,8 @@ namespace WindowsFormsApp2
             {
                 if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/login")
                 {
+                    webBrowser1.Document.Focusing += new HtmlElementEventHandler(Document_Click);
+
                     string filePath = Application.StartupPath + @"\configure.txt";
                     if (File.Exists(filePath))
                     {
@@ -7148,15 +7152,40 @@ namespace WindowsFormsApp2
                         webBrowser1.Document.GetElementById("txtId").SetAttribute("value", rddata);
 
                         rddata = sr.ReadLine();
-                        webBrowser1.Document.GetElementById("txtPassword").SetAttribute("value", rddata);
+                        byte[] rdbyte = Convert.FromBase64String(rddata);
+                        webBrowser1.Document.GetElementById("txtPassword").SetAttribute("value", Encoding.UTF8.GetString(rdbyte));
 
                         sr.Close();
                         fs.Close();
-                    }
+
+                        webBrowser1.Document.GetElementById("btnLogin").InvokeMember("Click");
+/*
+                        HtmlElementCollection searchBox = webBrowser1.Document.GetElementsByTagName("BUTTON");
+                        foreach (HtmlElement el in searchBox)
+                        {
+                            if (el.GetAttribute("type").Equals("submit"))
+                            {
+                                el.InvokeMember("Click");
+                            }
+                        }
+  */
+                        }
                 }
                 else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/login/twofactor")
                 {
                     webBrowser1.Document.GetElementById("smsNum").SetAttribute("value", "1234");
+
+                    webBrowser1.Document.GetElementById("btnConfSms").InvokeMember("Click");
+/*
+                    HtmlElementCollection searchBox = webBrowser1.Document.GetElementsByTagName("BUTTON");
+                    foreach (HtmlElement el in searchBox)
+                    {
+                        if (el.GetAttribute("type").Equals("submit"))
+                        {
+                            el.InvokeMember("Click");
+                        }
+                    }
+*/
                 }
                 else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/logging/realtime")
                 {
@@ -7164,16 +7193,69 @@ namespace WindowsFormsApp2
                 }
                 else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/terminal")
                 {
-                    webBrowser1.Document.GetElementById("txtEsn").SetAttribute("value", dev.imsi);
+                    if (dev.uuid != string.Empty)
+                    {
+                        webBrowser1.Document.GetElementById("txtEsn").SetAttribute("value", dev.imsi);
+/*
+                        HtmlElementCollection searchBox = webBrowser1.Document.GetElementById("selCommonKey").GetElementsByTagName("SELECT");
+                        foreach (HtmlElement el in searchBox)
+                        {
+                            if (el.GetAttribute("value").Equals("50"))
+                            {
+                                el.InvokeMember("Selected");
+                            }
+                        }
+*/
+                        webBrowser1.Document.GetElementById("btnSearch").InvokeMember("Click");
+                    }
                 }
                 else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/deviceMgmt")
                 {
                     webBrowser1.Document.GetElementById("txtEntId").SetAttribute("value", dev.entityId);
+                    webBrowser1.Document.GetElementById("btnSearch").InvokeMember("Click");
+                }
+                else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/firmware")
+                {
+                    webBrowser1.Document.GetElementById("btnSearch").InvokeMember("Click");
+                }
+                else if (webBrowser1.Url.ToString() == "https://testadm.onem2m.uplus.co.kr:8443/firmware/modem")
+                {
+                    webBrowser1.Document.GetElementById("btnSearch").InvokeMember("Click");
                 }
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Document_Click(object sender, HtmlElementEventArgs e)
+        {
+            if (webBrowser1.Document.ActiveElement.TagName == "BUTTON")
+            {
+                if(webBrowser1.Document.GetElementById("txtId") != null)
+                {
+                    dynamic ee = webBrowser1.Document.GetElementById("txtId").DomElement;
+                    dynamic dd = webBrowser1.Document.GetElementById("txtPassword").DomElement;
+                    
+                    try
+                    {
+                        FileStream fs = new FileStream(Application.StartupPath + @"\configure.txt", FileMode.Create, FileAccess.Write);
+                        // Create a file to write to.
+                        StreamWriter sw = new StreamWriter(fs);
+
+                        sw.WriteLine(ee.value);
+                        byte[] ddbyte = System.Text.Encoding.UTF8.GetBytes(dd.value);
+                        sw.WriteLine(Convert.ToBase64String(ddbyte));
+
+                        sw.Close();
+                        fs.Close();
+                    }
+                    catch (Exception err)
+                    {
+                        MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -7458,6 +7540,14 @@ namespace WindowsFormsApp2
                 }
             }
         }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Name == "webpage")
+                if (webBrowser1.Url.ToString() == "about:blank")
+                    webBrowser1.Navigate("https://testadm.onem2m.uplus.co.kr:8443");
+
+        }
     }
 
     public class TCResult
@@ -7473,6 +7563,7 @@ namespace WindowsFormsApp2
         public string imei { get; set; }            // 디바이스 IMEI
         public string iccid { get; set; }           // 디바이스 ICCID
         public string entityId { get; set; }        // oneM2M 디바이스 EntityID
+        public string uuid { get; set; }            // oneM2M 디바이스 UUID
 
         public string maker { get; set; }           // 모듈 제조사
         public string model { get; set; }           // 모듈 모델명
