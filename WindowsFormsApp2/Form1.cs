@@ -103,7 +103,7 @@ namespace WindowsFormsApp2
             updateremoteCSE,
             delremoteCSE,
             setcontainer,
-            setrxcontainer,
+            settxcontainer,
             delcontainer,
             setsubscript,
             delsubscript,
@@ -551,8 +551,8 @@ namespace WindowsFormsApp2
             commands.Add("setremoteCSE", "AT$OM_C_CSE_REQ");
             commands.Add("updateremoteCSE", "AT$OM_U_CSE_REQ");
             commands.Add("delremoteCSE", "AT$OM_D_CSE_REQ");
-            commands.Add("setcontainer", "AT$OM_C_CON_REQ=");
-            commands.Add("setrxcontainer", "AT$OM_C_CON_REQ=");
+            commands.Add("setcontainer", "AT$OM_C_CON_REQ=DtoS");
+            commands.Add("settxcontainer", "AT$OM_C_CON_REQ=StoD");
             commands.Add("delcontainer", "AT$OM_D_CON_REQ=");
             commands.Add("setsubscript", "AT$OM_C_SUB_REQ=");
             commands.Add("delsubscript", "AT$OM_D_SUB_REQ=");
@@ -1428,7 +1428,7 @@ namespace WindowsFormsApp2
                     else if (lbActionState.Text == states.onem2mtc0205011.ToString())        // 조회-업데이트-삭제-생성 완료
                     {
                         startoneM2MTC("tc020502");
-                        this.sendDataOut(commands["setcontainer"] + "DtoS");
+                        this.sendDataOut(commands["setcontainer"]);
                         lbActionState.Text = states.onem2mtc0205021.ToString();
                         nextresponse = "$OM_C_CON_RSP=";
                     }
@@ -1459,7 +1459,7 @@ namespace WindowsFormsApp2
                     else
                     {
                         startoneM2MTC("tc020502");
-                        this.sendDataOut(commands["setcontainer"] + "DtoS");
+                        this.sendDataOut(commands["setcontainer"]);
                         lbActionState.Text = states.onem2mtc0205021.ToString();
                         nextresponse = "$OM_C_CON_RSP=";
                     }
@@ -1480,25 +1480,69 @@ namespace WindowsFormsApp2
                     }
                     break;
                 case states.setcontainer:
+                case states.onem2mtc0205021:
                     // oneM2M container 생성 결과, 2001이면 성공
                     if (str2 == "2001")
+                    {
                         endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, string.Empty);
-                    else if (str2 == "4105")
-                        MessageBox.Show("동일한 폴더 이름이 있습니다.");
 
-                    this.sendDataOut(commands["setcontainer"] + "DtoS");
-                    lbActionState.Text = states.setrxcontainer.ToString();
+                        this.sendDataOut(commands["settxcontainer"]);
+                        nextresponse = "$OM_C_CON_RSP=";
+                        if (lbActionState.Text == states.setcontainer.ToString())
+                            lbActionState.Text = states.settxcontainer.ToString();
+                        else
+                            lbActionState.Text = states.onem2mtc0205022.ToString();
+                    }
+                    else if (str2 == "4105")
+                    {
+                        if (lbActionState.Text == states.setcontainer.ToString())
+                        {
+                            MessageBox.Show("동일한 폴더 이름이 있습니다.");
+                            this.sendDataOut(commands["settxcontainer"]);
+                            lbActionState.Text = states.settxcontainer.ToString();
+                            nextresponse = "$OM_C_CON_RSP=";
+                        }
+                        else
+                        {
+                            startoneM2MTC("tc021203");
+                            this.sendDataOut(commands["delcontainer"] + "StoD");
+                            lbActionState.Text = states.onem2mtc0212031.ToString();
+                            nextresponse = "$OM_D_CON_RSP=";
+                        }
+                    }
                     break;
-                case states.setrxcontainer:
-                    lbActionState.Text = states.idle.ToString();
+                case states.onem2mtc0205023:
+                    this.sendDataOut(commands["settxcontainer"]);
+                    lbActionState.Text = states.onem2mtc0205022.ToString();
+                    nextresponse = "$OM_C_CON_RSP=";
+                    break;
+                case states.settxcontainer:
+                case states.onem2mtc0205022:
+                    if (lbActionState.Text == states.settxcontainer.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                    {
+                        startoneM2MTC("tc020503");
+                        this.sendDataOut(commands["setsubscript"] + "StoD");
+                        lbActionState.Text = states.onem2mtc0205031.ToString();
+                        nextresponse = "$OM_C_SUB_RSP=";
+                    }
                     break;
                 case states.delcontainer:
+                case states.onem2mtc0212031:
                     // oneM2M container 삭제 결과, 2002이면 성공
                     if (str2 == "2002")
                         endoneM2MTC("tc021203", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                    if (lbActionState.Text == states.settxcontainer.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                    {
+                        this.sendDataOut(commands["setcontainer"]);
+                        lbActionState.Text = states.onem2mtc0205023.ToString();
+                    }
                     break;
                 case states.setsubscript:
+                case states.onem2mtc0205031:
                     // oneM2M subscription 신청 결과
                     if (str2 == "2001")
                         endoneM2MTC("tc020503", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -7709,7 +7753,7 @@ namespace WindowsFormsApp2
         private void btnSetRxContainer_Click(object sender, EventArgs e)
         {
             startoneM2MTC("tc020502");
-            this.sendDataOut(commands["setcontainer"] + "StoD");
+            this.sendDataOut(commands["setcontainer"]);
             lbActionState.Text = states.setcontainer.ToString();
             nextresponse = "$OM_C_CON_RSP=";
         }
