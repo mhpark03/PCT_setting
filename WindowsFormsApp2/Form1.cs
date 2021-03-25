@@ -245,13 +245,15 @@ namespace WindowsFormsApp2
 
             onem2mtc0201011,        // MEF server 설정
             onem2mtc0201012,        // BRK server 설정
-            onem2mtc0201013,        // server 설정 값 확인
+            onem2mtc0201013,        // FOTA server 설정
+            onem2mtc0201014,        // server 설정 값 확인
             onem2mtc0201021,        // 플랫폼 Agent 동작 확인
             onem2mtc0201022,        // 플랫폼 Agent  동작 설정
             onem2mtc0201023,        // 플랫폼 Agent 설정 결과 확인
             onem2mtc0201024,        // 플랫폼 Agent 설정 완료
 
-            onem2mtc020201,         // MEF 인증 요청
+            onem2mtc0202011,         // MEF 인증 요청
+            onem2mtc0202012,         // MEF 인증 요청
 
             onem2mtc020301,         // remoteCSE 조회 결과에 따라 remoteCSE 신규생성/업데이트 분기 
 
@@ -1011,6 +1013,13 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.mfotamefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
+                    if (lbActionState.Text == states.onem2mtc0201022.ToString())
+                    {
+                        this.sendDataOut(commands["getonem2mmode"]);
+                        lbActionState.Text = states.onem2mtc0201023.ToString();
+                        nextresponse = "$LGTMPF=";
+                        nextcommand = string.Empty;
+                    }
                     else
                     {
                         lbActionState.Text = states.idle.ToString();
@@ -1098,7 +1107,7 @@ namespace WindowsFormsApp2
                     string[] deviceverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
                     if (deviceverinfos[0] == "2000")
                     {
-                        if (tc.state == "tc021101")
+                        if (lbActionState.Text == states.getmodemSvrVer.ToString())
                             endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, string.Empty);
                         else
                             endoneM2MTC("tc021102", string.Empty, string.Empty, string.Empty, string.Empty);        // oneM2M Module FOTA start 수신 이벤트
@@ -1111,7 +1120,8 @@ namespace WindowsFormsApp2
                     }
                     else if (deviceverinfos[0] == "9001")
                     {
-                        endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, string.Empty);
+                        if (lbActionState.Text == states.getmodemSvrVer.ToString())
+                            endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, string.Empty);
                         MessageBox.Show("현재 MODEM 버전이 최신버전입니다.", "");
                         lbActionState.Text = states.idle.ToString();
                     }
@@ -1253,9 +1263,23 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.getonem2mmode:
+                case states.onem2mtc0201021:
+                case states.onem2mtc0201023:
                     if (str2 == "5")
+                    {
                         endoneM2MTC("tc020102", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                        if (lbActionState.Text == states.getonem2mmode.ToString())
+                            lbActionState.Text = states.idle.ToString();
+                        else
+                            nextcommand = states.onem2mtc0202011.ToString();
+                    }
+                    else
+                    {
+                        if (lbActionState.Text == states.getonem2mmode.ToString())
+                            lbActionState.Text = states.idle.ToString();
+                        else
+                            nextcommand = states.onem2mtc0201022.ToString();
+                    }
                     break;
                 case states.modemFWUPmodechk:
                     if (str2 == "5")
@@ -1265,18 +1289,54 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.modemFWUPmodechked.ToString();
                     break;
                 case states.getserverinfo:
+                case states.onem2mtc0201014:
                     // oneM2M server 정보 확인
                     string[] servers = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
 
-                    if (servers[0] == oneM2MMEFIP && servers[1] == oneM2MMEFPort && servers[2] == oneM2MBRKIP && servers[3] == oneM2MBRKPort && servers[4] == oneM2MFOTAIP && servers[5] == oneM2MFOTAPort)
-                        endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                    if (checkBox1.Checked == true)
+                    {
+                        if (servers[0] == oneM2MMEFIP && servers[1] == oneM2MMEFPort && servers[2] == oneM2MBRKIP && servers[3] == oneM2MBRKPort && servers[4] == oneM2MFOTAIP && servers[5] == oneM2MFOTAPort)
+                            endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, string.Empty);
+                    }
+                    else
+                    {
+                        if (servers[0] == oneM2MMEFIP && servers[1] == oneM2MMEFPort && servers[2] == oneM2MBRKIP && servers[3] == oneM2MBRKPort)
+                            endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, string.Empty);
+                    }
+                    if (lbActionState.Text == states.getserverinfo.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                    {
+                        this.sendDataOut(commands["getonem2mmode"]);
+                        lbActionState.Text = states.onem2mtc0201021.ToString();
+                        nextresponse = "$LGTMPF=";
+                    }
                     break;
                 case states.setmefauth:
+                case states.onem2mtc0202012:
                     // oneM2M 인증 결과
                     if (str2 == "2000")
                         endoneM2MTC("tc020201", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+
+                    if (lbActionState.Text == states.setmefauth.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                    {
+                        if (checkBox3.Checked == true)
+                        {
+                            startoneM2MTC("tc020401");
+                            this.sendDataOut(commands["getCSEbase"]);
+                            lbActionState.Text = states.onem2mtc020401.ToString();
+                            nextresponse = "$OM_B_CSE_RSP=";
+                        }
+                        else
+                        {
+                            startoneM2MTC("tc020301");
+                            this.sendDataOut(commands["getremoteCSE"]);
+                            lbActionState.Text = states.onem2mtc020301.ToString();
+                            nextresponse = "$OM_R_CSE_RSP=";
+                        }
+                    }
                     break;
                 case states.fotamefauthnt:
                     // oneM2M 인증 결과
@@ -1311,36 +1371,113 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.getCSEbase:
+                case states.onem2mtc020401:
                     // oneM2M CSEBase 조회 결과
                     if (str2 == "2000")
                         endoneM2MTC("tc020401", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                    if (lbActionState.Text == states.getCSEbase.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                    {
+                        startoneM2MTC("tc020301");
+                        this.sendDataOut(commands["getremoteCSE"]);
+                        lbActionState.Text = states.onem2mtc020301.ToString();
+                        nextresponse = "$OM_R_CSE_RSP=";
+                    }
                     break;
                 case states.getremoteCSE:
+                case states.onem2mtc020301:
                     // oneM2M remoteCSE 조회 결과, 4004이면 생성/2000 또는 2004이면 container 확인
                     if (str2 == "4004")
-                        MessageBox.Show("remote CSE가 존재하지 않습니다.");
-                    else if (str2 == "2000")
+                    {
                         endoneM2MTC("tc020301", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
-                    break;
+                        if (lbActionState.Text == states.getremoteCSE.ToString())
+                        {
+                            MessageBox.Show("remote CSE가 존재하지 않습니다.");
+                            lbActionState.Text = states.idle.ToString();
+                        }
+                        else
+                        {
+                            this.sendDataOut(commands["setremoteCSE"]);
+                            lbActionState.Text = states.onem2mtc0205012.ToString();     // 신규 삭제
+                            nextresponse = "$OM_C_CSE_RSP=";
+                        }
+                    }
+                    else if (str2 == "2000")
+                    {
+                        endoneM2MTC("tc020301", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        if (lbActionState.Text == states.getremoteCSE.ToString())
+                            lbActionState.Text = states.idle.ToString();
+                        else
+                        {
+                            this.sendDataOut(commands["updateremoteCSE"]);
+                            lbActionState.Text = states.onem2mtc0205051.ToString();
+                            nextresponse = "$OM_U_CSE_RSP=";
+                        }
+                    }
+                break;
                 case states.setremoteCSE:
+                case states.onem2mtc0205012:
+                case states.onem2mtc0205011:
                     // oneM2M remoteCSE 생성 결과, 2001이면 container 생성 요청
                     if (str2 == "2001")
                         endoneM2MTC("tc020501", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                    if (lbActionState.Text == states.setremoteCSE.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else if (lbActionState.Text == states.onem2mtc0205011.ToString())        // 조회-업데이트-삭제-생성 완료
+                    {
+                        startoneM2MTC("tc020502");
+                        this.sendDataOut(commands["setcontainer"] + "DtoS");
+                        lbActionState.Text = states.onem2mtc0205021.ToString();
+                        nextresponse = "$OM_C_CON_RSP=";
+                    }
+                    else
+                    {
+                        startoneM2MTC("tc020505");
+                        this.sendDataOut(commands["updateremoteCSE"]);
+                        lbActionState.Text = states.onem2mtc0205052.ToString();
+                        nextresponse = "$OM_U_CSE_RSP=";
+                    }
                     break;
                 case states.updateremoteCSE:
+                case states.onem2mtc0205051:
+                case states.onem2mtc0205052:
                     // oneM2M remoteCSE 업데이트 결과, 2004이면 remoteCSE (poa) 업데이트 성공
                     if (str2 == "2004" || str2 == "2000")
                         endoneM2MTC("tc020505", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+
+                    if (lbActionState.Text == states.updateremoteCSE.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else if (lbActionState.Text == states.onem2mtc0205051.ToString())
+                    {
+                        startoneM2MTC("tc021204");
+                        this.sendDataOut(commands["delremoteCSE"]);
+                        lbActionState.Text = states.onem2mtc0212041.ToString();
+                        nextresponse = "$OM_D_CSE_RSP=";
+                    }
+                    else
+                    {
+                        startoneM2MTC("tc020502");
+                        this.sendDataOut(commands["setcontainer"] + "DtoS");
+                        lbActionState.Text = states.onem2mtc0205021.ToString();
+                        nextresponse = "$OM_C_CON_RSP=";
+                    }
                     break;
                 case states.delremoteCSE:
+                case states.onem2mtc0212041:
                     // oneM2M remoteCSE 삭제 결과, 2002이면 성공
                     if (str2 == "2002" || str2 == "2000")
                         endoneM2MTC("tc021204", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                    if (lbActionState.Text == states.delremoteCSE.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else if (lbActionState.Text == states.onem2mtc0212041.ToString())
+                    {
+                        startoneM2MTC("tc020501");
+                        this.sendDataOut(commands["setremoteCSE"]);
+                        lbActionState.Text = states.onem2mtc0205011.ToString();     // remoteCSE 조회-업데이트-삭제 후 생성 요청
+                        nextresponse = "$OM_C_CSE_RSP=";
+                    }
                     break;
                 case states.setcontainer:
                     // oneM2M container 생성 결과, 2001이면 성공
@@ -1608,6 +1745,41 @@ namespace WindowsFormsApp2
                 case states.setrcvmanu:
                     if (tc.state != string.Empty)
                         endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
+                    nextcommand = string.Empty;
+                    break;
+                case states.onem2mtc0201011:
+                    //AT$OM_SVR_INFO=<svr>,<ip>,<port>
+                    this.sendDataOut(commands["sethttpserverinfo"] + oneM2MBRKIP + "," + oneM2MBRKPort);
+                    lbActionState.Text = states.onem2mtc0201012.ToString();
+                    nextcommand = string.Empty;
+                    break;
+                case states.onem2mtc0201012:
+                    if (checkBox1.Checked == true)
+                    {
+                        //AT$OM_SVR_INFO=<svr>,<ip>,<port>
+                        this.sendDataOut(commands["setfotaserverinfo"] + oneM2MFOTAIP + "," + oneM2MFOTAPort);
+                        lbActionState.Text = states.onem2mtc0201013.ToString();
+                        nextcommand = string.Empty;
+                    }
+                    else
+                    {
+                        this.sendDataOut(commands["getserverinfo"]);
+                        lbActionState.Text = states.onem2mtc0201014.ToString();
+                        nextresponse = "$OM_SVR_INFO=";
+                        nextcommand = string.Empty;
+                    }
+                    break;
+                case states.onem2mtc0201013:
+                    this.sendDataOut(commands["getserverinfo"]);
+                    lbActionState.Text = states.onem2mtc0201014.ToString();
+                    nextresponse = "$OM_SVR_INFO=";
+                    nextcommand = string.Empty;
+                    break;
+                case states.onem2mtc0201022:
+                    this.sendDataOut(commands["getonem2mmode"]);
+                    lbActionState.Text = states.onem2mtc0201023.ToString();
+                    nextresponse = "$LGTMPF=";
+                    nextcommand = string.Empty;
                     break;
                 default:
                     break;
@@ -1694,13 +1866,22 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.mfotamefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                         break;
+                    case states.onem2mtc0201022:
+                        startoneM2MTC("tc020102");
+                        this.sendDataOut(commands["setonem2mmode"]);
+                        lbActionState.Text = states.onem2mtc0201022.ToString();
+                        break;
+                    case states.onem2mtc0202011:
+                        startoneM2MTC("tc020201");
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
+                        lbActionState.Text = states.onem2mtc0202012.ToString();
+                        nextresponse = "$OM_AUTH_RSP=";
+                        break;
                     default:
                         break;
                 }
                 nextcommand = string.Empty;
             }
-            else if (nextresponse == string.Empty)
-                lbActionState.Text = states.idle.ToString();
         }
 
         private void parseNoPrefixData(string str1)
@@ -3593,6 +3774,12 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(label38.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox72.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button114.Text);
+                worksheet.Cells[i, 1] = new Cell(checkBox1.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(btnGetCSED.Text);
+                worksheet.Cells[i, 1] = new Cell(checkBox3.Text);
                 workbook.Worksheets.Add(worksheet);
 
                 workbook.Save(Application.StartupPath + @"/" + tbDeviceName.Text + "_config.xls");
@@ -3944,6 +4131,18 @@ namespace WindowsFormsApp2
                         comboBox2.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox72.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        checkBox1.Text = worksheet.Cells[i, 1].ToString();
+                        if (checkBox1.Text == "미지원")
+                            checkBox1.Checked = false;
+                        else
+                            checkBox1.Checked = true;
+                        i++;
+                        checkBox3.Text = worksheet.Cells[i, 1].ToString();
+                        if (checkBox3.Text == "미지원")
+                            checkBox3.Checked = false;
+                        else
+                            checkBox3.Checked = true;
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -5581,18 +5780,13 @@ namespace WindowsFormsApp2
                 tc.onem2m[(int)index, 4] = string.Empty;
 
                 int idx = (int) index;
-                SetTextlist1(listView1, idx.ToString() + ",0,"+"START");
-                SetTextlist1(listView1, idx.ToString() + ",1,");
-                SetTextlist1(listView1, idx.ToString() + ",2,");
-                SetTextlist1(listView1, idx.ToString() + ",3,");
-                SetTextlist1(listView1, idx.ToString() + ",4,");
-                SetTextlist1(listView1, idx.ToString() + ",5,");
+                SetTextlist1(listView1, idx.ToString() + "," +"START" + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + "0");
                 //                listView1.Items[(int)index].SubItems[1].Text = "START";
                 //                listView1.Items[(int)index].SubItems[2].Text = string.Empty;
                 //                listView1.Items[(int)index].SubItems[3].Text = string.Empty;
                 //                listView1.Items[(int)index].SubItems[4].Text = string.Empty;
                 //                listView1.Items[(int)index].SubItems[5].Text = string.Empty;
-                listView1.Items[(int)index].BackColor = Color.White;
+                //listView1.Items[(int)index].BackColor = Color.White;
             }
         }
 
@@ -5616,12 +5810,14 @@ namespace WindowsFormsApp2
                     tc.onem2m[(int)index, 3] = resultCodeName;
                     tc.onem2m[(int)index, 4] = remark;
 
-                    listView1.Items[(int)index].SubItems[1].Text = "PASS";             // 시험 결과 저장
-                    listView1.Items[(int)index].SubItems[2].Text = resultCode;
-                    listView1.Items[(int)index].SubItems[3].Text = logId;
-                    listView1.Items[(int)index].SubItems[4].Text = resultCodeName;
-                    listView1.Items[(int)index].SubItems[5].Text = remark;
-                    listView1.Items[(int)index].BackColor = Color.LightBlue;
+                    int idx = (int)index;
+                    SetTextlist1(listView1, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
+//                    listView1.Items[(int)index].SubItems[1].Text = "PASS";             // 시험 결과 저장
+//                    listView1.Items[(int)index].SubItems[2].Text = resultCode;
+//                    listView1.Items[(int)index].SubItems[3].Text = logId;
+//                    listView1.Items[(int)index].SubItems[4].Text = resultCodeName;
+//                    listView1.Items[(int)index].SubItems[5].Text = remark;
+//                    listView1.Items[(int)index].BackColor = Color.LightBlue;
                 }
             }
             else
@@ -5636,14 +5832,45 @@ namespace WindowsFormsApp2
                 tc.onem2m[(int)index, 3] = resultCodeName;
                 tc.onem2m[(int)index, 4] = remark;
 
-                listView1.Items[(int)index].SubItems[1].Text = "FAIL";             // 시험 결과 저장
-                listView1.Items[(int)index].SubItems[2].Text = resultCode;
-                listView1.Items[(int)index].SubItems[3].Text = logId;
-                listView1.Items[(int)index].SubItems[4].Text = resultCodeName;
-                listView1.Items[(int)index].SubItems[5].Text = remark;
-                listView1.Items[(int)index].BackColor = Color.OrangeRed;
+                int idx = (int)index;
+                SetTextlist1(listView1, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
+//                listView1.Items[(int)index].SubItems[1].Text = "FAIL";             // 시험 결과 저장
+//                listView1.Items[(int)index].SubItems[2].Text = resultCode;
+//                listView1.Items[(int)index].SubItems[3].Text = logId;
+//                listView1.Items[(int)index].SubItems[4].Text = resultCodeName;
+//                listView1.Items[(int)index].SubItems[5].Text = remark;
+//                listView1.Items[(int)index].BackColor = Color.OrangeRed;
             }
             tc.state = string.Empty;
+        }
+
+        private void SetTextlist1(Control ctr, string txtValue)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (ctr.InvokeRequired)
+            {
+                Ctr_Involk CI = new Ctr_Involk(SetText);
+                ctr.Invoke(CI, ctr, txtValue);
+            }
+            else
+            {
+                string[] str = txtValue.Split(',');
+                int idx1 = Convert.ToInt32(str[0]);
+                listView1.Items[idx1].SubItems[1].Text = str[1];
+                listView1.Items[idx1].SubItems[2].Text = str[2];
+                listView1.Items[idx1].SubItems[3].Text = str[3];
+                listView1.Items[idx1].SubItems[4].Text = str[4];
+                listView1.Items[idx1].SubItems[5].Text = str[5];
+
+                if (str[6] == "1")
+                    listView1.Items[idx1].BackColor = Color.LightBlue;
+                else if (str[6] == "2")
+                    listView1.Items[idx1].BackColor = Color.OrangeRed;
+                else
+                    listView1.Items[idx1].BackColor = Color.White;
+            }
         }
 
         // 시험절차서 시험 결과를 tbTCResult에 표시.
@@ -5950,25 +6177,6 @@ namespace WindowsFormsApp2
             else
             {
                 ctr.Text = txtValue;
-            }
-        }
-
-        private void SetTextlist1(Control ctr, string txtValue)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (ctr.InvokeRequired)
-            {
-                Ctr_Involk CI = new Ctr_Involk(SetText);
-                ctr.Invoke(CI, ctr, txtValue);
-            }
-            else
-            {
-                string[] str = txtValue.Split(',');
-                int idx1 = Convert.ToInt32(str[0]);
-                int idx2 = Convert.ToInt32(str[1]);
-                listView1.Items[idx1].SubItems[idx2].Text = str[2];
             }
         }
 
@@ -7396,6 +7604,10 @@ namespace WindowsFormsApp2
                 tc.onem2m[i, 3] = string.Empty;
                 tc.onem2m[i, 4] = string.Empty;
             }
+            startoneM2MTC("tc020101");
+            //AT$OM_SVR_INFO=<svr>,<ip>,<port>
+            this.sendDataOut(commands["setmefserverinfo"] + oneM2MMEFIP + "," + oneM2MMEFPort);
+            lbActionState.Text = states.onem2mtc0201011.ToString();
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
@@ -7686,6 +7898,22 @@ namespace WindowsFormsApp2
             startoneM2MTC("tc020604");
             this.sendDataOut(commands["setrcvmanu"]);
             lbActionState.Text = states.setrcvmanu.ToString();
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+                checkBox1.Text = "지원";
+            else
+                checkBox1.Text = "미지원";
+        }
+
+        private void checkBox3_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox3.Checked == true)
+                checkBox3.Text = "지원";
+            else
+                checkBox3.Text = "미지원";
         }
     }
 

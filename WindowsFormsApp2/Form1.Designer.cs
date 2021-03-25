@@ -338,6 +338,7 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.tbLog = new System.Windows.Forms.TextBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -413,7 +414,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label2 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -3055,6 +3057,7 @@
             // 
             // groupBox18
             // 
+            this.groupBox18.Controls.Add(this.checkBox3);
             this.groupBox18.Controls.Add(this.btnGetCSED);
             this.groupBox18.Controls.Add(this.btnGetDeviceCSR);
             this.groupBox18.Controls.Add(this.btnCreateDeviceCSR);
@@ -3142,6 +3145,7 @@
             // 
             // gbOneM2MDevice
             // 
+            this.gbOneM2MDevice.Controls.Add(this.checkBox1);
             this.gbOneM2MDevice.Controls.Add(this.button114);
             this.gbOneM2MDevice.Controls.Add(this.button112);
             this.gbOneM2MDevice.Controls.Add(this.button111);
@@ -3218,7 +3222,7 @@
             // 
             // btnMEFAuthD
             // 
-            this.btnMEFAuthD.Location = new System.Drawing.Point(333, 33);
+            this.btnMEFAuthD.Location = new System.Drawing.Point(333, 18);
             this.btnMEFAuthD.Name = "btnMEFAuthD";
             this.btnMEFAuthD.Size = new System.Drawing.Size(97, 46);
             this.btnMEFAuthD.TabIndex = 33;
@@ -3821,6 +3825,15 @@
             this.groupBox14.TabIndex = 47;
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "oneM2M Device DATA";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(147, 140);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(242, 22);
+            this.label2.TabIndex = 87;
+            this.label2.Text = ".";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label29
             // 
@@ -4570,14 +4583,31 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label2
+            // checkBox1
             // 
-            this.label2.Location = new System.Drawing.Point(147, 140);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(242, 22);
-            this.label2.TabIndex = 87;
-            this.label2.Text = ".";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(296, 75);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(48, 16);
+            this.checkBox1.TabIndex = 40;
+            this.checkBox1.Text = "지원";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Location = new System.Drawing.Point(151, 23);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(48, 16);
+            this.checkBox3.TabIndex = 41;
+            this.checkBox3.Text = "지원";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged_1);
             // 
             // Form1
             // 
@@ -4630,9 +4660,11 @@
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
             this.groupBox18.ResumeLayout(false);
+            this.groupBox18.PerformLayout();
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
             this.gbOneM2MDevice.ResumeLayout(false);
+            this.gbOneM2MDevice.PerformLayout();
             this.tabLwM2M.ResumeLayout(false);
             this.tabLwM2M.PerformLayout();
             this.groupBox16.ResumeLayout(false);
@@ -5045,6 +5077,8 @@
         private System.Windows.Forms.Button button116;
         private System.Windows.Forms.Button button115;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
