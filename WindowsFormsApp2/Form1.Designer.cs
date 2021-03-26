@@ -268,6 +268,7 @@
             this.lbSendedData = new System.Windows.Forms.Label();
             this.btnDelSubscript = new System.Windows.Forms.Button();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.btnGetCSED = new System.Windows.Forms.Button();
             this.btnGetDeviceCSR = new System.Windows.Forms.Button();
             this.btnCreateDeviceCSR = new System.Windows.Forms.Button();
@@ -276,6 +277,7 @@
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.tbOneM2MDataIN = new System.Windows.Forms.TextBox();
             this.gbOneM2MDevice = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button114 = new System.Windows.Forms.Button();
             this.button112 = new System.Windows.Forms.Button();
             this.button111 = new System.Windows.Forms.Button();
@@ -414,8 +416,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -2927,6 +2928,7 @@
             // 
             // groupBox19
             // 
+            this.groupBox19.Controls.Add(this.checkBox4);
             this.groupBox19.Controls.Add(this.button116);
             this.groupBox19.Controls.Add(this.button115);
             this.groupBox19.Controls.Add(this.btnSetRxContainer);
@@ -2947,7 +2949,7 @@
             // 
             // button116
             // 
-            this.button116.Location = new System.Drawing.Point(333, 129);
+            this.button116.Location = new System.Drawing.Point(285, 129);
             this.button116.Name = "button116";
             this.button116.Size = new System.Drawing.Size(120, 20);
             this.button116.TabIndex = 44;
@@ -2957,7 +2959,7 @@
             // 
             // button115
             // 
-            this.button115.Location = new System.Drawing.Point(190, 129);
+            this.button115.Location = new System.Drawing.Point(155, 129);
             this.button115.Name = "button115";
             this.button115.Size = new System.Drawing.Size(120, 20);
             this.button115.TabIndex = 43;
@@ -2967,7 +2969,7 @@
             // 
             // btnSetRxContainer
             // 
-            this.btnSetRxContainer.Location = new System.Drawing.Point(41, 20);
+            this.btnSetRxContainer.Location = new System.Drawing.Point(25, 20);
             this.btnSetRxContainer.Name = "btnSetRxContainer";
             this.btnSetRxContainer.Size = new System.Drawing.Size(118, 20);
             this.btnSetRxContainer.TabIndex = 36;
@@ -2977,7 +2979,7 @@
             // 
             // btnSendDataOneM2M
             // 
-            this.btnSendDataOneM2M.Location = new System.Drawing.Point(38, 103);
+            this.btnSendDataOneM2M.Location = new System.Drawing.Point(22, 103);
             this.btnSendDataOneM2M.Name = "btnSendDataOneM2M";
             this.btnSendDataOneM2M.Size = new System.Drawing.Size(121, 20);
             this.btnSendDataOneM2M.TabIndex = 19;
@@ -2987,7 +2989,7 @@
             // 
             // btnRcvDataOneM2M
             // 
-            this.btnRcvDataOneM2M.Location = new System.Drawing.Point(38, 77);
+            this.btnRcvDataOneM2M.Location = new System.Drawing.Point(22, 77);
             this.btnRcvDataOneM2M.Name = "btnRcvDataOneM2M";
             this.btnRcvDataOneM2M.Size = new System.Drawing.Size(121, 20);
             this.btnRcvDataOneM2M.TabIndex = 30;
@@ -2998,7 +3000,7 @@
             // lboneM2MRcvData
             // 
             this.lboneM2MRcvData.AutoSize = true;
-            this.lboneM2MRcvData.Location = new System.Drawing.Point(176, 81);
+            this.lboneM2MRcvData.Location = new System.Drawing.Point(160, 81);
             this.lboneM2MRcvData.Name = "lboneM2MRcvData";
             this.lboneM2MRcvData.Size = new System.Drawing.Size(9, 12);
             this.lboneM2MRcvData.TabIndex = 31;
@@ -3007,7 +3009,7 @@
             // 
             // btnSetSubscript
             // 
-            this.btnSetSubscript.Location = new System.Drawing.Point(39, 46);
+            this.btnSetSubscript.Location = new System.Drawing.Point(23, 46);
             this.btnSetSubscript.Name = "btnSetSubscript";
             this.btnSetSubscript.Size = new System.Drawing.Size(120, 20);
             this.btnSetSubscript.TabIndex = 34;
@@ -3017,7 +3019,7 @@
             // 
             // btnDelRxContainer
             // 
-            this.btnDelRxContainer.Location = new System.Drawing.Point(190, 20);
+            this.btnDelRxContainer.Location = new System.Drawing.Point(174, 20);
             this.btnDelRxContainer.Name = "btnDelRxContainer";
             this.btnDelRxContainer.Size = new System.Drawing.Size(120, 20);
             this.btnDelRxContainer.TabIndex = 37;
@@ -3027,7 +3029,7 @@
             // 
             // button34
             // 
-            this.button34.Location = new System.Drawing.Point(39, 129);
+            this.button34.Location = new System.Drawing.Point(23, 129);
             this.button34.Name = "button34";
             this.button34.Size = new System.Drawing.Size(121, 20);
             this.button34.TabIndex = 42;
@@ -3038,7 +3040,7 @@
             // lbSendedData
             // 
             this.lbSendedData.AutoSize = true;
-            this.lbSendedData.Location = new System.Drawing.Point(176, 107);
+            this.lbSendedData.Location = new System.Drawing.Point(160, 107);
             this.lbSendedData.Name = "lbSendedData";
             this.lbSendedData.Size = new System.Drawing.Size(9, 12);
             this.lbSendedData.TabIndex = 38;
@@ -3047,7 +3049,7 @@
             // 
             // btnDelSubscript
             // 
-            this.btnDelSubscript.Location = new System.Drawing.Point(190, 46);
+            this.btnDelSubscript.Location = new System.Drawing.Point(174, 46);
             this.btnDelSubscript.Name = "btnDelSubscript";
             this.btnDelSubscript.Size = new System.Drawing.Size(120, 20);
             this.btnDelSubscript.TabIndex = 39;
@@ -3069,6 +3071,19 @@
             this.groupBox18.TabIndex = 79;
             this.groupBox18.TabStop = false;
             this.groupBox18.Text = "remoteCSE";
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.Location = new System.Drawing.Point(151, 23);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(48, 16);
+            this.checkBox3.TabIndex = 41;
+            this.checkBox3.Text = "지원";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged_1);
             // 
             // btnGetCSED
             // 
@@ -3159,6 +3174,19 @@
             this.gbOneM2MDevice.TabIndex = 72;
             this.gbOneM2MDevice.TabStop = false;
             this.gbOneM2MDevice.Text = "oneM2M 인증";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(296, 75);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(48, 16);
+            this.checkBox1.TabIndex = 40;
+            this.checkBox1.Text = "지원";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
             // 
             // button114
             // 
@@ -4583,31 +4611,17 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBox1
+            // checkBox4
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(296, 75);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(48, 16);
-            this.checkBox1.TabIndex = 40;
-            this.checkBox1.Text = "지원";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Checked = true;
-            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox3.Location = new System.Drawing.Point(151, 23);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(48, 16);
-            this.checkBox3.TabIndex = 41;
-            this.checkBox3.Text = "지원";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged_1);
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(411, 132);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(48, 16);
+            this.checkBox4.TabIndex = 45;
+            this.checkBox4.Text = "지원";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -5079,6 +5093,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox4;
     }
 }
 
