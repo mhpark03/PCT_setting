@@ -334,6 +334,11 @@ namespace WindowsFormsApp2
             onem2mtc0214012,         // oneM2M Client 구동 요청
             onem2mtc0214013,         // MEF 인증 요청
             onem2mtc0214014,         // MEF 인증 요청
+
+            onem2mset01,            // remoteCSE 생성
+            onem2mset02,            // DtoS 폴더 생성
+            onem2mset03,            // StoD 폴더 생성
+            onem2mset04,            // StoD 구독 신청
         }
 
         private enum lwm2mtc
@@ -862,6 +867,9 @@ namespace WindowsFormsApp2
 
                     serialPort1.Write(sendmsg);
                     logPrintInTextBox(sendmsg, "tx");
+
+                    nextcommand = string.Empty;
+                    nextresponse = string.Empty;
                 }
                 else
                 {
@@ -894,7 +902,7 @@ namespace WindowsFormsApp2
             // If these threads are different, it returns true.
             if (ctr.InvokeRequired)
             {
-                Ctr_Involk CI = new Ctr_Involk(SetText);
+                Ctr_Involk CI = new Ctr_Involk(SetTextBox);
                 ctr.Invoke(CI, ctr, message);
             }
             else
@@ -1049,12 +1057,12 @@ namespace WindowsFormsApp2
                         this.sendDataOut(commands["getonem2mmode"]);
                         lbActionState.Text = states.onem2mtc0201023.ToString();
                         nextresponse = "$LGTMPF=";
-                        nextcommand = string.Empty;
                     }
                     else
                     {
                         lbActionState.Text = states.idle.ToString();
                         nextcommand = string.Empty;
+                        nextresponse = string.Empty;
                     }
                 }
                 else if (rxMsg.StartsWith("$OM_N_INS_RSP=", System.StringComparison.CurrentCultureIgnoreCase))
@@ -1144,6 +1152,13 @@ namespace WindowsFormsApp2
                             lbActionState.Text = states.getonem2mdata.ToString();
                         nextresponse = "$OM_R_INS_RSP=";
                     }
+                }
+                else if (rxMsg.StartsWith("$OM_DEV_FWDL_FAIL=", System.StringComparison.CurrentCultureIgnoreCase))
+                {
+                    endoneM2MTC("tc021001", "20000100", string.Empty, string.Empty, rxMsg);
+                    lbActionState.Text = states.idle.ToString();
+                    nextcommand = string.Empty;
+                    nextresponse = string.Empty;
                 }
                 else if (rxMsg.StartsWith("$OM_DEV_FWUP_RSP=", System.StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -1618,6 +1633,15 @@ namespace WindowsFormsApp2
                         nextresponse = "$OM_U_CSE_RSP=";
                     }
                     break;
+                case states.onem2mset01:
+                    // oneM2M remoteCSE 생성 결과, 2001이면 container 생성 요청
+                    if (str2 == "2001")
+                        endoneM2MTC("tc020501", string.Empty, string.Empty, string.Empty, string.Empty);
+                    startoneM2MTC("tc020502");
+                    this.sendDataOut(commands["setcontainer"]);
+                    lbActionState.Text = states.onem2mset02.ToString();
+                    nextresponse = "$OM_C_CON_RSP=";
+                    break;
                 case states.updateremoteCSE:
                 case states.onem2mtc0205051:
                 case states.onem2mtc0205052:
@@ -1697,6 +1721,15 @@ namespace WindowsFormsApp2
                         }
                     }
                     break;
+                case states.onem2mset02:
+                    // oneM2M container 생성 결과, 2001이면 성공
+                    if (str2 == "2001")
+                        endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    this.sendDataOut(commands["settxcontainer"]);
+                    nextresponse = "$OM_C_CON_RSP=";
+                    lbActionState.Text = states.onem2mset03.ToString();
+                    break;
                 case states.onem2mtc0205023:
                     this.sendDataOut(commands["settxcontainer"]);
                     lbActionState.Text = states.onem2mtc0205022.ToString();
@@ -1713,6 +1746,12 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.onem2mtc0205031.ToString();
                         nextresponse = "$OM_C_SUB_RSP=";
                     }
+                    break;
+                case states.onem2mset03:
+                    startoneM2MTC("tc020503");
+                    this.sendDataOut(commands["setsubscript"] + "StoD");
+                    lbActionState.Text = states.onem2mset04.ToString();
+                    nextresponse = "$OM_C_SUB_RSP=";
                     break;
                 case states.delcontainer:
                 case states.onem2mtc0212031:
@@ -1798,6 +1837,13 @@ namespace WindowsFormsApp2
                             lbSendedData.Text = txData;
                         }
                     }
+                    break;
+                case states.onem2mset04:
+                    // oneM2M subscription 신청 결과
+                    if (str2 == "2001" || str2 == "4015")
+                        endoneM2MTC("tc020503", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 case states.delsubscript:
                 case states.onem2mtc0212021:
@@ -1907,14 +1953,12 @@ namespace WindowsFormsApp2
                         // 플랫폼 서버에 data 수신 요청
                         this.sendDataOut(commands["setrcvauto"]);
                         lbActionState.Text = states.onem2mtc020602.ToString();
-                        nextresponse = string.Empty;
                     }
                     else
                     {
                         startoneM2MTC("tc020801");
                         this.sendDataOut(textBox60.Text);
                         lbActionState.Text = states.onem2mtc0208011.ToString();
-                        nextresponse = string.Empty;
                     }
                     break;
                 case states.sendonemsgsvr:
@@ -2108,6 +2152,8 @@ namespace WindowsFormsApp2
                 case states.resetreport:
                     if (str2 == "2004" || str2 == "2000")
                         endoneM2MTC("tc021401", string.Empty, string.Empty, string.Empty, string.Empty);
+                    else
+                        endoneM2MTC("tc021401", "20000100", string.Empty, string.Empty, str2);
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.resetreceived:
@@ -2158,14 +2204,12 @@ namespace WindowsFormsApp2
                     this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
                     lbActionState.Text = states.fotamefauthnt.ToString();
                     nextresponse = "$OM_AUTH_RSP=";
-                    nextcommand = string.Empty;
                     break;
                 case states.modemFWUPboot:
                 case states.modemFWUPmodechk:               // $$LGTMPF= 응답 없이 OK가 응답된 경우 예외처리를 위해
                     this.sendDataOut(commands["getonem2mmode"]);
                     lbActionState.Text = states.modemFWUPmodechk.ToString();
                     nextresponse = "$LGTMPF=";
-                    nextcommand = string.Empty;
                     break;
                 case states.setrcvauto:
                 case states.onem2mtc020602:
@@ -2181,6 +2225,7 @@ namespace WindowsFormsApp2
                         {
                             lbActionState.Text = states.onem2mtc0206031.ToString();
                             SendDataToPlatform();
+                            nextcommand = string.Empty;
                         }
                         else
                         {
@@ -2190,7 +2235,6 @@ namespace WindowsFormsApp2
                             lbSendedData.Text = txData;
                         }
                     }
-                    nextcommand = string.Empty;
                     break;
                 case states.setrcvmanu:
                     endoneM2MTC("tc020604", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -2215,7 +2259,6 @@ namespace WindowsFormsApp2
                     }
                     nextresponse = "$OM_C_INS_RSP=";
                     lbSendedData.Text = txData;
-                    nextcommand = string.Empty;
                     break;
                 case states.onem2mtc0206042:        // 수동 수신 모드 설정 후 데이터 수신 시험 진행
                     endoneM2MTC("tc020604", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -2223,13 +2266,11 @@ namespace WindowsFormsApp2
                     startoneM2MTC("tc020801");
                     this.sendDataOut(textBox60.Text);
                     lbActionState.Text = states.onem2mtc0208011.ToString();
-                    nextcommand = string.Empty;
                     break;
                 case states.onem2mtc0201011:
                     //AT$OM_SVR_INFO=<svr>,<ip>,<port>
                     this.sendDataOut(commands["sethttpserverinfo"] + oneM2MBRKIP + "," + oneM2MBRKPort);
                     lbActionState.Text = states.onem2mtc0201012.ToString();
-                    nextcommand = string.Empty;
                     break;
                 case states.onem2mtc0201012:
                     if (checkBox1.Checked == true)
@@ -2237,33 +2278,28 @@ namespace WindowsFormsApp2
                         //AT$OM_SVR_INFO=<svr>,<ip>,<port>
                         this.sendDataOut(commands["setfotaserverinfo"] + oneM2MFOTAIP + "," + oneM2MFOTAPort);
                         lbActionState.Text = states.onem2mtc0201013.ToString();
-                        nextcommand = string.Empty;
                     }
                     else
                     {
                         this.sendDataOut(commands["getserverinfo"]);
                         lbActionState.Text = states.onem2mtc0201014.ToString();
                         nextresponse = "$OM_SVR_INFO=";
-                        nextcommand = string.Empty;
                     }
                     break;
                 case states.onem2mtc0201013:
                     this.sendDataOut(commands["getserverinfo"]);
                     lbActionState.Text = states.onem2mtc0201014.ToString();
                     nextresponse = "$OM_SVR_INFO=";
-                    nextcommand = string.Empty;
                     break;
                 case states.onem2mtc0201022:
                     this.sendDataOut(commands["getonem2mmode"]);
                     lbActionState.Text = states.onem2mtc0201023.ToString();
                     nextresponse = "$LGTMPF=";
-                    nextcommand = string.Empty;
                     break;
                 case states.onem2mtc0208011:
                     this.sendDataOut(textBox59.Text);
                     lbActionState.Text = states.onem2mtc0208012.ToString();
                     nextresponse = "$OM_POA_NOTI=";
-                    nextcommand = string.Empty;
                     break;
                 default:
                     break;
@@ -4974,6 +5010,8 @@ namespace WindowsFormsApp2
 
         private void button87_Click(object sender, EventArgs e)
         {
+            nextcommand = string.Empty;
+            nextresponse = string.Empty;
             getDeviveInfo();
         }
 
@@ -6264,7 +6302,7 @@ namespace WindowsFormsApp2
             // If these threads are different, it returns true.
             if (ctr.InvokeRequired)
             {
-                Ctr_Involk CI = new Ctr_Involk(SetText);
+                Ctr_Involk CI = new Ctr_Involk(SetTextlist2);
                 ctr.Invoke(CI, ctr, txtValue);
             }
             else
@@ -6371,7 +6409,7 @@ namespace WindowsFormsApp2
             // If these threads are different, it returns true.
             if (ctr.InvokeRequired)
             {
-                Ctr_Involk CI = new Ctr_Involk(SetText);
+                Ctr_Involk CI = new Ctr_Involk(SetTextlist1);
                 ctr.Invoke(CI, ctr, txtValue);
             }
             else
@@ -8444,6 +8482,14 @@ namespace WindowsFormsApp2
                 checkBox3.Text = "지원";
             else
                 checkBox3.Text = "미지원";
+        }
+
+        private void button117_Click(object sender, EventArgs e)
+        {
+            startoneM2MTC("tc020501");
+            this.sendDataOut(commands["setremoteCSE"]);
+            lbActionState.Text = states.onem2mset01.ToString();
+            nextresponse = "$OM_C_CSE_RSP=";
         }
     }
 

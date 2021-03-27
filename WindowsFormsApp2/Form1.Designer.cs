@@ -256,6 +256,7 @@
             this.button103 = new System.Windows.Forms.Button();
             this.button80 = new System.Windows.Forms.Button();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button116 = new System.Windows.Forms.Button();
             this.button115 = new System.Windows.Forms.Button();
             this.btnSetRxContainer = new System.Windows.Forms.Button();
@@ -416,7 +417,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.button117 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -2726,6 +2727,7 @@
             // 
             // tabOneM2M
             // 
+            this.tabOneM2M.Controls.Add(this.button117);
             this.tabOneM2M.Controls.Add(this.groupBox21);
             this.tabOneM2M.Controls.Add(this.groupBox20);
             this.tabOneM2M.Controls.Add(this.groupBox19);
@@ -2946,6 +2948,18 @@
             this.groupBox19.TabIndex = 80;
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "oneM2M DATA";
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.Location = new System.Drawing.Point(411, 132);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(48, 16);
+            this.checkBox4.TabIndex = 45;
+            this.checkBox4.Text = "지원";
+            this.checkBox4.UseVisualStyleBackColor = true;
             // 
             // button116
             // 
@@ -3260,7 +3274,7 @@
             // 
             // btnoneM2MFullTest
             // 
-            this.btnoneM2MFullTest.Location = new System.Drawing.Point(136, 7);
+            this.btnoneM2MFullTest.Location = new System.Drawing.Point(70, 7);
             this.btnoneM2MFullTest.Name = "btnoneM2MFullTest";
             this.btnoneM2MFullTest.Size = new System.Drawing.Size(155, 31);
             this.btnoneM2MFullTest.TabIndex = 41;
@@ -4611,17 +4625,15 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // checkBox4
+            // button117
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Checked = true;
-            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(411, 132);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(48, 16);
-            this.checkBox4.TabIndex = 45;
-            this.checkBox4.Text = "지원";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.button117.Location = new System.Drawing.Point(276, 7);
+            this.button117.Name = "button117";
+            this.button117.Size = new System.Drawing.Size(155, 31);
+            this.button117.TabIndex = 83;
+            this.button117.Text = "시험 리소스 생성";
+            this.button117.UseVisualStyleBackColor = true;
+            this.button117.Click += new System.EventHandler(this.button117_Click);
             // 
             // Form1
             // 
@@ -5094,6 +5106,7 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Button button117;
     }
 }
 
