@@ -238,6 +238,7 @@
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
             this.tabOneM2M = new System.Windows.Forms.TabPage();
+            this.button117 = new System.Windows.Forms.Button();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
             this.label38 = new System.Windows.Forms.Label();
             this.textBox72 = new System.Windows.Forms.TextBox();
@@ -288,14 +289,19 @@
             this.btnMEFAuthD = new System.Windows.Forms.Button();
             this.btnoneM2MFullTest = new System.Windows.Forms.Button();
             this.tabLwM2M = new System.Windows.Forms.TabPage();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.textBox70 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox65 = new System.Windows.Forms.TextBox();
+            this.textBox71 = new System.Windows.Forms.TextBox();
+            this.button35 = new System.Windows.Forms.Button();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.tbLwM2MDataIN = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.textBox71 = new System.Windows.Forms.TextBox();
-            this.button35 = new System.Windows.Forms.Button();
             this.textBox63 = new System.Windows.Forms.TextBox();
             this.textBox69 = new System.Windows.Forms.TextBox();
             this.button108 = new System.Windows.Forms.Button();
@@ -417,7 +423,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.button117 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -444,6 +449,7 @@
             this.groupBox17.SuspendLayout();
             this.gbOneM2MDevice.SuspendLayout();
             this.tabLwM2M.SuspendLayout();
+            this.groupBox22.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.tabServer.SuspendLayout();
@@ -2742,6 +2748,16 @@
             this.tabOneM2M.Text = "oneM2M Device";
             this.tabOneM2M.UseVisualStyleBackColor = true;
             // 
+            // button117
+            // 
+            this.button117.Location = new System.Drawing.Point(276, 7);
+            this.button117.Name = "button117";
+            this.button117.Size = new System.Drawing.Size(155, 31);
+            this.button117.TabIndex = 83;
+            this.button117.Text = "시험 리소스 생성";
+            this.button117.UseVisualStyleBackColor = true;
+            this.button117.Click += new System.EventHandler(this.button117_Click);
+            // 
             // groupBox21
             // 
             this.groupBox21.Controls.Add(this.label38);
@@ -3284,6 +3300,7 @@
             // 
             // tabLwM2M
             // 
+            this.tabLwM2M.Controls.Add(this.groupBox22);
             this.tabLwM2M.Controls.Add(this.groupBox16);
             this.tabLwM2M.Controls.Add(this.label1);
             this.tabLwM2M.Controls.Add(this.tBoxDeviceVer);
@@ -3296,6 +3313,74 @@
             this.tabLwM2M.TabIndex = 5;
             this.tabLwM2M.Text = "LwM2M Device";
             this.tabLwM2M.UseVisualStyleBackColor = true;
+            // 
+            // groupBox22
+            // 
+            this.groupBox22.Controls.Add(this.label39);
+            this.groupBox22.Controls.Add(this.textBox70);
+            this.groupBox22.Controls.Add(this.label3);
+            this.groupBox22.Controls.Add(this.textBox65);
+            this.groupBox22.Controls.Add(this.textBox71);
+            this.groupBox22.Controls.Add(this.button35);
+            this.groupBox22.Location = new System.Drawing.Point(11, 58);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(513, 134);
+            this.groupBox22.TabIndex = 63;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "groupBox22";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(126, 79);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(78, 12);
+            this.label39.TabIndex = 66;
+            this.label39.Text = "모듈 FW 버전";
+            // 
+            // textBox70
+            // 
+            this.textBox70.Location = new System.Drawing.Point(210, 76);
+            this.textBox70.Name = "textBox70";
+            this.textBox70.Size = new System.Drawing.Size(291, 21);
+            this.textBox70.TabIndex = 65;
+            this.textBox70.Text = "AT+MLWEVTIND=5";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(107, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 12);
+            this.label3.TabIndex = 64;
+            this.label3.Text = "부팅 완료 메시지";
+            // 
+            // textBox65
+            // 
+            this.textBox65.Location = new System.Drawing.Point(210, 49);
+            this.textBox65.Name = "textBox65";
+            this.textBox65.Size = new System.Drawing.Size(291, 21);
+            this.textBox65.TabIndex = 57;
+            this.textBox65.Text = "+MBIPST:0";
+            // 
+            // textBox71
+            // 
+            this.textBox71.Location = new System.Drawing.Point(210, 22);
+            this.textBox71.Name = "textBox71";
+            this.textBox71.Size = new System.Drawing.Size(291, 21);
+            this.textBox71.TabIndex = 56;
+            this.textBox71.Text = "AT+NRB";
+            // 
+            // button35
+            // 
+            this.button35.Location = new System.Drawing.Point(8, 19);
+            this.button35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button35.Name = "button35";
+            this.button35.Size = new System.Drawing.Size(196, 24);
+            this.button35.TabIndex = 55;
+            this.button35.Text = "Device Reboot";
+            this.button35.UseVisualStyleBackColor = true;
+            this.button35.Click += new System.EventHandler(this.button35_Click);
             // 
             // groupBox16
             // 
@@ -3323,7 +3408,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(303, 57);
+            this.label1.Location = new System.Drawing.Point(327, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 62;
@@ -3331,7 +3416,7 @@
             // 
             // tBoxDeviceVer
             // 
-            this.tBoxDeviceVer.Location = new System.Drawing.Point(398, 51);
+            this.tBoxDeviceVer.Location = new System.Drawing.Point(408, 24);
             this.tBoxDeviceVer.Name = "tBoxDeviceVer";
             this.tBoxDeviceVer.Size = new System.Drawing.Size(126, 21);
             this.tBoxDeviceVer.TabIndex = 61;
@@ -3340,7 +3425,7 @@
             // 
             // button113
             // 
-            this.button113.Location = new System.Drawing.Point(197, 24);
+            this.button113.Location = new System.Drawing.Point(166, 24);
             this.button113.Name = "button113";
             this.button113.Size = new System.Drawing.Size(155, 28);
             this.button113.TabIndex = 55;
@@ -3350,8 +3435,6 @@
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.textBox71);
-            this.groupBox11.Controls.Add(this.button35);
             this.groupBox11.Controls.Add(this.textBox63);
             this.groupBox11.Controls.Add(this.textBox69);
             this.groupBox11.Controls.Add(this.button108);
@@ -3378,7 +3461,7 @@
             this.groupBox11.Controls.Add(this.textBox56);
             this.groupBox11.Controls.Add(this.button97);
             this.groupBox11.Controls.Add(this.button98);
-            this.groupBox11.Location = new System.Drawing.Point(17, 71);
+            this.groupBox11.Location = new System.Drawing.Point(11, 211);
             this.groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -3387,32 +3470,13 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
             // 
-            // textBox71
-            // 
-            this.textBox71.Location = new System.Drawing.Point(210, 21);
-            this.textBox71.Name = "textBox71";
-            this.textBox71.Size = new System.Drawing.Size(291, 21);
-            this.textBox71.TabIndex = 56;
-            this.textBox71.Text = "AT+NRB";
-            // 
-            // button35
-            // 
-            this.button35.Location = new System.Drawing.Point(8, 18);
-            this.button35.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button35.Name = "button35";
-            this.button35.Size = new System.Drawing.Size(196, 24);
-            this.button35.TabIndex = 55;
-            this.button35.Text = "Device Reboot";
-            this.button35.UseVisualStyleBackColor = true;
-            this.button35.Click += new System.EventHandler(this.button35_Click);
-            // 
             // textBox63
             // 
             this.textBox63.Location = new System.Drawing.Point(210, 240);
             this.textBox63.Name = "textBox63";
             this.textBox63.Size = new System.Drawing.Size(291, 21);
             this.textBox63.TabIndex = 54;
-            this.textBox63.Text = "BOOTSTRAP";
+            this.textBox63.Text = "AT+MLWEVTIND=4";
             // 
             // textBox69
             // 
@@ -4625,15 +4689,9 @@
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // button117
+            // timer2
             // 
-            this.button117.Location = new System.Drawing.Point(276, 7);
-            this.button117.Name = "button117";
-            this.button117.Size = new System.Drawing.Size(155, 31);
-            this.button117.TabIndex = 83;
-            this.button117.Text = "시험 리소스 생성";
-            this.button117.UseVisualStyleBackColor = true;
-            this.button117.Click += new System.EventHandler(this.button117_Click);
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // Form1
             // 
@@ -4693,6 +4751,8 @@
             this.gbOneM2MDevice.PerformLayout();
             this.tabLwM2M.ResumeLayout(false);
             this.tabLwM2M.PerformLayout();
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox22.PerformLayout();
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
             this.groupBox11.ResumeLayout(false);
@@ -5107,6 +5167,11 @@
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox4;
         private System.Windows.Forms.Button button117;
+        private System.Windows.Forms.GroupBox groupBox22;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox textBox70;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox65;
     }
 }
 
