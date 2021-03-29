@@ -302,6 +302,10 @@
             this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.textBox75 = new System.Windows.Forms.TextBox();
             this.textBox74 = new System.Windows.Forms.TextBox();
             this.textBox63 = new System.Windows.Forms.TextBox();
             this.textBox69 = new System.Windows.Forms.TextBox();
@@ -315,12 +319,12 @@
             this.textBox66 = new System.Windows.Forms.TextBox();
             this.button105 = new System.Windows.Forms.Button();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.textBox52 = new System.Windows.Forms.TextBox();
             this.textBox50 = new System.Windows.Forms.TextBox();
+            this.btnDeregister = new System.Windows.Forms.Button();
             this.button92 = new System.Windows.Forms.Button();
             this.textBox51 = new System.Windows.Forms.TextBox();
             this.btnDeviceVerLwM2M = new System.Windows.Forms.Button();
-            this.textBox52 = new System.Windows.Forms.TextBox();
-            this.btnDeregister = new System.Windows.Forms.Button();
             this.textBox53 = new System.Windows.Forms.TextBox();
             this.button95 = new System.Windows.Forms.Button();
             this.textBox54 = new System.Windows.Forms.TextBox();
@@ -334,6 +338,7 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.label40 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbDevEntityId = new System.Windows.Forms.Label();
             this.button93 = new System.Windows.Forms.Button();
@@ -423,8 +428,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label40 = new System.Windows.Forms.Label();
-            this.textBox75 = new System.Windows.Forms.TextBox();
+            this.label43 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -528,7 +532,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1136, 829);
+            this.panel1.Size = new System.Drawing.Size(1133, 829);
             this.panel1.TabIndex = 10;
             // 
             // tabControl1
@@ -3410,7 +3414,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(327, 15);
+            this.label1.Location = new System.Drawing.Point(180, 732);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(89, 12);
             this.label1.TabIndex = 62;
@@ -3418,7 +3422,7 @@
             // 
             // tBoxDeviceVer
             // 
-            this.tBoxDeviceVer.Location = new System.Drawing.Point(408, 24);
+            this.tBoxDeviceVer.Location = new System.Drawing.Point(275, 726);
             this.tBoxDeviceVer.Name = "tBoxDeviceVer";
             this.tBoxDeviceVer.Size = new System.Drawing.Size(126, 21);
             this.tBoxDeviceVer.TabIndex = 61;
@@ -3437,6 +3441,10 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.label43);
+            this.groupBox11.Controls.Add(this.checkBox5);
+            this.groupBox11.Controls.Add(this.label42);
+            this.groupBox11.Controls.Add(this.label41);
             this.groupBox11.Controls.Add(this.textBox75);
             this.groupBox11.Controls.Add(this.textBox74);
             this.groupBox11.Controls.Add(this.textBox63);
@@ -3451,12 +3459,12 @@
             this.groupBox11.Controls.Add(this.textBox66);
             this.groupBox11.Controls.Add(this.button105);
             this.groupBox11.Controls.Add(this.checkBox2);
+            this.groupBox11.Controls.Add(this.textBox52);
             this.groupBox11.Controls.Add(this.textBox50);
+            this.groupBox11.Controls.Add(this.btnDeregister);
             this.groupBox11.Controls.Add(this.button92);
             this.groupBox11.Controls.Add(this.textBox51);
             this.groupBox11.Controls.Add(this.btnDeviceVerLwM2M);
-            this.groupBox11.Controls.Add(this.textBox52);
-            this.groupBox11.Controls.Add(this.btnDeregister);
             this.groupBox11.Controls.Add(this.textBox53);
             this.groupBox11.Controls.Add(this.button95);
             this.groupBox11.Controls.Add(this.textBox54);
@@ -3473,6 +3481,45 @@
             this.groupBox11.TabIndex = 36;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Checked = true;
+            this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox5.Location = new System.Drawing.Point(210, 182);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(185, 16);
+            this.checkBox5.TabIndex = 65;
+            this.checkBox5.Text = "Bootstrap/Register 명령 구분";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged_1);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(74, 324);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(130, 12);
+            this.label42.TabIndex = 64;
+            this.label42.Text = "Deregister 완료 메시지";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(85, 265);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(119, 12);
+            this.label41.TabIndex = 63;
+            this.label41.Text = "Register 완료 메시지";
+            // 
+            // textBox75
+            // 
+            this.textBox75.Location = new System.Drawing.Point(210, 321);
+            this.textBox75.Name = "textBox75";
+            this.textBox75.Size = new System.Drawing.Size(291, 21);
+            this.textBox75.TabIndex = 56;
+            this.textBox75.Text = "AT+MLWEVTIND=1";
             // 
             // textBox74
             // 
@@ -3511,7 +3558,7 @@
             // lbLwM2MRcvData
             // 
             this.lbLwM2MRcvData.AutoSize = true;
-            this.lbLwM2MRcvData.Location = new System.Drawing.Point(208, 364);
+            this.lbLwM2MRcvData.Location = new System.Drawing.Point(208, 427);
             this.lbLwM2MRcvData.Name = "lbLwM2MRcvData";
             this.lbLwM2MRcvData.Size = new System.Drawing.Size(101, 12);
             this.lbLwM2MRcvData.TabIndex = 40;
@@ -3520,7 +3567,7 @@
             // 
             // textBox68
             // 
-            this.textBox68.Location = new System.Drawing.Point(210, 340);
+            this.textBox68.Location = new System.Drawing.Point(210, 403);
             this.textBox68.Name = "textBox68";
             this.textBox68.Size = new System.Drawing.Size(291, 21);
             this.textBox68.TabIndex = 51;
@@ -3529,7 +3576,7 @@
             // lbDevLwM2MData
             // 
             this.lbDevLwM2MData.AutoSize = true;
-            this.lbDevLwM2MData.Location = new System.Drawing.Point(208, 313);
+            this.lbDevLwM2MData.Location = new System.Drawing.Point(208, 376);
             this.lbDevLwM2MData.Name = "lbDevLwM2MData";
             this.lbDevLwM2MData.Size = new System.Drawing.Size(49, 12);
             this.lbDevLwM2MData.TabIndex = 39;
@@ -3538,7 +3585,7 @@
             // 
             // button107
             // 
-            this.button107.Location = new System.Drawing.Point(8, 337);
+            this.button107.Location = new System.Drawing.Point(8, 400);
             this.button107.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button107.Name = "button107";
             this.button107.Size = new System.Drawing.Size(196, 24);
@@ -3548,7 +3595,7 @@
             // 
             // textBox67
             // 
-            this.textBox67.Location = new System.Drawing.Point(210, 168);
+            this.textBox67.Location = new System.Drawing.Point(210, 146);
             this.textBox67.Name = "textBox67";
             this.textBox67.Size = new System.Drawing.Size(291, 21);
             this.textBox67.TabIndex = 49;
@@ -3556,7 +3603,7 @@
             // 
             // btnBootstrap
             // 
-            this.btnBootstrap.Location = new System.Drawing.Point(8, 168);
+            this.btnBootstrap.Location = new System.Drawing.Point(8, 146);
             this.btnBootstrap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBootstrap.Name = "btnBootstrap";
             this.btnBootstrap.Size = new System.Drawing.Size(196, 24);
@@ -3595,6 +3642,14 @@
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged_1);
             // 
+            // textBox52
+            // 
+            this.textBox52.Location = new System.Drawing.Point(210, 294);
+            this.textBox52.Name = "textBox52";
+            this.textBox52.Size = new System.Drawing.Size(291, 21);
+            this.textBox52.TabIndex = 28;
+            this.textBox52.Text = "AT+MLWSREGIND=1";
+            // 
             // textBox50
             // 
             this.textBox50.Location = new System.Drawing.Point(212, 63);
@@ -3602,6 +3657,17 @@
             this.textBox50.Size = new System.Drawing.Size(205, 21);
             this.textBox50.TabIndex = 32;
             this.textBox50.Text = "AT+MLWEPNS=";
+            // 
+            // btnDeregister
+            // 
+            this.btnDeregister.Location = new System.Drawing.Point(8, 291);
+            this.btnDeregister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnDeregister.Name = "btnDeregister";
+            this.btnDeregister.Size = new System.Drawing.Size(196, 24);
+            this.btnDeregister.TabIndex = 27;
+            this.btnDeregister.Text = "DEREGISTRATION";
+            this.btnDeregister.UseVisualStyleBackColor = true;
+            this.btnDeregister.Click += new System.EventHandler(this.btnDeregister_Click);
             // 
             // button92
             // 
@@ -3633,28 +3699,9 @@
             this.btnDeviceVerLwM2M.UseVisualStyleBackColor = true;
             this.btnDeviceVerLwM2M.Click += new System.EventHandler(this.btnDeviceVerLwM2M_Click);
             // 
-            // textBox52
-            // 
-            this.textBox52.Location = new System.Drawing.Point(210, 391);
-            this.textBox52.Name = "textBox52";
-            this.textBox52.Size = new System.Drawing.Size(291, 21);
-            this.textBox52.TabIndex = 28;
-            this.textBox52.Text = "AT+MLWSREGIND=1";
-            // 
-            // btnDeregister
-            // 
-            this.btnDeregister.Location = new System.Drawing.Point(8, 388);
-            this.btnDeregister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnDeregister.Name = "btnDeregister";
-            this.btnDeregister.Size = new System.Drawing.Size(196, 24);
-            this.btnDeregister.TabIndex = 27;
-            this.btnDeregister.Text = "DEREGISTRATION";
-            this.btnDeregister.UseVisualStyleBackColor = true;
-            this.btnDeregister.Click += new System.EventHandler(this.btnDeregister_Click);
-            // 
             // textBox53
             // 
-            this.textBox53.Location = new System.Drawing.Point(210, 289);
+            this.textBox53.Location = new System.Drawing.Point(210, 352);
             this.textBox53.Name = "textBox53";
             this.textBox53.Size = new System.Drawing.Size(291, 21);
             this.textBox53.TabIndex = 26;
@@ -3662,7 +3709,7 @@
             // 
             // button95
             // 
-            this.button95.Location = new System.Drawing.Point(8, 286);
+            this.button95.Location = new System.Drawing.Point(8, 349);
             this.button95.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button95.Name = "button95";
             this.button95.Size = new System.Drawing.Size(196, 24);
@@ -3797,6 +3844,15 @@
             this.groupBox13.TabIndex = 48;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "LwM2M Device DATA";
+            // 
+            // label40
+            // 
+            this.label40.Location = new System.Drawing.Point(147, 78);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(242, 22);
+            this.label40.TabIndex = 88;
+            this.label40.Text = ".";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
             // 
@@ -4697,28 +4753,20 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // label40
+            // label43
             // 
-            this.label40.Location = new System.Drawing.Point(147, 78);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(242, 22);
-            this.label40.TabIndex = 88;
-            this.label40.Text = ".";
-            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBox75
-            // 
-            this.textBox75.Location = new System.Drawing.Point(210, 418);
-            this.textBox75.Name = "textBox75";
-            this.textBox75.Size = new System.Drawing.Size(291, 21);
-            this.textBox75.TabIndex = 56;
-            this.textBox75.Text = "AT+MLWEVTIND=1";
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(74, 207);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(126, 12);
+            this.label43.TabIndex = 66;
+            this.label43.Text = "Bootstrap 완료 메시지";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 829);
+            this.ClientSize = new System.Drawing.Size(1133, 829);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
@@ -5194,6 +5242,10 @@
         private System.Windows.Forms.TextBox textBox74;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.TextBox textBox75;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label43;
     }
 }
 

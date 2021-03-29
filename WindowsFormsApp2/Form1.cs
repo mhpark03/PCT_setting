@@ -2266,12 +2266,17 @@ namespace WindowsFormsApp2
                 case states.lwm2mtc02025:
                     endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
 
-                    this.sendDataOut(textBox54.Text);
-                    startLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, textBox54.Text);
+                    if (checkBox5.Checked == true)
+                    {
+                        this.sendDataOut(textBox54.Text);
+                        startLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, textBox54.Text);
+                    }
                     lbActionState.Text = states.lwm2mtc03011.ToString();
                     nextresponse = textBox74.Text;
                     break;
                 case states.lwm2mtc03011:
+                    if (checkBox5.Checked == false)
+                        endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
                     endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
 
                     lbActionState.Text = states.lwm2mtc03012.ToString();
@@ -2472,9 +2477,9 @@ namespace WindowsFormsApp2
                     // LWM2M서버에 Bootstarp 요청
                     //  AT+MLWGOBOOTSTRAP=1
                     this.sendDataOut(textBox67.Text);
-                    startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox67.Text);
-                    lbActionState.Text = states.lwm2mtc02025.ToString();
-                    nextresponse = textBox63.Text;
+                        startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox67.Text);
+                        lbActionState.Text = states.lwm2mtc02025.ToString();
+                        nextresponse = textBox63.Text;
                     break;
                 case states.sendmsghex:
                     endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -4366,6 +4371,30 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button108.Text);
                 worksheet.Cells[i, 1] = new Cell("recvfota");
                 worksheet.Cells[i, 2] = new Cell(textBox69.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label3.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox65.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label39.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox70.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell("");
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(checkBox5.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label43.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox63.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label41.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox74.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label42.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox75.Text);
 
                 worksheet.Cells.ColumnWidth[0] = 6000;
                 worksheet.Cells.ColumnWidth[1] = 5000;
@@ -4695,6 +4724,18 @@ namespace WindowsFormsApp2
                         textBox51.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox69.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox65.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox70.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        checkBox5.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox63.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox74.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox75.Text = worksheet.Cells[i, 2].ToString();
 
                         //////////////////////////////////////////////////////////////// PCT 장비 옵션 설정
                         i = 1;
@@ -7227,10 +7268,10 @@ namespace WindowsFormsApp2
                     JObject obj = JObject.Parse(retStr);
 
                     var deviceVer = obj["deviceVersion"] ?? "unknown";
-                    lbdevicever.Text = deviceVer.ToString();
+                    label10.Text = deviceVer.ToString();
 
                     var modemVer = obj["modemVersion"] ?? "unknown";
-                    lbmodemfwrver.Text = modemVer.ToString();
+                    label8.Text = modemVer.ToString();
 
                     if (mode == "YES")
                     {
@@ -8767,6 +8808,14 @@ namespace WindowsFormsApp2
                 SetText(lbActionState, states.lwm2mtc0401.ToString());
                 nextresponse = textBox75.Text;
             }
+        }
+
+        private void checkBox5_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox5.Checked == true)
+                checkBox5.Text = "Bootstrap/Register 명령 구분";
+            else
+                checkBox5.Text = "Register 명령 포함";
         }
     }
 
