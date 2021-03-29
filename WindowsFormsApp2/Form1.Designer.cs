@@ -302,6 +302,7 @@
             this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.textBox74 = new System.Windows.Forms.TextBox();
             this.textBox63 = new System.Windows.Forms.TextBox();
             this.textBox69 = new System.Windows.Forms.TextBox();
             this.button108 = new System.Windows.Forms.Button();
@@ -342,7 +343,6 @@
             this.btnDeviceStatusCheck = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.tbLwM2MData = new System.Windows.Forms.TextBox();
             this.btnLwM2MData = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.tbLog = new System.Windows.Forms.TextBox();
@@ -423,6 +423,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label40 = new System.Windows.Forms.Label();
+            this.textBox75 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -3324,7 +3326,7 @@
             this.groupBox22.Controls.Add(this.button35);
             this.groupBox22.Location = new System.Drawing.Point(11, 58);
             this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(513, 134);
+            this.groupBox22.Size = new System.Drawing.Size(513, 113);
             this.groupBox22.TabIndex = 63;
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "groupBox22";
@@ -3435,6 +3437,8 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.textBox75);
+            this.groupBox11.Controls.Add(this.textBox74);
             this.groupBox11.Controls.Add(this.textBox63);
             this.groupBox11.Controls.Add(this.textBox69);
             this.groupBox11.Controls.Add(this.button108);
@@ -3461,7 +3465,7 @@
             this.groupBox11.Controls.Add(this.textBox56);
             this.groupBox11.Controls.Add(this.button97);
             this.groupBox11.Controls.Add(this.button98);
-            this.groupBox11.Location = new System.Drawing.Point(11, 211);
+            this.groupBox11.Location = new System.Drawing.Point(11, 188);
             this.groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -3470,9 +3474,17 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
             // 
+            // textBox74
+            // 
+            this.textBox74.Location = new System.Drawing.Point(210, 262);
+            this.textBox74.Name = "textBox74";
+            this.textBox74.Size = new System.Drawing.Size(291, 21);
+            this.textBox74.TabIndex = 55;
+            this.textBox74.Text = "AT+MLWEVTIND=8";
+            // 
             // textBox63
             // 
-            this.textBox63.Location = new System.Drawing.Point(210, 240);
+            this.textBox63.Location = new System.Drawing.Point(210, 204);
             this.textBox63.Name = "textBox63";
             this.textBox63.Size = new System.Drawing.Size(291, 21);
             this.textBox63.TabIndex = 54;
@@ -3499,7 +3511,7 @@
             // lbLwM2MRcvData
             // 
             this.lbLwM2MRcvData.AutoSize = true;
-            this.lbLwM2MRcvData.Location = new System.Drawing.Point(208, 400);
+            this.lbLwM2MRcvData.Location = new System.Drawing.Point(208, 364);
             this.lbLwM2MRcvData.Name = "lbLwM2MRcvData";
             this.lbLwM2MRcvData.Size = new System.Drawing.Size(101, 12);
             this.lbLwM2MRcvData.TabIndex = 40;
@@ -3508,7 +3520,7 @@
             // 
             // textBox68
             // 
-            this.textBox68.Location = new System.Drawing.Point(210, 376);
+            this.textBox68.Location = new System.Drawing.Point(210, 340);
             this.textBox68.Name = "textBox68";
             this.textBox68.Size = new System.Drawing.Size(291, 21);
             this.textBox68.TabIndex = 51;
@@ -3517,7 +3529,7 @@
             // lbDevLwM2MData
             // 
             this.lbDevLwM2MData.AutoSize = true;
-            this.lbDevLwM2MData.Location = new System.Drawing.Point(208, 349);
+            this.lbDevLwM2MData.Location = new System.Drawing.Point(208, 313);
             this.lbDevLwM2MData.Name = "lbDevLwM2MData";
             this.lbDevLwM2MData.Size = new System.Drawing.Size(49, 12);
             this.lbDevLwM2MData.TabIndex = 39;
@@ -3526,7 +3538,7 @@
             // 
             // button107
             // 
-            this.button107.Location = new System.Drawing.Point(8, 373);
+            this.button107.Location = new System.Drawing.Point(8, 337);
             this.button107.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button107.Name = "button107";
             this.button107.Size = new System.Drawing.Size(196, 24);
@@ -3536,7 +3548,7 @@
             // 
             // textBox67
             // 
-            this.textBox67.Location = new System.Drawing.Point(210, 204);
+            this.textBox67.Location = new System.Drawing.Point(210, 168);
             this.textBox67.Name = "textBox67";
             this.textBox67.Size = new System.Drawing.Size(291, 21);
             this.textBox67.TabIndex = 49;
@@ -3544,7 +3556,7 @@
             // 
             // btnBootstrap
             // 
-            this.btnBootstrap.Location = new System.Drawing.Point(8, 204);
+            this.btnBootstrap.Location = new System.Drawing.Point(8, 168);
             this.btnBootstrap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnBootstrap.Name = "btnBootstrap";
             this.btnBootstrap.Size = new System.Drawing.Size(196, 24);
@@ -3555,7 +3567,7 @@
             // 
             // textBox66
             // 
-            this.textBox66.Location = new System.Drawing.Point(210, 154);
+            this.textBox66.Location = new System.Drawing.Point(210, 118);
             this.textBox66.Name = "textBox66";
             this.textBox66.Size = new System.Drawing.Size(291, 21);
             this.textBox66.TabIndex = 47;
@@ -3563,7 +3575,7 @@
             // 
             // button105
             // 
-            this.button105.Location = new System.Drawing.Point(8, 154);
+            this.button105.Location = new System.Drawing.Point(8, 118);
             this.button105.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button105.Name = "button105";
             this.button105.Size = new System.Drawing.Size(196, 24);
@@ -3575,7 +3587,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(423, 101);
+            this.checkBox2.Location = new System.Drawing.Point(423, 65);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(48, 16);
             this.checkBox2.TabIndex = 45;
@@ -3585,7 +3597,7 @@
             // 
             // textBox50
             // 
-            this.textBox50.Location = new System.Drawing.Point(212, 99);
+            this.textBox50.Location = new System.Drawing.Point(212, 63);
             this.textBox50.Name = "textBox50";
             this.textBox50.Size = new System.Drawing.Size(205, 21);
             this.textBox50.TabIndex = 32;
@@ -3593,7 +3605,7 @@
             // 
             // button92
             // 
-            this.button92.Location = new System.Drawing.Point(10, 96);
+            this.button92.Location = new System.Drawing.Point(10, 60);
             this.button92.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button92.Name = "button92";
             this.button92.Size = new System.Drawing.Size(196, 24);
@@ -3623,7 +3635,7 @@
             // 
             // textBox52
             // 
-            this.textBox52.Location = new System.Drawing.Point(210, 427);
+            this.textBox52.Location = new System.Drawing.Point(210, 391);
             this.textBox52.Name = "textBox52";
             this.textBox52.Size = new System.Drawing.Size(291, 21);
             this.textBox52.TabIndex = 28;
@@ -3631,7 +3643,7 @@
             // 
             // btnDeregister
             // 
-            this.btnDeregister.Location = new System.Drawing.Point(8, 424);
+            this.btnDeregister.Location = new System.Drawing.Point(8, 388);
             this.btnDeregister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeregister.Name = "btnDeregister";
             this.btnDeregister.Size = new System.Drawing.Size(196, 24);
@@ -3642,7 +3654,7 @@
             // 
             // textBox53
             // 
-            this.textBox53.Location = new System.Drawing.Point(210, 325);
+            this.textBox53.Location = new System.Drawing.Point(210, 289);
             this.textBox53.Name = "textBox53";
             this.textBox53.Size = new System.Drawing.Size(291, 21);
             this.textBox53.TabIndex = 26;
@@ -3650,7 +3662,7 @@
             // 
             // button95
             // 
-            this.button95.Location = new System.Drawing.Point(8, 322);
+            this.button95.Location = new System.Drawing.Point(8, 286);
             this.button95.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button95.Name = "button95";
             this.button95.Size = new System.Drawing.Size(196, 24);
@@ -3661,7 +3673,7 @@
             // 
             // textBox54
             // 
-            this.textBox54.Location = new System.Drawing.Point(210, 297);
+            this.textBox54.Location = new System.Drawing.Point(210, 235);
             this.textBox54.Name = "textBox54";
             this.textBox54.Size = new System.Drawing.Size(291, 21);
             this.textBox54.TabIndex = 24;
@@ -3669,7 +3681,7 @@
             // 
             // btnRegister
             // 
-            this.btnRegister.Location = new System.Drawing.Point(8, 294);
+            this.btnRegister.Location = new System.Drawing.Point(8, 232);
             this.btnRegister.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(196, 24);
@@ -3680,7 +3692,7 @@
             // 
             // textBox55
             // 
-            this.textBox55.Location = new System.Drawing.Point(210, 124);
+            this.textBox55.Location = new System.Drawing.Point(210, 88);
             this.textBox55.Name = "textBox55";
             this.textBox55.Size = new System.Drawing.Size(291, 21);
             this.textBox55.TabIndex = 20;
@@ -3688,7 +3700,7 @@
             // 
             // textBox56
             // 
-            this.textBox56.Location = new System.Drawing.Point(210, 69);
+            this.textBox56.Location = new System.Drawing.Point(210, 33);
             this.textBox56.Name = "textBox56";
             this.textBox56.Size = new System.Drawing.Size(291, 21);
             this.textBox56.TabIndex = 18;
@@ -3696,7 +3708,7 @@
             // 
             // button97
             // 
-            this.button97.Location = new System.Drawing.Point(8, 124);
+            this.button97.Location = new System.Drawing.Point(8, 88);
             this.button97.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button97.Name = "button97";
             this.button97.Size = new System.Drawing.Size(196, 24);
@@ -3707,7 +3719,7 @@
             // 
             // button98
             // 
-            this.button98.Location = new System.Drawing.Point(8, 66);
+            this.button98.Location = new System.Drawing.Point(8, 30);
             this.button98.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button98.Name = "button98";
             this.button98.Size = new System.Drawing.Size(196, 24);
@@ -3768,6 +3780,7 @@
             // 
             // groupBox13
             // 
+            this.groupBox13.Controls.Add(this.label40);
             this.groupBox13.Controls.Add(this.label8);
             this.groupBox13.Controls.Add(this.lbDevEntityId);
             this.groupBox13.Controls.Add(this.button93);
@@ -3777,7 +3790,6 @@
             this.groupBox13.Controls.Add(this.btnDeviceStatusCheck);
             this.groupBox13.Controls.Add(this.label36);
             this.groupBox13.Controls.Add(this.label11);
-            this.groupBox13.Controls.Add(this.tbLwM2MData);
             this.groupBox13.Controls.Add(this.btnLwM2MData);
             this.groupBox13.Location = new System.Drawing.Point(11, 520);
             this.groupBox13.Name = "groupBox13";
@@ -3868,14 +3880,6 @@
             this.label11.TabIndex = 13;
             this.label11.Text = "Device EntityID";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tbLwM2MData
-            // 
-            this.tbLwM2MData.Location = new System.Drawing.Point(151, 80);
-            this.tbLwM2MData.Name = "tbLwM2MData";
-            this.tbLwM2MData.Size = new System.Drawing.Size(244, 21);
-            this.tbLwM2MData.TabIndex = 12;
-            this.tbLwM2MData.Text = "1234";
             // 
             // btnLwM2MData
             // 
@@ -4693,6 +4697,23 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // label40
+            // 
+            this.label40.Location = new System.Drawing.Point(147, 78);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(242, 22);
+            this.label40.TabIndex = 88;
+            this.label40.Text = ".";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBox75
+            // 
+            this.textBox75.Location = new System.Drawing.Point(210, 418);
+            this.textBox75.Name = "textBox75";
+            this.textBox75.Size = new System.Drawing.Size(291, 21);
+            this.textBox75.TabIndex = 56;
+            this.textBox75.Text = "AT+MLWEVTIND=1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -4760,7 +4781,6 @@
             this.tabServer.ResumeLayout(false);
             this.tabServer.PerformLayout();
             this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
             this.groupBox14.ResumeLayout(false);
@@ -5038,7 +5058,6 @@
         private System.Windows.Forms.Label lbLwM2MRxData;
         private System.Windows.Forms.Button btnDeviceStatusCheck;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox tbLwM2MData;
         private System.Windows.Forms.Button btnLwM2MData;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.TextBox tbLog;
@@ -5172,6 +5191,9 @@
         private System.Windows.Forms.TextBox textBox70;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox65;
+        private System.Windows.Forms.TextBox textBox74;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox textBox75;
     }
 }
 

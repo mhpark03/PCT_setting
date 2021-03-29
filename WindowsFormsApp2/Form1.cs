@@ -219,7 +219,8 @@ namespace WindowsFormsApp2
             testatcmd,
             atdtatcmd,
 
-            lwm2mtc0201,            //"2.1 LWM2M 단말 초기 설정 동작 확인 시험");
+            lwm2mtc02011,            //"2.1 LWM2M 단말 초기 설정 동작 확인 시험");
+            lwm2mtc02012,
             lwm2mtc02021,           //"2.2 Bootstrap 절차 및 AT command 확인 시험");
             lwm2mtc02022,
             lwm2mtc02023,
@@ -242,6 +243,7 @@ namespace WindowsFormsApp2
             lwm2mtc0602,            //"6.2 모듈 펌웨어 업그레이드 시험");
             lwm2mtc06031,           //"6.3 단말 펌웨어 업그레이드 시험");
             lwm2mtc06032,
+            lwm2mtc06033,
 
             onem2mtc0201011,        // MEF server 설정
             onem2mtc0201012,        // BRK server 설정
@@ -428,6 +430,9 @@ namespace WindowsFormsApp2
         Device dev = new Device();
         TCResult tc = new TCResult();
 
+        string device_fota_index = "0";
+        string device_total_index = "0";
+        string device_fota_checksum = "";
         UInt32 oneM2Mtotalsize = 0;
         UInt32 oneM2Mrcvsize = 0;
         string filecode = string.Empty;
@@ -1386,13 +1391,71 @@ namespace WindowsFormsApp2
                         rTh.Start(param);
                     }
                 }
+                else if (rxMsg.StartsWith(textBox69.Text, System.StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                    string cmd = textBox69.Text;
+                    int first = rxMsg.IndexOf(cmd) + cmd.Length;
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
+
+                    // oneM2M 서비스 서버 데이터 수신
+                    string[] rx_svrdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                    // 26241 FOTA DATA object RECEIVED!!!
+                    receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
+                }
+                else if (rxMsg.StartsWith(textBox68.Text, System.StringComparison.CurrentCultureIgnoreCase))
+                {
+                    // 타겟으로 하는 문자열(s, 고정 값)과 이후 문자열(str2, 변하는 값)을 구분함.
+                    string cmd = textBox68.Text;
+                    int first = rxMsg.IndexOf(cmd) + cmd.Length;
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
+
+                    // oneM2M 서비스 서버 데이터 수신
+                    string[] rx_svrdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                                                               // 10250 DATA object RECEIVED!!!
+                    if (Convert.ToInt32(rx_svrdatas[0]) == rx_svrdatas[1].Length / 2)    // data size 비교
+                    {
+                        //received hex data make to ascii code
+                        lbLwM2MRcvData.Text = BcdToString(rx_svrdatas[1].ToCharArray());
+                        if (lbLwM2MRcvData.Text == label40.Text)
+                            endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                        else
+                            endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
+                        logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
+
+                        if (lbActionState.Text == states.lwm2mtc0502.ToString())
+                        {
+                            if (svr.enrmtKeyId != string.Empty)
+                            {
+                                startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                                lbActionState.Text = states.lwm2mtc0503.ToString();
+
+                                LogWrite("----------DEVICE CHECK STATUS----------");
+                                rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
+                                rTh.Start();
+                            }
+                            else
+                            {
+                                this.sendDataOut(textBox52.Text);
+                                startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                                lbActionState.Text = states.lwm2mtc0401.ToString();
+                                nextresponse = textBox75.Text;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        logPrintInTextBox("data size가 맞지 않습니다.", "");
+                    }
+                }
                 else if (rxMsg == textBox70.Text)
                 {
-                    if (lbActionState.Text == states.lwm2mtc02021.ToString())
+                    timer2.Stop();
+                    startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+                    if (lbActionState.Text == states.lwm2mtc03012.ToString())
                     {
-                        timer2.Stop();
-                        startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
                         lbActionState.Text = states.lwm2mtc0602.ToString();
+                        nextresponse = textBox74.Text;
                     }
                 }
                 else if (nextresponse != string.Empty)
@@ -2191,10 +2254,44 @@ namespace WindowsFormsApp2
                         nextresponse = "$OM_C_ACP_RSP=";
                     }
                     break;
-                case states.lwm2mtc0201:
-                    this.sendDataOut(textBox56.Text);
-                    startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox56.Text);
-                    lbActionState.Text = states.lwm2mtc02021.ToString();
+                case states.lwm2mtc02011:
+                    if (lbActionState.Text == states.lwm2mtc02011.ToString())
+                    {
+                        lbActionState.Text = states.lwm2mtc02012.ToString();
+
+                        timer2.Interval = 10000;
+                        timer2.Start();
+                    }
+                    break;
+                case states.lwm2mtc02025:
+                    endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    this.sendDataOut(textBox54.Text);
+                    startLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, textBox54.Text);
+                    lbActionState.Text = states.lwm2mtc03011.ToString();
+                    nextresponse = textBox74.Text;
+                    break;
+                case states.lwm2mtc03011:
+                    endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    lbActionState.Text = states.lwm2mtc03012.ToString();
+                    timer2.Interval = 10000;
+                    timer2.Start();
+                    break;
+                case states.lwm2mtc0602:
+                    endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    lbActionState.Text = states.lwm2mtc03012.ToString();
+                    timer2.Interval = 10000;
+                    timer2.Start();
+                    break;
+                case states.lwm2mtc0401:
+                    endLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, string.Empty);
+                    Thread.Sleep(10000);
+                    kind = "type=lwm2m&ctn=" + tbDeviceCTN.Text;
+                    kind += "&from=" + tcStartTime.ToString("yyyyMMddHHmmss");
+
+                    getSvrLoglists(kind, "auto");
                     break;
                 default:
                     lbActionState.Text = states.idle.ToString();
@@ -2341,7 +2438,7 @@ namespace WindowsFormsApp2
                     // Bootstarp Parameter 설정
                     //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
 
-                    string command = tbSvcCd.Text + "|deviceSerialNo=";
+                    string command = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
                     command += tBoxDeviceSN.Text + "|ctn=";
                     command += dev.imsi + "|iccId=";
 
@@ -2380,9 +2477,13 @@ namespace WindowsFormsApp2
                     nextresponse = textBox63.Text;
                     break;
                 case states.sendmsghex:
-                case states.lwm2mtc0501:
                     endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.lwm2mtc06031:
+                    lbActionState.Text = states.lwm2mtc06032.ToString();
+                    timer2.Interval = 10000;
+                    timer2.Start();
                     break;
                 default:
                     break;
@@ -2480,8 +2581,25 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.onem2mtc0202012.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                         break;
-                    case states.lwm2mtc02025:
-                        endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
+                    case states.lwm2mtc0501:
+                        endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        if (svr.enrmtKeyId != string.Empty)
+                        {
+                            LogWrite("----------DATA SEND----------");
+                            startLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                            lbActionState.Text = states.lwm2mtc0502.ToString();
+                            string[] param = { "lwm2m", "tc0502" };
+                            rTh = new Thread(new ParameterizedThreadStart(SendDataToLwM2M));
+                            rTh.Start(param);
+                        }
+                        else
+                        {       // Service server 설정이 안되어 있으면 deregister  송신
+                            this.sendDataOut(textBox52.Text);
+                            startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                            lbActionState.Text = states.lwm2mtc0401.ToString();
+                            nextresponse = textBox75.Text;
+                        }
                         break;
                     default:
                         break;
@@ -5519,7 +5637,7 @@ namespace WindowsFormsApp2
                                                 var rdpath = jcoapobj["path"] ?? " ";
 
                                                 tcmsg = "Registration";
-                                                endLwM2MTC(kind, tlogid, "20000100", rdpath.ToString() + " " + code.ToString(), string.Empty);
+                                                endLwM2MTC("tc0302", tlogid, "20000100", rdpath.ToString(), code.ToString());
                                             }
                                         }
                                     }
@@ -6358,7 +6476,7 @@ namespace WindowsFormsApp2
                 tc.lwm2m[(int)index, 4] = remark;
 
                 int idx = (int)index;
-                SetTextlist1(listView1, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
+                SetTextlist2(listView2, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
             }
             tc.state = string.Empty;
         }
@@ -7319,6 +7437,11 @@ namespace WindowsFormsApp2
 
         private void button113_Click(object sender, EventArgs e)
         {
+            svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
+            svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
+            svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
+            RequestMEF();
+
             firmwareInitial("auto");
 
             tcStartTime = DateTime.Now.AddMinutes(-1);
@@ -7334,8 +7457,7 @@ namespace WindowsFormsApp2
             }
 
             this.sendDataOut(textBox71.Text);
-            startLwM2MTC("tc0201", string.Empty, string.Empty, string.Empty, textBox71.Text);
-            lbActionState.Text = states.lwm2mtc0201.ToString();
+            lbActionState.Text = states.lwm2mtc02011.ToString();
             nextresponse = textBox65.Text;
             nextcommand = string.Empty;
         }
@@ -7401,38 +7523,7 @@ namespace WindowsFormsApp2
 
         private void btnDeviceVerLwM2M_Click(object sender, EventArgs e)
         {
-            // Device firmware 버전 등록 전문 예 : fwVr=1.0|fwSt=1|fwRt=0
-            // fwVr ={ VERSION}| fwSt ={ STATUS}| fwRt ={ RESULT_CODE}(|fwIn={index})(|szx={buffersize})
-            // fwVr: 현재 Device Firmware 버전
-            // fwSt: Firmware Status
-            //      1: Success
-            //      2: Progress
-            //      3: Failure
-            // fwRt : Firmware Update 결과(OMA Spec 과 같은 값 사용)
-            //      0: Initial value.
-            //      1: Firmware updated successfully
-            //      2: Not enough flash memory
-            //      3: Out of RAM during downloading process.
-            //      4: Connection lost during downloading process.
-            //      5: Integrity check failure
-            //      6: Unsupported package type.
-            //      8: Firmware update failed
-            //  fwIn : 단말에서 문제가 발생 하여 특정 Index부터 다시 받고 싶을 때 사용
-            //      만약 fwSt 가 2(Progress)이면서 fwIn 에 특정 Index 를 보내면
-            //      기존에 upload Process 는 중지 하고 해당 Index 부터 다시 Upload 시작 함
-            //      fwSt 가 2 가 아닐 경우, fwIn 값이 없거나 0 보다 작을 경우 이어 받기 동작하지 않음
-            //      fwIn 의 값이 전체 Index 보다 클 경우 이전 내려받기는 취소 되고 에러 처리 됨
-            // szx : FOTA buffer size (1:32, 2:64, 3:128, 4:256, 5:512(default), 6:1024 
-
-            string text = "fwVr=" + tBoxDeviceVer.Text + "|fwSt=1|fwRt=0|fwIn=0";
-
-            if (dev.model != "TPB23" && !dev.model.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-            {
-                text += "|szx=6";       // FOTA buffer size set 1024bytes.
-            }
-
-            string hexOutput = StringToBCD(text.ToCharArray());
-            this.sendDataOut(textBox51.Text + hexOutput.Length / 2 + "," + hexOutput);
+            DeviceFWVerSend();
             lbActionState.Text = states.sendmsgvertpb23.ToString();
         }
 
@@ -7684,7 +7775,7 @@ namespace WindowsFormsApp2
             packetStr += "<con>" + txData + "</con>";
             packetStr += "</m2m:cin>";
 
-            SetText(tbLwM2MData, txData);
+            SetText(label40, txData);
 
             string retStr = SendHttpRequest(header, packetStr);
             //if (retStr != string.Empty)
@@ -8444,6 +8535,11 @@ namespace WindowsFormsApp2
                 tbLwM2MDataIN.SelectionStart = tbLwM2MDataIN.TextLength;
                 tbLwM2MDataIN.ScrollToCaret();
             }
+            else if (tabControl1.SelectedTab.Name == "tabServer")
+            {
+                tbLog.SelectionStart = tbLog.TextLength;
+                tbLog.ScrollToCaret();
+            }
         }
 
         private void button115_Click(object sender, EventArgs e)
@@ -8486,7 +8582,7 @@ namespace WindowsFormsApp2
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            if (lbActionState.Text == states.lwm2mtc02021.ToString())
+            if (lbActionState.Text == states.lwm2mtc02012.ToString())
             {
                 this.sendDataOut(textBox56.Text);
                 startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox56.Text);
@@ -8494,38 +8590,8 @@ namespace WindowsFormsApp2
             }
             else if (lbActionState.Text == states.lwm2mtc03012.ToString())
             {
-                // Device firmware 버전 등록 전문 예 : fwVr=1.0|fwSt=1|fwRt=0
-                // fwVr ={ VERSION}| fwSt ={ STATUS}| fwRt ={ RESULT_CODE}(|fwIn={index})(|szx={buffersize})
-                // fwVr: 현재 Device Firmware 버전
-                // fwSt: Firmware Status
-                //      1: Success
-                //      2: Progress
-                //      3: Failure
-                // fwRt : Firmware Update 결과(OMA Spec 과 같은 값 사용)
-                //      0: Initial value.
-                //      1: Firmware updated successfully
-                //      2: Not enough flash memory
-                //      3: Out of RAM during downloading process.
-                //      4: Connection lost during downloading process.
-                //      5: Integrity check failure
-                //      6: Unsupported package type.
-                //      8: Firmware update failed
-                //  fwIn : 단말에서 문제가 발생 하여 특정 Index부터 다시 받고 싶을 때 사용
-                //      만약 fwSt 가 2(Progress)이면서 fwIn 에 특정 Index 를 보내면
-                //      기존에 upload Process 는 중지 하고 해당 Index 부터 다시 Upload 시작 함
-                //      fwSt 가 2 가 아닐 경우, fwIn 값이 없거나 0 보다 작을 경우 이어 받기 동작하지 않음
-                //      fwIn 의 값이 전체 Index 보다 클 경우 이전 내려받기는 취소 되고 에러 처리 됨
-                // szx : FOTA buffer size (1:32, 2:64, 3:128, 4:256, 5:512(default), 6:1024 
+                DeviceFWVerSend();
 
-                string text = "fwVr=" + tBoxDeviceVer.Text + "|fwSt=1|fwRt=0";
-
-                if (dev.model != "TPB23" && !dev.model.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
-                {
-                    text += "|szx=6";       // FOTA buffer size set 1024bytes.
-                }
-                string hexOutput = StringToBCD(text.ToCharArray());
-                this.sendDataOut(textBox51.Text + hexOutput.Length / 2 + "," + hexOutput);
-                startLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, textBox51.Text);
                 lbActionState.Text = states.lwm2mtc06031.ToString();
             }
             else if (lbActionState.Text == states.lwm2mtc06032.ToString())
@@ -8537,10 +8603,170 @@ namespace WindowsFormsApp2
 
                 this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
                 startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
-                lbActionState.Text = states.lwm2mtc0501.ToString();
+                nextcommand = states.lwm2mtc0501.ToString();
             }
 
             timer2.Stop();
+        }
+
+        private void receiveFotaData(string size, string rcvData)
+        {
+            timer2.Stop();
+
+            int dataSize = rcvData.Length / 2;
+            if (Convert.ToInt32(size) == dataSize)    // data size 비교
+            {
+                // Firmware File Information Block Checking
+                if ((device_total_index == "0") && (dataSize == 8))
+                {
+                    if (rcvData.Substring(0, 4) == "0000")
+                    {
+                        device_total_index = rcvData.Substring(4, 4);
+                        device_fota_checksum = rcvData.Substring(8, 8);
+                        logPrintInTextBox("total Index= " + device_total_index + ", checksum = " + device_fota_checksum + "를 수신하였습니다.", "");
+                        if(lbActionState.Text == states.lwm2mtc06032.ToString())
+                            lbActionState.Text = states.lwm2mtc06033.ToString();
+                    }
+                }
+                // Firmware File Data Block Checking
+                else
+                {
+                    device_fota_index = rcvData.Substring(0, 4);
+                    //tBoxFOTAIndex.Text = device_fota_index;
+                    string checksum = rcvData.Substring(4, 8);
+                    logPrintInTextBox("index= " + device_fota_index + "/" + device_total_index + ", checksum= " + checksum + "를 수신하였습니다.", "");
+
+                    if (device_total_index == device_fota_index)
+                    {
+                        endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        device_total_index = "0";
+                        device_fota_index = "0";
+
+                        DeviceFWVerSend();
+
+                        if (lbActionState.Text == states.lwm2mtc06033.ToString())
+                        {
+                            string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+                            lbDevLwM2MData.Text = txData;
+
+                            string hexOutput = StringToBCD(txData.ToCharArray());
+
+                            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                            startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                            nextcommand = states.lwm2mtc0501.ToString();
+                        }
+                    }
+                }
+            }
+            else
+                endLwM2MTC("tc0603", string.Empty, "20000100", string.Empty, rcvData);
+        }
+
+        private void DeviceFWVerSend()
+        {
+            // Device firmware 버전 등록 전문 예 : fwVr=1.0|fwSt=1|fwRt=0
+            // fwVr ={ VERSION}| fwSt ={ STATUS}| fwRt ={ RESULT_CODE}(|fwIn={index})(|szx={buffersize})
+            // fwVr: 현재 Device Firmware 버전
+            // fwSt: Firmware Status
+            //      1: Success
+            //      2: Progress
+            //      3: Failure
+            // fwRt : Firmware Update 결과(OMA Spec 과 같은 값 사용)
+            //      0: Initial value.
+            //      1: Firmware updated successfully
+            //      2: Not enough flash memory
+            //      3: Out of RAM during downloading process.
+            //      4: Connection lost during downloading process.
+            //      5: Integrity check failure
+            //      6: Unsupported package type.
+            //      8: Firmware update failed
+            //  fwIn : 단말에서 문제가 발생 하여 특정 Index부터 다시 받고 싶을 때 사용
+            //      만약 fwSt 가 2(Progress)이면서 fwIn 에 특정 Index 를 보내면
+            //      기존에 upload Process 는 중지 하고 해당 Index 부터 다시 Upload 시작 함
+            //      fwSt 가 2 가 아닐 경우, fwIn 값이 없거나 0 보다 작을 경우 이어 받기 동작하지 않음
+            //      fwIn 의 값이 전체 Index 보다 클 경우 이전 내려받기는 취소 되고 에러 처리 됨
+            // szx : FOTA buffer size (1:32, 2:64, 3:128, 4:256, 5:512(default), 6:1024 
+
+            string text = "fwVr=" + tBoxDeviceVer.Text + "|fwSt=1|fwRt=0";
+
+            if (dev.model != "TPB23" && !dev.model.StartsWith("BC95", System.StringComparison.CurrentCultureIgnoreCase))
+            {
+                text += "|szx=6";       // FOTA buffer size set 1024bytes.
+            }
+            string hexOutput = StringToBCD(text.ToCharArray());
+            this.sendDataOut(textBox51.Text + hexOutput.Length / 2 + "," + hexOutput);
+            startLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, textBox51.Text);
+        }
+
+        private void RetriveDataLwM2M()
+        {
+            ReqHeader header = new ReqHeader();
+            setDeviceEntityID();
+            header.Url = brkUrlL + "/" + dev.entityId + "/10250/0/0";
+            header.Method = "GET";
+            header.X_M2M_Origin = svr.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_retrive";
+            header.X_MEF_TK = svr.token;
+            header.X_MEF_EKI = svr.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = string.Empty;
+
+            string retStr = SendHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string format = string.Empty;
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    format = xn["cnf"].InnerText; // data format
+                    value = xn["con"].InnerText; // data value
+                }
+                //LogWrite("value = " + value);
+                //LogWrite("format = " + format);
+
+                if (format == "application/octet-stream")
+                {
+                    if (value.Length % 4 == 1)
+                    {
+                        value += "===";
+                    }
+                    else if (value.Length % 4 == 2)
+                    {
+                        value += "==";
+                    }
+                    else if (value.Length % 4 == 3)
+                    {
+                        value += "=";
+                    }
+                    //LogWrite("value = " + value);
+                    SetText(lbDirectRxData, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
+                }
+                else
+                    SetText(lbDirectRxData, value);
+
+                if (lbDirectRxData.Text == lbDevLwM2MData.Text)
+                    endoneM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                else
+                    endLwM2MTC("tc0503", string.Empty, "20000100", lbDirectRxData.Text, lbDevLwM2MData.Text);
+            }
+            else
+                endLwM2MTC("tc0503", string.Empty, "20000100", "BAD RESPONSE", string.Empty);
+
+            if (lbActionState.Text == states.lwm2mtc0503.ToString())
+            {
+                this.sendDataOut(textBox52.Text);
+                startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                SetText(lbActionState, states.lwm2mtc0401.ToString());
+                nextresponse = textBox75.Text;
+            }
         }
     }
 
