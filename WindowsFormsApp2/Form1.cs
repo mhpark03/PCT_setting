@@ -6700,7 +6700,8 @@ namespace WindowsFormsApp2
                     Stream respPostStream = wRes.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
                     resResult = readerPost.ReadToEnd();
-                    Console.WriteLine(resResult);
+                    string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                    Console.WriteLine(beautifiedJson);
                     Console.WriteLine("");
                 }
             }
@@ -6844,15 +6845,27 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = string.Empty;
             header.X_M2M_NM = string.Empty;
 
+            XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+            XElement xroot = new XElement("auth");
+            xdoc.Add(xroot);
+
+            XElement xparams = new XElement("svcSvrCd", svr.svcSvrCd);
+            xroot.Add(xparams);
+            xparams = new XElement("svcCd", svr.svcCd);
+            xroot.Add(xparams);
+            xparams = new XElement("svcSvrNum", svr.svcSvrNum);
+            xroot.Add(xparams);
+            /*
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<auth>";
             packetStr += "<svcSvrCd>" + svr.svcSvrCd + "</svcSvrCd>";
             packetStr += "<svcCd>" + svr.svcCd + "</svcCd>";
             packetStr += "<svcSvrNum>" + svr.svcSvrNum + "</svcSvrNum>";
             packetStr += "</auth>";
+            */
 
             LogWrite("----------MEF 인증----------");
-            string retStr = SendHttpRequest(header, packetStr); // xml
+            string retStr = SendHttpRequest(header, xroot.ToString()); // xml
             if (retStr != string.Empty)
             {
                 ParsingXml(retStr);
@@ -7001,7 +7014,21 @@ namespace WindowsFormsApp2
                     Stream respPostStream = wRes.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
                     resResult = readerPost.ReadToEnd();
-                    Console.WriteLine(resResult);
+                    if (resResult.StartsWith("<?xml"))
+                    {
+                        XmlDocument xDoc = new XmlDocument();
+                        xDoc.LoadXml(resResult);
+                        StringWriter writer = new StringWriter();
+                        xDoc.Save(writer);
+                        Console.WriteLine(writer.ToString());
+                    }
+                    else if (resResult.StartsWith("{") || resResult.StartsWith("["))
+                    {
+                        string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                        Console.WriteLine(beautifiedJson);
+                    }
+                    else
+                        Console.WriteLine(resResult);
                     Console.WriteLine("");
                 }
             }
