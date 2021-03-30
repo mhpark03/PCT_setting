@@ -298,14 +298,9 @@ namespace WindowsFormsApp2
 
             onem2mtc021001,
             onem2mtc021002,         // push test는 별도 수동 진행
-            onem2mtc021003,
-            onem2mtc0210031,        // 쿼텔 FW DATA FILE LIST 읽기
-            onem2mtc0210032,        // 쿼텔 FW DATA FILE 읽기 요청 (open)
-            onem2mtc0210033,        // 쿼텔 FW DATA 읽기 요청
-            onem2mtc0210034,        // 쿼텔 FW DATA 읽기
-            onem2mtc0210035,        // 쿼텔 FW DATA 읽기 중
-            onem2mtc0210036,        // 쿼텔 FW DATA FILE close
-            onem2mtc0210037,        // 쿼텔 FW DATA FILE 읽기 완료 (close)
+            onem2mtc0210031,
+            onem2mtc0210032,        // DEVICE FW DATA 수신중
+            onem2mtc0210033,        // DEVICE FW DATA 수신 완료
             onem2mtc021004,
 
             onem2mtc021101,
@@ -1202,7 +1197,7 @@ namespace WindowsFormsApp2
                             if (lbActionState.Text == states.getdeviceSvrVer.ToString())
                                 lbActionState.Text = states.deviceFWUPstart.ToString();
                             else
-                                lbActionState.Text = states.onem2mtc021003.ToString();
+                                lbActionState.Text = states.onem2mtc0210031.ToString();
                         }
                         else if (deviceverinfos[0] == "9001")
                         {
@@ -1557,12 +1552,17 @@ namespace WindowsFormsApp2
                     {
                         if (checkBox1.Checked == true)
                         {
-                            if (servers[4] != oneM2MFOTAIP)
-                                endoneM2MTC("tc020101", "oneM2MFOTAIP", "20000100", servers[4], oneM2MFOTAIP);
-                            else if (servers[5] != oneM2MFOTAPort)
-                                endoneM2MTC("tc020101", "oneM2MFOTAPort", "20000100", servers[5], oneM2MFOTAPort);
+                            if (servers.Length > 4)
+                            {
+                                if (servers[4] != oneM2MFOTAIP)
+                                    endoneM2MTC("tc020101", "oneM2MFOTAIP", "20000100", servers[4], oneM2MFOTAIP);
+                                else if (servers[5] != oneM2MFOTAPort)
+                                    endoneM2MTC("tc020101", "oneM2MFOTAPort", "20000100", servers[5], oneM2MFOTAPort);
+                                else
+                                    endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, string.Empty);
+                            }
                             else
-                                endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, string.Empty);
+                                endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, "NO FOTA info");
                         }
                         else
                             endoneM2MTC("tc020101", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -2052,6 +2052,30 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.deviceFWDLfinsh.ToString();
                     nextresponse = "$OM_DEV_FWDL_FINISH";
                     break;
+                case states.onem2mtc0210031:
+                    oneM2Mtotalsize = Convert.ToUInt32(str2);
+                    logPrintInTextBox("FOTA 이미지 크기는 " + str2 + "입니다.", "");
+                    lbActionState.Text = states.onem2mtc0210032.ToString();
+                    nextresponse = textBox76.Text;
+                    break;
+                case states.onem2mtc0210032:
+                    rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                    oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[0]);
+                    logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
+                    if (rcvdatas[0] != "512" || oneM2Mrcvsize >= oneM2Mtotalsize)
+                    {
+                        if (oneM2Mrcvsize == oneM2Mtotalsize)
+                            endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        lbActionState.Text = states.onem2mtc0210033.ToString();
+                        nextresponse = "$OM_DEV_FWDL_FINISH";
+                    }
+                    else
+                    {
+//                        lbActionState.Text = states.onem2mtc0210032.ToString();
+                        nextresponse = textBox76.Text;
+                    }
+                    break;
                 case states.deviceFWDLfinsh:
                     if (dev.model == "EC25" || dev.model == "EC21")               //쿼텔/oneM2M 모듈
                     {
@@ -2063,17 +2087,22 @@ namespace WindowsFormsApp2
                     }
                     else
                     {
-                        logPrintInTextBox(oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
-
-                        if (tc.state == "tc021003" && oneM2Mrcvsize == oneM2Mtotalsize)
-                            endoneM2MTC(tc.state, string.Empty, string.Empty, string.Empty, string.Empty);
+                        if (oneM2Mrcvsize == oneM2Mtotalsize)
+                            endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
 
                         startoneM2MTC("tc021004");
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
                         this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
-                        lbActionState.Text = states.fotamefauthnt.ToString();
+                        lbActionState.Text = states.onem2mtc021004.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
+                    break;
+                case states.onem2mtc0210033:
+                    startoneM2MTC("tc021004");
+                    // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
+                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                    lbActionState.Text = states.onem2mtc021004.ToString();
+                    nextresponse = "$OM_AUTH_RSP=";
                     break;
                 case states.deviceFWList:
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
@@ -4530,6 +4559,9 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(btnGetCSED.Text);
                 worksheet.Cells[i, 1] = new Cell(checkBox3.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button115.Text);
+                worksheet.Cells[i, 1] = new Cell(checkBox4.Text);
                 workbook.Worksheets.Add(worksheet);
 
                 workbook.Save(Application.StartupPath + @"/" + tbDeviceName.Text + "_config.xls");
@@ -4895,16 +4927,22 @@ namespace WindowsFormsApp2
                         textBox72.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         checkBox1.Text = worksheet.Cells[i, 1].ToString();
-                        if (checkBox1.Text == "미지원")
-                            checkBox1.Checked = false;
-                        else
+                        if (checkBox1.Text == "지원")
                             checkBox1.Checked = true;
+                        else
+                            checkBox1.Checked = false;
                         i++;
                         checkBox3.Text = worksheet.Cells[i, 1].ToString();
-                        if (checkBox3.Text == "미지원")
-                            checkBox3.Checked = false;
-                        else
+                        if (checkBox3.Text == "지원")
                             checkBox3.Checked = true;
+                        else
+                            checkBox3.Checked = false;
+                        i++;
+                        checkBox4.Text = worksheet.Cells[i, 1].ToString();
+                        if (checkBox4.Text == "지원")
+                            checkBox4.Checked = true;
+                        else
+                            checkBox4.Checked = false;
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

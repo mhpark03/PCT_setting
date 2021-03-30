@@ -435,6 +435,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label50 = new System.Windows.Forms.Label();
+            this.textBox76 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -2812,6 +2814,8 @@
             // 
             // groupBox21
             // 
+            this.groupBox21.Controls.Add(this.label50);
+            this.groupBox21.Controls.Add(this.textBox76);
             this.groupBox21.Controls.Add(this.label38);
             this.groupBox21.Controls.Add(this.textBox72);
             this.groupBox21.Controls.Add(this.label37);
@@ -2823,9 +2827,9 @@
             this.groupBox21.Controls.Add(this.btnDeviceFOTA);
             this.groupBox21.Controls.Add(this.btnoneM2MModuleVer);
             this.groupBox21.Controls.Add(this.btnModemFOTA);
-            this.groupBox21.Location = new System.Drawing.Point(26, 460);
+            this.groupBox21.Location = new System.Drawing.Point(26, 434);
             this.groupBox21.Name = "groupBox21";
-            this.groupBox21.Size = new System.Drawing.Size(472, 184);
+            this.groupBox21.Size = new System.Drawing.Size(472, 204);
             this.groupBox21.TabIndex = 82;
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "oneM2M Firmware";
@@ -2834,7 +2838,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label38.Location = new System.Drawing.Point(32, 112);
+            this.label38.Location = new System.Drawing.Point(47, 138);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(101, 11);
             this.label38.TabIndex = 53;
@@ -2843,7 +2847,7 @@
             // 
             // textBox72
             // 
-            this.textBox72.Location = new System.Drawing.Point(133, 108);
+            this.textBox72.Location = new System.Drawing.Point(148, 134);
             this.textBox72.Name = "textBox72";
             this.textBox72.Size = new System.Drawing.Size(228, 21);
             this.textBox72.TabIndex = 52;
@@ -2853,7 +2857,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label37.Location = new System.Drawing.Point(32, 85);
+            this.label37.Location = new System.Drawing.Point(47, 111);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(95, 11);
             this.label37.TabIndex = 51;
@@ -2862,7 +2866,7 @@
             // 
             // textBox73
             // 
-            this.textBox73.Location = new System.Drawing.Point(133, 81);
+            this.textBox73.Location = new System.Drawing.Point(148, 107);
             this.textBox73.Name = "textBox73";
             this.textBox73.Size = new System.Drawing.Size(228, 21);
             this.textBox73.TabIndex = 50;
@@ -2882,7 +2886,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(231, 151);
+            this.label30.Location = new System.Drawing.Point(231, 177);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(89, 12);
             this.label30.TabIndex = 78;
@@ -2890,7 +2894,7 @@
             // 
             // btReset
             // 
-            this.btReset.Location = new System.Drawing.Point(24, 147);
+            this.btReset.Location = new System.Drawing.Point(24, 173);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(118, 21);
             this.btReset.TabIndex = 44;
@@ -2900,7 +2904,7 @@
             // 
             // textBox62
             // 
-            this.textBox62.Location = new System.Drawing.Point(326, 145);
+            this.textBox62.Location = new System.Drawing.Point(326, 171);
             this.textBox62.Name = "textBox62";
             this.textBox62.Size = new System.Drawing.Size(94, 21);
             this.textBox62.TabIndex = 77;
@@ -2921,7 +2925,7 @@
             // btnoneM2MModuleVer
             // 
             this.btnoneM2MModuleVer.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btnoneM2MModuleVer.Location = new System.Drawing.Point(25, 49);
+            this.btnoneM2MModuleVer.Location = new System.Drawing.Point(25, 75);
             this.btnoneM2MModuleVer.Name = "btnoneM2MModuleVer";
             this.btnoneM2MModuleVer.Size = new System.Drawing.Size(118, 22);
             this.btnoneM2MModuleVer.TabIndex = 40;
@@ -2931,7 +2935,7 @@
             // 
             // btnModemFOTA
             // 
-            this.btnModemFOTA.Location = new System.Drawing.Point(234, 52);
+            this.btnModemFOTA.Location = new System.Drawing.Point(234, 78);
             this.btnModemFOTA.Name = "btnModemFOTA";
             this.btnModemFOTA.Size = new System.Drawing.Size(118, 23);
             this.btnModemFOTA.TabIndex = 24;
@@ -2945,7 +2949,7 @@
             this.groupBox20.Controls.Add(this.button102);
             this.groupBox20.Controls.Add(this.button103);
             this.groupBox20.Controls.Add(this.button80);
-            this.groupBox20.Location = new System.Drawing.Point(26, 650);
+            this.groupBox20.Location = new System.Drawing.Point(26, 670);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(472, 84);
             this.groupBox20.TabIndex = 81;
@@ -3010,7 +3014,7 @@
             this.groupBox19.Controls.Add(this.button34);
             this.groupBox19.Controls.Add(this.lbSendedData);
             this.groupBox19.Controls.Add(this.btnDelSubscript);
-            this.groupBox19.Location = new System.Drawing.Point(26, 286);
+            this.groupBox19.Location = new System.Drawing.Point(26, 272);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(472, 157);
             this.groupBox19.TabIndex = 80;
@@ -3147,7 +3151,7 @@
             this.groupBox18.Controls.Add(this.btnCreateDeviceCSR);
             this.groupBox18.Controls.Add(this.btnDelDeviceCSR);
             this.groupBox18.Controls.Add(this.btnDeviceUpdateCSR);
-            this.groupBox18.Location = new System.Drawing.Point(26, 163);
+            this.groupBox18.Location = new System.Drawing.Point(26, 159);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(472, 109);
             this.groupBox18.TabIndex = 79;
@@ -3250,7 +3254,7 @@
             this.gbOneM2MDevice.Controls.Add(this.button109);
             this.gbOneM2MDevice.Controls.Add(this.button106);
             this.gbOneM2MDevice.Controls.Add(this.btnMEFAuthD);
-            this.gbOneM2MDevice.Location = new System.Drawing.Point(26, 44);
+            this.gbOneM2MDevice.Location = new System.Drawing.Point(26, 42);
             this.gbOneM2MDevice.Name = "gbOneM2MDevice";
             this.gbOneM2MDevice.Size = new System.Drawing.Size(472, 112);
             this.gbOneM2MDevice.TabIndex = 72;
@@ -4828,6 +4832,25 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label50.Location = new System.Drawing.Point(31, 52);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(108, 11);
+            this.label50.TabIndex = 80;
+            this.label50.Text = "Device FOTA data";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox76
+            // 
+            this.textBox76.Location = new System.Drawing.Point(148, 48);
+            this.textBox76.Name = "textBox76";
+            this.textBox76.Size = new System.Drawing.Size(228, 21);
+            this.textBox76.TabIndex = 79;
+            this.textBox76.Text = "$BIN_DATA=";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5319,6 +5342,8 @@
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox textBox76;
     }
 }
 
