@@ -1686,8 +1686,7 @@ namespace WindowsFormsApp2
                 case states.onem2mtc0205012:
                 case states.onem2mtc0205011:
                     // oneM2M remoteCSE 생성 결과, 2001이면 container 생성 요청
-                    if (str2 == "2001")
-                        endoneM2MTC("tc020501", string.Empty, string.Empty, string.Empty, string.Empty);
+                    endoneM2MTC("tc020501", string.Empty, string.Empty, string.Empty, str2);
                     if (lbActionState.Text == states.setremoteCSE.ToString())
                         lbActionState.Text = states.idle.ToString();
                     else if (lbActionState.Text == states.onem2mtc0205011.ToString())        // 조회-업데이트-삭제-생성 완료
@@ -1707,8 +1706,7 @@ namespace WindowsFormsApp2
                     break;
                 case states.onem2mset01:
                     // oneM2M remoteCSE 생성 결과, 2001이면 container 생성 요청
-                    if (str2 == "2001")
-                        endoneM2MTC("tc020501", string.Empty, string.Empty, string.Empty, string.Empty);
+                    endoneM2MTC("tc020501", string.Empty, string.Empty, string.Empty, str2);
                     startoneM2MTC("tc020502");
                     this.sendDataOut(commands["setcontainer"]);
                     lbActionState.Text = states.onem2mset02.ToString();
@@ -1764,9 +1762,9 @@ namespace WindowsFormsApp2
                 case states.setcontainer:
                 case states.onem2mtc0205021:
                     // oneM2M container 생성 결과, 2001이면 성공
+                    endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, str2);
                     if (str2 == "2001")
                     {
-                        endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, string.Empty);
 
                         this.sendDataOut(commands["settxcontainer"]);
                         nextresponse = "$OM_C_CON_RSP=";
@@ -1795,8 +1793,7 @@ namespace WindowsFormsApp2
                     break;
                 case states.onem2mset02:
                     // oneM2M container 생성 결과, 2001이면 성공
-                    if (str2 == "2001")
-                        endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, string.Empty);
+                    endoneM2MTC("tc020502", string.Empty, string.Empty, string.Empty, str2);
 
                     this.sendDataOut(commands["settxcontainer"]);
                     nextresponse = "$OM_C_CON_RSP=";
@@ -1876,9 +1873,9 @@ namespace WindowsFormsApp2
                     }
                     else if (str2 == "4105")
                     {
+                        endoneM2MTC("tc020503", string.Empty, string.Empty, string.Empty, "4105");
                         if (lbActionState.Text == states.setsubscript.ToString())
                         {
-                            endoneM2MTC("tc020503", string.Empty, string.Empty, string.Empty, string.Empty);
                             MessageBox.Show("이미 구독 신청이 되어 있습니다.");
                             lbActionState.Text = states.idle.ToString();
                         }
@@ -1913,7 +1910,7 @@ namespace WindowsFormsApp2
                 case states.onem2mset04:
                     // oneM2M subscription 신청 결과
                     if (str2 == "2001" || str2 == "4015")
-                        endoneM2MTC("tc020503", string.Empty, string.Empty, string.Empty, string.Empty);
+                        endoneM2MTC("tc020503", string.Empty, string.Empty, string.Empty, str2);
 
                     lbActionState.Text = states.idle.ToString();
                     break;
@@ -5393,7 +5390,10 @@ namespace WindowsFormsApp2
                     else
                     {
                         tcmsg = "remoteCSE Create";
-                        endoneM2MTC("tc020501", logId, resultCode, resultCodeName, string.Empty);
+                        if (resultCode == "41051001")
+                            endoneM2MTC("tc020501", logId, "20000000", resultCodeName, resultCode);
+                        else
+                            endoneM2MTC("tc020501", logId, resultCode, resultCodeName, string.Empty);
                     }
                     break;
                 case "cnt":
@@ -5405,7 +5405,10 @@ namespace WindowsFormsApp2
                     else
                     {
                         tcmsg = "Folder Create";
-                        endoneM2MTC("tc020502", logId, resultCode, resultCodeName, string.Empty);
+                        if (resultCode == "41051001")
+                            endoneM2MTC("tc020502", logId, "20000000", resultCodeName, resultCode);
+                        else
+                            endoneM2MTC("tc020502", logId, resultCode, resultCodeName, string.Empty);
                     }
                     break;
                 case "cin":
@@ -5433,7 +5436,10 @@ namespace WindowsFormsApp2
                     else
                     {
                         tcmsg = "Subscript Create";
-                        endoneM2MTC("tc020503", logId, resultCode, resultCodeName, string.Empty);
+                        if (resultCode == "41051001")
+                            endoneM2MTC("tc020503", logId, "20000000", resultCodeName, resultCode);
+                        else
+                            endoneM2MTC("tc020503", logId, resultCode, resultCodeName, string.Empty);
                     }
                     break;
                 case "la":
@@ -7100,8 +7106,6 @@ namespace WindowsFormsApp2
 
         private void button124_Click(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen == false)
-            {
                 if (tbDeviceCTN.Text != string.Empty)
                 {
                     ReqHeader header = new ReqHeader();
@@ -7131,6 +7135,8 @@ namespace WindowsFormsApp2
                             var iccId = obj["iccId"] ?? " ";
                             var m2mmType = obj["m2mmType"] ?? " ";
 
+                        if (serialPort1.IsOpen == false)
+                        {
                             if (iccId.ToString() != " ")
                             {
                                 tBoxDeviceModel.Text = deviceModel.ToString();
@@ -7169,19 +7175,20 @@ namespace WindowsFormsApp2
                                 lbIccid.Text = dev.iccid = iccId.ToString();
                                 setDeviceEntityID();
 
-                                GetPlatformFWVer("NO");
-                                tBoxDeviceVer.Text = lbdevicever.Text;
-                                lbModemVer.Text = lbmodemfwrver.Text;
-
                                 MessageBox.Show("디바이스 모델명 : " + deviceModel.ToString() + "\n모듈 모델명 : " + modemModel.ToString() + "\n서비스코드 : "
                                     + serviceCode.ToString() + "\n디바이스 일련번호 : " + deviceSerialNo.ToString() + "\nICCID : " + iccId.ToString() + "\nTYPE : " + m2mmType.ToString(),
                                     ctn.ToString() + " DEVICE 상태 정보");
                             }
                             else
                                 MessageBox.Show("디바이스 정보가 없습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", ctn.ToString() + " DEVICE 상태 정보");
-
                         }
-                        catch (Exception ex)
+                        else
+                            MessageBox.Show("모듈이 연결된 상태에서는 동작하지 않습니다.");
+
+
+                        GetPlatformFWVer("NO");
+                    }
+                    catch (Exception ex)
                         {
                             Console.WriteLine(ex.ToString());
                             MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
@@ -7192,9 +7199,6 @@ namespace WindowsFormsApp2
                 }
                 else
                     MessageBox.Show("CTN 정보가 없습니다.\nCTN을 확인하세요");
-            }
-            else
-                MessageBox.Show("모듈이 연결된 상태에서는 동작하지 않습니다.");
         }
 
         private void setDeviceEntityID()
@@ -7266,15 +7270,15 @@ namespace WindowsFormsApp2
                 try
                 {
                     JObject obj = JObject.Parse(retStr);
-
-                    var deviceVer = obj["deviceVersion"] ?? "unknown";
-                    label10.Text = deviceVer.ToString();
-
-                    var modemVer = obj["modemVersion"] ?? "unknown";
-                    label8.Text = modemVer.ToString();
-
                     if (mode == "YES")
                     {
+
+                        var deviceVer = obj["deviceVersion"] ?? "unknown";
+                        label10.Text = deviceVer.ToString();
+
+                        var modemVer = obj["modemVersion"] ?? "unknown";
+                        label8.Text = modemVer.ToString();
+
                         string state = "대기중";
                         var inProgress = obj["inProgress"] ?? "unknown";
                         if (inProgress.ToString() == "true")
@@ -7288,6 +7292,10 @@ namespace WindowsFormsApp2
                             + "\n디바이스 체크시간 : " + lastDeviceCheckTime.ToString() + "\n\n모듈 버전 : " + modemVer.ToString()
                             + "\n모듈 체크시간 : " + lastCheckTime.ToString() + "\n\n업데이트 시간 : " + lastUpdateTime.ToString(), "펌웨어 업데이트 진행 상태");
                     }
+
+                    var cellId = obj["cellId"] ?? "none";
+                    var networkType = obj["networkType"] ?? "none";
+                    label49.Text = cellId.ToString() + "/" + networkType.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -8816,6 +8824,173 @@ namespace WindowsFormsApp2
                 checkBox5.Text = "Bootstrap/Register 명령 구분";
             else
                 checkBox5.Text = "Register 명령 포함";
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string pathname = Application.StartupPath + @"/TestResult/";
+            DateTime currenttime = DateTime.Now;
+            string filename = null;
+
+            Directory.CreateDirectory(pathname);
+            pathname += tBoxDeviceModel.Text + "_";
+
+            if (tbTCResult.Text != string.Empty)
+            {
+                filename = "TestResult_" + currenttime.ToString("MMdd_hhmmss") + ".xls";
+                resultFileWrite(pathname, filename);
+
+                filename = "tcresult_log_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
+                logFileWrite(pathname, filename, tbTCResult.Text);
+            }
+
+            if (tBoxDataIN.Text != string.Empty)
+            {
+                filename = "device_log_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
+                logFileWrite(pathname, filename, tBoxDataIN.Text);
+            }
+
+            if (tbLog.Text != string.Empty)
+            {
+                filename = "server_log_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
+                logFileWrite(pathname, filename, tbLog.Text);
+            }
+
+            if (listBox1.Items.Count != 0)
+            {
+                filename = "svrlog_log_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
+                FileLogWrite(pathname, filename);
+            }
+        }
+
+        private void FileLogWrite(string path, string filename)
+        {
+            // Create a file to write to.
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(path + filename, FileMode.Create, FileAccess.Write);
+                // Create a file to write to.
+                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+
+                foreach (var input_items in listBox1.Items)
+                {
+                    string result = string.Format("{0} ", input_items) + "\n";
+
+                    char[] logmsg = result.ToCharArray();
+                    sw.Write(logmsg, 0, result.Length);
+                }
+
+                sw.Close();
+                fs.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void logFileWrite(string path, string filename, string text)
+        {
+            // Create a file to write to.
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(path + filename, FileMode.Create, FileAccess.Write);
+                // Create a file to write to.
+                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+
+                char[] logmsg = text.ToCharArray();
+                sw.Write(logmsg, 0, text.Length);
+
+                sw.Close();
+                fs.Close();
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void resultFileWrite(string pathname, string filename)
+        {
+            try
+            {
+                Workbook workbook = new Workbook();
+                Worksheet worksheet = new Worksheet("onem2m");
+
+                worksheet.Cells[0, 0] = new Cell("모델명 : " + dev.model);
+                worksheet.Cells[1, 0] = new Cell("제조사 : " + dev.maker);
+                worksheet.Cells[2, 0] = new Cell("버전 : " + dev.version);
+                worksheet.Cells[3, 0] = new Cell("시험일 : " + DateTime.Now.ToString("MM/dd hh:mm"));
+                worksheet.Cells[4, 0] = new Cell("EntityID : " + dev.entityId);
+                worksheet.Cells[5, 0] = new Cell("CellID : " + label49.Text);
+
+                worksheet.Cells[7, 0] = new Cell("시험 항목");
+                worksheet.Cells[7, 1] = new Cell("결과");
+                worksheet.Cells[7, 2] = new Cell("resultCode");
+                worksheet.Cells[7, 3] = new Cell("logId");
+                worksheet.Cells[7, 4] = new Cell("설명");
+                worksheet.Cells[7, 5] = new Cell("비고");
+
+                int i = 8;
+                foreach (string tcindex in Enum.GetNames(typeof(onem2mtc)))
+                {
+                    onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
+                    worksheet.Cells[i, 0] = new Cell(listView1.Items[(int)index].SubItems[0].Text);
+                    worksheet.Cells[i, 1] = new Cell(listView1.Items[(int)index].SubItems[1].Text);
+                    worksheet.Cells[i, 2] = new Cell(listView1.Items[(int)index].SubItems[2].Text);
+                    worksheet.Cells[i, 3] = new Cell(listView1.Items[(int)index].SubItems[3].Text);
+                    worksheet.Cells[i, 4] = new Cell(listView1.Items[(int)index].SubItems[4].Text);
+                    worksheet.Cells[i, 5] = new Cell(listView1.Items[(int)index].SubItems[5].Text);
+                    i++;
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 11000;
+                worksheet.Cells.ColumnWidth[1, 3] = 3000;
+                worksheet.Cells.ColumnWidth[4, 5] = 10000;
+                workbook.Worksheets.Add(worksheet);
+
+                worksheet = new Worksheet("lwm2m");
+
+                worksheet.Cells[0, 0] = new Cell("모델명 : " + dev.model);
+                worksheet.Cells[1, 0] = new Cell("제조사 : " + dev.maker);
+                worksheet.Cells[2, 0] = new Cell("버전 : " + dev.version);
+                worksheet.Cells[3, 0] = new Cell("시험일 : " + DateTime.Now.ToString("MM/dd hh:mm"));
+                worksheet.Cells[4, 0] = new Cell("EntityID : " + dev.entityId);
+                worksheet.Cells[5, 0] = new Cell("CellID : " + label49.Text);
+
+                worksheet.Cells[7, 0] = new Cell("시험 항목");
+                worksheet.Cells[7, 1] = new Cell("결과");
+                worksheet.Cells[7, 2] = new Cell("resultCode");
+                worksheet.Cells[7, 3] = new Cell("logId");
+                worksheet.Cells[7, 4] = new Cell("설명");
+                worksheet.Cells[7, 5] = new Cell("비고");
+
+                i = 8;
+                foreach (string tcindex in Enum.GetNames(typeof(lwm2mtc)))
+                {
+                    lwm2mtc indexl = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
+                    worksheet.Cells[i, 0] = new Cell(listView2.Items[(int)indexl].SubItems[0].Text);
+                    worksheet.Cells[i, 1] = new Cell(listView2.Items[(int)indexl].SubItems[1].Text);
+                    worksheet.Cells[i, 2] = new Cell(listView2.Items[(int)indexl].SubItems[2].Text);
+                    worksheet.Cells[i, 3] = new Cell(listView2.Items[(int)indexl].SubItems[3].Text);
+                    worksheet.Cells[i, 4] = new Cell(listView2.Items[(int)indexl].SubItems[4].Text);
+                    worksheet.Cells[i, 5] = new Cell(listView2.Items[(int)indexl].SubItems[5].Text);
+                    i++;
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 11000;
+                worksheet.Cells.ColumnWidth[1, 3] = 3000;
+                worksheet.Cells.ColumnWidth[4, 5] = 10000;
+                workbook.Worksheets.Add(worksheet);
+
+                workbook.Save(pathname + filename);
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 

@@ -52,6 +52,10 @@
             this.gbDeviceLog = new System.Windows.Forms.GroupBox();
             this.tBoxDataIN = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
             this.lbModemVer = new System.Windows.Forms.TextBox();
             this.textBox89 = new System.Windows.Forms.TextBox();
             this.lbIccid = new System.Windows.Forms.TextBox();
@@ -302,6 +306,7 @@
             this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.label43 = new System.Windows.Forms.Label();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
@@ -384,6 +389,8 @@
             this.label33 = new System.Windows.Forms.Label();
             this.tbSvcSvrNum = new System.Windows.Forms.TextBox();
             this.tabLOG = new System.Windows.Forms.TabPage();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label18 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -428,7 +435,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label43 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -724,6 +730,10 @@
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.label47);
+            this.groupBox10.Controls.Add(this.label46);
+            this.groupBox10.Controls.Add(this.label45);
+            this.groupBox10.Controls.Add(this.label44);
             this.groupBox10.Controls.Add(this.lbModemVer);
             this.groupBox10.Controls.Add(this.textBox89);
             this.groupBox10.Controls.Add(this.lbIccid);
@@ -755,6 +765,42 @@
             this.groupBox10.TabIndex = 40;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Device 정보";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(54, 290);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(97, 12);
+            this.label47.TabIndex = 71;
+            this.label47.Text = "버전 응답 메시지";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(56, 236);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(98, 12);
+            this.label46.TabIndex = 70;
+            this.label46.Text = "IMEI 응답 메시지";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(47, 178);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(105, 12);
+            this.label45.TabIndex = 69;
+            this.label45.Text = "ICCID 응답 메시지";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(55, 122);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(98, 12);
+            this.label44.TabIndex = 68;
+            this.label44.Text = "IMSI 응답 메시지";
             // 
             // lbModemVer
             // 
@@ -3482,6 +3528,15 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
             // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(74, 207);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(126, 12);
+            this.label43.TabIndex = 66;
+            this.label43.Text = "Bootstrap 완료 메시지";
+            // 
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
@@ -4291,6 +4346,8 @@
             // 
             // tabLOG
             // 
+            this.tabLOG.Controls.Add(this.label49);
+            this.tabLOG.Controls.Add(this.label48);
             this.tabLOG.Controls.Add(this.dateTimePicker1);
             this.tabLOG.Controls.Add(this.label18);
             this.tabLOG.Controls.Add(this.label16);
@@ -4322,6 +4379,24 @@
             this.tabLOG.TabIndex = 7;
             this.tabLOG.Text = "Platform LOG";
             this.tabLOG.UseVisualStyleBackColor = true;
+            // 
+            // label49
+            // 
+            this.label49.Location = new System.Drawing.Point(530, 43);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(94, 22);
+            this.label49.TabIndex = 76;
+            this.label49.Text = "/";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label48
+            // 
+            this.label48.Location = new System.Drawing.Point(430, 43);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(94, 22);
+            this.label48.TabIndex = 75;
+            this.label48.Text = "CellID 정보 : ";
+            this.label48.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // dateTimePicker1
             // 
@@ -4753,15 +4828,6 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(74, 207);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(126, 12);
-            this.label43.TabIndex = 66;
-            this.label43.Text = "Bootstrap 완료 메시지";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -4774,6 +4840,7 @@
             this.MinimumSize = new System.Drawing.Size(750, 522);
             this.Name = "Form1";
             this.Text = "LGU+ PCT";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.panel1.ResumeLayout(false);
@@ -5246,6 +5313,12 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label48;
     }
 }
 

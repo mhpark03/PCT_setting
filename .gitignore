@@ -348,3 +348,4 @@ MigrationBackup/
 .ionide/
 
 configure.txt
+[T]testResult/
