@@ -244,6 +244,8 @@
             this.tabOneM2M = new System.Windows.Forms.TabPage();
             this.button117 = new System.Windows.Forms.Button();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.textBox76 = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
             this.textBox72 = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
@@ -435,8 +437,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label50 = new System.Windows.Forms.Label();
-            this.textBox76 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -2834,6 +2834,25 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "oneM2M Firmware";
             // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label50.Location = new System.Drawing.Point(31, 52);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(108, 11);
+            this.label50.TabIndex = 80;
+            this.label50.Text = "Device FOTA data";
+            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox76
+            // 
+            this.textBox76.Location = new System.Drawing.Point(148, 48);
+            this.textBox76.Name = "textBox76";
+            this.textBox76.Size = new System.Drawing.Size(228, 21);
+            this.textBox76.TabIndex = 79;
+            this.textBox76.Text = "$BIN_DATA=";
+            // 
             // label38
             // 
             this.label38.AutoSize = true;
@@ -3032,6 +3051,7 @@
             this.checkBox4.TabIndex = 45;
             this.checkBox4.Text = "지원";
             this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
             // button116
             // 
@@ -3169,7 +3189,7 @@
             this.checkBox3.TabIndex = 41;
             this.checkBox3.Text = "지원";
             this.checkBox3.UseVisualStyleBackColor = true;
-            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged_1);
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
             // 
             // btnGetCSED
             // 
@@ -3272,7 +3292,7 @@
             this.checkBox1.TabIndex = 40;
             this.checkBox1.Text = "지원";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button114
             // 
@@ -4831,25 +4851,6 @@
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("굴림", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label50.Location = new System.Drawing.Point(31, 52);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(108, 11);
-            this.label50.TabIndex = 80;
-            this.label50.Text = "Device FOTA data";
-            this.label50.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBox76
-            // 
-            this.textBox76.Location = new System.Drawing.Point(148, 48);
-            this.textBox76.Name = "textBox76";
-            this.textBox76.Size = new System.Drawing.Size(228, 21);
-            this.textBox76.TabIndex = 79;
-            this.textBox76.Text = "$BIN_DATA=";
             // 
             // Form1
             // 
