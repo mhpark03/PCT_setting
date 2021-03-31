@@ -2956,68 +2956,12 @@ namespace WindowsFormsApp2
                 checkBox4.Text = "미지원";
         }
 
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbVoice.Checked == true)
-                cbVoice.Text = "지원";
-            else
-                cbVoice.Text = "미지원";
-        }
-
         private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            if (cbVideo.Checked == true)
-                cbVideo.Text = "지원";
+            if (checkBox6.Checked == true)
+                checkBox6.Text = "\"";
             else
-                cbVideo.Text = "미지원";
-        }
-
-        private void checkBox7_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbAuto2ndPDN.Checked == true)
-                cbAuto2ndPDN.Text = "올림";
-            else
-                cbAuto2ndPDN.Text = "안올림";
-        }
-
-        private void checkBox8_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbCA.Checked == true)
-                cbCA.Text = "지원";
-            else
-                cbCA.Text = "미지원";
-        }
-
-        private void checkBox9_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbEMC.Checked == true)
-                cbEMC.Text = "지원";
-            else
-                cbEMC.Text = "미지원";
-        }
-
-        private void checkBox11_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbBand1.Checked == true)
-                cbBand1.Text = "지원";
-            else
-                cbBand1.Text = "미지원";
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbBand5.Checked == true)
-                cbBand5.Text = "지원";
-            else
-                cbBand5.Text = "미지원";
-        }
-
-        private void checkBox10_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cbBand7.Checked == true)
-                cbBand7.Text = "지원";
-            else
-                cbBand7.Text = "미지원";
+                checkBox6.Text = "없음";
         }
 
         private void checkBox16_CheckedChanged(object sender, EventArgs e)
@@ -3374,7 +3318,7 @@ namespace WindowsFormsApp2
                         rddata = sr.ReadLine();
 
                         rddata = sr.ReadLine();
-                        tbDeviceName.Text = textBox86.Text = dev.model = rddata.Substring(14, rddata.Length - 14);
+                        tbDeviceName.Text = rddata.Substring(14, rddata.Length - 14);
 
                         rddata = sr.ReadLine();
                         tbDeviceVer.Text = rddata.Substring(17, rddata.Length - 17);
@@ -4303,6 +4247,9 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell("COM PORT");
                 worksheet.Cells[i, 1] = new Cell(cBoxCOMPORT.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell("BAUDRATE");
+                worksheet.Cells[i, 1] = new Cell(cBoxBaudRate.Text);
 
                 worksheet.Cells.ColumnWidth[0, 2] = 7000;
                 workbook.Worksheets.Add(worksheet);
@@ -4756,6 +4703,8 @@ namespace WindowsFormsApp2
                             comboBox3.SelectedIndex = 1;
                         i++;
                         cBoxCOMPORT.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        cBoxBaudRate.Text = worksheet.Cells[i, 1].ToString();
 
                         ///////////////////////////////////////////////////////////////// PCT 장비 AT command 매핑 1
                         worksheet = workbook.Worksheets[1];
@@ -5035,7 +4984,7 @@ namespace WindowsFormsApp2
                         i += 3;
                         tbDeviceName.Text = textBox86.Text = dev.model = worksheet.Cells[i, 1].ToString();
                         i++;
-                        tbDeviceVer.Text = worksheet.Cells[i, 1].ToString();
+                        tbDeviceVer.Text = lbModemVer.Text = dev.version = worksheet.Cells[i, 1].ToString();
                         i++;
                         tbDeviceType.Text = worksheet.Cells[i, 1].ToString();
                         i++;
@@ -7375,7 +7324,7 @@ namespace WindowsFormsApp2
                             if (iccId.ToString() != " ")
                             {
                                 tBoxDeviceModel.Text = deviceModel.ToString();
-                                textBox86.Text = modemModel.ToString();
+                                tbDeviceName.Text = textBox86.Text = dev.model = modemModel.ToString();
                                 tbSvcCd.Text = serviceCode.ToString();
                                 tBoxDeviceSN.Text = deviceSerialNo.ToString();
 
@@ -7438,7 +7387,7 @@ namespace WindowsFormsApp2
 
         private void setDeviceEntityID()
         {
-            if (dev.imei != null && dev.imsi.Length == 11)
+            if (dev.imsi != null && dev.imsi.Length == 11)
             {
                 String md5value = getMd5Hash(dev.imsi + dev.iccid);
                 //logPrintInTextBox(md5value, "");
@@ -9237,6 +9186,94 @@ namespace WindowsFormsApp2
             {
                 MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void cbMultiPDN_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMultiPDN.Checked == true)
+                cbMultiPDN.Text = "지원";
+            else
+                cbMultiPDN.Text = "미지원";
+        }
+
+        private void cbAuto2ndPDN_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAuto2ndPDN.Checked == true)
+                cbAuto2ndPDN.Text = "올림";
+            else
+                cbAuto2ndPDN.Text = "안올림";
+        }
+
+        private void cbEMC_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbEMC.Checked == true)
+                cbEMC.Text = "지원";
+            else
+                cbEMC.Text = "미지원";
+        }
+
+        private void cbCA_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCA.Checked == true)
+                cbCA.Text = "지원";
+            else
+                cbCA.Text = "미지원";
+        }
+
+        private void cbIPSec_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbIPSec.Checked == true)
+                cbIPSec.Text = "지원";
+            else
+                cbIPSec.Text = "미지원";
+        }
+
+        private void cbSMS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbSMS.Checked == true)
+                cbSMS.Text = "지원";
+            else
+                cbSMS.Text = "미지원";
+        }
+
+        private void cbVoice_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbVoice.Checked == true)
+                cbVoice.Text = "지원";
+            else
+                cbVoice.Text = "미지원";
+        }
+
+        private void cbVideo_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbVideo.Checked == true)
+                cbVideo.Text = "지원";
+            else
+                cbVideo.Text = "미지원";
+        }
+
+        private void cbBand1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbBand1.Checked == true)
+                cbBand1.Text = "지원";
+            else
+                cbBand1.Text = "미지원";
+        }
+
+        private void cbBand5_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbBand5.Checked == true)
+                cbBand5.Text = "지원";
+            else
+                cbBand5.Text = "미지원";
+        }
+
+        private void cbBand7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbBand7.Checked == true)
+                cbBand7.Text = "지원";
+            else
+                cbBand7.Text = "미지원";
         }
     }
 

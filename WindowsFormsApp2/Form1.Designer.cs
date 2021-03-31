@@ -437,6 +437,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -1177,7 +1178,7 @@
             this.cbVideo.TabIndex = 27;
             this.cbVideo.Text = "미지원";
             this.cbVideo.UseVisualStyleBackColor = true;
-            this.cbVideo.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            this.cbVideo.CheckedChanged += new System.EventHandler(this.cbVideo_CheckedChanged);
             // 
             // cbVoice
             // 
@@ -1188,7 +1189,7 @@
             this.cbVoice.TabIndex = 26;
             this.cbVoice.Text = "미지원";
             this.cbVoice.UseVisualStyleBackColor = true;
-            this.cbVoice.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            this.cbVoice.CheckedChanged += new System.EventHandler(this.cbVoice_CheckedChanged);
             // 
             // cbSMS
             // 
@@ -1201,7 +1202,7 @@
             this.cbSMS.TabIndex = 25;
             this.cbSMS.Text = "지원";
             this.cbSMS.UseVisualStyleBackColor = true;
-            this.cbSMS.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
+            this.cbSMS.CheckedChanged += new System.EventHandler(this.cbSMS_CheckedChanged);
             // 
             // cbIPSec
             // 
@@ -1212,7 +1213,7 @@
             this.cbIPSec.TabIndex = 24;
             this.cbIPSec.Text = "미지원";
             this.cbIPSec.UseVisualStyleBackColor = true;
-            this.cbIPSec.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            this.cbIPSec.CheckedChanged += new System.EventHandler(this.cbIPSec_CheckedChanged);
             // 
             // button21
             // 
@@ -1482,7 +1483,7 @@
             this.cbBand1.TabIndex = 34;
             this.cbBand1.Text = "미지원";
             this.cbBand1.UseVisualStyleBackColor = true;
-            this.cbBand1.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
+            this.cbBand1.CheckedChanged += new System.EventHandler(this.cbBand1_CheckedChanged);
             // 
             // cbBand7
             // 
@@ -1493,7 +1494,7 @@
             this.cbBand7.TabIndex = 33;
             this.cbBand7.Text = "미지원";
             this.cbBand7.UseVisualStyleBackColor = true;
-            this.cbBand7.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            this.cbBand7.CheckedChanged += new System.EventHandler(this.cbBand7_CheckedChanged);
             // 
             // button18
             // 
@@ -1536,7 +1537,7 @@
             this.cbBand5.TabIndex = 24;
             this.cbBand5.Text = "지원";
             this.cbBand5.UseVisualStyleBackColor = true;
-            this.cbBand5.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.cbBand5.CheckedChanged += new System.EventHandler(this.cbBand5_CheckedChanged);
             // 
             // button8
             // 
@@ -1680,7 +1681,7 @@
             this.cbEMC.TabIndex = 31;
             this.cbEMC.Text = "지원";
             this.cbEMC.UseVisualStyleBackColor = true;
-            this.cbEMC.CheckedChanged += new System.EventHandler(this.checkBox9_CheckedChanged);
+            this.cbEMC.CheckedChanged += new System.EventHandler(this.cbEMC_CheckedChanged);
             // 
             // cbImsPDN
             // 
@@ -1705,7 +1706,7 @@
             this.cbCA.TabIndex = 29;
             this.cbCA.Text = "미지원";
             this.cbCA.UseVisualStyleBackColor = true;
-            this.cbCA.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            this.cbCA.CheckedChanged += new System.EventHandler(this.cbCA_CheckedChanged);
             // 
             // cbAuto2ndPDN
             // 
@@ -1716,7 +1717,7 @@
             this.cbAuto2ndPDN.TabIndex = 28;
             this.cbAuto2ndPDN.Text = "안올림";
             this.cbAuto2ndPDN.UseVisualStyleBackColor = true;
-            this.cbAuto2ndPDN.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            this.cbAuto2ndPDN.CheckedChanged += new System.EventHandler(this.cbAuto2ndPDN_CheckedChanged);
             // 
             // cbImsIP
             // 
@@ -1742,7 +1743,7 @@
             this.cbMultiPDN.TabIndex = 24;
             this.cbMultiPDN.Text = "지원";
             this.cbMultiPDN.UseVisualStyleBackColor = true;
-            this.cbMultiPDN.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.cbMultiPDN.CheckedChanged += new System.EventHandler(this.cbMultiPDN_CheckedChanged);
             // 
             // tbIMEI
             // 
@@ -3511,6 +3512,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.checkBox6);
             this.groupBox11.Controls.Add(this.label43);
             this.groupBox11.Controls.Add(this.checkBox5);
             this.groupBox11.Controls.Add(this.label42);
@@ -3713,7 +3715,7 @@
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(423, 65);
+            this.checkBox2.Location = new System.Drawing.Point(401, 65);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(48, 16);
             this.checkBox2.TabIndex = 45;
@@ -3733,7 +3735,7 @@
             // 
             this.textBox50.Location = new System.Drawing.Point(212, 63);
             this.textBox50.Name = "textBox50";
-            this.textBox50.Size = new System.Drawing.Size(205, 21);
+            this.textBox50.Size = new System.Drawing.Size(183, 21);
             this.textBox50.TabIndex = 32;
             this.textBox50.Text = "AT+MLWEPNS=";
             // 
@@ -4852,6 +4854,17 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Location = new System.Drawing.Point(453, 66);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(48, 16);
+            this.checkBox6.TabIndex = 67;
+            this.checkBox6.Text = "없음";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5345,6 +5358,7 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox textBox76;
+        private System.Windows.Forms.CheckBox checkBox6;
     }
 }
 
