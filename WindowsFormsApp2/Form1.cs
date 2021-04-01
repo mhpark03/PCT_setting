@@ -7705,10 +7705,14 @@ namespace WindowsFormsApp2
         {
             setDeviceEntityID();
             string atcmd = textBox50.Text;
+            if (checkBox6.Checked == true)
+                atcmd += "\"";
             if (checkBox2.Checked == false)
                 atcmd += dev.entityId;
             else
                 atcmd += tbSvcCd.Text;
+            if (checkBox6.Checked == true)
+                atcmd += "\"";
             this.sendDataOut(atcmd);
             lbActionState.Text = states.setepnstpb23.ToString();
         }
@@ -9274,6 +9278,11 @@ namespace WindowsFormsApp2
                 cbBand7.Text = "지원";
             else
                 cbBand7.Text = "미지원";
+        }
+
+        private void groupBox11_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 
