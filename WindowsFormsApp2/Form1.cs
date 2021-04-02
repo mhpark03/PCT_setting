@@ -1463,7 +1463,7 @@ namespace WindowsFormsApp2
                         logPrintInTextBox("data size가 맞지 않습니다.", "");
                     }
                 }
-                else if (rxMsg == textBox70.Text)
+                else if (rxMsg == textBox70.Text)           // Module FOTA 이벤트
                 {
                     timer2.Stop();
                     startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -1472,6 +1472,14 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.lwm2mtc0602.ToString();
                         nextresponse = textBox74.Text;
                     }
+                }
+                else if (rxMsg == textBox63.Text)           // Bootstrap 완료 이벤트
+                {
+                    timer2.Stop();
+                    endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
+                    logPrintInTextBox("Bootstrap finished", " ");
+                    lbActionState.Text = states.lwm2mtc0203.ToString();
+                    nextresponse = textBox74.Text;
                 }
                 else if (nextresponse != string.Empty)
                 {
@@ -2447,6 +2455,13 @@ namespace WindowsFormsApp2
                     kind += "&from=" + tcStartTime.ToString("yyyyMMddHHmmss");
 
                     getSvrLoglists(kind, "auto");
+                    break;
+                case states.lwm2mtc0203:
+                    endLwM2MTC("tc0302", string.Empty, string.Empty, string.Empty, string.Empty);
+                    lbActionState.Text = states.lwm2mtc0302.ToString();
+                    nextresponse = string.Empty;
+                    timer2.Interval = 10000;
+                    timer2.Start();
                     break;
                 default:
                     lbActionState.Text = states.idle.ToString();
@@ -4522,6 +4537,10 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(label42.Text);
                 worksheet.Cells[i, 1] = new Cell("");
                 worksheet.Cells[i, 2] = new Cell(textBox75.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell("부팅시 실행방식");
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(checkBox7.Text);
 
                 worksheet.Cells.ColumnWidth[0] = 6000;
                 worksheet.Cells.ColumnWidth[1] = 5000;
@@ -4868,6 +4887,15 @@ namespace WindowsFormsApp2
                         textBox74.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox75.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        checkBox7.Text = worksheet.Cells[i, 2].ToString();
+                        if (checkBox7.Text == "자동실행")
+                            checkBox7.Checked = true;
+                        else
+                        {
+                            checkBox7.Checked = false;
+                            checkBox7.Text = "수동설정";
+                        }
 
                         //////////////////////////////////////////////////////////////// PCT 장비 옵션 설정
                         i = 1;
@@ -5033,19 +5061,28 @@ namespace WindowsFormsApp2
                         if (checkBox1.Text == "지원")
                             checkBox1.Checked = true;
                         else
+                        {
                             checkBox1.Checked = false;
+                            checkBox1.Text = "미지원";
+                        }
                         i++;
                         checkBox3.Text = worksheet.Cells[i, 1].ToString();
                         if (checkBox3.Text == "지원")
                             checkBox3.Checked = true;
                         else
+                        {
                             checkBox3.Checked = false;
+                            checkBox3.Text = "미지원";
+                        }
                         i++;
                         checkBox4.Text = worksheet.Cells[i, 1].ToString();
                         if (checkBox4.Text == "지원")
                             checkBox4.Checked = true;
                         else
+                        {
                             checkBox4.Checked = false;
+                            checkBox4.Text = "미지원";
+                        }
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -6857,8 +6894,13 @@ namespace WindowsFormsApp2
                     Stream respPostStream = wRes.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
                     resResult = readerPost.ReadToEnd();
-                    string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
-                    Console.WriteLine(beautifiedJson);
+                    if (resResult.StartsWith("[") || resResult.StartsWith("{"))
+                    {
+                        string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                        Console.WriteLine(beautifiedJson);
+                    }
+                    else
+                        Console.WriteLine(resResult);
                     Console.WriteLine("");
                 }
             }
@@ -7399,7 +7441,7 @@ namespace WindowsFormsApp2
                 if (dev.entityId != entityid)
                 {
                     dev.entityId = entityid;
-                    lbDevEntityId.Text = dev.entityId;
+                    SetText(lbDevEntityId, dev.entityId);
                     logPrintInTextBox("Device EntityID가 " + dev.entityId + "수정되었습니다.", "");
                 }
 
@@ -8824,7 +8866,7 @@ namespace WindowsFormsApp2
                 startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox56.Text);
                 lbActionState.Text = states.lwm2mtc02021.ToString();
             }
-            else if (lbActionState.Text == states.lwm2mtc03012.ToString())
+            else if (lbActionState.Text == states.lwm2mtc03012.ToString() || lbActionState.Text == states.lwm2mtc0302.ToString())
             {
                 DeviceFWVerSend();
 
@@ -9283,6 +9325,14 @@ namespace WindowsFormsApp2
         private void groupBox11_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox7.Checked == true)
+                checkBox7.Text = "자동실행";
+            else
+                checkBox7.Text = "수동설정";
         }
     }
 
