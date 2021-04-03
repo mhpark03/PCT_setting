@@ -231,6 +231,10 @@ namespace WindowsFormsApp2
             lwm2mtc02023,
             lwm2mtc02024,
             lwm2mtc02025,
+            lwm2mtc02026,
+            lwm2mtc02027,
+            lwm2mtc02028,
+            lwm2mtc02029,
             lwm2mtc0203,            //"2.3 Bootstrap 상세 동작 확인 시험");
 
             lwm2mtc03011,           //"3.1 Register 절차 및 AT command 확인 시험");
@@ -1483,14 +1487,16 @@ namespace WindowsFormsApp2
 
                             if (lbActionState.Text == states.lwm2mtc0401.ToString())
                             {
+                                this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
+
                                 Thread.Sleep(10000);
+                                GetPlatformFWVer("NO");
+
                                 string kind = "type=lwm2m&ctn=" + tbDeviceCTN.Text;
                                 kind += "&from=" + tcStartTime.ToString("yyyyMMddHHmmss");
 
                                 getSvrLoglists(kind, "auto");
                                 logPrintInTextBox("전체 시험 완료.", "");
-
-                                this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
                             }
                             break;
                         case "2":
@@ -1508,7 +1514,7 @@ namespace WindowsFormsApp2
                                 timer2.Stop();
                                 lbActionState.Text = states.lwm2mtc0203.ToString();
                             }
-                            else if (lbActionState.Text == states.lwm2mtc02025.ToString())
+                            else if (lbActionState.Text == states.lwm2mtc02029.ToString())
                             {
                                 if (checkBox5.Checked == true)
                                 {
@@ -2642,53 +2648,114 @@ namespace WindowsFormsApp2
                 case states.autosetsvripbc95:
                     lbActionState.Text = states.idle.ToString();
                     break;
-                case states.lwm2mtc02021:
-                    // LWM2M bootstrap 자동 요청 순서 (V150)
-                    // (setncdp) - (setepnstpb23) - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
-                    // End Point Name Parameter 설정
-                    //AT+MLWEPNS="LWM2M 서버 entityID"
-                    string atcmd = textBox50.Text;
-                    if (checkBox2.Checked == false)
-                        atcmd += dev.entityId;
+                case states.lwm2mtc02023:
+                    if (textBox75.Text != string.Empty)
+                    {
+                        this.sendDataOut(textBox75.Text);
+                        lbActionState.Text = states.lwm2mtc02024.ToString();
+                    }
                     else
-                        atcmd += tbSvcCd.Text;
-                    this.sendDataOut(atcmd);
+                    {
+                        // LWM2M bootstrap 자동 요청 순서 (V150)
+                        // (setncdp) - (setepnstpb23) - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
+                        // End Point Name Parameter 설정
+                        //AT+MLWEPNS="LWM2M 서버 entityID"
+                        setDeviceEntityID();
+                        if (checkBox6.Checked == true)
+                        {
+                            if (checkBox2.Checked == false)
+                                this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
+                            else
+                                this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
+                        }
+                        else
+                        {
+                            if (checkBox2.Checked == false)
+                                this.sendDataOut(textBox50.Text + dev.entityId);
+                            else
+                                this.sendDataOut(textBox50.Text + tbSvcCd.Text);
+                        }
+                        startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox50.Text);
+                        lbActionState.Text = states.lwm2mtc02025.ToString();
+                    }
+                    break;
+                case states.lwm2mtc02024:
+                    setDeviceEntityID();
+                    if (checkBox6.Checked == true)
+                    {
+                        if (checkBox2.Checked == false)
+                            this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
+                        else
+                            this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
+                    }
+                    else
+                    {
+                        if (checkBox2.Checked == false)
+                            this.sendDataOut(textBox50.Text + dev.entityId);
+                        else
+                            this.sendDataOut(textBox50.Text + tbSvcCd.Text);
+                    }
                     startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox50.Text);
-                    lbActionState.Text = states.lwm2mtc02022.ToString();
+                    lbActionState.Text = states.lwm2mtc02025.ToString();
                     break;
                 case states.setepnstpb23:
                     lbActionState.Text = states.idle.ToString();
                     break;
-                case states.lwm2mtc02022:
-                    // LWM2M bootstrap 자동 요청 순서 (V150)
-                    // setncdp - (setepnstpb23) - (setmbspstpb23) - bootstrapmodetpb23 - bootstraptpb23
-                    // Bootstarp Parameter 설정
-                    //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
+                case states.lwm2mtc02025:
+                    string epncmd = string.Empty;
+                    string epniccid = dev.iccid;
 
-                    string command = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
-                    command += tBoxDeviceSN.Text + "|ctn=";
-                    command += dev.imsi + "|iccId=";
+                    if (comboBox4.SelectedIndex == 0)
+                    {
+                        //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
+                        epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
+                        epncmd += tBoxDeviceSN.Text + "|ctn=";
+                        epncmd += dev.imsi + "|iccId=";
 
-                    string iccid = dev.iccid;
-                    command += iccid.Substring(iccid.Length - 6, 6) + "|deviceModel=";
-                    command += tBoxDeviceModel.Text + "|mac=";
+                        string iccid = dev.iccid;
+                        epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
+                        epncmd += tBoxDeviceModel.Text + "|mac=";
+                    }
+                    else
+                    {
+                        //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
+                        epncmd = "\"" + tbSvcCd.Text + "\",\"";
+                        epncmd += tBoxDeviceSN.Text + "\",\"";
+                        epncmd += dev.imsi + "\",\"";
 
-                    this.sendDataOut(textBox55.Text + command);
+                        epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
+                        epncmd += tBoxDeviceModel.Text + "\"";
+                    }
+
+                    this.sendDataOut(textBox55.Text + epncmd);
                     startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox55.Text);
-                    lbActionState.Text = states.lwm2mtc02023.ToString();
+                    lbActionState.Text = states.lwm2mtc02026.ToString();
                     break;
                 case states.setmbspstpb23:
                     lbActionState.Text = states.idle.ToString();
                     break;
-                case states.lwm2mtc02023:
-                    // LWM2M bootstrap 자동 요청 순서 (V150)
-                    // setncdp - setepnstpb23 - (setmbspstpb23) - (bootstrapmodetpb23) - bootstraptpb23
-                    // LWM2M 서버 설정
-                    // BOOTSTARP MODE 설정
-                    //AT+MBOOTSTRAPMODE=1
-                    this.sendDataOut(textBox66.Text);
-                    startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox66.Text);
-                    lbActionState.Text = states.lwm2mtc02024.ToString();
+                case states.lwm2mtc02026:
+                    if (textBox66.Text != string.Empty)
+                    {
+                        // LWM2M bootstrap 자동 요청 순서 (V150)
+                        // setncdp - setepnstpb23 - (setmbspstpb23) - (bootstrapmodetpb23) - bootstraptpb23
+                        // LWM2M 서버 설정
+                        // BOOTSTARP MODE 설정
+                        //AT+MBOOTSTRAPMODE=1
+                        this.sendDataOut(textBox66.Text);
+                        startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox66.Text);
+                        lbActionState.Text = states.lwm2mtc02027.ToString();
+                    }
+                    else
+                    {
+                        // LWM2M bootstrap 자동 요청 순서 (V150)
+                        // setncdp - setepnstpb23 - setmbspstpb23 - (bootstrapmodetpb23) - (bootstraptpb23)
+                        // LWM2M서버에 Bootstarp 요청
+                        //  AT+MLWGOBOOTSTRAP=1
+                        this.sendDataOut(textBox67.Text);
+                        startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox67.Text);
+                        lbActionState.Text = states.lwm2mtc02029.ToString();
+                    }
                     break;
                 case states.bootstrapmodetpb23:
                     if (textBox77.Text != string.Empty)
@@ -2699,17 +2766,34 @@ namespace WindowsFormsApp2
                     else
                         lbActionState.Text = states.idle.ToString();
                     break;
+                case states.lwm2mtc02027:
+                    if (textBox77.Text != string.Empty)
+                    {
+                        this.sendDataOut(textBox77.Text);
+                        lbActionState.Text = states.lwm2mtc02028.ToString();
+                    }
+                    else
+                    {
+                        // LWM2M bootstrap 자동 요청 순서 (V150)
+                        // setncdp - setepnstpb23 - setmbspstpb23 - (bootstrapmodetpb23) - (bootstraptpb23)
+                        // LWM2M서버에 Bootstarp 요청
+                        //  AT+MLWGOBOOTSTRAP=1
+                        this.sendDataOut(textBox67.Text);
+                        startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox67.Text);
+                        lbActionState.Text = states.lwm2mtc02029.ToString();
+                    }
+                    break;
                 case states.bootstrapbc95:
                     lbActionState.Text = states.idle.ToString();
                     break;
-                case states.lwm2mtc02024:
+                case states.lwm2mtc02028:
                     // LWM2M bootstrap 자동 요청 순서 (V150)
                     // setncdp - setepnstpb23 - setmbspstpb23 - (bootstrapmodetpb23) - (bootstraptpb23)
                     // LWM2M서버에 Bootstarp 요청
                     //  AT+MLWGOBOOTSTRAP=1
                     this.sendDataOut(textBox67.Text);
                     startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox67.Text);
-                    lbActionState.Text = states.lwm2mtc02025.ToString();
+                    lbActionState.Text = states.lwm2mtc02029.ToString();
                     break;
                 case states.sendmsghex:
                     endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -2733,6 +2817,22 @@ namespace WindowsFormsApp2
                     }
                     else
                         lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.lwm2mtc02021:
+                    if (textBox74.Text != string.Empty)
+                    {
+                        this.sendDataOut(textBox74.Text);
+                        lbActionState.Text = states.lwm2mtc02022.ToString();
+                    }
+                    else
+                    {
+                        this.sendDataOut(textBox56.Text);
+                        lbActionState.Text = states.lwm2mtc02023.ToString();
+                    }
+                    break;
+                case states.lwm2mtc02022:
+                    this.sendDataOut(textBox56.Text);
+                    lbActionState.Text = states.lwm2mtc02023.ToString();
                     break;
                 case states.holdoffbc95:
                     lbActionState.Text = states.idle.ToString();
@@ -2780,7 +2880,7 @@ namespace WindowsFormsApp2
                         nextresponse = textBox38.Text;
                         lbActionState.Text = states.autogeticcid.ToString();
                         break;
-                    case states.lwm2mtc02022:
+                    case states.lwm2mtc02025:
                         // LWM2M bootstrap 자동 요청 순서 (V150)
                         // (setncdp) - (setepnstpb23) - setmbspstpb23 - bootstrapmodetpb23 - bootstraptpb23
                         // End Point Name Parameter 설정
@@ -2792,7 +2892,7 @@ namespace WindowsFormsApp2
                         else
                             atcmd += tbSvcCd.Text;
                         this.sendDataOut(atcmd);
-                        lbActionState.Text = states.lwm2mtc02022.ToString();
+                        lbActionState.Text = states.lwm2mtc02026.ToString();
                         break;
                     case states.deviceFWOpen:
                         this.sendDataOut(commands["deviceFWOpen"] + nextcmdexts);
@@ -8969,9 +9069,17 @@ namespace WindowsFormsApp2
         {
             if (lbActionState.Text == states.lwm2mtc02012.ToString())
             {
-                this.sendDataOut(textBox56.Text);
+                if (textBox63.Text != string.Empty)
+                {
+                    this.sendDataOut(textBox63.Text);
+                    lbActionState.Text = states.lwm2mtc02021.ToString();
+                }
+                else
+                {
+                    this.sendDataOut(textBox56.Text);
+                    lbActionState.Text = states.lwm2mtc02023.ToString();
+                }
                 startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox56.Text);
-                lbActionState.Text = states.lwm2mtc02021.ToString();
             }
             else if (lbActionState.Text == states.lwm2mtc03013.ToString())
             {
