@@ -321,8 +321,6 @@ namespace WindowsFormsApp2
             onem2mtc0211033,
             onem2mtc0211034,
             onem2mtc0211035,
-            onem2mtc0211036,        // EC21/EC25 upgrade 이후 oneM2M 모드 report
-            onem2mtc0211037,        // EC21/EC25 upgrade 이후 oneM2M 설정 완료
             onem2mtc0211041,        // module version finsh를 위해 MEF인증 요청
             onem2mtc0211042,        // module version report 요청
             onem2mtc0211043,        // module version 완료
@@ -1066,11 +1064,11 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.mfotamefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
-                    else if (lbActionState.Text == states.onem2mtc0211036.ToString())
+                    else if (lbActionState.Text == states.onem2mtc0211041.ToString())
                     {
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
                         this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
-                        lbActionState.Text = states.onem2mtc0211037.ToString();
+                        lbActionState.Text = states.onem2mtc0211042.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
                     else if (lbActionState.Text == states.onem2mtc0201022.ToString())
@@ -1211,9 +1209,9 @@ namespace WindowsFormsApp2
                     {
                         if (deviceverinfos[0] == "2000")
                         {
-                            endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, deviceverinfos[0]);
+                            endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, str2);
 
-                            tBoxDeviceVer.Text = deviceverinfos[1];
+                            textBox62.Text = deviceverinfos[1];
                             logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
 
                             this.sendDataOut(commands["deviceFWUPstart"]);
@@ -1230,9 +1228,11 @@ namespace WindowsFormsApp2
                         {
                             endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, deviceverinfos[0]);
 
-                            logPrintInTextBox("현재 DEVICE 버전이 최신버전입니다.", "");
                             if (lbActionState.Text == states.getdeviceSvrVer.ToString())
+                            {
+                                MessageBox.Show("현재 DEVICE 버전이 최신버전입니다.", "");
                                 lbActionState.Text = states.idle.ToString();
+                            }
                             else
                             {
                                 startoneM2MTC("tc021101");
@@ -1292,9 +1292,11 @@ namespace WindowsFormsApp2
                         else if (modemverinfos[0] == "9001")
                         {
                             endoneM2MTC("tc021101", string.Empty, string.Empty, string.Empty, str2);
-                            MessageBox.Show("현재 MODEM 버전이 최신버전입니다.", "");
                             if (lbActionState.Text == states.getmodemSvrVer.ToString())
+                            {
+                                MessageBox.Show("현재 MODEM 버전이 최신버전입니다.", "");
                                 lbActionState.Text = states.idle.ToString();
+                            }
                             else
                             {
                                 startoneM2MTC("tc021202");
@@ -1656,7 +1658,7 @@ namespace WindowsFormsApp2
                     break;
                 case states.onem2mtc0211034:
                     if (str2 == "5")
-                        nextcommand = states.onem2mtc0211036.ToString();
+                        nextcommand = states.onem2mtc0211041.ToString();
                     else
                         nextcommand = states.modemFWUPboot.ToString();
                     lbActionState.Text = states.onem2mtc0211035.ToString();
@@ -1771,7 +1773,6 @@ namespace WindowsFormsApp2
                     }
                     break;
                 case states.onem2mtc0210042:
-                    endoneM2MTC("tc021004", string.Empty, string.Empty, string.Empty, str2);
                     if (str2 == "2004" || str2 == "2000")
                     {
                         if (svr.enrmtKeyId != string.Empty)
@@ -1779,13 +1780,21 @@ namespace WindowsFormsApp2
                             RetriveDverToPlatform();
                             if (textBox62.Text != lbdevicever.Text)
                                 endoneM2MTC("tc021004", string.Empty, "20000100", textBox62.Text, lbdevicever.Text);
+                            else
+                                endoneM2MTC("tc021004", string.Empty, string.Empty, string.Empty, str2);
                         }
-
-                        startoneM2MTC("tc021101");
-                        this.sendDataOut(commands["getmodemSvrVer"]);
-                        lbActionState.Text = states.onem2mtc021101.ToString();
-                        nextresponse = "$OM_MODEM_FWUP_RSP=";
+                        else
+                            endoneM2MTC("tc021004", string.Empty, string.Empty, string.Empty, str2);
                     }
+                    else
+                    {
+                        endoneM2MTC("tc021004", string.Empty, "20000100", string.Empty, str2);
+                    }
+
+                    startoneM2MTC("tc021101");
+                    this.sendDataOut(commands["getmodemSvrVer"]);
+                    lbActionState.Text = states.onem2mtc021101.ToString();
+                    nextresponse = "$OM_MODEM_FWUP_RSP=";
                     break;
                 case states.deviceFWUPfinish:
                     endoneM2MTC("tc021004", string.Empty, string.Empty, string.Empty, str2);
@@ -1802,24 +1811,40 @@ namespace WindowsFormsApp2
                     else
                         lbActionState.Text = states.idle.ToString();
                     break;
-                case states.onem2mtc0211037:
+                case states.onem2mtc0211042:
                     // oneM2M 인증 결과
                     if (str2 == "2000")
                     {
                         this.sendDataOut(textBox73.Text);
-                        lbActionState.Text = states.modemFWUPreport.ToString();
+                        lbActionState.Text = states.onem2mtc0211043.ToString();
                         nextresponse = textBox73.Text.Substring(2, textBox73.Text.Length - 2) + "=";
                     }
                     else
                     {
                         endoneM2MTC("tc020201", string.Empty, "20000100", string.Empty, str2);
-                        lbActionState.Text = states.idle.ToString();
+
+                        startoneM2MTC("tc021202");
+                        this.sendDataOut(commands["delsubscript"] + "StoD");
+                        lbActionState.Text = states.onem2mtc0212022.ToString();
+                        nextresponse = "$OM_D_SUB_RSP=";
                     }
                     break;
                 case states.modemFWUPreport:
+                case states.onem2mtc0211043:
                     if (str2 == "2004" || str2 == "2000")
                         endoneM2MTC("tc021104", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.idle.ToString();
+                    else
+                        endoneM2MTC("tc021104", string.Empty, "20000100", string.Empty, str2);
+
+                    if (lbActionState.Text == states.modemFWUPreport.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                    {
+                        startoneM2MTC("tc021202");
+                        this.sendDataOut(commands["delsubscript"] + "StoD");
+                        lbActionState.Text = states.onem2mtc0212022.ToString();
+                        nextresponse = "$OM_D_SUB_RSP=";
+                    }
                     break;
                 case states.getCSEbase:
                 case states.onem2mtc020401:
@@ -2971,13 +2996,13 @@ namespace WindowsFormsApp2
                         nextresponse = "$LGTMPF=";
                         break;
                     case states.modemFWUPmodeset:
-                    case states.onem2mtc0211036:
+                    case states.onem2mtc0211041:
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
                         this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
                         if (lbActionState.Text == states.modemFWUPmodeset.ToString())
                             lbActionState.Text = states.mfotamefauth.ToString();
                         else
-                            lbActionState.Text = states.onem2mtc0211037.ToString();
+                            lbActionState.Text = states.onem2mtc0211042.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                         break;
                     case states.onem2mtc0201022:
@@ -6203,10 +6228,13 @@ namespace WindowsFormsApp2
                                     ntparam = "CID=" + cid.ToString() + "/NT=" + nt.ToString();
 
                                 var pt = obj["X-OTA-PT"] ?? " ";
-                                if (pt.ToString() == "LWM2M" && kind == "tc021101")
+                                if (kind == "tc021101")
                                 {
                                     tcmsg = "Module FW read";
-                                    endoneM2MTC("tc021103", tlogid, tresultCode, tresultCodeName, ntparam);
+                                    if (ntparam == string.Empty)
+                                        endoneM2MTC("tc021101", tlogid, "20000100", tresultCodeName, "NO CELL info");
+                                    else
+                                        endoneM2MTC("tc021101", tlogid, tresultCode, tresultCodeName, ntparam);
                                 }
 
                                 if (kind == "tc021103")
