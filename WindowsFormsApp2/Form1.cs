@@ -4670,6 +4670,26 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button62.Text);
                 worksheet.Cells[i, 1] = new Cell("getcereg");
                 worksheet.Cells[i, 2] = new Cell(textBox61.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button119.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox78.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button63.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox64.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button120.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox79.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button121.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox80.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button128.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox81.Text);
 
                 worksheet.Cells.ColumnWidth[0, 3] = 5000;
                 workbook.Worksheets.Add(worksheet);
@@ -5069,6 +5089,16 @@ namespace WindowsFormsApp2
                         textBox60.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox61.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox78.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox64.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox79.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox80.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox81.Text = worksheet.Cells[i, 2].ToString();
 
                         /////////////////////////////////////////////// 플랫폼 검증 앱 LwM2M AT command
                         i = 0;
@@ -9611,6 +9641,26 @@ namespace WindowsFormsApp2
             }
             else
                 MessageBox.Show("LwM2M Disable 명령이 없습니다.");
+        }
+
+        private void button119_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox78.Text);
+        }
+
+        private void button120_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox79.Text);
+        }
+
+        private void button121_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox80.Text);
+        }
+
+        private void button128_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox81.Text);
         }
     }
 
