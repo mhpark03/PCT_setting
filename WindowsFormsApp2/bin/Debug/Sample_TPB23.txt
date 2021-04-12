@@ -1,0 +1,39 @@
+[Common]
+imsPDN_number = 0
+imsIPversion = IPv4
+Multiple_PDN = false
+Channel1 = 2600
+Channel2 = 100
+Channel3 = 3050
+UE_IMEI = 359369080163096
+Auto2ndPDN = false
+EMC_Support = 0
+CA_Support = false
+
+[Capability]
+LTE_Category = 1
+Supported_Band1 = omitted
+Supported_Band5 = 5
+Supported_Band7 = omitted
+FGI_4 = 0
+FGI_5 = 1
+FGI_17 = 1
+FGI_18 = 1
+FGI_28 = 0
+Rach_Report_r9 = omitted
+loggedMeasurementIdle_r10 = omitted
+standaloneGNSS_Location_r10 = omitted
+supportedBandCombination = omitted
+
+[VOLTE_SMS]
+Device_Name = TPB23
+Device_Version = RD2007B001-CAFF03
+Device_Type = modem
+TTA_Version = 1.0
+IPsec_enable = false
+SMS_Support = true
+Voice_Support = false
+Video_Support = false
+
+[NBIoT]
+IPversion = IPv4

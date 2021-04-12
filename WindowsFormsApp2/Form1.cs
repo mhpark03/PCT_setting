@@ -1071,12 +1071,14 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.onem2mtc0211042.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
+                    /*
                     else if (lbActionState.Text == states.onem2mtc0201022.ToString())
                     {
                         this.sendDataOut(commands["getonem2mmode"]);
                         lbActionState.Text = states.onem2mtc0201023.ToString();
                         nextresponse = "$LGTMPF=";
                     }
+                    */
                     else if (lbActionState.Text == states.resetmodechk.ToString())
                     {
                         this.sendDataOut(commands["getonem2mmode"]);
@@ -1600,14 +1602,14 @@ namespace WindowsFormsApp2
             switch (state)
             {
                 case states.getimei:
-                    textBox89.Text = tbIMEI.Text = dev.imei = str2;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str2.Replace("\"","");
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.autogetimei:
                     // 단말 정보 자동 갱신 순서
                     // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
-                    textBox89.Text = tbIMEI.Text = dev.imei = str2;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str2.Replace("\"", "");
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     progressBar1.Value = 90;
 
@@ -3086,7 +3088,7 @@ namespace WindowsFormsApp2
                     nextcommand = states.autogetimei.ToString();
                     break;
                 case states.getimei:
-                    textBox89.Text = tbIMEI.Text = dev.imei = str1;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str1.Replace("\"", "");
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
 
                     lbActionState.Text = states.idle.ToString();
@@ -3094,7 +3096,7 @@ namespace WindowsFormsApp2
                 case states.autogetimei:
                     // 단말 정보 자동 갱신 순서
                     // autogetmanufac - autogetmodel - (autogetimei) - (autogetmodemver)
-                    textBox89.Text = tbIMEI.Text = dev.imei = str1;
+                    textBox89.Text = tbIMEI.Text = dev.imei = str1.Replace("\"", "");
                     logPrintInTextBox("IMEI를 " + dev.imei + "로 저장하였습니다.", "");
                     progressBar1.Value = 90;
 
@@ -3298,16 +3300,13 @@ namespace WindowsFormsApp2
 
         private void button23_Click(object sender, EventArgs e)
         {
-            string pathname = @"c:\temp\seriallog\";
+            string pathname = Application.StartupPath + @"/";
             string filename = "Sample_" + tbDeviceName.Text + ".txt";
 
-            Directory.CreateDirectory(pathname);
-
-            // Create a file to write to.
-            FileStream fs = null;
             try
             {
-                fs = new FileStream(pathname + filename, FileMode.Create, FileAccess.Write);
+                // Create a file to write to.
+                FileStream fs = new FileStream(pathname + filename, FileMode.Create, FileAccess.Write);
                 // Create a file to write to.
                 StreamWriter sw = new StreamWriter(fs);
 
@@ -3638,10 +3637,8 @@ namespace WindowsFormsApp2
 
         private void button41_Click(object sender, EventArgs e)
         {
-            string pathname = @"c:\temp\seriallog\";
+            string pathname = Application.StartupPath + @"/";
             string filename = "LTD_" + tbDeviceName.Text + "_proxy.xml.txt";
-
-            Directory.CreateDirectory(pathname);
 
             try
             {
