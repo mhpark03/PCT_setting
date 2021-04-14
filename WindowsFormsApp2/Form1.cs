@@ -820,7 +820,7 @@ namespace WindowsFormsApp2
                     serialPort1.DataBits = (int)8;
                     serialPort1.StopBits = StopBits.One;
                     serialPort1.Parity = Parity.None;
-                    serialPort1.DtrEnable = false;
+                    serialPort1.DtrEnable = true;
                     serialPort1.RtsEnable = false;
                     serialPort1.ReadTimeout = (int)500;
                     serialPort1.WriteTimeout = (int)500;
