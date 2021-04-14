@@ -804,6 +804,9 @@ namespace WindowsFormsApp2
                 ListViewItem newitem = new ListViewItem(new string[] { lwm2mtclist[tcindex], tc.lwm2m[(int)index, 0], tc.lwm2m[(int)index, 1], tc.lwm2m[(int)index, 2], tc.lwm2m[(int)index, 3], tc.lwm2m[(int)index, 4] });
                 listView2.Items.Add(newitem);
             }
+
+            tcStartTime = DateTime.Now.AddHours(-2);
+            dateTimePicker1.Value = tcStartTime;
         }
 
         private void doOpenComPort()
@@ -5676,7 +5679,7 @@ namespace WindowsFormsApp2
                 kind = "type=lwm2m";
             if (tbDeviceCTN.Text != string.Empty)
                 kind += "&ctn=" + tbDeviceCTN.Text;
-            //kind += "&from=" + tcStartTime.ToString("yyyyMMddHHmmss");
+            kind += "&from=" + tcStartTime.ToString("yyyyMMddHHmmss");
             getSvrLoglists(kind, "man");
         }
 

@@ -556,7 +556,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1136, 829);
+            this.panel1.Size = new System.Drawing.Size(1187, 829);
             this.panel1.TabIndex = 10;
             // 
             // tabControl1
@@ -573,7 +573,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1133, 791);
+            this.tabControl1.Size = new System.Drawing.Size(1181, 791);
             this.tabControl1.TabIndex = 44;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -585,7 +585,7 @@
             this.tabCOM.Controls.Add(this.groupBox10);
             this.tabCOM.Location = new System.Drawing.Point(4, 22);
             this.tabCOM.Name = "tabCOM";
-            this.tabCOM.Size = new System.Drawing.Size(1125, 765);
+            this.tabCOM.Size = new System.Drawing.Size(1173, 765);
             this.tabCOM.TabIndex = 3;
             this.tabCOM.Text = "COM port";
             this.tabCOM.UseVisualStyleBackColor = true;
@@ -819,7 +819,7 @@
             this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
             this.gbDeviceLog.Location = new System.Drawing.Point(532, 18);
             this.gbDeviceLog.Name = "gbDeviceLog";
-            this.gbDeviceLog.Size = new System.Drawing.Size(582, 728);
+            this.gbDeviceLog.Size = new System.Drawing.Size(624, 728);
             this.gbDeviceLog.TabIndex = 44;
             this.gbDeviceLog.TabStop = false;
             this.gbDeviceLog.Text = "Device Message";
@@ -834,7 +834,7 @@
             this.tBoxDataIN.Name = "tBoxDataIN";
             this.tBoxDataIN.ReadOnly = true;
             this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxDataIN.Size = new System.Drawing.Size(576, 708);
+            this.tBoxDataIN.Size = new System.Drawing.Size(618, 708);
             this.tBoxDataIN.TabIndex = 22;
             // 
             // groupBox10
@@ -1115,7 +1115,7 @@
             this.tabSMST.Location = new System.Drawing.Point(4, 22);
             this.tabSMST.Name = "tabSMST";
             this.tabSMST.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSMST.Size = new System.Drawing.Size(1125, 765);
+            this.tabSMST.Size = new System.Drawing.Size(1173, 765);
             this.tabSMST.TabIndex = 0;
             this.tabSMST.Text = "SMST setting";
             this.tabSMST.UseVisualStyleBackColor = true;
@@ -1135,12 +1135,12 @@
             this.pnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSetting.Location = new System.Drawing.Point(3, 3);
             this.pnSetting.Name = "pnSetting";
-            this.pnSetting.Size = new System.Drawing.Size(1119, 759);
+            this.pnSetting.Size = new System.Drawing.Size(1167, 759);
             this.pnSetting.TabIndex = 13;
             // 
             // button68
             // 
-            this.button68.Location = new System.Drawing.Point(581, 16);
+            this.button68.Location = new System.Drawing.Point(754, 54);
             this.button68.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button68.Name = "button68";
             this.button68.Size = new System.Drawing.Size(167, 24);
@@ -1151,7 +1151,7 @@
             // 
             // button33
             // 
-            this.button33.Location = new System.Drawing.Point(209, 16);
+            this.button33.Location = new System.Drawing.Point(382, 54);
             this.button33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button33.Name = "button33";
             this.button33.Size = new System.Drawing.Size(167, 24);
@@ -1162,7 +1162,7 @@
             // 
             // button32
             // 
-            this.button32.Location = new System.Drawing.Point(396, 16);
+            this.button32.Location = new System.Drawing.Point(569, 54);
             this.button32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(167, 24);
@@ -1173,7 +1173,7 @@
             // 
             // button31
             // 
-            this.button31.Location = new System.Drawing.Point(25, 16);
+            this.button31.Location = new System.Drawing.Point(198, 54);
             this.button31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button31.Name = "button31";
             this.button31.Size = new System.Drawing.Size(167, 24);
@@ -1184,7 +1184,7 @@
             // 
             // button24
             // 
-            this.button24.Location = new System.Drawing.Point(442, 566);
+            this.button24.Location = new System.Drawing.Point(615, 604);
             this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(167, 24);
@@ -1195,7 +1195,7 @@
             // 
             // button23
             // 
-            this.button23.Location = new System.Drawing.Point(637, 566);
+            this.button23.Location = new System.Drawing.Point(810, 604);
             this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(167, 24);
@@ -1208,7 +1208,7 @@
             // 
             this.groupBox6.Controls.Add(this.cbNBIPVer);
             this.groupBox6.Controls.Add(this.button36);
-            this.groupBox6.Location = new System.Drawing.Point(438, 463);
+            this.groupBox6.Location = new System.Drawing.Point(611, 501);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1258,7 +1258,7 @@
             this.groupBox5.Controls.Add(this.button29);
             this.groupBox5.Controls.Add(this.tbDeviceName);
             this.groupBox5.Controls.Add(this.button30);
-            this.groupBox5.Location = new System.Drawing.Point(13, 373);
+            this.groupBox5.Location = new System.Drawing.Point(186, 411);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1453,7 +1453,7 @@
             this.groupBox2.Controls.Add(this.button15);
             this.groupBox2.Controls.Add(this.button16);
             this.groupBox2.Controls.Add(this.button17);
-            this.groupBox2.Location = new System.Drawing.Point(438, 50);
+            this.groupBox2.Location = new System.Drawing.Point(611, 88);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1767,7 +1767,7 @@
             this.groupBox1.Controls.Add(this.btnIMSI);
             this.groupBox1.Controls.Add(this.btnManufac);
             this.groupBox1.Controls.Add(this.btnModel);
-            this.groupBox1.Location = new System.Drawing.Point(12, 50);
+            this.groupBox1.Location = new System.Drawing.Point(185, 88);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -1989,7 +1989,7 @@
             this.tabPROXY.Location = new System.Drawing.Point(4, 22);
             this.tabPROXY.Name = "tabPROXY";
             this.tabPROXY.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPROXY.Size = new System.Drawing.Size(1125, 765);
+            this.tabPROXY.Size = new System.Drawing.Size(1173, 765);
             this.tabPROXY.TabIndex = 1;
             this.tabPROXY.Text = "PROXY setting";
             this.tabPROXY.UseVisualStyleBackColor = true;
@@ -2007,7 +2007,7 @@
             this.pnProxy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnProxy.Location = new System.Drawing.Point(3, 3);
             this.pnProxy.Name = "pnProxy";
-            this.pnProxy.Size = new System.Drawing.Size(1119, 759);
+            this.pnProxy.Size = new System.Drawing.Size(1167, 759);
             this.pnProxy.TabIndex = 34;
             // 
             // groupBox8
@@ -2904,7 +2904,7 @@
             this.tabOneM2M.Controls.Add(this.btnoneM2MFullTest);
             this.tabOneM2M.Location = new System.Drawing.Point(4, 22);
             this.tabOneM2M.Name = "tabOneM2M";
-            this.tabOneM2M.Size = new System.Drawing.Size(1125, 765);
+            this.tabOneM2M.Size = new System.Drawing.Size(1173, 765);
             this.tabOneM2M.TabIndex = 4;
             this.tabOneM2M.Text = "oneM2M Device";
             this.tabOneM2M.UseVisualStyleBackColor = true;
@@ -3353,7 +3353,7 @@
             this.groupBox17.Controls.Add(this.tbOneM2MDataIN);
             this.groupBox17.Location = new System.Drawing.Point(534, 14);
             this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(582, 720);
+            this.groupBox17.Size = new System.Drawing.Size(623, 720);
             this.groupBox17.TabIndex = 46;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Device Message";
@@ -3368,7 +3368,7 @@
             this.tbOneM2MDataIN.Name = "tbOneM2MDataIN";
             this.tbOneM2MDataIN.ReadOnly = true;
             this.tbOneM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOneM2MDataIN.Size = new System.Drawing.Size(576, 700);
+            this.tbOneM2MDataIN.Size = new System.Drawing.Size(617, 700);
             this.tbOneM2MDataIN.TabIndex = 22;
             // 
             // gbOneM2MDevice
@@ -3492,7 +3492,7 @@
             this.tabLwM2M.Controls.Add(this.button125);
             this.tabLwM2M.Location = new System.Drawing.Point(4, 22);
             this.tabLwM2M.Name = "tabLwM2M";
-            this.tabLwM2M.Size = new System.Drawing.Size(1125, 765);
+            this.tabLwM2M.Size = new System.Drawing.Size(1173, 765);
             this.tabLwM2M.TabIndex = 5;
             this.tabLwM2M.Text = "LwM2M Device";
             this.tabLwM2M.UseVisualStyleBackColor = true;
@@ -3569,7 +3569,7 @@
             this.groupBox16.Controls.Add(this.tbLwM2MDataIN);
             this.groupBox16.Location = new System.Drawing.Point(540, 15);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(582, 732);
+            this.groupBox16.Size = new System.Drawing.Size(617, 732);
             this.groupBox16.TabIndex = 45;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Device Message";
@@ -3584,7 +3584,7 @@
             this.tbLwM2MDataIN.Name = "tbLwM2MDataIN";
             this.tbLwM2MDataIN.ReadOnly = true;
             this.tbLwM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLwM2MDataIN.Size = new System.Drawing.Size(576, 712);
+            this.tbLwM2MDataIN.Size = new System.Drawing.Size(611, 712);
             this.tbLwM2MDataIN.TabIndex = 22;
             // 
             // label1
@@ -4050,7 +4050,7 @@
             this.tabServer.Controls.Add(this.tbSvcSvrNum);
             this.tabServer.Location = new System.Drawing.Point(4, 22);
             this.tabServer.Name = "tabServer";
-            this.tabServer.Size = new System.Drawing.Size(1125, 765);
+            this.tabServer.Size = new System.Drawing.Size(1173, 765);
             this.tabServer.TabIndex = 6;
             this.tabServer.Text = "Service Server";
             this.tabServer.UseVisualStyleBackColor = true;
@@ -4200,7 +4200,7 @@
             this.groupBox12.Controls.Add(this.tbLog);
             this.groupBox12.Location = new System.Drawing.Point(489, 24);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(640, 715);
+            this.groupBox12.Size = new System.Drawing.Size(668, 715);
             this.groupBox12.TabIndex = 49;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "SERVER INTERFACE";
@@ -4212,7 +4212,7 @@
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(634, 695);
+            this.tbLog.Size = new System.Drawing.Size(662, 695);
             this.tbLog.TabIndex = 26;
             // 
             // groupBox14
@@ -4568,7 +4568,7 @@
             this.tabLOG.Controls.Add(this.label20);
             this.tabLOG.Location = new System.Drawing.Point(4, 22);
             this.tabLOG.Name = "tabLOG";
-            this.tabLOG.Size = new System.Drawing.Size(1125, 765);
+            this.tabLOG.Size = new System.Drawing.Size(1173, 765);
             this.tabLOG.TabIndex = 7;
             this.tabLOG.Text = "Platform LOG";
             this.tabLOG.UseVisualStyleBackColor = true;
@@ -4633,7 +4633,7 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(817, 323);
+            this.label27.Location = new System.Drawing.Point(842, 323);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(37, 12);
             this.label27.TabIndex = 69;
@@ -4642,7 +4642,7 @@
             // 
             // tBResultCode
             // 
-            this.tBResultCode.Location = new System.Drawing.Point(685, 89);
+            this.tBResultCode.Location = new System.Drawing.Point(710, 89);
             this.tBResultCode.Name = "tBResultCode";
             this.tBResultCode.Size = new System.Drawing.Size(88, 21);
             this.tBResultCode.TabIndex = 53;
@@ -4651,7 +4651,7 @@
             // 
             // button126
             // 
-            this.button126.Location = new System.Drawing.Point(782, 91);
+            this.button126.Location = new System.Drawing.Point(807, 91);
             this.button126.Name = "button126";
             this.button126.Size = new System.Drawing.Size(82, 19);
             this.button126.TabIndex = 52;
@@ -4661,7 +4661,7 @@
             // 
             // button122
             // 
-            this.button122.Location = new System.Drawing.Point(983, 318);
+            this.button122.Location = new System.Drawing.Point(1008, 318);
             this.button122.Name = "button122";
             this.button122.Size = new System.Drawing.Size(121, 20);
             this.button122.TabIndex = 68;
@@ -4672,7 +4672,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(602, 96);
+            this.label19.Location = new System.Drawing.Point(627, 96);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(82, 12);
             this.label19.TabIndex = 51;
@@ -4681,7 +4681,7 @@
             // 
             // textBox94
             // 
-            this.textBox94.Location = new System.Drawing.Point(873, 319);
+            this.textBox94.Location = new System.Drawing.Point(898, 319);
             this.textBox94.Name = "textBox94";
             this.textBox94.Size = new System.Drawing.Size(104, 21);
             this.textBox94.TabIndex = 67;
@@ -4698,7 +4698,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(821, 139);
+            this.label26.Location = new System.Drawing.Point(846, 139);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(37, 12);
             this.label26.TabIndex = 66;
@@ -4708,7 +4708,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(562, 350);
+            this.label24.Location = new System.Drawing.Point(587, 350);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(302, 12);
             this.label24.TabIndex = 61;
@@ -4719,7 +4719,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label22.Location = new System.Drawing.Point(572, 322);
+            this.label22.Location = new System.Drawing.Point(597, 322);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(28, 12);
             this.label22.TabIndex = 60;
@@ -4728,7 +4728,7 @@
             // 
             // button123
             // 
-            this.button123.Location = new System.Drawing.Point(983, 134);
+            this.button123.Location = new System.Drawing.Point(1008, 134);
             this.button123.Name = "button123";
             this.button123.Size = new System.Drawing.Size(121, 20);
             this.button123.TabIndex = 65;
@@ -4740,7 +4740,7 @@
             // 
             this.listBox3.FormattingEnabled = true;
             this.listBox3.ItemHeight = 12;
-            this.listBox3.Location = new System.Drawing.Point(561, 368);
+            this.listBox3.Location = new System.Drawing.Point(586, 368);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(543, 364);
             this.listBox3.TabIndex = 58;
@@ -4763,7 +4763,7 @@
             // 
             // textBox95
             // 
-            this.textBox95.Location = new System.Drawing.Point(873, 135);
+            this.textBox95.Location = new System.Drawing.Point(898, 135);
             this.textBox95.Name = "textBox95";
             this.textBox95.Size = new System.Drawing.Size(104, 21);
             this.textBox95.TabIndex = 64;
@@ -4813,7 +4813,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.label21.Location = new System.Drawing.Point(568, 139);
+            this.label21.Location = new System.Drawing.Point(593, 139);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(84, 12);
             this.label21.TabIndex = 59;
@@ -4824,7 +4824,7 @@
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(566, 187);
+            this.listBox2.Location = new System.Drawing.Point(591, 187);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(543, 124);
             this.listBox2.TabIndex = 56;
@@ -4833,7 +4833,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(567, 167);
+            this.label20.Location = new System.Drawing.Point(592, 167);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(279, 12);
             this.label20.TabIndex = 57;
@@ -4849,7 +4849,7 @@
             this.tabTC.Controls.Add(this.gbTCResult);
             this.tabTC.Location = new System.Drawing.Point(4, 22);
             this.tabTC.Name = "tabTC";
-            this.tabTC.Size = new System.Drawing.Size(1125, 765);
+            this.tabTC.Size = new System.Drawing.Size(1173, 765);
             this.tabTC.TabIndex = 8;
             this.tabTC.Text = "시험절차서";
             this.tabTC.UseVisualStyleBackColor = true;
@@ -4877,9 +4877,9 @@
             // listView2
             // 
             this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(565, 60);
+            this.listView2.Location = new System.Drawing.Point(584, 60);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(523, 257);
+            this.listView2.Size = new System.Drawing.Size(556, 257);
             this.listView2.TabIndex = 46;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.SelectedIndexChanged += new System.EventHandler(this.listView2_SelectedIndexChanged);
@@ -4889,7 +4889,7 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(8, 60);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(523, 611);
+            this.listView1.Size = new System.Drawing.Size(545, 611);
             this.listView1.TabIndex = 45;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
@@ -4897,9 +4897,9 @@
             // gbTCResult
             // 
             this.gbTCResult.Controls.Add(this.tbTCResult);
-            this.gbTCResult.Location = new System.Drawing.Point(565, 338);
+            this.gbTCResult.Location = new System.Drawing.Point(586, 338);
             this.gbTCResult.Name = "gbTCResult";
-            this.gbTCResult.Size = new System.Drawing.Size(523, 401);
+            this.gbTCResult.Size = new System.Drawing.Size(557, 401);
             this.gbTCResult.TabIndex = 38;
             this.gbTCResult.TabStop = false;
             this.gbTCResult.Text = "TestCase Message";
@@ -4911,7 +4911,7 @@
             this.tbTCResult.Multiline = true;
             this.tbTCResult.Name = "tbTCResult";
             this.tbTCResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTCResult.Size = new System.Drawing.Size(517, 381);
+            this.tbTCResult.Size = new System.Drawing.Size(551, 381);
             this.tbTCResult.TabIndex = 35;
             // 
             // webpage
@@ -4919,7 +4919,7 @@
             this.webpage.Controls.Add(this.webBrowser1);
             this.webpage.Location = new System.Drawing.Point(4, 22);
             this.webpage.Name = "webpage";
-            this.webpage.Size = new System.Drawing.Size(1125, 765);
+            this.webpage.Size = new System.Drawing.Size(1173, 765);
             this.webpage.TabIndex = 9;
             this.webpage.Text = "Admin page";
             this.webpage.UseVisualStyleBackColor = true;
@@ -4930,7 +4930,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1125, 765);
+            this.webBrowser1.Size = new System.Drawing.Size(1173, 765);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
@@ -5025,7 +5025,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1136, 829);
+            this.ClientSize = new System.Drawing.Size(1187, 829);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
