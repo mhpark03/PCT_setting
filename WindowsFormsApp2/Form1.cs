@@ -184,11 +184,8 @@ namespace WindowsFormsApp2
 
             deviceFWList,
             deviceFWOpen,
-            deviceFWOpened,
             deviceFWRead,
-            deviceFWReading,
             deviceFWClose,
-            deviceFWClosed,
 
             catm1check,
             catm1set,
@@ -309,6 +306,14 @@ namespace WindowsFormsApp2
             onem2mtc0210031,
             onem2mtc0210032,        // DEVICE FW DATA 수신중
             onem2mtc0210033,        // DEVICE FW DATA 수신 완료
+
+            onem2mtc0210034,        // deviceFWUPstart,
+            onem2mtc0210035,        // deviceFWDLfinsh,
+            onem2mtc0210036,        // deviceFWList,
+            onem2mtc0210037,        // deviceFWOpen,
+            onem2mtc0210038,        // deviceFWRead,
+            onem2mtc0210039,        // deviceFWClose,
+
             onem2mtc0210041,
             onem2mtc0210042,        // DEVICE version report 준비
 
@@ -1223,9 +1228,14 @@ namespace WindowsFormsApp2
                             oneM2Mrcvsize = 0;
                             oneM2Mtotalsize = 0;
                             if (lbActionState.Text == states.getdeviceSvrVer.ToString())
-                                lbActionState.Text = states.deviceFWUPstart.ToString();
+                                lbActionState.Text = states.deviceFWUPstart.ToString();     // 수정 필요
                             else
-                                lbActionState.Text = states.onem2mtc0210031.ToString();
+                            {
+                                if (dev.model == "EC25" || dev.model == "EC21")               //쿼텔/oneM2M 모듈
+                                    lbActionState.Text = states.onem2mtc0210034.ToString();
+                                else
+                                    lbActionState.Text = states.onem2mtc0210031.ToString();
+                            }
                         }
                         else if (deviceverinfos[0] == "9001")
                         {
@@ -2239,9 +2249,13 @@ namespace WindowsFormsApp2
                     }
                     break;
                 case states.deviceFWUPstart:
+                case states.onem2mtc0210034:
                     oneM2Mtotalsize = Convert.ToUInt32(str2);
                     logPrintInTextBox("FOTA 이미지 크기는 " + str2 + "입니다.", "");
-                    lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                    if (lbActionState.Text == states.sendonemsgsvr.ToString())
+                        lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                    else
+                        lbActionState.Text = states.onem2mtc0210035.ToString();
                     nextresponse = "$OM_DEV_FWDL_FINISH";
                     break;
                 case states.onem2mtc0210031:
@@ -2291,6 +2305,13 @@ namespace WindowsFormsApp2
                         nextresponse = "$OM_AUTH_RSP=";
                     }
                     break;
+                case states.onem2mtc0210035:
+                    logPrintInTextBox("수신한 데이터를 읽기 시작합다.", "");
+
+                    this.sendDataOut(commands["deviceFWList"]);
+                    lbActionState.Text = states.onem2mtc0210036.ToString();
+                    nextresponse = "+QFLST: ";
+                    break;
                 case states.onem2mtc0210033:
                     startoneM2MTC("tc021004");
                     // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
@@ -2299,20 +2320,29 @@ namespace WindowsFormsApp2
                     nextresponse = "$OM_AUTH_RSP=";
                     break;
                 case states.deviceFWList:
+                case states.onem2mtc0210036:
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
 
                     if (oneM2Mtotalsize == Convert.ToUInt32(rcvdatas[1]))
                     {
                         nextcmdexts = rcvdatas[0];
-                        nextcommand = states.deviceFWOpen.ToString();
+                        if (lbActionState.Text == states.deviceFWList.ToString())
+                            nextcommand = states.deviceFWOpen.ToString();
+                        else
+                            nextcommand = states.onem2mtc0210037.ToString();
                     }
                     break;
                 case states.deviceFWOpen:
+                case states.onem2mtc0210037:
                     filecode = str2;
                     nextcmdexts = filecode + ",512";
-                    nextcommand = states.deviceFWRead.ToString();
+                    if (lbActionState.Text == states.deviceFWOpen.ToString())
+                        nextcommand = states.deviceFWRead.ToString();
+                    else
+                        nextcommand = states.onem2mtc0210038.ToString();
                     break;
                 case states.deviceFWRead:
+                case states.onem2mtc0210038:
                     oneM2Mrcvsize += Convert.ToUInt32(str2);
                     logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
                     if (str2 != "512" || oneM2Mrcvsize >= oneM2Mtotalsize)
@@ -2321,12 +2351,18 @@ namespace WindowsFormsApp2
                             endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
 
                         nextcmdexts = filecode;
-                        nextcommand = states.deviceFWClose.ToString();
+                        if (lbActionState.Text == states.deviceFWRead.ToString())
+                            nextcommand = states.deviceFWClose.ToString();
+                        else
+                            nextcommand = states.onem2mtc0210039.ToString();
                     }
                     else
                     {
                         nextcmdexts = filecode + ",512";
-                        nextcommand = states.deviceFWRead.ToString();
+                        if (lbActionState.Text == states.deviceFWRead.ToString())
+                            nextcommand = states.deviceFWRead.ToString();
+                        else
+                            nextcommand = states.onem2mtc0210038.ToString();
                     }
                     break;
                 case states.modemFWUPstart:
@@ -2521,10 +2557,14 @@ namespace WindowsFormsApp2
             switch (state)
             {
                 case states.deviceFWClose:
+                case states.onem2mtc0210039:
                     startoneM2MTC("tc021004");
                     // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
                     this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
-                    lbActionState.Text = states.fotamefauthnt.ToString();
+                    if (lbActionState.Text == states.deviceFWClose.ToString())
+                        lbActionState.Text = states.fotamefauthnt.ToString();
+                    else
+                        lbActionState.Text = states.onem2mtc0210041.ToString();
                     nextresponse = "$OM_AUTH_RSP=";
                     break;
                 case states.modemFWUPboot:
@@ -2892,20 +2932,32 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.lwm2mtc02026.ToString();
                         break;
                     case states.deviceFWOpen:
+                    case states.onem2mtc0210037:
                         this.sendDataOut(commands["deviceFWOpen"] + nextcmdexts);
-                        lbActionState.Text = states.deviceFWOpen.ToString();
+                        if (lbActionState.Text == states.deviceFWOpen.ToString())
+                            lbActionState.Text = states.deviceFWOpen.ToString();
+                        else
+                            lbActionState.Text = states.onem2mtc0210037.ToString();
                         nextresponse = "+QFOPEN: ";
                         nextcmdexts = string.Empty;
                         break;
                     case states.deviceFWRead:
+                    case states.onem2mtc0210038:
                         this.sendDataOut(commands["deviceFWRead"] + nextcmdexts);
-                        lbActionState.Text = states.deviceFWRead.ToString();
+                        if (lbActionState.Text == states.deviceFWRead.ToString())
+                            lbActionState.Text = states.deviceFWRead.ToString();
+                        else
+                            lbActionState.Text = states.onem2mtc0210038.ToString();
                         nextresponse = "CONNECT ";
                         nextcmdexts = string.Empty;
                         break;
                     case states.deviceFWClose:
+                    case states.onem2mtc0210039:
                         this.sendDataOut(commands["deviceFWClose"] + nextcmdexts);
-                        lbActionState.Text = states.deviceFWClose.ToString();
+                        if (lbActionState.Text == states.deviceFWClose.ToString())
+                            lbActionState.Text = states.deviceFWClose.ToString();
+                        else
+                            lbActionState.Text = states.onem2mtc0210039.ToString();
                         nextcmdexts = string.Empty;
                         break;
                     case states.modemFWUPboot:
