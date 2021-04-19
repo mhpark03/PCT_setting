@@ -105,6 +105,7 @@ namespace WindowsFormsApp2
             setcontainer,
             settxcontainer,
             delcontainer,
+            delcontainer2,
             setsubscript,
             delsubscript,
             getonem2mdata,
@@ -2049,14 +2050,15 @@ namespace WindowsFormsApp2
                 case states.onem2mtc0212031:
                     // oneM2M container 삭제 결과, 2002이면 성공
                     endoneM2MTC("tc021203", string.Empty, string.Empty, string.Empty, str2);
+                    this.sendDataOut(commands["delcontainer"] + "DtoS");
                     if (lbActionState.Text == states.delcontainer.ToString())
-                        lbActionState.Text = states.idle.ToString();
+                        lbActionState.Text = states.delcontainer2.ToString();
                     else
-                    {
-                        this.sendDataOut(commands["delcontainer"] + "DtoS");
                         lbActionState.Text = states.onem2mtc0212032.ToString();
-                        nextresponse = "$OM_D_CON_RSP=";
-                    }
+                    nextresponse = "$OM_D_CON_RSP=";
+                    break;
+                case states.delcontainer2:
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 case states.onem2mtc0212032:
                     startoneM2MTC("tc021204");
@@ -2462,9 +2464,12 @@ namespace WindowsFormsApp2
                 case states.updateACP:
                 case states.onem2mtc020903:
                     if (str2 == "2004" || str2 == "2000")
-                        endoneM2MTC("tc020903", string.Empty, string.Empty, string.Empty, string.Empty);
+                        endoneM2MTC("tc020903", string.Empty, string.Empty, string.Empty, str2);
+                    else
+                        endoneM2MTC("tc020903", string.Empty, "20000100", string.Empty, str2);
                     if (lbActionState.Text == states.updateACP.ToString())
                         lbActionState.Text = states.idle.ToString();
+                    else
                     {
                         startoneM2MTC("tc020904");
                         this.sendDataOut(commands["delACP"]);
@@ -2475,8 +2480,10 @@ namespace WindowsFormsApp2
                 case states.delACP:
                 case states.onem2mtc0209042:
                     if (str2 == "2002" || str2 == "2000")
-                        endoneM2MTC("tc020904", string.Empty, string.Empty, string.Empty, string.Empty);
-                    if (lbActionState.Text == states.updateACP.ToString())
+                        endoneM2MTC("tc020904", string.Empty, string.Empty, string.Empty, str2);
+                    else
+                        endoneM2MTC("tc020904", string.Empty, "20000100", string.Empty, str2);
+                    if (lbActionState.Text == states.delACP.ToString())
                         lbActionState.Text = states.idle.ToString();
                     else
                     {
@@ -4959,7 +4966,11 @@ namespace WindowsFormsApp2
                         else
                             comboBox3.SelectedIndex = 1;
                         i++;
-                        cBoxCOMPORT.Text = worksheet.Cells[i, 1].ToString();
+                        string comport = worksheet.Cells[i, 1].ToString();
+                        if (cBoxCOMPORT.Items.Contains(comport))
+                            cBoxCOMPORT.SelectedItem = comport;
+                        else
+                            cBoxCOMPORT.SelectedIndex = 0;
                         i++;
                         cBoxBaudRate.Text = worksheet.Cells[i, 1].ToString();
 
