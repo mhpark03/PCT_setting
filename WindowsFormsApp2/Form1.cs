@@ -2148,6 +2148,12 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.onem2mtc0205042.ToString();
                         RetriveDataToPlatform();
                     }
+                    else if (rcvdatas[0] == "4004")
+                    {
+                        this.sendDataOut(commands["setcontainer"]);
+                        lbActionState.Text = states.onem2mtc0205021.ToString();
+                        nextresponse = "$OM_C_CON_RSP=";
+                    }
                     else
                     {
                         lbActionState.Text = states.onem2mtc0206011.ToString();
@@ -2157,9 +2163,20 @@ namespace WindowsFormsApp2
                 case states.onem2mtc0205043:
                     // data 수신 시험을 위해 StoD 폴더에 송신
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (rcvdatas[0] == "2001")
-                        endoneM2MTC("tc020504", string.Empty, string.Empty, string.Empty, string.Empty);
-                    lbActionState.Text = states.onem2mtc0206012.ToString();
+                    if (rcvdatas[0] == "4004")
+                    {
+                        this.sendDataOut(commands["setcontainer"]);
+                        lbActionState.Text = states.onem2mtc0205021.ToString();
+                        nextresponse = "$OM_C_CON_RSP=";
+                    }
+                    else
+                    {
+                        if (rcvdatas[0] == "2001")
+                            endoneM2MTC("tc020504", string.Empty, string.Empty, string.Empty, string.Empty);
+                        else
+                            endoneM2MTC("tc020504", string.Empty, "20000100", string.Empty, str2);
+                        lbActionState.Text = states.onem2mtc0206012.ToString();
+                    }
                     break;
                 case states.getonem2mdata:
                 case states.sendonedevdb2:
@@ -2492,6 +2509,12 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.onem2mtc021001.ToString();
                         nextresponse = "$OM_DEV_FWUP_RSP=";
                     }
+                    break;
+                case states.onem2mtc0209041:
+                    startoneM2MTC("tc020901");
+                    this.sendDataOut(commands["setACP"]);
+                    lbActionState.Text = states.onem2mtc0209011.ToString();
+                    nextresponse = "$OM_C_ACP_RSP=";
                     break;
                 case states.resetmefauth:
                     // oneM2M 인증 결과
