@@ -317,6 +317,7 @@
             this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label52 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
@@ -452,6 +453,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -3617,6 +3619,8 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.checkBox8);
+            this.groupBox11.Controls.Add(this.checkBox7);
             this.groupBox11.Controls.Add(this.label52);
             this.groupBox11.Controls.Add(this.label51);
             this.groupBox11.Controls.Add(this.label43);
@@ -3663,6 +3667,17 @@
             this.groupBox11.TabIndex = 36;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Location = new System.Drawing.Point(414, 154);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(42, 16);
+            this.checkBox7.TabIndex = 96;
+            this.checkBox7.Text = "1회";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // label52
             // 
@@ -3764,7 +3779,7 @@
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(358, 154);
+            this.checkBox6.Location = new System.Drawing.Point(330, 154);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(48, 16);
             this.checkBox6.TabIndex = 67;
@@ -3806,7 +3821,7 @@
             // lbLwM2MRcvData
             // 
             this.lbLwM2MRcvData.AutoSize = true;
-            this.lbLwM2MRcvData.Location = new System.Drawing.Point(208, 481);
+            this.lbLwM2MRcvData.Location = new System.Drawing.Point(208, 475);
             this.lbLwM2MRcvData.Name = "lbLwM2MRcvData";
             this.lbLwM2MRcvData.Size = new System.Drawing.Size(101, 12);
             this.lbLwM2MRcvData.TabIndex = 40;
@@ -3815,7 +3830,7 @@
             // 
             // textBox68
             // 
-            this.textBox68.Location = new System.Drawing.Point(210, 457);
+            this.textBox68.Location = new System.Drawing.Point(210, 451);
             this.textBox68.Name = "textBox68";
             this.textBox68.Size = new System.Drawing.Size(291, 21);
             this.textBox68.TabIndex = 51;
@@ -3833,7 +3848,7 @@
             // 
             // button107
             // 
-            this.button107.Location = new System.Drawing.Point(8, 454);
+            this.button107.Location = new System.Drawing.Point(8, 448);
             this.button107.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button107.Name = "button107";
             this.button107.Size = new System.Drawing.Size(196, 24);
@@ -3930,7 +3945,7 @@
             // 
             // textBox51
             // 
-            this.textBox51.Location = new System.Drawing.Point(210, 507);
+            this.textBox51.Location = new System.Drawing.Point(210, 501);
             this.textBox51.Name = "textBox51";
             this.textBox51.Size = new System.Drawing.Size(291, 21);
             this.textBox51.TabIndex = 30;
@@ -3938,7 +3953,7 @@
             // 
             // btnDeviceVerLwM2M
             // 
-            this.btnDeviceVerLwM2M.Location = new System.Drawing.Point(8, 504);
+            this.btnDeviceVerLwM2M.Location = new System.Drawing.Point(8, 498);
             this.btnDeviceVerLwM2M.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeviceVerLwM2M.Name = "btnDeviceVerLwM2M";
             this.btnDeviceVerLwM2M.Size = new System.Drawing.Size(196, 24);
@@ -5021,6 +5036,19 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Checked = true;
+            this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox8.Location = new System.Drawing.Point(123, 427);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(48, 16);
+            this.checkBox8.TabIndex = 97;
+            this.checkBox8.Text = "HEX";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5530,6 +5558,8 @@
         private System.Windows.Forms.TextBox textBox79;
         private System.Windows.Forms.Button button119;
         private System.Windows.Forms.TextBox textBox78;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.CheckBox checkBox8;
     }
 }
 
