@@ -730,6 +730,7 @@ namespace WindowsFormsApp2
             dev.entityId = string.Empty;
             dev.uuid = string.Empty;
             dev.type = "onem2m";
+            dev.model = string.Empty;
 
             /////   서버 초기값 설정
             svr.enrmtKeyId = string.Empty;
@@ -9477,7 +9478,7 @@ namespace WindowsFormsApp2
             else
             {
                 endLwM2MTC("tc0603", string.Empty, "20000100", size, Convert.ToString(dataSize));
-                logPrintInTextBox("total Index= " + device_total_index + ", checksum = " + device_fota_checksum + "에서 data size가 잘 못 되었습니다.", "");
+                logPrintInTextBox("data size="+ Convert.ToString(dataSize)+"/"+ size + "로 잘 못 되었습니다.", "");
             }
         }
 
