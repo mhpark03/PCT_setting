@@ -181,6 +181,8 @@ namespace WindowsFormsApp2
             setdeviceSvrVer,
             deviceFWUPfinish,
             deviceFWUPstart,
+            deviceFWDownload,
+            deviceFWDownloading,
             deviceFWDLfinsh,
 
             deviceFWList,
@@ -1217,7 +1219,10 @@ namespace WindowsFormsApp2
                         logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
                         endoneM2MTC("tc021002", string.Empty, string.Empty, string.Empty, str2);
                         this.sendDataOut(commands["deviceFWUPstart"]);
-                        lbActionState.Text = states.deviceFWUPstart.ToString();
+                        if (dev.model == "EC25" || dev.model == "EC21")               //쿼텔/oneM2M 모듈
+                            lbActionState.Text = states.deviceFWUPstart.ToString();
+                        else
+                            lbActionState.Text = states.deviceFWDownload.ToString();
                         nextresponse = "$OM_DEV_FWDL_START=";
 
                         oneM2Mrcvsize = 0;
@@ -1238,7 +1243,12 @@ namespace WindowsFormsApp2
                             oneM2Mrcvsize = 0;
                             oneM2Mtotalsize = 0;
                             if (lbActionState.Text == states.getdeviceSvrVer.ToString())
-                                lbActionState.Text = states.deviceFWUPstart.ToString();     // 수정 필요
+                            {
+                                if (dev.model == "EC25" || dev.model == "EC21")               //쿼텔/oneM2M 모듈
+                                    lbActionState.Text = states.deviceFWUPstart.ToString();
+                                else
+                                    lbActionState.Text = states.deviceFWDownload.ToString();
+                            }
                             else
                             {
                                 if (dev.model == "EC25" || dev.model == "EC21")               //쿼텔/oneM2M 모듈
@@ -1451,11 +1461,8 @@ namespace WindowsFormsApp2
 
                     // oneM2M 서비스 서버 데이터 수신
                     string[] rx_svrdatas = str2.Replace("\"",string.Empty).Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    // 26241 FOTA DATA object RECEIVED!!!
-                    if (dev.model.StartsWith("BG95"))
-                        receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
-                    else
-                        receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
+                                                                                          // 26241 FOTA DATA object RECEIVED!!!
+                    receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
                 }
                 else if (rxMsg.StartsWith(textBox68.Text, System.StringComparison.CurrentCultureIgnoreCase))
                 {
@@ -2349,18 +2356,23 @@ namespace WindowsFormsApp2
                 case states.onem2mtc0210034:
                     oneM2Mtotalsize = Convert.ToUInt32(str2);
                     logPrintInTextBox("FOTA 이미지 크기는 " + str2 + "입니다.", "");
-                    if (lbActionState.Text == states.sendonemsgsvr.ToString())
+                    if (lbActionState.Text == states.deviceFWUPstart.ToString())
                         lbActionState.Text = states.deviceFWDLfinsh.ToString();
                     else
                         lbActionState.Text = states.onem2mtc0210035.ToString();
                     nextresponse = "$OM_DEV_FWDL_FINISH";
                     break;
+                case states.deviceFWDownload:
                 case states.onem2mtc0210031:
                     oneM2Mtotalsize = Convert.ToUInt32(str2);
                     logPrintInTextBox("FOTA 이미지 크기는 " + str2 + "입니다.", "");
-                    lbActionState.Text = states.onem2mtc0210032.ToString();
+                    if (lbActionState.Text == states.deviceFWDownload.ToString())
+                        lbActionState.Text = states.deviceFWDownloading.ToString();
+                    else
+                        lbActionState.Text = states.onem2mtc0210032.ToString();
                     nextresponse = textBox76.Text;
                     break;
+                case states.deviceFWDownloading:
                 case states.onem2mtc0210032:
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
                     oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[0]);
@@ -2369,13 +2381,17 @@ namespace WindowsFormsApp2
                     {
                         if (oneM2Mrcvsize == oneM2Mtotalsize)
                             endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
+                        else
+                            endoneM2MTC("tc021003", string.Empty, "20000100", oneM2Mrcvsize.ToString(), oneM2Mtotalsize.ToString());
 
-                        lbActionState.Text = states.onem2mtc0210033.ToString();
+                        if (lbActionState.Text == states.deviceFWDownloading.ToString())
+                            lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                        else
+                            lbActionState.Text = states.onem2mtc0210033.ToString();
                         nextresponse = "$OM_DEV_FWDL_FINISH";
                     }
                     else
                     {
-//                        lbActionState.Text = states.onem2mtc0210032.ToString();
                         nextresponse = textBox76.Text;
                     }
                     break;
@@ -2446,6 +2462,8 @@ namespace WindowsFormsApp2
                     {
                         if (oneM2Mrcvsize == oneM2Mtotalsize)
                             endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
+                        else
+                            endoneM2MTC("tc021003", string.Empty, "20000100", oneM2Mrcvsize.ToString(), oneM2Mtotalsize.ToString());
 
                         nextcmdexts = filecode;
                         if (lbActionState.Text == states.deviceFWRead.ToString())
@@ -7487,10 +7505,15 @@ namespace WindowsFormsApp2
 
             if (values[4] != " ")
             {
-                string logs_msg = listBox1.SelectedItem.ToString();
-                string[] titles = logs_msg.Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                if (listBox1.SelectedItem != null)
+                {
+                    string logs_msg = listBox1.SelectedItem.ToString();
+                    string[] titles = logs_msg.Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
 
-                MessageBox.Show(values[3] + "\n\n" + values[4], titles[2] + " 상세내역");
+                    MessageBox.Show(values[3] + "\n\n" + values[4], titles[2] + " 상세내역");
+                }
+                else
+                    MessageBox.Show(values[3] + "\n\n" + values[4], "상세내역");
             }
         }
 
