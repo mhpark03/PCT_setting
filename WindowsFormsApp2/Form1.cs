@@ -222,7 +222,6 @@ namespace WindowsFormsApp2
             autogetNWmode,
 
             testatcmd,
-            atdtatcmd,
 
             lwm2mtc02011,            //"2.1 LWM2M 단말 초기 설정 동작 확인 시험");
             lwm2mtc02012,
@@ -1059,17 +1058,12 @@ namespace WindowsFormsApp2
                         MessageBox.Show("OK 응답을 받았습니다.");
                         lbActionState.Text = states.idle.ToString();
                     }
-                    else if (lbActionState.Text == states.atdtatcmd.ToString())
-                    {
-                        this.sendDataOut(textBox3.Text);
-                        lbActionState.Text = states.testatcmd.ToString();
-                    }
                     else
                         OKReceived();
                 }
                 else if (rxMsg == "ERROR")
                 {
-                    if (lbActionState.Text == states.testatcmd.ToString() || lbActionState.Text == states.atdtatcmd.ToString())
+                    if (lbActionState.Text == states.testatcmd.ToString())
                     {
                         MessageBox.Show("ERROR 응답을 받았습니다.");
                         lbActionState.Text = states.idle.ToString();
@@ -3438,7 +3432,7 @@ namespace WindowsFormsApp2
         private void button23_Click(object sender, EventArgs e)
         {
             string pathname = Application.StartupPath + @"/";
-            string filename = "Sample_" + tbDeviceName.Text + ".txt";
+            string filename = "Sample_" + tbDeviceName.Text + ".ini";
 
             try
             {
@@ -3551,6 +3545,10 @@ namespace WindowsFormsApp2
                     sw.WriteLine("Video_Support = true");
                 else
                     sw.WriteLine("Video_Support = false");
+                if (checkBox9.Checked == true)
+                    sw.WriteLine("Auto_SMS_Read = true");
+                else
+                    sw.WriteLine("Auto_SMS_Read = false");
                 sw.WriteLine("");
                 sw.WriteLine("[NBIoT]");
                 if (cbNBIPVer.SelectedIndex == 0)
@@ -3570,8 +3568,8 @@ namespace WindowsFormsApp2
         private void button24_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = "txt";
-            ofd.Filter = "text files (*.txt)|*.txt";
+            ofd.DefaultExt = "ini";
+            ofd.Filter = "setting files (*.ini)|*.ini";
             ofd.ShowDialog();
             if (ofd.FileName.Length > 0)
             {
@@ -3749,6 +3747,13 @@ namespace WindowsFormsApp2
                         else
                             cbVideo.Checked = false;
 
+
+                        rddata = sr.ReadLine();
+                        if (rddata.EndsWith("true"))
+                            checkBox9.Checked = true;
+                        else
+                            checkBox9.Checked = false;
+
                         rddata = sr.ReadLine();
                         rddata = sr.ReadLine();
 
@@ -3775,7 +3780,7 @@ namespace WindowsFormsApp2
         private void button41_Click(object sender, EventArgs e)
         {
             string pathname = Application.StartupPath + @"/";
-            string filename = "LTD_" + tbDeviceName.Text + "_proxy.xml.txt";
+            string filename = "LGU+_" + tbDeviceName.Text + "_proxy.xml";
 
             try
             {
@@ -3986,16 +3991,6 @@ namespace WindowsFormsApp2
                     new XElement("AtManualControl", "no"),
                     new XComment(" Don't send AT commands to the phone and display a menu to the user. Values: yes or no ")
                  );
-
-                XElement xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", "ATD123456789;<CR><LF>"),
-                      new XComment(" Equivalent to ATD123456789;<CR><LF> "),
-                      new XElement("To", textBox2.Text),
-                      new XElement("To", textBox3.Text)
-                      )
-                    );
-                xApp.Add(xOption);
                 xApps.Add(xApp);
 
                 xApp = new XElement("Application",
@@ -4005,9 +4000,12 @@ namespace WindowsFormsApp2
                     new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
                  );
 
-                xOption = new XElement("Options",
+                int comment_index = 1;
+                XComment xcomment = new XComment(" "+ comment_index.ToString() +" ");
+                xApp.Add(xcomment);
+                XElement xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please disconnect pdn"),
+                      new XElement("From", button42.Text),
                       new XElement("To", 
                         new XAttribute("closePort", "yes"),
                         textBox4.Text
@@ -4016,9 +4014,12 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Switch on the phone"),
+                      new XElement("From", button39.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
                         textBox5.Text
@@ -4027,6 +4028,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Activate SMS mode"),
@@ -4038,6 +4042,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Try MO SMS"),
@@ -4049,6 +4056,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 111"),
@@ -4060,6 +4070,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 112"),
@@ -4071,6 +4084,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Normal call 114"),
@@ -4082,6 +4098,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 113"),
@@ -4093,6 +4112,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 117"),
@@ -4104,6 +4126,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 118"),
@@ -4115,6 +4140,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 119"),
@@ -4126,6 +4154,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 122"),
@@ -4137,6 +4168,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Emergency call 125"),
@@ -4148,6 +4182,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Switch off the phone"),
@@ -4159,6 +4196,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please power off the UE"),
@@ -4170,6 +4210,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please make voice call from the UE"),
@@ -4181,6 +4224,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Try MO Voice Call(15447769)"),
@@ -4192,6 +4238,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Try MO Voice Call"),
@@ -4203,6 +4252,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Try Call Answer"),
@@ -4214,6 +4266,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Try Call End"),
@@ -4225,6 +4280,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "End voice call from the UE"),
@@ -4236,6 +4294,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Check PDN Address"),
@@ -4247,6 +4308,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please set EMM/ESM cause"),
@@ -4258,6 +4322,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please reboot phone"),
@@ -4269,6 +4336,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please connect pdn"),
@@ -4280,9 +4350,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
-                xComment = new XComment(" Jeong.Suyon ");
-                xApp.Add(xComment);
-
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please PSM On"),
@@ -4294,6 +4364,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Please PSM Off"),
@@ -4305,6 +4378,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Deactivate Data PDN"),
@@ -4316,6 +4392,9 @@ namespace WindowsFormsApp2
                   );
                 xApp.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
                       new XElement("From", "Activate Data PDN"),
@@ -4326,8 +4405,48 @@ namespace WindowsFormsApp2
                     )
                   );
                 xApp.Add(xOption);
-                xComment = new XComment(" Jeong.Suyon  END ");
-                xApp.Add(xComment);
+
+                comment_index = 32;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", button131.Text),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        textBox82.Text
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", button130.Text),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        textBox3.Text
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", button44.Text),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        textBox2.Text
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
                 xApps.Add(xApp);
 
                 xApp = new XElement("Application",
@@ -4339,6 +4458,9 @@ namespace WindowsFormsApp2
 
                 XElement xOptions = new XElement("Options");
 
+                comment_index = 30;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("ClientReceiveRemap",
                       new XElement("From", "AT+CGACT=1,1"),
                       new XElement("To",
@@ -4348,6 +4470,9 @@ namespace WindowsFormsApp2
                   );
                 xOptions.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("ClientReceiveRemap",
                       new XElement("From", "AT+CGACT=1=0,1"),
                       new XElement("To",
@@ -4357,15 +4482,11 @@ namespace WindowsFormsApp2
                   );
                 xOptions.Add(xOption);
 
+                comment_index = 35;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("ClientReceiveRemap",
                       new XElement("From", "at+cops?"),
-                      new XElement("Pause", textBox29.Text),
-                      new XElement("To", textBox28.Text)
-                  );
-                xOptions.Add(xOption);
-
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "at+cfun=0"),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
                         textBox32.Text
@@ -4373,8 +4494,11 @@ namespace WindowsFormsApp2
                   );
                 xOptions.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "at+cfun=1"),
+                      new XElement("From", button66.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
                         textBox27.Text
@@ -4382,20 +4506,14 @@ namespace WindowsFormsApp2
                   );
                 xOptions.Add(xOption);
 
+                comment_index++;
+                xcomment = new XComment(" " + comment_index.ToString() + " ");
+                xApp.Add(xcomment);
                 xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "PSM On"),
+                      new XElement("From", button65.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
                         textBox26.Text
-                      )
-                  );
-                xOptions.Add(xOption);
-
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "PSM Off"),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        textBox25.Text
                       )
                   );
                 xOptions.Add(xOption);
@@ -4413,8 +4531,8 @@ namespace WindowsFormsApp2
         private void button40_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.DefaultExt = "txt";
-            ofd.Filter = "text files (*.txt)|*.txt";
+            ofd.DefaultExt = "xml";
+            ofd.Filter = "xml files (*.xml)|*.xml";
             ofd.ShowDialog();
             if (ofd.FileName.Length > 0)
             {
@@ -4436,23 +4554,7 @@ namespace WindowsFormsApp2
                             {
                                 if (app.Name == "Application")
                                 {
-                                    if (app.Attribute("id").Value == "2")
-                                    {
-                                        IEnumerable<XElement> atcmds = app.Element("Options").Element("ClientReceiveRemap").Elements();
-                                        int first = 0;
-                                        foreach (var atcmd in atcmds)
-                                        {
-                                            if (atcmd.Name == "To")
-                                            {
-                                                if (first == 0)
-                                                    textBox2.Text = atcmd.Value;
-                                                else
-                                                    textBox3.Text = atcmd.Value;
-                                                first++;
-                                            }
-                                        }
-                                    }
-                                    else if (app.Attribute("id").Value == "3")
+                                    if (app.Attribute("id").Value == "3")
                                     {
                                         IEnumerable<XElement> options = app.Elements();
                                         foreach (var option in options)
@@ -4570,10 +4672,6 @@ namespace WindowsFormsApp2
                                                 case "AT+CGACT=1=0,1":
                                                     textBox30.Text = msg;
                                                     break;
-                                                case "at+cops?":
-                                                    textBox29.Text = option.Element("Pause").Value;
-                                                    textBox28.Text = msg;
-                                                    break;
                                                 case "at+cfun=0":
                                                     textBox32.Text = msg;
                                                     break;
@@ -4582,9 +4680,6 @@ namespace WindowsFormsApp2
                                                     break;
                                                 case "PSM On":
                                                     textBox26.Text = msg;
-                                                    break;
-                                                case "PSM Off":
-                                                    textBox25.Text = msg;
                                                     break;
                                                 default:
                                                     MessageBox.Show("Check options count");
@@ -4650,10 +4745,6 @@ namespace WindowsFormsApp2
 
                 i = 0;
                 worksheet = new Worksheet("atcommand1");
-                worksheet.Cells[i, 0] = new Cell(button44.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox2.Text);
-                worksheet.Cells[i, 2] = new Cell(textBox3.Text);
-                i++;
                 worksheet.Cells[i, 0] = new Cell(button42.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox4.Text);
                 i++;
@@ -4758,10 +4849,6 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button75.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox30.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button74.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox29.Text);
-                worksheet.Cells[i, 2] = new Cell(textBox28.Text);
-                i++;
                 worksheet.Cells[i, 0] = new Cell(button67.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox32.Text);
                 i++;
@@ -4770,9 +4857,6 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button65.Text);
                 worksheet.Cells[i, 1] = new Cell(textBox26.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button64.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox25.Text);
 
                 worksheet.Cells.ColumnWidth[0, 2] = 10000;
                 workbook.Worksheets.Add(worksheet);
@@ -5060,7 +5144,10 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button22.Text);
                 worksheet.Cells[i, 1] = new Cell(cbVideo.Text);
-                i += 2;
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button129.Text);
+                worksheet.Cells[i, 1] = new Cell(checkBox9.Text);
+                i++;
                 worksheet.Cells[i, 0] = new Cell("[NBIoT]");
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button36.Text);
@@ -5145,9 +5232,6 @@ namespace WindowsFormsApp2
                         ///////////////////////////////////////////////////////////////// PCT 장비 AT command 매핑 1
                         worksheet = workbook.Worksheets[1];
                         i = 0;
-                        textBox2.Text = worksheet.Cells[i, 1].ToString();
-                        textBox3.Text = worksheet.Cells[i, 2].ToString();
-                        i++;
                         textBox4.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox5.Text = worksheet.Cells[i, 1].ToString();
@@ -5213,16 +5297,11 @@ namespace WindowsFormsApp2
                         i++;
                         textBox30.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox29.Text = worksheet.Cells[i, 1].ToString();
-                        textBox28.Text = worksheet.Cells[i, 2].ToString();
-                        i++;
                         textBox32.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox27.Text = worksheet.Cells[i, 1].ToString();
                         i++;
                         textBox26.Text = worksheet.Cells[i, 1].ToString();
-                        i++;
-                        textBox25.Text = worksheet.Cells[i, 1].ToString();
 
                         /////////////////////////////////////////////// 플랫폼 검증 앱 공통 AT command
                         i = 0;
@@ -5502,7 +5581,13 @@ namespace WindowsFormsApp2
                             cbVideo.Checked = true;
                         else
                             cbVideo.Checked = false;
-                        i += 3;
+                        i++;
+                        checkBox9.Text = worksheet.Cells[i, 1].ToString();
+                        if (checkBox9.Text == "지원")
+                            checkBox9.Checked = true;
+                        else
+                            checkBox9.Checked = false;
+                        i += 2;
                         cbNBIPVer.Text = worksheet.Cells[i, 1].ToString();
 
                         //////////////////////////////////////////////////////////////// oneM2M AT command 옵션 설정
@@ -5648,12 +5733,6 @@ namespace WindowsFormsApp2
         private void button65_Click(object sender, EventArgs e)
         {
             this.sendDataOut(textBox26.Text);
-            lbActionState.Text = states.testatcmd.ToString();
-        }
-
-        private void button64_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(textBox25.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
@@ -5829,18 +5908,6 @@ namespace WindowsFormsApp2
         {
             this.sendDataOut(textBox4.Text);
             lbActionState.Text = states.testatcmd.ToString();
-        }
-
-        private void button74_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(textBox28.Text);
-            lbActionState.Text = states.testatcmd.ToString();
-        }
-
-        private void button44_Click(object sender, EventArgs e)
-        {
-            this.sendDataOut(textBox2.Text);
-            lbActionState.Text = states.atdtatcmd.ToString();
         }
 
         private void button83_Click(object sender, EventArgs e)
@@ -9927,6 +9994,14 @@ namespace WindowsFormsApp2
                 checkBox8.Text = "HEX";
             else
                 checkBox8.Text = "STRING";
+        }
+
+        private void checkBox9_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox9.Checked == true)
+                checkBox9.Text = "지원";
+            else
+                checkBox9.Text = "미지원";
         }
     }
 
