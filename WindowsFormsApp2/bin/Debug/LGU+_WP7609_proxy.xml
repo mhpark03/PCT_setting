@@ -103,189 +103,189 @@
       <!-- 3 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Activate SMS mode</From>
+          <From>Please power off the UE</From>
           <To closePort="yes">at+cfun=1,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 4 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Try MO SMS</From>
+          <From>Please reboot phone</From>
           <To closePort="yes">AT+CFUN=1,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 5 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 111</From>
+          <From>Reboot DUT</From>
           <To closePort="yes">AT+CFUN=1,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 6 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 112</From>
+          <From>Activate Data PDN</From>
           <To closePort="yes">AT+CGACT=1,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 7 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Normal call 114</From>
+          <From>Data enable on the phone</From>
           <To closePort="yes">AT+CGACT=1,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 8 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 113</From>
+          <From>Deactivate Data PDN</From>
           <To closePort="yes">AT+CGACT=0,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 9 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 117</From>
+          <From>Data off on the phone</From>
           <To closePort="yes">AT+CGACT=0,1</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 10 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 118</From>
+          <From>Try MO Voice Call(15447769)</From>
           <To closePort="yes">atd15447769;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 11 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 119</From>
+          <From>Try MO Voice Call</From>
           <To closePort="yes">ATD01012345678;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 12 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 122</From>
+          <From>Please make voice call from the UE</From>
           <To closePort="yes">ATD12345678</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 13 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Emergency call 125</From>
+          <From>Try Call End</From>
           <To closePort="yes">at+chup</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 14 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Switch off the phone</From>
+          <From>End voice call from the UE</From>
           <To closePort="yes">ATH</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 15 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please power off the UE</From>
+          <From>Try Call Answer</From>
           <To closePort="yes">ata</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 16 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please make voice call from the UE</From>
+          <From>Please send ping</From>
           <To closePort="yes">AT+QPING=1,"192.168.2.1",100,10</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 17 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Try MO Voice Call(15447769)</From>
+          <From>Ping transmission</From>
           <To closePort="yes">AT</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 18 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Try MO Voice Call</From>
-          <To closePort="yes">atd111</To>
+          <From>Emergency call 111</From>
+          <To closePort="yes">atd111;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 19 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Try Call Answer</From>
-          <To closePort="yes">atd112</To>
+          <From>Emergency call 112</From>
+          <To closePort="yes">atd112;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 20 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Try Call End</From>
+          <From>Emergency call 113</From>
           <To closePort="yes">atd113;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 21 -->
       <Options>
         <ClientReceiveRemap>
-          <From>End voice call from the UE</From>
+          <From>Emergency call 117</From>
           <To closePort="yes">atd117;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 22 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Check PDN Address</From>
+          <From>Emergency call 118</From>
           <To closePort="yes">atd118;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 23 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please set EMM/ESM cause</From>
+          <From>Emergency call 119</From>
           <To closePort="yes">atd119;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 24 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please reboot phone</From>
+          <From>Please make emergency call from the UE</From>
           <To closePort="yes">atd119;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 25 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please connect pdn</From>
+          <From>Emergency call 122</From>
           <To closePort="yes">atd122;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 26 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please PSM On</From>
+          <From>Emergency call 125</From>
           <To closePort="yes">atd125;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 27 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Please PSM Off</From>
+          <From>Normal call 114</From>
           <To closePort="yes">atd114;</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 28 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Deactivate Data PDN</From>
+          <From>Activate SMS mode</From>
           <To closePort="yes">at+cmms=0</To>
         </ClientReceiveRemap>
       </Options>
       <!-- 29 -->
       <Options>
         <ClientReceiveRemap>
-          <From>Activate Data PDN</From>
+          <From>Try MO SMS</From>
           <To closePort="yes">AT*SMS*MO=01012345678,313233</To>
         </ClientReceiveRemap>
       </Options>
@@ -315,30 +315,38 @@
       <AutoConfirmationEnabled>yes</AutoConfirmationEnabled>
       <!-- Raise the MMI prompt or send auto reply. Values: yes or no -->
       <!-- 30 -->
+      <Options>
+        <ClientReceiveRemap>
+          <From>MT_SMS_Read</From>
+          <To closePort="yes">at+cmgr=1</To>
+        </ClientReceiveRemap>
+      </Options>
       <!-- 31 -->
+      <Options>
+        <ClientReceiveRemap>
+          <From>MT_SMS_DELETE</From>
+          <To closePort="yes">at+cmgd=1</To>
+        </ClientReceiveRemap>
+      </Options>
       <!-- 35 -->
+      <Options>
+        <ClientReceiveRemap>
+          <From>at+cnec=8,0</From>
+          <To closePort="yes">at+cnec=8,0</To>
+        </ClientReceiveRemap>
+      </Options>
       <!-- 36 -->
+      <Options>
+        <ClientReceiveRemap>
+          <From>at+cnec=19</From>
+          <To closePort="yes">at+cnec=19</To>
+        </ClientReceiveRemap>
+      </Options>
       <!-- 37 -->
       <Options>
         <ClientReceiveRemap>
-          <From>AT+CGACT=1,1</From>
-          <To closePort="yes">at+cmgr=1</To>
-        </ClientReceiveRemap>
-        <ClientReceiveRemap>
-          <From>AT+CGACT=1=0,1</From>
-          <To closePort="yes">at+cmgd=1</To>
-        </ClientReceiveRemap>
-        <ClientReceiveRemap>
-          <From>at+cops?</From>
-          <To closePort="yes">at+cnec=8,0</To>
-        </ClientReceiveRemap>
-        <ClientReceiveRemap>
-          <From>at+cfun=0</From>
-          <To closePort="yes">at+cnec=8,0</To>
-        </ClientReceiveRemap>
-        <ClientReceiveRemap>
-          <From>at+cfun=1</From>
-          <To closePort="yes">at+cnec=19</To>
+          <From>at+cgpaddr=1</From>
+          <To closePort="yes">at+cgpaddr=1</To>
         </ClientReceiveRemap>
       </Options>
     </Application>

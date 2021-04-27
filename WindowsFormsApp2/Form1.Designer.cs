@@ -171,76 +171,82 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.button73 = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button61 = new System.Windows.Forms.Button();
-            this.textBox26 = new System.Windows.Forms.TextBox();
-            this.button65 = new System.Windows.Forms.Button();
-            this.textBox27 = new System.Windows.Forms.TextBox();
-            this.button66 = new System.Windows.Forms.Button();
-            this.textBox30 = new System.Windows.Forms.TextBox();
-            this.textBox31 = new System.Windows.Forms.TextBox();
-            this.textBox32 = new System.Windows.Forms.TextBox();
-            this.button67 = new System.Windows.Forms.Button();
-            this.button75 = new System.Windows.Forms.Button();
+            this.btProxy430 = new System.Windows.Forms.Button();
+            this.tBProxy437 = new System.Windows.Forms.TextBox();
+            this.btProxy437 = new System.Windows.Forms.Button();
+            this.tBProxy436 = new System.Windows.Forms.TextBox();
+            this.btProxy436 = new System.Windows.Forms.Button();
+            this.tBProxy431 = new System.Windows.Forms.TextBox();
+            this.tBProxy430 = new System.Windows.Forms.TextBox();
+            this.tBProxy435 = new System.Windows.Forms.TextBox();
+            this.btProxy435 = new System.Windows.Forms.Button();
+            this.btProxy431 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBox23 = new System.Windows.Forms.TextBox();
-            this.button69 = new System.Windows.Forms.Button();
-            this.textBox34 = new System.Windows.Forms.TextBox();
-            this.button76 = new System.Windows.Forms.Button();
-            this.textBox35 = new System.Windows.Forms.TextBox();
-            this.button77 = new System.Windows.Forms.Button();
-            this.textBox36 = new System.Windows.Forms.TextBox();
-            this.button78 = new System.Windows.Forms.Button();
-            this.textBox37 = new System.Windows.Forms.TextBox();
-            this.button79 = new System.Windows.Forms.Button();
-            this.textBox39 = new System.Windows.Forms.TextBox();
-            this.textBox41 = new System.Windows.Forms.TextBox();
-            this.button82 = new System.Windows.Forms.Button();
-            this.button84 = new System.Windows.Forms.Button();
+            this.tBProxy334 = new System.Windows.Forms.TextBox();
+            this.btProxy334 = new System.Windows.Forms.Button();
+            this.tBProxy333 = new System.Windows.Forms.TextBox();
+            this.btProxy333 = new System.Windows.Forms.Button();
+            this.tBProxy332 = new System.Windows.Forms.TextBox();
+            this.btProxy332 = new System.Windows.Forms.Button();
+            this.tBProxy324 = new System.Windows.Forms.TextBox();
+            this.btProxy324 = new System.Windows.Forms.Button();
+            this.tBProxy329 = new System.Windows.Forms.TextBox();
+            this.btProxy329 = new System.Windows.Forms.Button();
+            this.tBProxy328 = new System.Windows.Forms.TextBox();
+            this.btProxy328 = new System.Windows.Forms.Button();
+            this.tBProxy327 = new System.Windows.Forms.TextBox();
+            this.btProxy327 = new System.Windows.Forms.Button();
+            this.tBProxy326 = new System.Windows.Forms.TextBox();
+            this.btProxy326 = new System.Windows.Forms.Button();
+            this.tBProxy325 = new System.Windows.Forms.TextBox();
+            this.tBProxy323 = new System.Windows.Forms.TextBox();
+            this.btProxy325 = new System.Windows.Forms.Button();
+            this.btProxy323 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.button60 = new System.Windows.Forms.Button();
-            this.textBox22 = new System.Windows.Forms.TextBox();
-            this.button59 = new System.Windows.Forms.Button();
-            this.textBox21 = new System.Windows.Forms.TextBox();
-            this.button58 = new System.Windows.Forms.Button();
-            this.textBox20 = new System.Windows.Forms.TextBox();
-            this.button57 = new System.Windows.Forms.Button();
-            this.textBox19 = new System.Windows.Forms.TextBox();
-            this.button56 = new System.Windows.Forms.Button();
-            this.textBox18 = new System.Windows.Forms.TextBox();
-            this.button55 = new System.Windows.Forms.Button();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.button43 = new System.Windows.Forms.Button();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.textBox42 = new System.Windows.Forms.TextBox();
-            this.button54 = new System.Windows.Forms.Button();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox43 = new System.Windows.Forms.TextBox();
-            this.button53 = new System.Windows.Forms.Button();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.button52 = new System.Windows.Forms.Button();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.button51 = new System.Windows.Forms.Button();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.button85 = new System.Windows.Forms.Button();
-            this.button50 = new System.Windows.Forms.Button();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.button49 = new System.Windows.Forms.Button();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.button48 = new System.Windows.Forms.Button();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.button47 = new System.Windows.Forms.Button();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.button46 = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.button45 = new System.Windows.Forms.Button();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button37 = new System.Windows.Forms.Button();
-            this.button38 = new System.Windows.Forms.Button();
-            this.button39 = new System.Windows.Forms.Button();
-            this.button42 = new System.Windows.Forms.Button();
+            this.btProxy322 = new System.Windows.Forms.Button();
+            this.tBProxy320 = new System.Windows.Forms.TextBox();
+            this.btProxy320 = new System.Windows.Forms.Button();
+            this.tBProxy319 = new System.Windows.Forms.TextBox();
+            this.btProxy319 = new System.Windows.Forms.Button();
+            this.tBProxy318 = new System.Windows.Forms.TextBox();
+            this.btProxy318 = new System.Windows.Forms.Button();
+            this.tBProxy317 = new System.Windows.Forms.TextBox();
+            this.btProxy317 = new System.Windows.Forms.Button();
+            this.tBProxy316 = new System.Windows.Forms.TextBox();
+            this.btProxy316 = new System.Windows.Forms.Button();
+            this.tBProxy315 = new System.Windows.Forms.TextBox();
+            this.btProxy315 = new System.Windows.Forms.Button();
+            this.tBProxy314 = new System.Windows.Forms.TextBox();
+            this.tBProxy322 = new System.Windows.Forms.TextBox();
+            this.btProxy314 = new System.Windows.Forms.Button();
+            this.tBProxy313 = new System.Windows.Forms.TextBox();
+            this.tBProxy321 = new System.Windows.Forms.TextBox();
+            this.btProxy313 = new System.Windows.Forms.Button();
+            this.tBProxy312 = new System.Windows.Forms.TextBox();
+            this.btProxy312 = new System.Windows.Forms.Button();
+            this.tBProxy311 = new System.Windows.Forms.TextBox();
+            this.btProxy311 = new System.Windows.Forms.Button();
+            this.tBProxy310 = new System.Windows.Forms.TextBox();
+            this.btProxy321 = new System.Windows.Forms.Button();
+            this.btProxy310 = new System.Windows.Forms.Button();
+            this.tBProxy309 = new System.Windows.Forms.TextBox();
+            this.btProxy309 = new System.Windows.Forms.Button();
+            this.tBProxy308 = new System.Windows.Forms.TextBox();
+            this.btProxy308 = new System.Windows.Forms.Button();
+            this.tBProxy307 = new System.Windows.Forms.TextBox();
+            this.btProxy307 = new System.Windows.Forms.Button();
+            this.tBProxy306 = new System.Windows.Forms.TextBox();
+            this.btProxy306 = new System.Windows.Forms.Button();
+            this.tBProxy305 = new System.Windows.Forms.TextBox();
+            this.btProxy305 = new System.Windows.Forms.Button();
+            this.tBProxy303 = new System.Windows.Forms.TextBox();
+            this.tBProxy302 = new System.Windows.Forms.TextBox();
+            this.tBProxy301 = new System.Windows.Forms.TextBox();
+            this.tBProxy304 = new System.Windows.Forms.TextBox();
+            this.btProxy304 = new System.Windows.Forms.Button();
+            this.btProxy303 = new System.Windows.Forms.Button();
+            this.btProxy302 = new System.Windows.Forms.Button();
+            this.btProxy301 = new System.Windows.Forms.Button();
             this.button40 = new System.Windows.Forms.Button();
             this.button41 = new System.Windows.Forms.Button();
             this.tabOneM2M = new System.Windows.Forms.TabPage();
@@ -447,12 +453,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button44 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button130 = new System.Windows.Forms.Button();
-            this.textBox82 = new System.Windows.Forms.TextBox();
-            this.button131 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -2063,142 +2063,142 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.button61);
-            this.groupBox7.Controls.Add(this.textBox26);
-            this.groupBox7.Controls.Add(this.button65);
-            this.groupBox7.Controls.Add(this.textBox27);
-            this.groupBox7.Controls.Add(this.button66);
-            this.groupBox7.Controls.Add(this.textBox30);
-            this.groupBox7.Controls.Add(this.textBox31);
-            this.groupBox7.Controls.Add(this.textBox32);
-            this.groupBox7.Controls.Add(this.button67);
-            this.groupBox7.Controls.Add(this.button75);
+            this.groupBox7.Controls.Add(this.btProxy430);
+            this.groupBox7.Controls.Add(this.tBProxy437);
+            this.groupBox7.Controls.Add(this.btProxy437);
+            this.groupBox7.Controls.Add(this.tBProxy436);
+            this.groupBox7.Controls.Add(this.btProxy436);
+            this.groupBox7.Controls.Add(this.tBProxy431);
+            this.groupBox7.Controls.Add(this.tBProxy430);
+            this.groupBox7.Controls.Add(this.tBProxy435);
+            this.groupBox7.Controls.Add(this.btProxy435);
+            this.groupBox7.Controls.Add(this.btProxy431);
             this.groupBox7.Location = new System.Drawing.Point(547, 435);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox7.Size = new System.Drawing.Size(513, 253);
+            this.groupBox7.Size = new System.Drawing.Size(513, 173);
             this.groupBox7.TabIndex = 40;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "AT COMMAND (ID=4)";
             // 
-            // button61
+            // btProxy430
             // 
-            this.button61.Location = new System.Drawing.Point(7, 14);
-            this.button61.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button61.Name = "button61";
-            this.button61.Size = new System.Drawing.Size(196, 24);
-            this.button61.TabIndex = 39;
-            this.button61.Text = "MT_SMS_Read";
-            this.button61.UseVisualStyleBackColor = true;
-            this.button61.Click += new System.EventHandler(this.button61_Click);
+            this.btProxy430.Location = new System.Drawing.Point(7, 14);
+            this.btProxy430.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy430.Name = "btProxy430";
+            this.btProxy430.Size = new System.Drawing.Size(196, 24);
+            this.btProxy430.TabIndex = 39;
+            this.btProxy430.Text = "MT_SMS_Read";
+            this.btProxy430.UseVisualStyleBackColor = true;
+            this.btProxy430.Click += new System.EventHandler(this.button61_Click);
             // 
-            // textBox26
+            // tBProxy437
             // 
-            this.textBox26.Location = new System.Drawing.Point(208, 187);
-            this.textBox26.Name = "textBox26";
-            this.textBox26.Size = new System.Drawing.Size(291, 21);
-            this.textBox26.TabIndex = 24;
-            this.textBox26.Text = "at+cgpaddr=1";
+            this.tBProxy437.Location = new System.Drawing.Point(209, 131);
+            this.tBProxy437.Name = "tBProxy437";
+            this.tBProxy437.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy437.TabIndex = 24;
+            this.tBProxy437.Text = "at+cgpaddr=1";
             // 
-            // button65
+            // btProxy437
             // 
-            this.button65.Location = new System.Drawing.Point(6, 184);
-            this.button65.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button65.Name = "button65";
-            this.button65.Size = new System.Drawing.Size(196, 24);
-            this.button65.TabIndex = 23;
-            this.button65.Text = "at+cgpaddr=1";
-            this.button65.UseVisualStyleBackColor = true;
-            this.button65.Click += new System.EventHandler(this.button65_Click);
+            this.btProxy437.Location = new System.Drawing.Point(7, 128);
+            this.btProxy437.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy437.Name = "btProxy437";
+            this.btProxy437.Size = new System.Drawing.Size(196, 24);
+            this.btProxy437.TabIndex = 23;
+            this.btProxy437.Text = "at+cgpaddr=1";
+            this.btProxy437.UseVisualStyleBackColor = true;
+            this.btProxy437.Click += new System.EventHandler(this.button65_Click);
             // 
-            // textBox27
+            // tBProxy436
             // 
-            this.textBox27.Location = new System.Drawing.Point(208, 159);
-            this.textBox27.Name = "textBox27";
-            this.textBox27.Size = new System.Drawing.Size(291, 21);
-            this.textBox27.TabIndex = 22;
-            this.textBox27.Text = "at+cnec=19";
+            this.tBProxy436.Location = new System.Drawing.Point(209, 103);
+            this.tBProxy436.Name = "tBProxy436";
+            this.tBProxy436.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy436.TabIndex = 22;
+            this.tBProxy436.Text = "at+cnec=19";
             // 
-            // button66
+            // btProxy436
             // 
-            this.button66.Location = new System.Drawing.Point(6, 156);
-            this.button66.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button66.Name = "button66";
-            this.button66.Size = new System.Drawing.Size(196, 24);
-            this.button66.TabIndex = 21;
-            this.button66.Text = "at+cnec=19";
-            this.button66.UseVisualStyleBackColor = true;
-            this.button66.Click += new System.EventHandler(this.button66_Click);
+            this.btProxy436.Location = new System.Drawing.Point(7, 100);
+            this.btProxy436.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy436.Name = "btProxy436";
+            this.btProxy436.Size = new System.Drawing.Size(196, 24);
+            this.btProxy436.TabIndex = 21;
+            this.btProxy436.Text = "at+cnec=19";
+            this.btProxy436.UseVisualStyleBackColor = true;
+            this.btProxy436.Click += new System.EventHandler(this.button66_Click);
             // 
-            // textBox30
+            // tBProxy431
             // 
-            this.textBox30.Location = new System.Drawing.Point(208, 47);
-            this.textBox30.Name = "textBox30";
-            this.textBox30.Size = new System.Drawing.Size(291, 21);
-            this.textBox30.TabIndex = 18;
-            this.textBox30.Text = "at+cmgd=1";
+            this.tBProxy431.Location = new System.Drawing.Point(208, 47);
+            this.tBProxy431.Name = "tBProxy431";
+            this.tBProxy431.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy431.TabIndex = 18;
+            this.tBProxy431.Text = "at+cmgd=1";
             // 
-            // textBox31
+            // tBProxy430
             // 
-            this.textBox31.Location = new System.Drawing.Point(208, 19);
-            this.textBox31.Name = "textBox31";
-            this.textBox31.Size = new System.Drawing.Size(291, 21);
-            this.textBox31.TabIndex = 17;
-            this.textBox31.Text = "at+cmgr=1";
+            this.tBProxy430.Location = new System.Drawing.Point(208, 19);
+            this.tBProxy430.Name = "tBProxy430";
+            this.tBProxy430.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy430.TabIndex = 17;
+            this.tBProxy430.Text = "at+cmgr=1";
             // 
-            // textBox32
+            // tBProxy435
             // 
-            this.textBox32.Location = new System.Drawing.Point(208, 131);
-            this.textBox32.Name = "textBox32";
-            this.textBox32.Size = new System.Drawing.Size(291, 21);
-            this.textBox32.TabIndex = 15;
-            this.textBox32.Text = "at+cnec=8,0";
+            this.tBProxy435.Location = new System.Drawing.Point(209, 75);
+            this.tBProxy435.Name = "tBProxy435";
+            this.tBProxy435.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy435.TabIndex = 15;
+            this.tBProxy435.Text = "at+cnec=8,0";
             // 
-            // button67
+            // btProxy435
             // 
-            this.button67.Location = new System.Drawing.Point(6, 128);
-            this.button67.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button67.Name = "button67";
-            this.button67.Size = new System.Drawing.Size(196, 24);
-            this.button67.TabIndex = 14;
-            this.button67.Text = "at+cnec=8,0";
-            this.button67.UseVisualStyleBackColor = true;
-            this.button67.Click += new System.EventHandler(this.button67_Click);
+            this.btProxy435.Location = new System.Drawing.Point(7, 72);
+            this.btProxy435.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy435.Name = "btProxy435";
+            this.btProxy435.Size = new System.Drawing.Size(196, 24);
+            this.btProxy435.TabIndex = 14;
+            this.btProxy435.Text = "at+cnec=8,0";
+            this.btProxy435.UseVisualStyleBackColor = true;
+            this.btProxy435.Click += new System.EventHandler(this.button67_Click);
             // 
-            // button75
+            // btProxy431
             // 
-            this.button75.Location = new System.Drawing.Point(6, 44);
-            this.button75.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button75.Name = "button75";
-            this.button75.Size = new System.Drawing.Size(196, 24);
-            this.button75.TabIndex = 8;
-            this.button75.Text = "MT_SMS_DELETE";
-            this.button75.UseVisualStyleBackColor = true;
-            this.button75.Click += new System.EventHandler(this.button75_Click);
+            this.btProxy431.Location = new System.Drawing.Point(6, 44);
+            this.btProxy431.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy431.Name = "btProxy431";
+            this.btProxy431.Size = new System.Drawing.Size(196, 24);
+            this.btProxy431.TabIndex = 8;
+            this.btProxy431.Text = "MT_SMS_DELETE";
+            this.btProxy431.UseVisualStyleBackColor = true;
+            this.btProxy431.Click += new System.EventHandler(this.button75_Click);
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.textBox2);
-            this.groupBox4.Controls.Add(this.button44);
-            this.groupBox4.Controls.Add(this.textBox3);
-            this.groupBox4.Controls.Add(this.button130);
-            this.groupBox4.Controls.Add(this.textBox82);
-            this.groupBox4.Controls.Add(this.button131);
-            this.groupBox4.Controls.Add(this.textBox23);
-            this.groupBox4.Controls.Add(this.button69);
-            this.groupBox4.Controls.Add(this.textBox34);
-            this.groupBox4.Controls.Add(this.button76);
-            this.groupBox4.Controls.Add(this.textBox35);
-            this.groupBox4.Controls.Add(this.button77);
-            this.groupBox4.Controls.Add(this.textBox36);
-            this.groupBox4.Controls.Add(this.button78);
-            this.groupBox4.Controls.Add(this.textBox37);
-            this.groupBox4.Controls.Add(this.button79);
-            this.groupBox4.Controls.Add(this.textBox39);
-            this.groupBox4.Controls.Add(this.textBox41);
-            this.groupBox4.Controls.Add(this.button82);
-            this.groupBox4.Controls.Add(this.button84);
+            this.groupBox4.Controls.Add(this.tBProxy334);
+            this.groupBox4.Controls.Add(this.btProxy334);
+            this.groupBox4.Controls.Add(this.tBProxy333);
+            this.groupBox4.Controls.Add(this.btProxy333);
+            this.groupBox4.Controls.Add(this.tBProxy332);
+            this.groupBox4.Controls.Add(this.btProxy332);
+            this.groupBox4.Controls.Add(this.tBProxy324);
+            this.groupBox4.Controls.Add(this.btProxy324);
+            this.groupBox4.Controls.Add(this.tBProxy329);
+            this.groupBox4.Controls.Add(this.btProxy329);
+            this.groupBox4.Controls.Add(this.tBProxy328);
+            this.groupBox4.Controls.Add(this.btProxy328);
+            this.groupBox4.Controls.Add(this.tBProxy327);
+            this.groupBox4.Controls.Add(this.btProxy327);
+            this.groupBox4.Controls.Add(this.tBProxy326);
+            this.groupBox4.Controls.Add(this.btProxy326);
+            this.groupBox4.Controls.Add(this.tBProxy325);
+            this.groupBox4.Controls.Add(this.tBProxy323);
+            this.groupBox4.Controls.Add(this.btProxy325);
+            this.groupBox4.Controls.Add(this.btProxy323);
             this.groupBox4.Location = new System.Drawing.Point(547, 49);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Name = "groupBox4";
@@ -2208,185 +2208,242 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "AT COMMAND (ID=3) 2/2";
             // 
-            // textBox23
+            // tBProxy334
             // 
-            this.textBox23.Location = new System.Drawing.Point(210, 52);
-            this.textBox23.Name = "textBox23";
-            this.textBox23.Size = new System.Drawing.Size(291, 21);
-            this.textBox23.TabIndex = 32;
-            this.textBox23.Text = "atd119;";
+            this.tBProxy334.Location = new System.Drawing.Point(208, 302);
+            this.tBProxy334.Name = "tBProxy334";
+            this.tBProxy334.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy334.TabIndex = 38;
+            this.tBProxy334.Text = "AT+CNEC=24";
             // 
-            // button69
+            // btProxy334
             // 
-            this.button69.Location = new System.Drawing.Point(8, 49);
-            this.button69.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button69.Name = "button69";
-            this.button69.Size = new System.Drawing.Size(196, 24);
-            this.button69.TabIndex = 31;
-            this.button69.Text = "Please make emergency call from the UE";
-            this.button69.UseVisualStyleBackColor = true;
-            this.button69.Click += new System.EventHandler(this.button69_Click);
+            this.btProxy334.Location = new System.Drawing.Point(6, 299);
+            this.btProxy334.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy334.Name = "btProxy334";
+            this.btProxy334.Size = new System.Drawing.Size(196, 24);
+            this.btProxy334.TabIndex = 37;
+            this.btProxy334.Text = "Please set EMM/ESM cause";
+            this.btProxy334.UseVisualStyleBackColor = true;
+            this.btProxy334.Click += new System.EventHandler(this.button44_Click);
             // 
-            // textBox34
+            // tBProxy333
             // 
-            this.textBox34.Location = new System.Drawing.Point(208, 202);
-            this.textBox34.Name = "textBox34";
-            this.textBox34.Size = new System.Drawing.Size(291, 21);
-            this.textBox34.TabIndex = 30;
-            this.textBox34.Text = "AT*SMS*MO=01012345678,313233";
+            this.tBProxy333.Location = new System.Drawing.Point(208, 270);
+            this.tBProxy333.Name = "tBProxy333";
+            this.tBProxy333.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy333.TabIndex = 36;
+            this.tBProxy333.Text = "AT+CPSMS=0";
             // 
-            // button76
+            // btProxy333
             // 
-            this.button76.Location = new System.Drawing.Point(6, 199);
-            this.button76.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button76.Name = "button76";
-            this.button76.Size = new System.Drawing.Size(196, 24);
-            this.button76.TabIndex = 29;
-            this.button76.Text = "Try MO SMS";
-            this.button76.UseVisualStyleBackColor = true;
-            this.button76.Click += new System.EventHandler(this.button76_Click);
+            this.btProxy333.Location = new System.Drawing.Point(6, 267);
+            this.btProxy333.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy333.Name = "btProxy333";
+            this.btProxy333.Size = new System.Drawing.Size(196, 24);
+            this.btProxy333.TabIndex = 35;
+            this.btProxy333.Text = "Please PSM Off";
+            this.btProxy333.UseVisualStyleBackColor = true;
+            this.btProxy333.Click += new System.EventHandler(this.button130_Click);
             // 
-            // textBox35
+            // tBProxy332
             // 
-            this.textBox35.Location = new System.Drawing.Point(208, 170);
-            this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(291, 21);
-            this.textBox35.TabIndex = 28;
-            this.textBox35.Text = "at+cmms=0";
+            this.tBProxy332.Location = new System.Drawing.Point(208, 239);
+            this.tBProxy332.Name = "tBProxy332";
+            this.tBProxy332.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy332.TabIndex = 34;
+            this.tBProxy332.Text = "AT+CPSMS=1,,,\"10000101\",\"00100010\"";
             // 
-            // button77
+            // btProxy332
             // 
-            this.button77.Location = new System.Drawing.Point(6, 167);
-            this.button77.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button77.Name = "button77";
-            this.button77.Size = new System.Drawing.Size(196, 24);
-            this.button77.TabIndex = 27;
-            this.button77.Text = "Activate SMS mode";
-            this.button77.UseVisualStyleBackColor = true;
-            this.button77.Click += new System.EventHandler(this.button77_Click);
+            this.btProxy332.Location = new System.Drawing.Point(6, 236);
+            this.btProxy332.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy332.Name = "btProxy332";
+            this.btProxy332.Size = new System.Drawing.Size(196, 24);
+            this.btProxy332.TabIndex = 33;
+            this.btProxy332.Text = "Please PSM On";
+            this.btProxy332.UseVisualStyleBackColor = true;
+            this.btProxy332.Click += new System.EventHandler(this.button131_Click);
             // 
-            // textBox36
+            // tBProxy324
             // 
-            this.textBox36.Location = new System.Drawing.Point(208, 139);
-            this.textBox36.Name = "textBox36";
-            this.textBox36.Size = new System.Drawing.Size(291, 21);
-            this.textBox36.TabIndex = 26;
-            this.textBox36.Text = "atd114;";
+            this.tBProxy324.Location = new System.Drawing.Point(210, 52);
+            this.tBProxy324.Name = "tBProxy324";
+            this.tBProxy324.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy324.TabIndex = 32;
+            this.tBProxy324.Text = "atd119;";
             // 
-            // button78
+            // btProxy324
             // 
-            this.button78.Location = new System.Drawing.Point(6, 136);
-            this.button78.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button78.Name = "button78";
-            this.button78.Size = new System.Drawing.Size(196, 24);
-            this.button78.TabIndex = 25;
-            this.button78.Text = "Normal call 114";
-            this.button78.UseVisualStyleBackColor = true;
-            this.button78.Click += new System.EventHandler(this.button78_Click);
+            this.btProxy324.Location = new System.Drawing.Point(8, 49);
+            this.btProxy324.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy324.Name = "btProxy324";
+            this.btProxy324.Size = new System.Drawing.Size(196, 24);
+            this.btProxy324.TabIndex = 31;
+            this.btProxy324.Text = "Please make emergency call from the UE";
+            this.btProxy324.UseVisualStyleBackColor = true;
+            this.btProxy324.Click += new System.EventHandler(this.button69_Click);
             // 
-            // textBox37
+            // tBProxy329
             // 
-            this.textBox37.Location = new System.Drawing.Point(208, 111);
-            this.textBox37.Name = "textBox37";
-            this.textBox37.Size = new System.Drawing.Size(291, 21);
-            this.textBox37.TabIndex = 24;
-            this.textBox37.Text = "atd125;";
+            this.tBProxy329.Location = new System.Drawing.Point(208, 202);
+            this.tBProxy329.Name = "tBProxy329";
+            this.tBProxy329.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy329.TabIndex = 30;
+            this.tBProxy329.Text = "AT*SMS*MO=01012345678,313233";
             // 
-            // button79
+            // btProxy329
             // 
-            this.button79.Location = new System.Drawing.Point(6, 108);
-            this.button79.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button79.Name = "button79";
-            this.button79.Size = new System.Drawing.Size(196, 24);
-            this.button79.TabIndex = 23;
-            this.button79.Text = "Emergency call 125";
-            this.button79.UseVisualStyleBackColor = true;
-            this.button79.Click += new System.EventHandler(this.button79_Click);
+            this.btProxy329.Location = new System.Drawing.Point(6, 199);
+            this.btProxy329.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy329.Name = "btProxy329";
+            this.btProxy329.Size = new System.Drawing.Size(196, 24);
+            this.btProxy329.TabIndex = 29;
+            this.btProxy329.Text = "Try MO SMS";
+            this.btProxy329.UseVisualStyleBackColor = true;
+            this.btProxy329.Click += new System.EventHandler(this.button76_Click);
             // 
-            // textBox39
+            // tBProxy328
             // 
-            this.textBox39.Location = new System.Drawing.Point(208, 77);
-            this.textBox39.Name = "textBox39";
-            this.textBox39.Size = new System.Drawing.Size(291, 21);
-            this.textBox39.TabIndex = 20;
-            this.textBox39.Text = "atd122;";
+            this.tBProxy328.Location = new System.Drawing.Point(208, 170);
+            this.tBProxy328.Name = "tBProxy328";
+            this.tBProxy328.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy328.TabIndex = 28;
+            this.tBProxy328.Text = "at+cmms=0";
             // 
-            // textBox41
+            // btProxy328
             // 
-            this.textBox41.Location = new System.Drawing.Point(208, 22);
-            this.textBox41.Name = "textBox41";
-            this.textBox41.Size = new System.Drawing.Size(291, 21);
-            this.textBox41.TabIndex = 18;
-            this.textBox41.Text = "atd119;";
+            this.btProxy328.Location = new System.Drawing.Point(6, 167);
+            this.btProxy328.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy328.Name = "btProxy328";
+            this.btProxy328.Size = new System.Drawing.Size(196, 24);
+            this.btProxy328.TabIndex = 27;
+            this.btProxy328.Text = "Activate SMS mode";
+            this.btProxy328.UseVisualStyleBackColor = true;
+            this.btProxy328.Click += new System.EventHandler(this.button77_Click);
             // 
-            // button82
+            // tBProxy327
             // 
-            this.button82.Location = new System.Drawing.Point(6, 77);
-            this.button82.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button82.Name = "button82";
-            this.button82.Size = new System.Drawing.Size(196, 24);
-            this.button82.TabIndex = 12;
-            this.button82.Text = "Emergency call 122";
-            this.button82.UseVisualStyleBackColor = true;
-            this.button82.Click += new System.EventHandler(this.button82_Click);
+            this.tBProxy327.Location = new System.Drawing.Point(208, 139);
+            this.tBProxy327.Name = "tBProxy327";
+            this.tBProxy327.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy327.TabIndex = 26;
+            this.tBProxy327.Text = "atd114;";
             // 
-            // button84
+            // btProxy327
             // 
-            this.button84.Location = new System.Drawing.Point(6, 19);
-            this.button84.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button84.Name = "button84";
-            this.button84.Size = new System.Drawing.Size(196, 24);
-            this.button84.TabIndex = 8;
-            this.button84.Text = "Emergency call 119";
-            this.button84.UseVisualStyleBackColor = true;
-            this.button84.Click += new System.EventHandler(this.button84_Click);
+            this.btProxy327.Location = new System.Drawing.Point(6, 136);
+            this.btProxy327.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy327.Name = "btProxy327";
+            this.btProxy327.Size = new System.Drawing.Size(196, 24);
+            this.btProxy327.TabIndex = 25;
+            this.btProxy327.Text = "Normal call 114";
+            this.btProxy327.UseVisualStyleBackColor = true;
+            this.btProxy327.Click += new System.EventHandler(this.button78_Click);
+            // 
+            // tBProxy326
+            // 
+            this.tBProxy326.Location = new System.Drawing.Point(208, 111);
+            this.tBProxy326.Name = "tBProxy326";
+            this.tBProxy326.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy326.TabIndex = 24;
+            this.tBProxy326.Text = "atd125;";
+            // 
+            // btProxy326
+            // 
+            this.btProxy326.Location = new System.Drawing.Point(6, 108);
+            this.btProxy326.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy326.Name = "btProxy326";
+            this.btProxy326.Size = new System.Drawing.Size(196, 24);
+            this.btProxy326.TabIndex = 23;
+            this.btProxy326.Text = "Emergency call 125";
+            this.btProxy326.UseVisualStyleBackColor = true;
+            this.btProxy326.Click += new System.EventHandler(this.button79_Click);
+            // 
+            // tBProxy325
+            // 
+            this.tBProxy325.Location = new System.Drawing.Point(208, 77);
+            this.tBProxy325.Name = "tBProxy325";
+            this.tBProxy325.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy325.TabIndex = 20;
+            this.tBProxy325.Text = "atd122;";
+            // 
+            // tBProxy323
+            // 
+            this.tBProxy323.Location = new System.Drawing.Point(208, 22);
+            this.tBProxy323.Name = "tBProxy323";
+            this.tBProxy323.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy323.TabIndex = 18;
+            this.tBProxy323.Text = "atd119;";
+            // 
+            // btProxy325
+            // 
+            this.btProxy325.Location = new System.Drawing.Point(6, 77);
+            this.btProxy325.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy325.Name = "btProxy325";
+            this.btProxy325.Size = new System.Drawing.Size(196, 24);
+            this.btProxy325.TabIndex = 12;
+            this.btProxy325.Text = "Emergency call 122";
+            this.btProxy325.UseVisualStyleBackColor = true;
+            this.btProxy325.Click += new System.EventHandler(this.button82_Click);
+            // 
+            // btProxy323
+            // 
+            this.btProxy323.Location = new System.Drawing.Point(6, 19);
+            this.btProxy323.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy323.Name = "btProxy323";
+            this.btProxy323.Size = new System.Drawing.Size(196, 24);
+            this.btProxy323.TabIndex = 8;
+            this.btProxy323.Text = "Emergency call 119";
+            this.btProxy323.UseVisualStyleBackColor = true;
+            this.btProxy323.Click += new System.EventHandler(this.button84_Click);
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button60);
-            this.groupBox3.Controls.Add(this.textBox22);
-            this.groupBox3.Controls.Add(this.button59);
-            this.groupBox3.Controls.Add(this.textBox21);
-            this.groupBox3.Controls.Add(this.button58);
-            this.groupBox3.Controls.Add(this.textBox20);
-            this.groupBox3.Controls.Add(this.button57);
-            this.groupBox3.Controls.Add(this.textBox19);
-            this.groupBox3.Controls.Add(this.button56);
-            this.groupBox3.Controls.Add(this.textBox18);
-            this.groupBox3.Controls.Add(this.button55);
-            this.groupBox3.Controls.Add(this.textBox17);
-            this.groupBox3.Controls.Add(this.button43);
-            this.groupBox3.Controls.Add(this.textBox16);
-            this.groupBox3.Controls.Add(this.textBox42);
-            this.groupBox3.Controls.Add(this.button54);
-            this.groupBox3.Controls.Add(this.textBox15);
-            this.groupBox3.Controls.Add(this.textBox43);
-            this.groupBox3.Controls.Add(this.button53);
-            this.groupBox3.Controls.Add(this.textBox14);
-            this.groupBox3.Controls.Add(this.button52);
-            this.groupBox3.Controls.Add(this.textBox13);
-            this.groupBox3.Controls.Add(this.button51);
-            this.groupBox3.Controls.Add(this.textBox12);
-            this.groupBox3.Controls.Add(this.button85);
-            this.groupBox3.Controls.Add(this.button50);
-            this.groupBox3.Controls.Add(this.textBox11);
-            this.groupBox3.Controls.Add(this.button49);
-            this.groupBox3.Controls.Add(this.textBox10);
-            this.groupBox3.Controls.Add(this.button48);
-            this.groupBox3.Controls.Add(this.textBox9);
-            this.groupBox3.Controls.Add(this.button47);
-            this.groupBox3.Controls.Add(this.textBox8);
-            this.groupBox3.Controls.Add(this.button46);
-            this.groupBox3.Controls.Add(this.textBox7);
-            this.groupBox3.Controls.Add(this.button45);
-            this.groupBox3.Controls.Add(this.textBox6);
-            this.groupBox3.Controls.Add(this.textBox5);
-            this.groupBox3.Controls.Add(this.textBox4);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.button37);
-            this.groupBox3.Controls.Add(this.button38);
-            this.groupBox3.Controls.Add(this.button39);
-            this.groupBox3.Controls.Add(this.button42);
+            this.groupBox3.Controls.Add(this.btProxy322);
+            this.groupBox3.Controls.Add(this.tBProxy320);
+            this.groupBox3.Controls.Add(this.btProxy320);
+            this.groupBox3.Controls.Add(this.tBProxy319);
+            this.groupBox3.Controls.Add(this.btProxy319);
+            this.groupBox3.Controls.Add(this.tBProxy318);
+            this.groupBox3.Controls.Add(this.btProxy318);
+            this.groupBox3.Controls.Add(this.tBProxy317);
+            this.groupBox3.Controls.Add(this.btProxy317);
+            this.groupBox3.Controls.Add(this.tBProxy316);
+            this.groupBox3.Controls.Add(this.btProxy316);
+            this.groupBox3.Controls.Add(this.tBProxy315);
+            this.groupBox3.Controls.Add(this.btProxy315);
+            this.groupBox3.Controls.Add(this.tBProxy314);
+            this.groupBox3.Controls.Add(this.tBProxy322);
+            this.groupBox3.Controls.Add(this.btProxy314);
+            this.groupBox3.Controls.Add(this.tBProxy313);
+            this.groupBox3.Controls.Add(this.tBProxy321);
+            this.groupBox3.Controls.Add(this.btProxy313);
+            this.groupBox3.Controls.Add(this.tBProxy312);
+            this.groupBox3.Controls.Add(this.btProxy312);
+            this.groupBox3.Controls.Add(this.tBProxy311);
+            this.groupBox3.Controls.Add(this.btProxy311);
+            this.groupBox3.Controls.Add(this.tBProxy310);
+            this.groupBox3.Controls.Add(this.btProxy321);
+            this.groupBox3.Controls.Add(this.btProxy310);
+            this.groupBox3.Controls.Add(this.tBProxy309);
+            this.groupBox3.Controls.Add(this.btProxy309);
+            this.groupBox3.Controls.Add(this.tBProxy308);
+            this.groupBox3.Controls.Add(this.btProxy308);
+            this.groupBox3.Controls.Add(this.tBProxy307);
+            this.groupBox3.Controls.Add(this.btProxy307);
+            this.groupBox3.Controls.Add(this.tBProxy306);
+            this.groupBox3.Controls.Add(this.btProxy306);
+            this.groupBox3.Controls.Add(this.tBProxy305);
+            this.groupBox3.Controls.Add(this.btProxy305);
+            this.groupBox3.Controls.Add(this.tBProxy303);
+            this.groupBox3.Controls.Add(this.tBProxy302);
+            this.groupBox3.Controls.Add(this.tBProxy301);
+            this.groupBox3.Controls.Add(this.tBProxy304);
+            this.groupBox3.Controls.Add(this.btProxy304);
+            this.groupBox3.Controls.Add(this.btProxy303);
+            this.groupBox3.Controls.Add(this.btProxy302);
+            this.groupBox3.Controls.Add(this.btProxy301);
             this.groupBox3.Location = new System.Drawing.Point(20, 49);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
@@ -2396,423 +2453,423 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AT COMMAND (ID=3) 1/2";
             // 
-            // button60
-            // 
-            this.button60.Location = new System.Drawing.Point(11, 621);
-            this.button60.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button60.Name = "button60";
-            this.button60.Size = new System.Drawing.Size(196, 24);
-            this.button60.TabIndex = 39;
-            this.button60.Text = "Emergency call 118";
-            this.button60.UseVisualStyleBackColor = true;
-            this.button60.Click += new System.EventHandler(this.button60_Click);
-            // 
-            // textBox22
-            // 
-            this.textBox22.Location = new System.Drawing.Point(213, 567);
-            this.textBox22.Name = "textBox22";
-            this.textBox22.Size = new System.Drawing.Size(291, 21);
-            this.textBox22.TabIndex = 52;
-            this.textBox22.Text = "atd113;";
-            // 
-            // button59
-            // 
-            this.button59.Location = new System.Drawing.Point(11, 564);
-            this.button59.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button59.Name = "button59";
-            this.button59.Size = new System.Drawing.Size(196, 24);
-            this.button59.TabIndex = 51;
-            this.button59.Text = "Emergency call 113";
-            this.button59.UseVisualStyleBackColor = true;
-            this.button59.Click += new System.EventHandler(this.button59_Click);
-            // 
-            // textBox21
-            // 
-            this.textBox21.Location = new System.Drawing.Point(213, 538);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.Size = new System.Drawing.Size(291, 21);
-            this.textBox21.TabIndex = 50;
-            this.textBox21.Text = "atd112";
-            // 
-            // button58
-            // 
-            this.button58.Location = new System.Drawing.Point(11, 535);
-            this.button58.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button58.Name = "button58";
-            this.button58.Size = new System.Drawing.Size(196, 24);
-            this.button58.TabIndex = 49;
-            this.button58.Text = "Emergency call 112";
-            this.button58.UseVisualStyleBackColor = true;
-            this.button58.Click += new System.EventHandler(this.button58_Click);
-            // 
-            // textBox20
-            // 
-            this.textBox20.Location = new System.Drawing.Point(212, 510);
-            this.textBox20.Name = "textBox20";
-            this.textBox20.Size = new System.Drawing.Size(291, 21);
-            this.textBox20.TabIndex = 48;
-            this.textBox20.Text = "atd111";
-            // 
-            // button57
-            // 
-            this.button57.Location = new System.Drawing.Point(10, 507);
-            this.button57.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button57.Name = "button57";
-            this.button57.Size = new System.Drawing.Size(196, 24);
-            this.button57.TabIndex = 47;
-            this.button57.Text = "Emergency call 111";
-            this.button57.UseVisualStyleBackColor = true;
-            this.button57.Click += new System.EventHandler(this.button57_Click);
-            // 
-            // textBox19
-            // 
-            this.textBox19.Location = new System.Drawing.Point(213, 482);
-            this.textBox19.Name = "textBox19";
-            this.textBox19.Size = new System.Drawing.Size(291, 21);
-            this.textBox19.TabIndex = 46;
-            this.textBox19.Text = "AT";
-            // 
-            // button56
-            // 
-            this.button56.Location = new System.Drawing.Point(11, 479);
-            this.button56.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button56.Name = "button56";
-            this.button56.Size = new System.Drawing.Size(196, 24);
-            this.button56.TabIndex = 45;
-            this.button56.Text = "Ping transmission";
-            this.button56.UseVisualStyleBackColor = true;
-            this.button56.Click += new System.EventHandler(this.button56_Click);
-            // 
-            // textBox18
-            // 
-            this.textBox18.Location = new System.Drawing.Point(213, 454);
-            this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(291, 21);
-            this.textBox18.TabIndex = 44;
-            this.textBox18.Text = "AT+QPING=1,\"192.168.2.1\",100,10";
-            // 
-            // button55
-            // 
-            this.button55.Location = new System.Drawing.Point(11, 451);
-            this.button55.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button55.Name = "button55";
-            this.button55.Size = new System.Drawing.Size(196, 24);
-            this.button55.TabIndex = 43;
-            this.button55.Text = "Please send ping";
-            this.button55.UseVisualStyleBackColor = true;
-            this.button55.Click += new System.EventHandler(this.button55_Click);
-            // 
-            // textBox17
-            // 
-            this.textBox17.Location = new System.Drawing.Point(213, 426);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(291, 21);
-            this.textBox17.TabIndex = 42;
-            this.textBox17.Text = "ata";
-            // 
-            // button43
-            // 
-            this.button43.Location = new System.Drawing.Point(11, 423);
-            this.button43.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button43.Name = "button43";
-            this.button43.Size = new System.Drawing.Size(196, 24);
-            this.button43.TabIndex = 41;
-            this.button43.Text = "Try Call Answer";
-            this.button43.UseVisualStyleBackColor = true;
-            this.button43.Click += new System.EventHandler(this.button43_Click);
-            // 
-            // textBox16
-            // 
-            this.textBox16.Location = new System.Drawing.Point(213, 398);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(291, 21);
-            this.textBox16.TabIndex = 40;
-            this.textBox16.Text = "ATH";
-            // 
-            // textBox42
-            // 
-            this.textBox42.Location = new System.Drawing.Point(212, 626);
-            this.textBox42.Name = "textBox42";
-            this.textBox42.Size = new System.Drawing.Size(291, 21);
-            this.textBox42.TabIndex = 17;
-            this.textBox42.Text = "atd118;";
-            // 
-            // button54
-            // 
-            this.button54.Location = new System.Drawing.Point(11, 395);
-            this.button54.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button54.Name = "button54";
-            this.button54.Size = new System.Drawing.Size(196, 24);
-            this.button54.TabIndex = 39;
-            this.button54.Text = "End voice call from the UE";
-            this.button54.UseVisualStyleBackColor = true;
-            this.button54.Click += new System.EventHandler(this.button54_Click);
-            // 
-            // textBox15
-            // 
-            this.textBox15.Location = new System.Drawing.Point(213, 370);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(291, 21);
-            this.textBox15.TabIndex = 38;
-            this.textBox15.Text = "at+chup";
-            // 
-            // textBox43
-            // 
-            this.textBox43.Location = new System.Drawing.Point(213, 595);
-            this.textBox43.Name = "textBox43";
-            this.textBox43.Size = new System.Drawing.Size(291, 21);
-            this.textBox43.TabIndex = 16;
-            this.textBox43.Text = "atd117;";
-            // 
-            // button53
-            // 
-            this.button53.Location = new System.Drawing.Point(11, 367);
-            this.button53.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button53.Name = "button53";
-            this.button53.Size = new System.Drawing.Size(196, 24);
-            this.button53.TabIndex = 37;
-            this.button53.Text = "Try Call End";
-            this.button53.UseVisualStyleBackColor = true;
-            this.button53.Click += new System.EventHandler(this.button53_Click);
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(213, 341);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(291, 21);
-            this.textBox14.TabIndex = 36;
-            this.textBox14.Text = "ATD12345678";
-            // 
-            // button52
-            // 
-            this.button52.Location = new System.Drawing.Point(11, 338);
-            this.button52.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button52.Name = "button52";
-            this.button52.Size = new System.Drawing.Size(196, 24);
-            this.button52.TabIndex = 35;
-            this.button52.Text = "Please make voice call from the UE";
-            this.button52.UseVisualStyleBackColor = true;
-            this.button52.Click += new System.EventHandler(this.button52_Click);
-            // 
-            // textBox13
-            // 
-            this.textBox13.Location = new System.Drawing.Point(213, 312);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(291, 21);
-            this.textBox13.TabIndex = 34;
-            this.textBox13.Text = "ATD01012345678;";
-            // 
-            // button51
-            // 
-            this.button51.Location = new System.Drawing.Point(11, 309);
-            this.button51.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button51.Name = "button51";
-            this.button51.Size = new System.Drawing.Size(196, 24);
-            this.button51.TabIndex = 33;
-            this.button51.Text = "Try MO Voice Call";
-            this.button51.UseVisualStyleBackColor = true;
-            this.button51.Click += new System.EventHandler(this.button51_Click);
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(212, 284);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(291, 21);
-            this.textBox12.TabIndex = 32;
-            this.textBox12.Text = "atd15447769;";
-            // 
-            // button85
-            // 
-            this.button85.Location = new System.Drawing.Point(11, 592);
-            this.button85.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button85.Name = "button85";
-            this.button85.Size = new System.Drawing.Size(196, 24);
-            this.button85.TabIndex = 0;
-            this.button85.Text = "Emergency call 117";
-            this.button85.UseVisualStyleBackColor = true;
-            this.button85.Click += new System.EventHandler(this.button85_Click);
-            // 
-            // button50
-            // 
-            this.button50.Location = new System.Drawing.Point(10, 281);
-            this.button50.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button50.Name = "button50";
-            this.button50.Size = new System.Drawing.Size(196, 24);
-            this.button50.TabIndex = 31;
-            this.button50.Text = "Try MO Voice Call(15447769)";
-            this.button50.UseVisualStyleBackColor = true;
-            this.button50.Click += new System.EventHandler(this.button50_Click);
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(212, 256);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(291, 21);
-            this.textBox11.TabIndex = 30;
-            this.textBox11.Text = "AT+CGACT=0,1";
-            // 
-            // button49
-            // 
-            this.button49.Location = new System.Drawing.Point(10, 253);
-            this.button49.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button49.Name = "button49";
-            this.button49.Size = new System.Drawing.Size(196, 24);
-            this.button49.TabIndex = 29;
-            this.button49.Text = "Data off on the phone";
-            this.button49.UseVisualStyleBackColor = true;
-            this.button49.Click += new System.EventHandler(this.button49_Click);
-            // 
-            // textBox10
-            // 
-            this.textBox10.Location = new System.Drawing.Point(212, 224);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(291, 21);
-            this.textBox10.TabIndex = 28;
-            this.textBox10.Text = "AT+CGACT=0,1";
-            // 
-            // button48
-            // 
-            this.button48.Location = new System.Drawing.Point(10, 221);
-            this.button48.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button48.Name = "button48";
-            this.button48.Size = new System.Drawing.Size(196, 24);
-            this.button48.TabIndex = 27;
-            this.button48.Text = "Deactivate Data PDN";
-            this.button48.UseVisualStyleBackColor = true;
-            this.button48.Click += new System.EventHandler(this.button48_Click);
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(212, 193);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(291, 21);
-            this.textBox9.TabIndex = 26;
-            this.textBox9.Text = "AT+CGACT=1,1";
-            // 
-            // button47
-            // 
-            this.button47.Location = new System.Drawing.Point(10, 190);
-            this.button47.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button47.Name = "button47";
-            this.button47.Size = new System.Drawing.Size(196, 24);
-            this.button47.TabIndex = 25;
-            this.button47.Text = "Data enable on the phone";
-            this.button47.UseVisualStyleBackColor = true;
-            this.button47.Click += new System.EventHandler(this.button47_Click);
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(212, 165);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(291, 21);
-            this.textBox8.TabIndex = 24;
-            this.textBox8.Text = "AT+CGACT=1,1";
-            // 
-            // button46
-            // 
-            this.button46.Location = new System.Drawing.Point(10, 162);
-            this.button46.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button46.Name = "button46";
-            this.button46.Size = new System.Drawing.Size(196, 24);
-            this.button46.TabIndex = 23;
-            this.button46.Text = "Activate Data PDN";
-            this.button46.UseVisualStyleBackColor = true;
-            this.button46.Click += new System.EventHandler(this.button46_Click);
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(212, 137);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(291, 21);
-            this.textBox7.TabIndex = 22;
-            this.textBox7.Text = "AT+CFUN=1,1";
-            // 
-            // button45
-            // 
-            this.button45.Location = new System.Drawing.Point(10, 134);
-            this.button45.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button45.Name = "button45";
-            this.button45.Size = new System.Drawing.Size(196, 24);
-            this.button45.TabIndex = 21;
-            this.button45.Text = "Reboot DUT";
-            this.button45.UseVisualStyleBackColor = true;
-            this.button45.Click += new System.EventHandler(this.button45_Click);
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(212, 77);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(291, 21);
-            this.textBox6.TabIndex = 20;
-            this.textBox6.Text = "at+cfun=1,1";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(212, 52);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(291, 21);
-            this.textBox5.TabIndex = 19;
-            this.textBox5.Text = "at+cfun=1,1";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(212, 25);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(291, 21);
-            this.textBox4.TabIndex = 18;
-            this.textBox4.Text = "at+cfun=0";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(212, 109);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(291, 21);
-            this.textBox1.TabIndex = 15;
-            this.textBox1.Text = "AT+CFUN=1,1";
-            // 
-            // button37
-            // 
-            this.button37.Location = new System.Drawing.Point(10, 106);
-            this.button37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button37.Name = "button37";
-            this.button37.Size = new System.Drawing.Size(196, 24);
-            this.button37.TabIndex = 14;
-            this.button37.Text = "Please reboot phone";
-            this.button37.UseVisualStyleBackColor = true;
-            this.button37.Click += new System.EventHandler(this.button37_Click);
-            // 
-            // button38
-            // 
-            this.button38.Location = new System.Drawing.Point(10, 77);
-            this.button38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(196, 24);
-            this.button38.TabIndex = 12;
-            this.button38.Text = "Please power off the UE";
-            this.button38.UseVisualStyleBackColor = true;
-            this.button38.Click += new System.EventHandler(this.button38_Click);
-            // 
-            // button39
-            // 
-            this.button39.Location = new System.Drawing.Point(10, 49);
-            this.button39.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button39.Name = "button39";
-            this.button39.Size = new System.Drawing.Size(196, 24);
-            this.button39.TabIndex = 10;
-            this.button39.Text = "Switch on the phone";
-            this.button39.UseVisualStyleBackColor = true;
-            this.button39.Click += new System.EventHandler(this.button39_Click);
-            // 
-            // button42
-            // 
-            this.button42.Location = new System.Drawing.Point(10, 22);
-            this.button42.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button42.Name = "button42";
-            this.button42.Size = new System.Drawing.Size(196, 24);
-            this.button42.TabIndex = 8;
-            this.button42.Text = "Switch off the phone";
-            this.button42.UseVisualStyleBackColor = true;
-            this.button42.Click += new System.EventHandler(this.button42_Click);
+            // btProxy322
+            // 
+            this.btProxy322.Location = new System.Drawing.Point(11, 621);
+            this.btProxy322.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy322.Name = "btProxy322";
+            this.btProxy322.Size = new System.Drawing.Size(196, 24);
+            this.btProxy322.TabIndex = 39;
+            this.btProxy322.Text = "Emergency call 118";
+            this.btProxy322.UseVisualStyleBackColor = true;
+            this.btProxy322.Click += new System.EventHandler(this.button60_Click);
+            // 
+            // tBProxy320
+            // 
+            this.tBProxy320.Location = new System.Drawing.Point(213, 567);
+            this.tBProxy320.Name = "tBProxy320";
+            this.tBProxy320.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy320.TabIndex = 52;
+            this.tBProxy320.Text = "atd113;";
+            // 
+            // btProxy320
+            // 
+            this.btProxy320.Location = new System.Drawing.Point(11, 564);
+            this.btProxy320.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy320.Name = "btProxy320";
+            this.btProxy320.Size = new System.Drawing.Size(196, 24);
+            this.btProxy320.TabIndex = 51;
+            this.btProxy320.Text = "Emergency call 113";
+            this.btProxy320.UseVisualStyleBackColor = true;
+            this.btProxy320.Click += new System.EventHandler(this.button59_Click);
+            // 
+            // tBProxy319
+            // 
+            this.tBProxy319.Location = new System.Drawing.Point(213, 538);
+            this.tBProxy319.Name = "tBProxy319";
+            this.tBProxy319.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy319.TabIndex = 50;
+            this.tBProxy319.Text = "atd112;";
+            // 
+            // btProxy319
+            // 
+            this.btProxy319.Location = new System.Drawing.Point(11, 535);
+            this.btProxy319.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy319.Name = "btProxy319";
+            this.btProxy319.Size = new System.Drawing.Size(196, 24);
+            this.btProxy319.TabIndex = 49;
+            this.btProxy319.Text = "Emergency call 112";
+            this.btProxy319.UseVisualStyleBackColor = true;
+            this.btProxy319.Click += new System.EventHandler(this.button58_Click);
+            // 
+            // tBProxy318
+            // 
+            this.tBProxy318.Location = new System.Drawing.Point(212, 510);
+            this.tBProxy318.Name = "tBProxy318";
+            this.tBProxy318.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy318.TabIndex = 48;
+            this.tBProxy318.Text = "atd111;";
+            // 
+            // btProxy318
+            // 
+            this.btProxy318.Location = new System.Drawing.Point(10, 507);
+            this.btProxy318.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy318.Name = "btProxy318";
+            this.btProxy318.Size = new System.Drawing.Size(196, 24);
+            this.btProxy318.TabIndex = 47;
+            this.btProxy318.Text = "Emergency call 111";
+            this.btProxy318.UseVisualStyleBackColor = true;
+            this.btProxy318.Click += new System.EventHandler(this.button57_Click);
+            // 
+            // tBProxy317
+            // 
+            this.tBProxy317.Location = new System.Drawing.Point(213, 482);
+            this.tBProxy317.Name = "tBProxy317";
+            this.tBProxy317.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy317.TabIndex = 46;
+            this.tBProxy317.Text = "AT";
+            // 
+            // btProxy317
+            // 
+            this.btProxy317.Location = new System.Drawing.Point(11, 479);
+            this.btProxy317.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy317.Name = "btProxy317";
+            this.btProxy317.Size = new System.Drawing.Size(196, 24);
+            this.btProxy317.TabIndex = 45;
+            this.btProxy317.Text = "Ping transmission";
+            this.btProxy317.UseVisualStyleBackColor = true;
+            this.btProxy317.Click += new System.EventHandler(this.button56_Click);
+            // 
+            // tBProxy316
+            // 
+            this.tBProxy316.Location = new System.Drawing.Point(213, 454);
+            this.tBProxy316.Name = "tBProxy316";
+            this.tBProxy316.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy316.TabIndex = 44;
+            this.tBProxy316.Text = "AT+QPING=1,\"192.168.2.1\",100,10";
+            // 
+            // btProxy316
+            // 
+            this.btProxy316.Location = new System.Drawing.Point(11, 451);
+            this.btProxy316.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy316.Name = "btProxy316";
+            this.btProxy316.Size = new System.Drawing.Size(196, 24);
+            this.btProxy316.TabIndex = 43;
+            this.btProxy316.Text = "Please send ping";
+            this.btProxy316.UseVisualStyleBackColor = true;
+            this.btProxy316.Click += new System.EventHandler(this.button55_Click);
+            // 
+            // tBProxy315
+            // 
+            this.tBProxy315.Location = new System.Drawing.Point(213, 426);
+            this.tBProxy315.Name = "tBProxy315";
+            this.tBProxy315.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy315.TabIndex = 42;
+            this.tBProxy315.Text = "ata";
+            // 
+            // btProxy315
+            // 
+            this.btProxy315.Location = new System.Drawing.Point(11, 423);
+            this.btProxy315.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy315.Name = "btProxy315";
+            this.btProxy315.Size = new System.Drawing.Size(196, 24);
+            this.btProxy315.TabIndex = 41;
+            this.btProxy315.Text = "Try Call Answer";
+            this.btProxy315.UseVisualStyleBackColor = true;
+            this.btProxy315.Click += new System.EventHandler(this.button43_Click);
+            // 
+            // tBProxy314
+            // 
+            this.tBProxy314.Location = new System.Drawing.Point(213, 398);
+            this.tBProxy314.Name = "tBProxy314";
+            this.tBProxy314.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy314.TabIndex = 40;
+            this.tBProxy314.Text = "ATH";
+            // 
+            // tBProxy322
+            // 
+            this.tBProxy322.Location = new System.Drawing.Point(212, 626);
+            this.tBProxy322.Name = "tBProxy322";
+            this.tBProxy322.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy322.TabIndex = 17;
+            this.tBProxy322.Text = "atd118;";
+            // 
+            // btProxy314
+            // 
+            this.btProxy314.Location = new System.Drawing.Point(11, 395);
+            this.btProxy314.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy314.Name = "btProxy314";
+            this.btProxy314.Size = new System.Drawing.Size(196, 24);
+            this.btProxy314.TabIndex = 39;
+            this.btProxy314.Text = "End voice call from the UE";
+            this.btProxy314.UseVisualStyleBackColor = true;
+            this.btProxy314.Click += new System.EventHandler(this.button54_Click);
+            // 
+            // tBProxy313
+            // 
+            this.tBProxy313.Location = new System.Drawing.Point(213, 370);
+            this.tBProxy313.Name = "tBProxy313";
+            this.tBProxy313.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy313.TabIndex = 38;
+            this.tBProxy313.Text = "at+chup";
+            // 
+            // tBProxy321
+            // 
+            this.tBProxy321.Location = new System.Drawing.Point(213, 595);
+            this.tBProxy321.Name = "tBProxy321";
+            this.tBProxy321.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy321.TabIndex = 16;
+            this.tBProxy321.Text = "atd117;";
+            // 
+            // btProxy313
+            // 
+            this.btProxy313.Location = new System.Drawing.Point(11, 367);
+            this.btProxy313.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy313.Name = "btProxy313";
+            this.btProxy313.Size = new System.Drawing.Size(196, 24);
+            this.btProxy313.TabIndex = 37;
+            this.btProxy313.Text = "Try Call End";
+            this.btProxy313.UseVisualStyleBackColor = true;
+            this.btProxy313.Click += new System.EventHandler(this.button53_Click);
+            // 
+            // tBProxy312
+            // 
+            this.tBProxy312.Location = new System.Drawing.Point(213, 341);
+            this.tBProxy312.Name = "tBProxy312";
+            this.tBProxy312.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy312.TabIndex = 36;
+            this.tBProxy312.Text = "ATD12345678";
+            // 
+            // btProxy312
+            // 
+            this.btProxy312.Location = new System.Drawing.Point(11, 338);
+            this.btProxy312.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy312.Name = "btProxy312";
+            this.btProxy312.Size = new System.Drawing.Size(196, 24);
+            this.btProxy312.TabIndex = 35;
+            this.btProxy312.Text = "Please make voice call from the UE";
+            this.btProxy312.UseVisualStyleBackColor = true;
+            this.btProxy312.Click += new System.EventHandler(this.button52_Click);
+            // 
+            // tBProxy311
+            // 
+            this.tBProxy311.Location = new System.Drawing.Point(213, 312);
+            this.tBProxy311.Name = "tBProxy311";
+            this.tBProxy311.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy311.TabIndex = 34;
+            this.tBProxy311.Text = "ATD01012345678;";
+            // 
+            // btProxy311
+            // 
+            this.btProxy311.Location = new System.Drawing.Point(11, 309);
+            this.btProxy311.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy311.Name = "btProxy311";
+            this.btProxy311.Size = new System.Drawing.Size(196, 24);
+            this.btProxy311.TabIndex = 33;
+            this.btProxy311.Text = "Try MO Voice Call";
+            this.btProxy311.UseVisualStyleBackColor = true;
+            this.btProxy311.Click += new System.EventHandler(this.button51_Click);
+            // 
+            // tBProxy310
+            // 
+            this.tBProxy310.Location = new System.Drawing.Point(212, 284);
+            this.tBProxy310.Name = "tBProxy310";
+            this.tBProxy310.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy310.TabIndex = 32;
+            this.tBProxy310.Text = "atd15447769;";
+            // 
+            // btProxy321
+            // 
+            this.btProxy321.Location = new System.Drawing.Point(11, 592);
+            this.btProxy321.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy321.Name = "btProxy321";
+            this.btProxy321.Size = new System.Drawing.Size(196, 24);
+            this.btProxy321.TabIndex = 0;
+            this.btProxy321.Text = "Emergency call 117";
+            this.btProxy321.UseVisualStyleBackColor = true;
+            this.btProxy321.Click += new System.EventHandler(this.button85_Click);
+            // 
+            // btProxy310
+            // 
+            this.btProxy310.Location = new System.Drawing.Point(10, 281);
+            this.btProxy310.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy310.Name = "btProxy310";
+            this.btProxy310.Size = new System.Drawing.Size(196, 24);
+            this.btProxy310.TabIndex = 31;
+            this.btProxy310.Text = "Try MO Voice Call(15447769)";
+            this.btProxy310.UseVisualStyleBackColor = true;
+            this.btProxy310.Click += new System.EventHandler(this.button50_Click);
+            // 
+            // tBProxy309
+            // 
+            this.tBProxy309.Location = new System.Drawing.Point(212, 256);
+            this.tBProxy309.Name = "tBProxy309";
+            this.tBProxy309.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy309.TabIndex = 30;
+            this.tBProxy309.Text = "AT+CGACT=0,1";
+            // 
+            // btProxy309
+            // 
+            this.btProxy309.Location = new System.Drawing.Point(10, 253);
+            this.btProxy309.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy309.Name = "btProxy309";
+            this.btProxy309.Size = new System.Drawing.Size(196, 24);
+            this.btProxy309.TabIndex = 29;
+            this.btProxy309.Text = "Data off on the phone";
+            this.btProxy309.UseVisualStyleBackColor = true;
+            this.btProxy309.Click += new System.EventHandler(this.button49_Click);
+            // 
+            // tBProxy308
+            // 
+            this.tBProxy308.Location = new System.Drawing.Point(212, 224);
+            this.tBProxy308.Name = "tBProxy308";
+            this.tBProxy308.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy308.TabIndex = 28;
+            this.tBProxy308.Text = "AT+CGACT=0,1";
+            // 
+            // btProxy308
+            // 
+            this.btProxy308.Location = new System.Drawing.Point(10, 221);
+            this.btProxy308.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy308.Name = "btProxy308";
+            this.btProxy308.Size = new System.Drawing.Size(196, 24);
+            this.btProxy308.TabIndex = 27;
+            this.btProxy308.Text = "Deactivate Data PDN";
+            this.btProxy308.UseVisualStyleBackColor = true;
+            this.btProxy308.Click += new System.EventHandler(this.button48_Click);
+            // 
+            // tBProxy307
+            // 
+            this.tBProxy307.Location = new System.Drawing.Point(212, 193);
+            this.tBProxy307.Name = "tBProxy307";
+            this.tBProxy307.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy307.TabIndex = 26;
+            this.tBProxy307.Text = "AT+CGACT=1,1";
+            // 
+            // btProxy307
+            // 
+            this.btProxy307.Location = new System.Drawing.Point(10, 190);
+            this.btProxy307.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy307.Name = "btProxy307";
+            this.btProxy307.Size = new System.Drawing.Size(196, 24);
+            this.btProxy307.TabIndex = 25;
+            this.btProxy307.Text = "Data enable on the phone";
+            this.btProxy307.UseVisualStyleBackColor = true;
+            this.btProxy307.Click += new System.EventHandler(this.button47_Click);
+            // 
+            // tBProxy306
+            // 
+            this.tBProxy306.Location = new System.Drawing.Point(212, 165);
+            this.tBProxy306.Name = "tBProxy306";
+            this.tBProxy306.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy306.TabIndex = 24;
+            this.tBProxy306.Text = "AT+CGACT=1,1";
+            // 
+            // btProxy306
+            // 
+            this.btProxy306.Location = new System.Drawing.Point(10, 162);
+            this.btProxy306.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy306.Name = "btProxy306";
+            this.btProxy306.Size = new System.Drawing.Size(196, 24);
+            this.btProxy306.TabIndex = 23;
+            this.btProxy306.Text = "Activate Data PDN";
+            this.btProxy306.UseVisualStyleBackColor = true;
+            this.btProxy306.Click += new System.EventHandler(this.button46_Click);
+            // 
+            // tBProxy305
+            // 
+            this.tBProxy305.Location = new System.Drawing.Point(212, 137);
+            this.tBProxy305.Name = "tBProxy305";
+            this.tBProxy305.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy305.TabIndex = 22;
+            this.tBProxy305.Text = "AT+CFUN=1,1";
+            // 
+            // btProxy305
+            // 
+            this.btProxy305.Location = new System.Drawing.Point(10, 134);
+            this.btProxy305.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy305.Name = "btProxy305";
+            this.btProxy305.Size = new System.Drawing.Size(196, 24);
+            this.btProxy305.TabIndex = 21;
+            this.btProxy305.Text = "Reboot DUT";
+            this.btProxy305.UseVisualStyleBackColor = true;
+            this.btProxy305.Click += new System.EventHandler(this.button45_Click);
+            // 
+            // tBProxy303
+            // 
+            this.tBProxy303.Location = new System.Drawing.Point(212, 77);
+            this.tBProxy303.Name = "tBProxy303";
+            this.tBProxy303.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy303.TabIndex = 20;
+            this.tBProxy303.Text = "at+cfun=1,1";
+            // 
+            // tBProxy302
+            // 
+            this.tBProxy302.Location = new System.Drawing.Point(212, 52);
+            this.tBProxy302.Name = "tBProxy302";
+            this.tBProxy302.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy302.TabIndex = 19;
+            this.tBProxy302.Text = "at+cfun=1,1";
+            // 
+            // tBProxy301
+            // 
+            this.tBProxy301.Location = new System.Drawing.Point(212, 25);
+            this.tBProxy301.Name = "tBProxy301";
+            this.tBProxy301.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy301.TabIndex = 18;
+            this.tBProxy301.Text = "at+cfun=0";
+            // 
+            // tBProxy304
+            // 
+            this.tBProxy304.Location = new System.Drawing.Point(212, 109);
+            this.tBProxy304.Name = "tBProxy304";
+            this.tBProxy304.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy304.TabIndex = 15;
+            this.tBProxy304.Text = "AT+CFUN=1,1";
+            // 
+            // btProxy304
+            // 
+            this.btProxy304.Location = new System.Drawing.Point(10, 106);
+            this.btProxy304.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy304.Name = "btProxy304";
+            this.btProxy304.Size = new System.Drawing.Size(196, 24);
+            this.btProxy304.TabIndex = 14;
+            this.btProxy304.Text = "Please reboot phone";
+            this.btProxy304.UseVisualStyleBackColor = true;
+            this.btProxy304.Click += new System.EventHandler(this.button37_Click);
+            // 
+            // btProxy303
+            // 
+            this.btProxy303.Location = new System.Drawing.Point(10, 77);
+            this.btProxy303.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy303.Name = "btProxy303";
+            this.btProxy303.Size = new System.Drawing.Size(196, 24);
+            this.btProxy303.TabIndex = 12;
+            this.btProxy303.Text = "Please power off the UE";
+            this.btProxy303.UseVisualStyleBackColor = true;
+            this.btProxy303.Click += new System.EventHandler(this.button38_Click);
+            // 
+            // btProxy302
+            // 
+            this.btProxy302.Location = new System.Drawing.Point(10, 49);
+            this.btProxy302.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy302.Name = "btProxy302";
+            this.btProxy302.Size = new System.Drawing.Size(196, 24);
+            this.btProxy302.TabIndex = 10;
+            this.btProxy302.Text = "Switch on the phone";
+            this.btProxy302.UseVisualStyleBackColor = true;
+            this.btProxy302.Click += new System.EventHandler(this.button39_Click);
+            // 
+            // btProxy301
+            // 
+            this.btProxy301.Location = new System.Drawing.Point(10, 22);
+            this.btProxy301.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btProxy301.Name = "btProxy301";
+            this.btProxy301.Size = new System.Drawing.Size(196, 24);
+            this.btProxy301.TabIndex = 8;
+            this.btProxy301.Text = "Switch off the phone";
+            this.btProxy301.UseVisualStyleBackColor = true;
+            this.btProxy301.Click += new System.EventHandler(this.button42_Click);
             // 
             // button40
             // 
@@ -4991,60 +5048,6 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(208, 302);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(291, 21);
-            this.textBox2.TabIndex = 38;
-            this.textBox2.Text = "AT+CNEC=24";
-            // 
-            // button44
-            // 
-            this.button44.Location = new System.Drawing.Point(6, 299);
-            this.button44.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(196, 24);
-            this.button44.TabIndex = 37;
-            this.button44.Text = "Please set EMM/ESM cause";
-            this.button44.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(208, 270);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(291, 21);
-            this.textBox3.TabIndex = 36;
-            this.textBox3.Text = "AT+CPSMS=0";
-            // 
-            // button130
-            // 
-            this.button130.Location = new System.Drawing.Point(6, 267);
-            this.button130.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button130.Name = "button130";
-            this.button130.Size = new System.Drawing.Size(196, 24);
-            this.button130.TabIndex = 35;
-            this.button130.Text = "Please PSM Off";
-            this.button130.UseVisualStyleBackColor = true;
-            // 
-            // textBox82
-            // 
-            this.textBox82.Location = new System.Drawing.Point(208, 239);
-            this.textBox82.Name = "textBox82";
-            this.textBox82.Size = new System.Drawing.Size(291, 21);
-            this.textBox82.TabIndex = 34;
-            this.textBox82.Text = "AT+CPSMS=1,,,\"10000101\",\"00100010\"";
-            // 
-            // button131
-            // 
-            this.button131.Location = new System.Drawing.Point(6, 236);
-            this.button131.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button131.Name = "button131";
-            this.button131.Size = new System.Drawing.Size(196, 24);
-            this.button131.TabIndex = 33;
-            this.button131.Text = "Please PSM On";
-            this.button131.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5214,77 +5217,77 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button button73;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.Button button54;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.Button button53;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.Button button52;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.Button button51;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.Button button50;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.Button button49;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Button button48;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.Button button47;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Button button46;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Button button45;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button37;
-        private System.Windows.Forms.Button button38;
-        private System.Windows.Forms.Button button39;
-        private System.Windows.Forms.Button button42;
-        private System.Windows.Forms.TextBox textBox22;
-        private System.Windows.Forms.Button button59;
-        private System.Windows.Forms.TextBox textBox21;
-        private System.Windows.Forms.Button button58;
-        private System.Windows.Forms.TextBox textBox20;
-        private System.Windows.Forms.Button button57;
-        private System.Windows.Forms.TextBox textBox19;
-        private System.Windows.Forms.Button button56;
-        private System.Windows.Forms.TextBox textBox18;
-        private System.Windows.Forms.Button button55;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.Button button43;
+        private System.Windows.Forms.TextBox tBProxy314;
+        private System.Windows.Forms.Button btProxy314;
+        private System.Windows.Forms.TextBox tBProxy313;
+        private System.Windows.Forms.Button btProxy313;
+        private System.Windows.Forms.TextBox tBProxy312;
+        private System.Windows.Forms.Button btProxy312;
+        private System.Windows.Forms.TextBox tBProxy311;
+        private System.Windows.Forms.Button btProxy311;
+        private System.Windows.Forms.TextBox tBProxy310;
+        private System.Windows.Forms.Button btProxy310;
+        private System.Windows.Forms.TextBox tBProxy309;
+        private System.Windows.Forms.Button btProxy309;
+        private System.Windows.Forms.TextBox tBProxy308;
+        private System.Windows.Forms.Button btProxy308;
+        private System.Windows.Forms.TextBox tBProxy307;
+        private System.Windows.Forms.Button btProxy307;
+        private System.Windows.Forms.TextBox tBProxy306;
+        private System.Windows.Forms.Button btProxy306;
+        private System.Windows.Forms.TextBox tBProxy305;
+        private System.Windows.Forms.Button btProxy305;
+        private System.Windows.Forms.TextBox tBProxy303;
+        private System.Windows.Forms.TextBox tBProxy302;
+        private System.Windows.Forms.TextBox tBProxy301;
+        private System.Windows.Forms.TextBox tBProxy304;
+        private System.Windows.Forms.Button btProxy304;
+        private System.Windows.Forms.Button btProxy303;
+        private System.Windows.Forms.Button btProxy302;
+        private System.Windows.Forms.Button btProxy301;
+        private System.Windows.Forms.TextBox tBProxy320;
+        private System.Windows.Forms.Button btProxy320;
+        private System.Windows.Forms.TextBox tBProxy319;
+        private System.Windows.Forms.Button btProxy319;
+        private System.Windows.Forms.TextBox tBProxy318;
+        private System.Windows.Forms.Button btProxy318;
+        private System.Windows.Forms.TextBox tBProxy317;
+        private System.Windows.Forms.Button btProxy317;
+        private System.Windows.Forms.TextBox tBProxy316;
+        private System.Windows.Forms.Button btProxy316;
+        private System.Windows.Forms.TextBox tBProxy315;
+        private System.Windows.Forms.Button btProxy315;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button button60;
-        private System.Windows.Forms.TextBox textBox34;
-        private System.Windows.Forms.Button button76;
-        private System.Windows.Forms.TextBox textBox35;
-        private System.Windows.Forms.Button button77;
-        private System.Windows.Forms.TextBox textBox36;
-        private System.Windows.Forms.Button button78;
-        private System.Windows.Forms.TextBox textBox37;
-        private System.Windows.Forms.Button button79;
-        private System.Windows.Forms.TextBox textBox39;
-        private System.Windows.Forms.TextBox textBox41;
-        private System.Windows.Forms.TextBox textBox42;
-        private System.Windows.Forms.TextBox textBox43;
-        private System.Windows.Forms.Button button82;
-        private System.Windows.Forms.Button button84;
-        private System.Windows.Forms.Button button85;
+        private System.Windows.Forms.Button btProxy322;
+        private System.Windows.Forms.TextBox tBProxy329;
+        private System.Windows.Forms.Button btProxy329;
+        private System.Windows.Forms.TextBox tBProxy328;
+        private System.Windows.Forms.Button btProxy328;
+        private System.Windows.Forms.TextBox tBProxy327;
+        private System.Windows.Forms.Button btProxy327;
+        private System.Windows.Forms.TextBox tBProxy326;
+        private System.Windows.Forms.Button btProxy326;
+        private System.Windows.Forms.TextBox tBProxy325;
+        private System.Windows.Forms.TextBox tBProxy323;
+        private System.Windows.Forms.TextBox tBProxy322;
+        private System.Windows.Forms.TextBox tBProxy321;
+        private System.Windows.Forms.Button btProxy325;
+        private System.Windows.Forms.Button btProxy323;
+        private System.Windows.Forms.Button btProxy321;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button button61;
-        private System.Windows.Forms.TextBox textBox26;
-        private System.Windows.Forms.Button button65;
-        private System.Windows.Forms.TextBox textBox27;
-        private System.Windows.Forms.Button button66;
-        private System.Windows.Forms.TextBox textBox30;
-        private System.Windows.Forms.TextBox textBox31;
-        private System.Windows.Forms.TextBox textBox32;
-        private System.Windows.Forms.Button button67;
-        private System.Windows.Forms.Button button75;
+        private System.Windows.Forms.Button btProxy430;
+        private System.Windows.Forms.TextBox tBProxy437;
+        private System.Windows.Forms.Button btProxy437;
+        private System.Windows.Forms.TextBox tBProxy436;
+        private System.Windows.Forms.Button btProxy436;
+        private System.Windows.Forms.TextBox tBProxy431;
+        private System.Windows.Forms.TextBox tBProxy430;
+        private System.Windows.Forms.TextBox tBProxy435;
+        private System.Windows.Forms.Button btProxy435;
+        private System.Windows.Forms.Button btProxy431;
         private System.Windows.Forms.Button button68;
-        private System.Windows.Forms.TextBox textBox23;
-        private System.Windows.Forms.Button button69;
+        private System.Windows.Forms.TextBox tBProxy324;
+        private System.Windows.Forms.Button btProxy324;
         private System.Windows.Forms.Button button72;
         private System.Windows.Forms.Button button81;
         private System.Windows.Forms.GroupBox groupBox11;
@@ -5547,12 +5550,12 @@
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.Button button129;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button44;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button130;
-        private System.Windows.Forms.TextBox textBox82;
-        private System.Windows.Forms.Button button131;
+        private System.Windows.Forms.TextBox tBProxy334;
+        private System.Windows.Forms.Button btProxy334;
+        private System.Windows.Forms.TextBox tBProxy333;
+        private System.Windows.Forms.Button btProxy333;
+        private System.Windows.Forms.TextBox tBProxy332;
+        private System.Windows.Forms.Button btProxy332;
     }
 }
 

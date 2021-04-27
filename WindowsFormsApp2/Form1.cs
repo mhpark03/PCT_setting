@@ -3239,7 +3239,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = tBProxy304.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -3253,7 +3253,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = tBProxy304.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -4005,10 +4005,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 XElement xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", button42.Text),
+                      new XElement("From", btProxy301.Text),
                       new XElement("To", 
                         new XAttribute("closePort", "yes"),
-                        textBox4.Text
+                        tBProxy301.Text
                       )
                     )
                   );
@@ -4019,10 +4019,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", button39.Text),
+                      new XElement("From", btProxy302.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox5.Text
+                        tBProxy302.Text
                       )
                     )
                   );
@@ -4033,10 +4033,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Activate SMS mode"),
+                      new XElement("From", btProxy303.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox6.Text
+                        tBProxy303.Text
                       )
                     )
                   );
@@ -4047,10 +4047,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Try MO SMS"),
+                      new XElement("From", btProxy304.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox1.Text
+                        tBProxy304.Text
                       )
                     )
                   );
@@ -4061,10 +4061,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 111"),
+                      new XElement("From", btProxy305.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox7.Text
+                        tBProxy305.Text
                       )
                     )
                   );
@@ -4075,10 +4075,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 112"),
+                      new XElement("From", btProxy306.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox8.Text
+                        tBProxy306.Text
                       )
                     )
                   );
@@ -4089,10 +4089,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Normal call 114"),
+                      new XElement("From", btProxy307.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox9.Text
+                        tBProxy307.Text
                       )
                     )
                   );
@@ -4103,10 +4103,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 113"),
+                      new XElement("From", btProxy308.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox10.Text
+                        tBProxy308.Text
                       )
                     )
                   );
@@ -4117,10 +4117,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 117"),
+                      new XElement("From", btProxy309.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox11.Text
+                        tBProxy309.Text
                       )
                     )
                   );
@@ -4131,10 +4131,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 118"),
+                      new XElement("From", btProxy310.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox12.Text
+                        tBProxy310.Text
                       )
                     )
                   );
@@ -4145,10 +4145,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 119"),
+                      new XElement("From", btProxy311.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox13.Text
+                        tBProxy311.Text
                       )
                     )
                   );
@@ -4159,10 +4159,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 122"),
+                      new XElement("From", btProxy312.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox14.Text
+                        tBProxy312.Text
                       )
                     )
                   );
@@ -4173,10 +4173,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Emergency call 125"),
+                      new XElement("From", btProxy313.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox15.Text
+                        tBProxy313.Text
                       )
                     )
                   );
@@ -4187,10 +4187,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Switch off the phone"),
+                      new XElement("From", btProxy314.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox16.Text
+                        tBProxy314.Text
                       )
                     )
                   );
@@ -4201,10 +4201,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please power off the UE"),
+                      new XElement("From", btProxy315.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox17.Text
+                        tBProxy315.Text
                       )
                     )
                   );
@@ -4215,10 +4215,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please make voice call from the UE"),
+                      new XElement("From", btProxy316.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox18.Text
+                        tBProxy316.Text
                       )
                     )
                   );
@@ -4229,10 +4229,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Try MO Voice Call(15447769)"),
+                      new XElement("From", btProxy317.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox19.Text
+                        tBProxy317.Text
                       )
                     )
                   );
@@ -4243,10 +4243,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Try MO Voice Call"),
+                      new XElement("From", btProxy318.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox20.Text
+                        tBProxy318.Text
                       )
                     )
                   );
@@ -4257,10 +4257,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Try Call Answer"),
+                      new XElement("From", btProxy319.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox21.Text
+                        tBProxy319.Text
                       )
                     )
                   );
@@ -4271,10 +4271,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Try Call End"),
+                      new XElement("From", btProxy320.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox22.Text
+                        tBProxy320.Text
                       )
                     )
                   );
@@ -4285,10 +4285,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "End voice call from the UE"),
+                      new XElement("From", btProxy321.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox43.Text
+                        tBProxy321.Text
                       )
                     )
                   );
@@ -4299,10 +4299,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Check PDN Address"),
+                      new XElement("From", btProxy322.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox42.Text
+                        tBProxy322.Text
                       )
                     )
                   );
@@ -4313,10 +4313,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please set EMM/ESM cause"),
+                      new XElement("From", btProxy323.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox41.Text
+                        tBProxy323.Text
                       )
                     )
                   );
@@ -4327,10 +4327,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please reboot phone"),
+                      new XElement("From", btProxy324.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox23.Text
+                        tBProxy324.Text
                       )
                     )
                   );
@@ -4341,10 +4341,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please connect pdn"),
+                      new XElement("From", btProxy325.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox39.Text
+                        tBProxy325.Text
                       )
                     )
                   );
@@ -4355,10 +4355,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please PSM On"),
+                      new XElement("From", btProxy326.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox37.Text
+                        tBProxy326.Text
                       )
                     )
                   );
@@ -4369,10 +4369,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Please PSM Off"),
+                      new XElement("From", btProxy327.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox36.Text
+                        tBProxy327.Text
                       )
                     )
                   );
@@ -4383,10 +4383,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Deactivate Data PDN"),
+                      new XElement("From", btProxy328.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox35.Text
+                        tBProxy328.Text
                       )
                     )
                   );
@@ -4397,10 +4397,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", "Activate Data PDN"),
+                      new XElement("From", btProxy329.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox34.Text
+                        tBProxy329.Text
                       )
                     )
                   );
@@ -4411,10 +4411,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", button131.Text),
+                      new XElement("From", btProxy332.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox82.Text
+                        tBProxy332.Text
                       )
                     )
                   );
@@ -4425,10 +4425,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", button130.Text),
+                      new XElement("From", btProxy333.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox3.Text
+                        tBProxy333.Text
                       )
                     )
                   );
@@ -4439,10 +4439,10 @@ namespace WindowsFormsApp2
                 xApp.Add(xcomment);
                 xOption = new XElement("Options",
                     new XElement("ClientReceiveRemap",
-                      new XElement("From", button44.Text),
+                      new XElement("From", btProxy334.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox2.Text
+                        tBProxy334.Text
                       )
                     )
                   );
@@ -4461,23 +4461,35 @@ namespace WindowsFormsApp2
                 comment_index = 30;
                 xcomment = new XComment(" " + comment_index.ToString() + " ");
                 xApp.Add(xcomment);
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "AT+CGACT=1,1"),
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", btProxy430.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox31.Text
+                        tBProxy430.Text
+                      )
                     )
                   );
-                xOptions.Add(xOption);
+                xApp.Add(xOption);
 
                 comment_index++;
                 xcomment = new XComment(" " + comment_index.ToString() + " ");
                 xApp.Add(xcomment);
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "AT+CGACT=1=0,1"),
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", btProxy431.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox30.Text
+                        tBProxy431.Text
+                      )
+                    )
+                  );
+                xApp.Add(xOption);
+                xOption = new XElement("ClientReceiveRemap",
+                      new XElement("From", btProxy431.Text),
+                      new XElement("To",
+                        new XAttribute("closePort", "yes"),
+                        tBProxy431.Text
                     )
                   );
                 xOptions.Add(xOption);
@@ -4485,39 +4497,44 @@ namespace WindowsFormsApp2
                 comment_index = 35;
                 xcomment = new XComment(" " + comment_index.ToString() + " ");
                 xApp.Add(xcomment);
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", "at+cops?"),
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", btProxy435.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox32.Text
+                        tBProxy435.Text
                       )
+                    )
                   );
-                xOptions.Add(xOption);
+                xApp.Add(xOption);
 
                 comment_index++;
                 xcomment = new XComment(" " + comment_index.ToString() + " ");
                 xApp.Add(xcomment);
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", button66.Text),
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", btProxy436.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox27.Text
+                        tBProxy436.Text
                       )
+                    )
                   );
-                xOptions.Add(xOption);
+                xApp.Add(xOption);
 
                 comment_index++;
                 xcomment = new XComment(" " + comment_index.ToString() + " ");
                 xApp.Add(xcomment);
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", button65.Text),
+                xOption = new XElement("Options",
+                    new XElement("ClientReceiveRemap",
+                      new XElement("From", btProxy437.Text),
                       new XElement("To",
                         new XAttribute("closePort", "yes"),
-                        textBox26.Text
+                        tBProxy437.Text
                       )
+                    )
                   );
-                xOptions.Add(xOption);
-                xApp.Add(xOptions);
+                xApp.Add(xOption);
                 xApps.Add(xApp);
 
                 xdoc.Save(pathname + filename);
@@ -4562,128 +4579,94 @@ namespace WindowsFormsApp2
                                             if(option.Name == "Options")
                                             {
                                                 string msg = option.Element("ClientReceiveRemap").Element("To").Value;
-                                                switch (option.Element("ClientReceiveRemap").Element("From").Value)
-                                                {
-                                                    case "Please disconnect pdn":
-                                                        textBox4.Text = msg;
-                                                        break;
-                                                    case "Switch on the phone":
-                                                        textBox5.Text = msg;
-                                                        break;
-                                                    case "Activate SMS mode":
-                                                        textBox6.Text = msg;
-                                                        break;
-                                                    case "Try MO SMS":
-                                                        textBox1.Text = msg;
-                                                        break;
-                                                    case "Emergency call 111":
-                                                        textBox7.Text = msg;
-                                                        break;
-                                                    case "Emergency call 112":
-                                                        textBox8.Text = msg;
-                                                        break;
-                                                    case "Normal call 114":
-                                                        textBox9.Text = msg;
-                                                        break;
-                                                    case "Emergency call 113":
-                                                        textBox10.Text = msg;
-                                                        break;
-                                                    case "Emergency call 117":
-                                                        textBox11.Text = msg;
-                                                        break;
-                                                    case "Emergency call 118":
-                                                        textBox12.Text = msg;
-                                                        break;
-                                                    case "Emergency call 119":
-                                                        textBox13.Text = msg;
-                                                        break;
-                                                    case "Emergency call 122":
-                                                        textBox14.Text = msg;
-                                                        break;
-                                                    case "Emergency call 125":
-                                                        textBox15.Text = msg;
-                                                        break;
-                                                    case "Switch off the phone":
-                                                        textBox16.Text = msg;
-                                                        break;
-                                                    case "Please power off the UE":
-                                                        textBox17.Text = msg;
-                                                        break;
-                                                    case "Please make voice call from the UE":
-                                                        textBox18.Text = msg;
-                                                        break;
-                                                    case "Try MO Voice Call(15447769)":
-                                                        textBox19.Text = msg;
-                                                        break;
-                                                    case "Try MO Voice Call":
-                                                        textBox20.Text = msg;
-                                                        break;
-                                                    case "Try Call Answer":
-                                                        textBox21.Text = msg;
-                                                        break;
-                                                    case "Try Call End":
-                                                        textBox22.Text = msg;
-                                                        break;
-                                                    case "End voice call from the UE":
-                                                        textBox43.Text = msg;
-                                                        break;
-                                                    case "Check PDN Address":
-                                                        textBox42.Text = msg;
-                                                        break;
-                                                    case "Please set EMM/ESM cause":
-                                                        textBox41.Text = msg;
-                                                        break;
-                                                    case "Please reboot phone":
-                                                        textBox23.Text = msg;
-                                                        break;
-                                                    case "Please connect pdn":
-                                                        textBox39.Text = msg;
-                                                        break;
-                                                    case "Please PSM On":
-                                                        textBox37.Text = msg;
-                                                        break;
-                                                    case "Please PSM Off":
-                                                        textBox36.Text = msg;
-                                                        break;
-                                                    case "Deactivate Data PDN":
-                                                        textBox35.Text = msg;
-                                                        break;
-                                                    case "Activate Data PDN":
-                                                        textBox34.Text = msg;
-                                                        break;
-                                                    default:
-                                                        MessageBox.Show("Check options count");
-                                                        break;
-                                                }
+                                                string opt = option.Element("ClientReceiveRemap").Element("From").Value;
+                                                if (opt == btProxy301.Text)
+                                                    tBProxy301.Text = msg;
+                                                else if (opt == btProxy302.Text)
+                                                    tBProxy302.Text = msg;
+                                                else if (opt == btProxy303.Text)
+                                                    tBProxy303.Text = msg;
+                                                else if (opt == btProxy304.Text)
+                                                    tBProxy304.Text = msg;
+                                                else if (opt == btProxy305.Text)
+                                                    tBProxy305.Text = msg;
+                                                else if (opt == btProxy306.Text)
+                                                    tBProxy306.Text = msg;
+                                                else if (opt == btProxy307.Text)
+                                                    tBProxy307.Text = msg;
+                                                else if (opt == btProxy308.Text)
+                                                    tBProxy308.Text = msg;
+                                                else if (opt == btProxy309.Text)
+                                                    tBProxy309.Text = msg;
+                                                else if (opt == btProxy310.Text)
+                                                    tBProxy310.Text = msg;
+                                                else if (opt == btProxy311.Text)
+                                                    tBProxy311.Text = msg;
+                                                else if (opt == btProxy312.Text)
+                                                    tBProxy312.Text = msg;
+                                                else if (opt == btProxy313.Text)
+                                                    tBProxy313.Text = msg;
+                                                else if (opt == btProxy314.Text)
+                                                    tBProxy314.Text = msg;
+                                                else if (opt == btProxy315.Text)
+                                                    tBProxy315.Text = msg;
+                                                else if (opt == btProxy316.Text)
+                                                    tBProxy316.Text = msg;
+                                                else if (opt == btProxy317.Text)
+                                                    tBProxy317.Text = msg;
+                                                else if (opt == btProxy318.Text)
+                                                    tBProxy318.Text = msg;
+                                                else if (opt == btProxy319.Text)
+                                                    tBProxy319.Text = msg;
+                                                else if (opt == btProxy320.Text)
+                                                    tBProxy320.Text = msg;
+                                                else if (opt == btProxy321.Text)
+                                                    tBProxy321.Text = msg;
+                                                else if (opt == btProxy322.Text)
+                                                    tBProxy322.Text = msg;
+                                                else if (opt == btProxy323.Text)
+                                                    tBProxy323.Text = msg;
+                                                else if (opt == btProxy324.Text)
+                                                    tBProxy324.Text = msg;
+                                                else if (opt == btProxy325.Text)
+                                                    tBProxy325.Text = msg;
+                                                else if (opt == btProxy326.Text)
+                                                    tBProxy326.Text = msg;
+                                                else if (opt == btProxy327.Text)
+                                                    tBProxy327.Text = msg;
+                                                else if (opt == btProxy328.Text)
+                                                    tBProxy328.Text = msg;
+                                                else if (opt == btProxy329.Text)
+                                                    tBProxy329.Text = msg;
+                                                else if (opt == btProxy332.Text)
+                                                    tBProxy332.Text = msg;
+                                                else if (opt == btProxy333.Text)
+                                                    tBProxy333.Text = msg;
+                                                else if (opt == btProxy334.Text)
+                                                    tBProxy334.Text = msg;
+
                                             }
                                         }
                                     }
                                     else if (app.Attribute("id").Value == "4")
                                     {
-                                        IEnumerable<XElement> options = app.Element("Options").Elements();
+                                        IEnumerable<XElement> options = app.Elements();
                                         foreach (var option in options)
                                         {
-                                            string msg = option.Element("To").Value;
-                                            switch (option.Element("From").Value)
+                                            if (option.Name == "Options")
                                             {
-                                                case "AT+CGACT=1,1":
-                                                    textBox31.Text = msg;
-                                                    break;
-                                                case "AT+CGACT=1=0,1":
-                                                    textBox30.Text = msg;
-                                                    break;
-                                                case "at+cfun=0":
-                                                    textBox32.Text = msg;
-                                                    break;
-                                                case "at+cfun=1":
-                                                    textBox27.Text = msg;
-                                                    break;
-                                                case "PSM On":
-                                                    textBox26.Text = msg;
-                                                    break;
-                                                default:
-                                                    MessageBox.Show("Check options count");
-                                                    break;
+                                                string msg = option.Element("ClientReceiveRemap").Element("To").Value;
+                                                string opt = option.Element("ClientReceiveRemap").Element("From").Value;
+                                                if (opt == btProxy430.Text)
+                                                    tBProxy430.Text = msg;
+                                                else if (opt == btProxy431.Text)
+                                                    tBProxy431.Text = msg;
+                                                else if (opt == btProxy435.Text)
+                                                    tBProxy435.Text = msg;
+                                                else if (opt == btProxy436.Text)
+                                                    tBProxy436.Text = msg;
+                                                else if (opt == btProxy437.Text)
+                                                    tBProxy437.Text = msg;
                                             }
                                         }
                                     }
@@ -4744,119 +4727,122 @@ namespace WindowsFormsApp2
                 workbook.Worksheets.Add(worksheet);
 
                 i = 0;
-                worksheet = new Worksheet("atcommand1");
-                worksheet.Cells[i, 0] = new Cell(button42.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox4.Text);
+                worksheet = new Worksheet("atcommand_ID3");
+                worksheet.Cells[i, 0] = new Cell(btProxy301.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy301.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button39.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox5.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy302.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy302.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button38.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox6.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy303.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy303.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button37.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox1.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy304.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy304.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button45.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox7.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy305.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy305.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button46.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox8.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy306.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy306.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button47.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox9.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy307.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy307.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button48.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox10.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy308.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy308.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button49.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox11.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy309.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy309.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button50.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox12.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy310.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy310.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button51.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox13.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy311.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy311.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button52.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox14.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy312.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy312.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button53.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox15.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy313.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy313.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button54.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox16.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy314.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy314.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button43.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox17.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy315.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy315.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button55.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox18.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy316.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy316.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button56.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox19.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy317.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy317.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button57.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox20.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy318.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy318.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button58.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox21.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy319.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy319.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button59.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox22.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy320.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy320.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button85.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox43.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy321.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy321.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button60.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox42.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy322.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy322.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button84.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox41.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy323.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy323.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button69.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox23.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy324.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy324.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button82.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox39.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy325.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy325.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button79.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox37.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy326.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy326.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button78.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox36.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy327.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy327.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button77.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox35.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy328.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy328.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button76.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox34.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy329.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy329.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell("");
-                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 0] = new Cell(btProxy332.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy332.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell("");
-                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 0] = new Cell(btProxy333.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy333.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(btProxy334.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy334.Text);
 
                 worksheet.Cells.ColumnWidth[0, 2] = 10000;
                 workbook.Worksheets.Add(worksheet);
 
                 i = 0;
-                worksheet = new Worksheet("atcommand2");
-                worksheet.Cells[i, 0] = new Cell(button61.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox31.Text);
+                worksheet = new Worksheet("atcommand_ID4");
+                worksheet.Cells[i, 0] = new Cell(btProxy430.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy430.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button75.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox30.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy431.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy431.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button67.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox32.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy435.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy435.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button66.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox27.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy436.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy436.Text);
                 i++;
-                worksheet.Cells[i, 0] = new Cell(button65.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox26.Text);
+                worksheet.Cells[i, 0] = new Cell(btProxy437.Text);
+                worksheet.Cells[i, 1] = new Cell(tBProxy437.Text);
 
                 worksheet.Cells.ColumnWidth[0, 2] = 10000;
                 workbook.Worksheets.Add(worksheet);
@@ -5232,76 +5218,82 @@ namespace WindowsFormsApp2
                         ///////////////////////////////////////////////////////////////// PCT 장비 AT command 매핑 1
                         worksheet = workbook.Worksheets[1];
                         i = 0;
-                        textBox4.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy301.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox5.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy302.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox6.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy303.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox1.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy304.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox7.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy305.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox8.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy306.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox9.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy307.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox10.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy308.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox11.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy309.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox12.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy310.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox13.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy311.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox14.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy312.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox15.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy313.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox16.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy314.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox17.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy315.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox18.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy316.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox19.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy317.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox20.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy318.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox21.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy319.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox22.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy320.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox43.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy321.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox42.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy322.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox41.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy323.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox23.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy324.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox39.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy325.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox37.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy326.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox36.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy327.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox35.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy328.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox34.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy329.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tBProxy332.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tBProxy333.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        tBProxy334.Text = worksheet.Cells[i, 1].ToString();
 
                         //////////////////////////////////////////////// PCT 장비 AT command 매핑 2
                         i = 0;
                         worksheet = workbook.Worksheets[2];
-                        textBox31.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy430.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox30.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy431.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox32.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy435.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox27.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy436.Text = worksheet.Cells[i, 1].ToString();
                         i++;
-                        textBox26.Text = worksheet.Cells[i, 1].ToString();
+                        tBProxy437.Text = worksheet.Cells[i, 1].ToString();
 
                         /////////////////////////////////////////////// 플랫폼 검증 앱 공통 AT command
                         i = 0;
@@ -5708,205 +5700,205 @@ namespace WindowsFormsApp2
 
         private void button61_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox31.Text);
+            this.sendDataOut(tBProxy430.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button75_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox30.Text);
+            this.sendDataOut(tBProxy431.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button67_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox32.Text);
+            this.sendDataOut(tBProxy435.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button66_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox27.Text);
+            this.sendDataOut(tBProxy436.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button65_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox26.Text);
+            this.sendDataOut(tBProxy437.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button84_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox41.Text);
+            this.sendDataOut(tBProxy323.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button69_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox23.Text);
+            this.sendDataOut(tBProxy324.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button82_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox39.Text);
+            this.sendDataOut(tBProxy325.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button79_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox37.Text);
+            this.sendDataOut(tBProxy326.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button78_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox36.Text);
+            this.sendDataOut(tBProxy327.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button77_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox35.Text);
+            this.sendDataOut(tBProxy328.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button76_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox34.Text);
+            this.sendDataOut(tBProxy329.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button60_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox42.Text);
+            this.sendDataOut(tBProxy322.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button85_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox43.Text);
+            this.sendDataOut(tBProxy321.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button59_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox22.Text);
+            this.sendDataOut(tBProxy320.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button58_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox21.Text);
+            this.sendDataOut(tBProxy319.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button57_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox20.Text);
+            this.sendDataOut(tBProxy318.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button56_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox19.Text);
+            this.sendDataOut(tBProxy317.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button55_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox18.Text);
+            this.sendDataOut(tBProxy316.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button43_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox17.Text);
+            this.sendDataOut(tBProxy315.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button54_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox16.Text);
+            this.sendDataOut(tBProxy314.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button53_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox15.Text);
+            this.sendDataOut(tBProxy313.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button52_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox14.Text);
+            this.sendDataOut(tBProxy312.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button51_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox13.Text);
+            this.sendDataOut(tBProxy311.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button50_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox12.Text);
+            this.sendDataOut(tBProxy310.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button49_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox11.Text);
+            this.sendDataOut(tBProxy309.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button48_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox10.Text);
+            this.sendDataOut(tBProxy308.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button47_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox9.Text);
+            this.sendDataOut(tBProxy307.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button46_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox8.Text);
+            this.sendDataOut(tBProxy306.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button45_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox7.Text);
+            this.sendDataOut(tBProxy305.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button37_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox1.Text);
+            this.sendDataOut(tBProxy304.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button38_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox6.Text);
+            this.sendDataOut(tBProxy303.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button39_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox5.Text);
+            this.sendDataOut(tBProxy302.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
         private void button42_Click(object sender, EventArgs e)
         {
-            this.sendDataOut(textBox4.Text);
+            this.sendDataOut(tBProxy301.Text);
             lbActionState.Text = states.testatcmd.ToString();
         }
 
@@ -6047,7 +6039,7 @@ namespace WindowsFormsApp2
                     if (listBox1.Items.Count != 0)
                         listBox1.SelectedIndex = 0;
                     else if (mode == "man")
-                        MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", textBox1.Text + " DEVICE 상태 정보");
+                        MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tBProxy304.Text + " DEVICE 상태 정보");
                 }
                 catch (Exception ex)
                 {
@@ -6055,7 +6047,7 @@ namespace WindowsFormsApp2
                 }
             }
             else if (mode == "man")
-                MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", textBox1.Text + " DEVICE 상태 정보");
+                MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tBProxy304.Text + " DEVICE 상태 정보");
         }
 
         private void OneM2MTcResultReport(string logId, string resultCode, string resultCodeName, string resType, string trgAddr, string oprType)
@@ -7958,7 +7950,7 @@ namespace WindowsFormsApp2
                                     }
                                 }
 
-                                tbDeviceCTN.Text = textBox1.Text = dev.imsi = ctn.ToString();
+                                tbDeviceCTN.Text = tBProxy304.Text = dev.imsi = ctn.ToString();
                                 lbIccid.Text = dev.iccid = iccId.ToString();
                                 setDeviceEntityID();
 
@@ -7978,11 +7970,11 @@ namespace WindowsFormsApp2
                     catch (Exception ex)
                         {
                             Console.WriteLine(ex.ToString());
-                            MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
+                            MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", tBProxy304.Text + " DEVICE 상태 정보");
                         }
                     }
                     else
-                        MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", textBox1.Text + " DEVICE 상태 정보");
+                        MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", tBProxy304.Text + " DEVICE 상태 정보");
                 }
                 else
                     MessageBox.Show("CTN 정보가 없습니다.\nCTN을 확인하세요");
@@ -10002,6 +9994,24 @@ namespace WindowsFormsApp2
                 checkBox9.Text = "지원";
             else
                 checkBox9.Text = "미지원";
+        }
+
+        private void button131_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(tBProxy332.Text);
+            lbActionState.Text = states.testatcmd.ToString();
+        }
+
+        private void button130_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(tBProxy333.Text);
+            lbActionState.Text = states.testatcmd.ToString();
+        }
+
+        private void button44_Click(object sender, EventArgs e)
+        {
+            this.sendDataOut(tBProxy334.Text);
+            lbActionState.Text = states.testatcmd.ToString();
         }
     }
 
