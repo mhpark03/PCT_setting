@@ -9710,81 +9710,8 @@ namespace WindowsFormsApp2
             Directory.CreateDirectory(pathname);
             pathname += tBoxDeviceModel.Text + "_" + tbDeviceName.Text + "_";
 
-            if (tbTCResult.Text != string.Empty)
-            {
-                filename = "TestResult_" + currenttime.ToString("MMdd_hhmmss") + ".xls";
-                resultFileWrite(pathname, filename);
-
-                filename = "tcresult_log_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
-                logFileWrite(pathname, filename, tbTCResult.Text);
-            }
-
-            if (tBoxDataIN.Text != string.Empty)
-            {
-                filename = "device_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
-                logFileWrite(pathname, filename, tBoxDataIN.Text);
-            }
-
-            if (tbLog.Text != string.Empty)
-            {
-                filename = "server_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
-                logFileWrite(pathname, filename, tbLog.Text);
-            }
-
-            if (listBox1.Items.Count != 0)
-            {
-                filename = "svrlog_" + currenttime.ToString("MMdd_hhmmss") + ".txt";
-                FileLogWrite(pathname, filename);
-            }
-        }
-
-        private void FileLogWrite(string path, string filename)
-        {
-            // Create a file to write to.
-            FileStream fs = null;
-            try
-            {
-                fs = new FileStream(path + filename, FileMode.Create, FileAccess.Write);
-                // Create a file to write to.
-                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-
-                foreach (var input_items in listBox1.Items)
-                {
-                    string result = string.Format("{0} ", input_items) + "\n";
-
-                    char[] logmsg = result.ToCharArray();
-                    sw.Write(logmsg, 0, result.Length);
-                }
-
-                sw.Close();
-                fs.Close();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void logFileWrite(string path, string filename, string text)
-        {
-            // Create a file to write to.
-            FileStream fs = null;
-            try
-            {
-                fs = new FileStream(path + filename, FileMode.Create, FileAccess.Write);
-                // Create a file to write to.
-                StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-
-                char[] logmsg = text.ToCharArray();
-                sw.Write(logmsg, 0, text.Length);
-
-                sw.Close();
-                fs.Close();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            filename = "TestResult_" + currenttime.ToString("MMdd_hhmmss") + ".xls";
+            resultFileWrite(pathname, filename);
         }
 
         private void resultFileWrite(string pathname, string filename)
@@ -9792,23 +9719,33 @@ namespace WindowsFormsApp2
             try
             {
                 Workbook workbook = new Workbook();
-                Worksheet worksheet = new Worksheet("onem2m");
+                Worksheet worksheet = new Worksheet("information");
 
-                worksheet.Cells[0, 0] = new Cell("모델명 : " + dev.model);
-                worksheet.Cells[1, 0] = new Cell("제조사 : " + dev.maker);
-                worksheet.Cells[2, 0] = new Cell("버전 : " + dev.version);
-                worksheet.Cells[3, 0] = new Cell("시험일 : " + DateTime.Now.ToString("MM/dd hh:mm"));
-                worksheet.Cells[4, 0] = new Cell("EntityID : " + dev.entityId);
-                worksheet.Cells[5, 0] = new Cell("CellID : " + label49.Text);
+                worksheet.Cells[0, 0] = new Cell("모델명");
+                worksheet.Cells[0, 1] = new Cell(dev.model);
+                worksheet.Cells[1, 0] = new Cell("제조사");
+                worksheet.Cells[1, 1] = new Cell(dev.maker);
+                worksheet.Cells[2, 0] = new Cell("버전");
+                worksheet.Cells[2, 1] = new Cell(dev.version);
+                worksheet.Cells[3, 0] = new Cell("시험일");
+                worksheet.Cells[3, 1] = new Cell(DateTime.Now.ToString("MM/dd hh:mm"));
+                worksheet.Cells[4, 0] = new Cell("EntityID");
+                worksheet.Cells[4, 1] = new Cell(dev.entityId);
+                worksheet.Cells[5, 0] = new Cell("CellID");
+                worksheet.Cells[5, 1] = new Cell(label49.Text);
+                worksheet.Cells.ColumnWidth[0] = 3000;
+                worksheet.Cells.ColumnWidth[1] = 10000;
+                workbook.Worksheets.Add(worksheet);
 
-                worksheet.Cells[7, 0] = new Cell("시험 항목");
-                worksheet.Cells[7, 1] = new Cell("결과");
-                worksheet.Cells[7, 2] = new Cell("resultCode");
-                worksheet.Cells[7, 3] = new Cell("logId");
-                worksheet.Cells[7, 4] = new Cell("설명");
-                worksheet.Cells[7, 5] = new Cell("비고");
+                worksheet = new Worksheet("onem2m");
+                worksheet.Cells[0, 0] = new Cell("시험 항목");
+                worksheet.Cells[0, 1] = new Cell("결과");
+                worksheet.Cells[0, 2] = new Cell("resultCode");
+                worksheet.Cells[0, 3] = new Cell("logId");
+                worksheet.Cells[0, 4] = new Cell("설명");
+                worksheet.Cells[0, 5] = new Cell("비고");
 
-                int i = 8;
+                int i = 1;
                 foreach (string tcindex in Enum.GetNames(typeof(onem2mtc)))
                 {
                     onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
@@ -9827,22 +9764,14 @@ namespace WindowsFormsApp2
                 workbook.Worksheets.Add(worksheet);
 
                 worksheet = new Worksheet("lwm2m");
+                worksheet.Cells[0, 0] = new Cell("시험 항목");
+                worksheet.Cells[0, 1] = new Cell("결과");
+                worksheet.Cells[0, 2] = new Cell("resultCode");
+                worksheet.Cells[0, 3] = new Cell("logId");
+                worksheet.Cells[0, 4] = new Cell("설명");
+                worksheet.Cells[0, 5] = new Cell("비고");
 
-                worksheet.Cells[0, 0] = new Cell("모델명 : " + dev.model);
-                worksheet.Cells[1, 0] = new Cell("제조사 : " + dev.maker);
-                worksheet.Cells[2, 0] = new Cell("버전 : " + dev.version);
-                worksheet.Cells[3, 0] = new Cell("시험일 : " + DateTime.Now.ToString("MM/dd hh:mm"));
-                worksheet.Cells[4, 0] = new Cell("EntityID : " + dev.entityId);
-                worksheet.Cells[5, 0] = new Cell("CellID : " + label49.Text);
-
-                worksheet.Cells[7, 0] = new Cell("시험 항목");
-                worksheet.Cells[7, 1] = new Cell("결과");
-                worksheet.Cells[7, 2] = new Cell("resultCode");
-                worksheet.Cells[7, 3] = new Cell("logId");
-                worksheet.Cells[7, 4] = new Cell("설명");
-                worksheet.Cells[7, 5] = new Cell("비고");
-
-                i = 8;
+                i = 1;
                 foreach (string tcindex in Enum.GetNames(typeof(lwm2mtc)))
                 {
                     lwm2mtc indexl = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
@@ -9858,6 +9787,87 @@ namespace WindowsFormsApp2
                 worksheet.Cells.ColumnWidth[0] = 11000;
                 worksheet.Cells.ColumnWidth[1, 3] = 3000;
                 worksheet.Cells.ColumnWidth[4, 5] = 10000;
+                workbook.Worksheets.Add(worksheet);
+
+                worksheet = new Worksheet("atcommand");
+                worksheet.Cells[0, 0] = new Cell("시간");
+                worksheet.Cells[0, 1] = new Cell("state");
+                worksheet.Cells[0, 2] = new Cell("종류");
+                worksheet.Cells[0, 3] = new Cell("내용");
+
+                i = 1;
+                // convert string to stream
+                byte[] byteArray = Encoding.UTF8.GetBytes(tBoxDataIN.Text);
+                MemoryStream stream = new MemoryStream(byteArray);
+
+                // convert stream to string
+                StreamReader reader = new StreamReader(stream);
+                string line = string.Empty;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    worksheet.Cells[i, 0] = new Cell(line);
+                    i++;
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 11000;
+                workbook.Worksheets.Add(worksheet);
+
+                worksheet = new Worksheet("server");
+                worksheet.Cells[0, 0] = new Cell("시간");
+                worksheet.Cells[0, 1] = new Cell("state");
+                worksheet.Cells[0, 2] = new Cell("종류");
+                worksheet.Cells[0, 3] = new Cell("내용");
+
+                i = 1;
+                byteArray = Encoding.UTF8.GetBytes(tbLog.Text);
+                stream = new MemoryStream(byteArray);
+                reader = new StreamReader(stream);
+                while ((line = reader.ReadLine()) != null)
+                {
+                    worksheet.Cells[i, 0] = new Cell(line);
+                    i++;
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 11000;
+                workbook.Worksheets.Add(worksheet);
+
+                worksheet = new Worksheet("platform");
+                worksheet.Cells[0, 0] = new Cell("시간");
+                worksheet.Cells[0, 1] = new Cell("state");
+                worksheet.Cells[0, 2] = new Cell("종류");
+                worksheet.Cells[0, 3] = new Cell("내용");
+
+                i = 1;
+                byteArray = Encoding.UTF8.GetBytes(tbLog.Text);
+
+
+                foreach (var input_items in listBox1.Items)
+                {
+                    string result = string.Format("{0} ", input_items);
+                    worksheet.Cells[i, 0] = new Cell(result);
+                    i++;
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 11000;
+                workbook.Worksheets.Add(worksheet);
+
+                worksheet = new Worksheet("testcase");
+                worksheet.Cells[0, 0] = new Cell("시간");
+                worksheet.Cells[0, 1] = new Cell("state");
+                worksheet.Cells[0, 2] = new Cell("종류");
+                worksheet.Cells[0, 3] = new Cell("내용");
+
+                i = 1;
+                byteArray = Encoding.UTF8.GetBytes(tbTCResult.Text);
+                stream = new MemoryStream(byteArray);
+                reader = new StreamReader(stream);
+                while ((line = reader.ReadLine()) != null)
+                {
+                    worksheet.Cells[i, 0] = new Cell(line);
+                    i++;
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 11000;
                 workbook.Worksheets.Add(worksheet);
 
                 workbook.Save(pathname + filename);
