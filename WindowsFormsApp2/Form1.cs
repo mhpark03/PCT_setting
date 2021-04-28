@@ -759,9 +759,6 @@ namespace WindowsFormsApp2
             }
 
             tbTCResult.Text = string.Empty;
-            tBoxDataIN.Text = string.Empty;
-            tbOneM2MDataIN.Text = string.Empty;
-            tbLwM2MDataIN.Text = string.Empty;
             tbLog.Text = string.Empty;
 
             lbActionState.Text = "idle";
@@ -814,6 +811,36 @@ namespace WindowsFormsApp2
                 listView2.Items.Add(newitem);
             }
 
+            listView3.View = View.Details;
+            listView3.GridLines = true;
+            listView3.FullRowSelect = true;
+            listView3.CheckBoxes = false;
+
+            listView3.Columns.Add("시간", 60, HorizontalAlignment.Center);
+            listView3.Columns.Add("state", 120, HorizontalAlignment.Left);
+            listView3.Columns.Add("  ", 30, HorizontalAlignment.Center);
+            listView3.Columns.Add("  AT COMMAND", 1000, HorizontalAlignment.Left);
+
+            listView4.View = View.Details;
+            listView4.GridLines = true;
+            listView4.FullRowSelect = true;
+            listView4.CheckBoxes = false;
+
+            listView4.Columns.Add("시간", 60, HorizontalAlignment.Center);
+            listView4.Columns.Add("state", 120, HorizontalAlignment.Left);
+            listView4.Columns.Add("  ", 30, HorizontalAlignment.Center);
+            listView4.Columns.Add("  AT COMMAND", 1000, HorizontalAlignment.Left);
+
+            listView5.View = View.Details;
+            listView5.GridLines = true;
+            listView5.FullRowSelect = true;
+            listView5.CheckBoxes = false;
+
+            listView5.Columns.Add("시간", 60, HorizontalAlignment.Center);
+            listView5.Columns.Add("state", 120, HorizontalAlignment.Left);
+            listView5.Columns.Add("  ", 30, HorizontalAlignment.Center);
+            listView5.Columns.Add("  AT COMMAND", 1000, HorizontalAlignment.Left);
+
             tcStartTime = DateTime.Now.AddHours(-2);
             dateTimePicker1.Value = tcStartTime;
         }
@@ -844,11 +871,11 @@ namespace WindowsFormsApp2
                     else
                         progressBar1.Value = 100;
                     timer1.Start();
-                    logPrintInTextBox("COM PORT가 연결 되었습니다.", "tx");
+                    logPrintInTextBox("COM PORT가 연결 되었습니다.", "");
                 }
                 catch (Exception err)
                 {
-                    logPrintInTextBox(err.Message, "tx");
+                    logPrintInTextBox(err.Message, "");
                 }
             }
 
@@ -861,7 +888,7 @@ namespace WindowsFormsApp2
             if (lbActionState.Text == states.idle.ToString())
                 lbActionState.Text = states.closed.ToString();
             timer1.Stop();
-            logPrintInTextBox("COM PORT가 해제 되었습니다.","tx");
+            logPrintInTextBox("COM PORT가 해제 되었습니다.","");
 
         }
 
@@ -910,11 +937,14 @@ namespace WindowsFormsApp2
         // 송수신 명령/응답 값과 동작 설명을 textbox에 삽입하고 앱 종료시 로그파일로 저장한다.
         public void logPrintInTextBox(string message, string kind)
         {
-            string displayMsg = Environment.NewLine + makeLogPrintLine(message,kind);
+            if (kind == "")
+                kind = " ";
+            else if (kind == "rx")
+                kind = "R";
+            else
+                kind = "T";
 
-            SetTextBox(tBoxDataIN,"1"+displayMsg + message);
-            SetTextBox(tbOneM2MDataIN, "2" + displayMsg + message);
-            SetTextBox(tbLwM2MDataIN, "3" + displayMsg + message);
+            SetTextBox(listView3, kind + message);
         }
 
         private void SetTextBox(Control ctr, string message)
@@ -929,47 +959,38 @@ namespace WindowsFormsApp2
             }
             else
             {
+                string kind = message.Substring(0, 1);
                 string msg = message.Substring(1, message.Length - 1);
-                if (message.StartsWith("1"))
-                {
-                    tBoxDataIN.AppendText(msg);
-                    tBoxDataIN.SelectionStart = tBoxDataIN.TextLength;
-                    tBoxDataIN.ScrollToCaret();
-                }
-                else if (message.StartsWith("2"))
-                {
-                    tbOneM2MDataIN.AppendText(msg);
-                    tbOneM2MDataIN.SelectionStart = tbOneM2MDataIN.TextLength;
-                    tbOneM2MDataIN.ScrollToCaret();
-                }
+                string time = DateTime.Now.ToString("hh:mm:ss");
+
+                ListViewItem newitem;
+                if (kind == " ")
+                    newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
                 else
                 {
-                    tbLwM2MDataIN.AppendText(msg);
-                    tbLwM2MDataIN.SelectionStart = tbLwM2MDataIN.TextLength;
-                    tbLwM2MDataIN.ScrollToCaret();
+                    newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
                 }
-            }
-        }
+                listView3.Items.Add(newitem);
+                listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
 
-        // 명령어에 대해 동작시각과 방향을 포함하여 저장한다.
-        private string makeLogPrintLine(string msg, string kind)
-        {
-            string msg_form;
-            DateTime currenttime = DateTime.Now;
-            msg_form = currenttime.ToString("hh:mm:ss.fff : ") + "(" + lbActionState.Text + ") ";
-            if (kind == "tx")
-            {
-                msg_form += "==> : ";
+                if (kind == " ")
+                    newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
+                else
+                {
+                    newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
+                }
+                listView4.Items.Add(newitem);
+                listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
+
+                if (kind == " ")
+                    newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
+                else
+                {
+                    newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
+                }
+                listView5.Items.Add(newitem);
+                listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
             }
-            else if (kind == "rx")
-            {
-                msg_form += "<== : ";
-            }
-            else
-            {
-                msg_form = "\t";
-            }
-            return msg_form;
         }
 
         // serial port에서 data 수신이 될 때, 발생하는 이벤트 함수
@@ -9419,20 +9440,11 @@ namespace WindowsFormsApp2
                     webBrowser1.Navigate("https://testadm.onem2m.uplus.co.kr:8443");
             }
             else if (tabControl1.SelectedTab.Name == "tabCOM")
-            {
-                tBoxDataIN.SelectionStart = tBoxDataIN.TextLength;
-                tBoxDataIN.ScrollToCaret();
-            }
+                listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
             else if (tabControl1.SelectedTab.Name == "tabOneM2M")
-            {
-                tbOneM2MDataIN.SelectionStart = tbOneM2MDataIN.TextLength;
-                tbOneM2MDataIN.ScrollToCaret();
-            }
+                listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
             else if (tabControl1.SelectedTab.Name == "tabLwM2M")
-            {
-                tbLwM2MDataIN.SelectionStart = tbLwM2MDataIN.TextLength;
-                tbLwM2MDataIN.ScrollToCaret();
-            }
+                listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
             else if (tabControl1.SelectedTab.Name == "tabServer")
             {
                 tbLog.SelectionStart = tbLog.TextLength;
@@ -9792,24 +9804,21 @@ namespace WindowsFormsApp2
                 worksheet = new Worksheet("atcommand");
                 worksheet.Cells[0, 0] = new Cell("시간");
                 worksheet.Cells[0, 1] = new Cell("state");
-                worksheet.Cells[0, 2] = new Cell("종류");
+                worksheet.Cells[0, 2] = new Cell(" ");
                 worksheet.Cells[0, 3] = new Cell("내용");
 
-                i = 1;
-                // convert string to stream
-                byte[] byteArray = Encoding.UTF8.GetBytes(tBoxDataIN.Text);
-                MemoryStream stream = new MemoryStream(byteArray);
-
-                // convert stream to string
-                StreamReader reader = new StreamReader(stream);
-                string line = string.Empty;
-                while ((line = reader.ReadLine()) != null)
+                for (i=0;i<listView3.Items.Count;i++)
                 {
-                    worksheet.Cells[i, 0] = new Cell(line);
-                    i++;
+                    worksheet.Cells[i+1, 0] = new Cell(listView3.Items[i].SubItems[0].Text);
+                    worksheet.Cells[i+1, 1] = new Cell(listView3.Items[i].SubItems[1].Text);
+                    worksheet.Cells[i+1, 2] = new Cell(listView3.Items[i].SubItems[2].Text);
+                    worksheet.Cells[i+1, 3] = new Cell(listView3.Items[i].SubItems[3].Text);
                 }
 
-                worksheet.Cells.ColumnWidth[0] = 11000;
+                worksheet.Cells.ColumnWidth[0] = 3500;
+                worksheet.Cells.ColumnWidth[1] = 5000;
+                worksheet.Cells.ColumnWidth[2] = 700;
+                worksheet.Cells.ColumnWidth[3] = 30000;
                 workbook.Worksheets.Add(worksheet);
 
                 worksheet = new Worksheet("server");
@@ -9819,32 +9828,16 @@ namespace WindowsFormsApp2
                 worksheet.Cells[0, 3] = new Cell("내용");
 
                 i = 1;
-                byteArray = Encoding.UTF8.GetBytes(tbLog.Text);
-                stream = new MemoryStream(byteArray);
-                reader = new StreamReader(stream);
+                // convert string to stream
+                byte[] byteArray = Encoding.UTF8.GetBytes(tbLog.Text);
+                MemoryStream stream = new MemoryStream(byteArray);
+
+                // convert stream to string
+                StreamReader reader = new StreamReader(stream);
+                string line = string.Empty;
                 while ((line = reader.ReadLine()) != null)
                 {
                     worksheet.Cells[i, 0] = new Cell(line);
-                    i++;
-                }
-
-                worksheet.Cells.ColumnWidth[0] = 11000;
-                workbook.Worksheets.Add(worksheet);
-
-                worksheet = new Worksheet("platform");
-                worksheet.Cells[0, 0] = new Cell("시간");
-                worksheet.Cells[0, 1] = new Cell("state");
-                worksheet.Cells[0, 2] = new Cell("종류");
-                worksheet.Cells[0, 3] = new Cell("내용");
-
-                i = 1;
-                byteArray = Encoding.UTF8.GetBytes(tbLog.Text);
-
-
-                foreach (var input_items in listBox1.Items)
-                {
-                    string result = string.Format("{0} ", input_items);
-                    worksheet.Cells[i, 0] = new Cell(result);
                     i++;
                 }
 

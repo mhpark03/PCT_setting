@@ -59,7 +59,6 @@
             this.textBox61 = new System.Windows.Forms.TextBox();
             this.button62 = new System.Windows.Forms.Button();
             this.gbDeviceLog = new System.Windows.Forms.GroupBox();
-            this.tBoxDataIN = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label47 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
@@ -289,7 +288,6 @@
             this.btnDelDeviceCSR = new System.Windows.Forms.Button();
             this.btnDeviceUpdateCSR = new System.Windows.Forms.Button();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.tbOneM2MDataIN = new System.Windows.Forms.TextBox();
             this.gbOneM2MDevice = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button114 = new System.Windows.Forms.Button();
@@ -309,7 +307,6 @@
             this.textBox71 = new System.Windows.Forms.TextBox();
             this.button35 = new System.Windows.Forms.Button();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.tbLwM2MDataIN = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
@@ -450,6 +447,9 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.listView3 = new System.Windows.Forms.ListView();
+            this.listView4 = new System.Windows.Forms.ListView();
+            this.listView5 = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -816,26 +816,13 @@
             // 
             // gbDeviceLog
             // 
-            this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
+            this.gbDeviceLog.Controls.Add(this.listView3);
             this.gbDeviceLog.Location = new System.Drawing.Point(532, 18);
             this.gbDeviceLog.Name = "gbDeviceLog";
             this.gbDeviceLog.Size = new System.Drawing.Size(624, 709);
             this.gbDeviceLog.TabIndex = 44;
             this.gbDeviceLog.TabStop = false;
             this.gbDeviceLog.Text = "Device Message";
-            // 
-            // tBoxDataIN
-            // 
-            this.tBoxDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tBoxDataIN.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tBoxDataIN.Location = new System.Drawing.Point(3, 17);
-            this.tBoxDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tBoxDataIN.Multiline = true;
-            this.tBoxDataIN.Name = "tBoxDataIN";
-            this.tBoxDataIN.ReadOnly = true;
-            this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxDataIN.Size = new System.Drawing.Size(618, 689);
-            this.tBoxDataIN.TabIndex = 22;
             // 
             // groupBox10
             // 
@@ -3331,26 +3318,13 @@
             // 
             // groupBox17
             // 
-            this.groupBox17.Controls.Add(this.tbOneM2MDataIN);
+            this.groupBox17.Controls.Add(this.listView4);
             this.groupBox17.Location = new System.Drawing.Point(534, 14);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(623, 720);
             this.groupBox17.TabIndex = 46;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Device Message";
-            // 
-            // tbOneM2MDataIN
-            // 
-            this.tbOneM2MDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbOneM2MDataIN.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbOneM2MDataIN.Location = new System.Drawing.Point(3, 17);
-            this.tbOneM2MDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tbOneM2MDataIN.Multiline = true;
-            this.tbOneM2MDataIN.Name = "tbOneM2MDataIN";
-            this.tbOneM2MDataIN.ReadOnly = true;
-            this.tbOneM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOneM2MDataIN.Size = new System.Drawing.Size(617, 700);
-            this.tbOneM2MDataIN.TabIndex = 22;
             // 
             // gbOneM2MDevice
             // 
@@ -3545,26 +3519,13 @@
             // 
             // groupBox16
             // 
-            this.groupBox16.Controls.Add(this.tbLwM2MDataIN);
+            this.groupBox16.Controls.Add(this.listView5);
             this.groupBox16.Location = new System.Drawing.Point(540, 15);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(617, 704);
             this.groupBox16.TabIndex = 45;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Device Message";
-            // 
-            // tbLwM2MDataIN
-            // 
-            this.tbLwM2MDataIN.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.tbLwM2MDataIN.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLwM2MDataIN.Location = new System.Drawing.Point(3, 17);
-            this.tbLwM2MDataIN.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.tbLwM2MDataIN.Multiline = true;
-            this.tbLwM2MDataIN.Name = "tbLwM2MDataIN";
-            this.tbLwM2MDataIN.ReadOnly = true;
-            this.tbLwM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLwM2MDataIN.Size = new System.Drawing.Size(611, 684);
-            this.tbLwM2MDataIN.TabIndex = 22;
             // 
             // button113
             // 
@@ -5014,6 +4975,36 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // listView3
+            // 
+            this.listView3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView3.HideSelection = false;
+            this.listView3.Location = new System.Drawing.Point(3, 17);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(618, 689);
+            this.listView3.TabIndex = 23;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            // 
+            // listView4
+            // 
+            this.listView4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView4.HideSelection = false;
+            this.listView4.Location = new System.Drawing.Point(3, 17);
+            this.listView4.Name = "listView4";
+            this.listView4.Size = new System.Drawing.Size(617, 700);
+            this.listView4.TabIndex = 23;
+            this.listView4.UseCompatibleStateImageBehavior = false;
+            // 
+            // listView5
+            // 
+            this.listView5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView5.HideSelection = false;
+            this.listView5.Location = new System.Drawing.Point(3, 17);
+            this.listView5.Name = "listView5";
+            this.listView5.Size = new System.Drawing.Size(611, 684);
+            this.listView5.TabIndex = 23;
+            this.listView5.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5038,7 +5029,6 @@
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.gbDeviceLog.ResumeLayout(false);
-            this.gbDeviceLog.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.tabSMST.ResumeLayout(false);
@@ -5067,14 +5057,12 @@
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
             this.groupBox17.ResumeLayout(false);
-            this.groupBox17.PerformLayout();
             this.gbOneM2MDevice.ResumeLayout(false);
             this.gbOneM2MDevice.PerformLayout();
             this.tabLwM2M.ResumeLayout(false);
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
             this.tabServer.ResumeLayout(false);
@@ -5375,7 +5363,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.GroupBox gbDeviceLog;
-        private System.Windows.Forms.TextBox tBoxDataIN;
         private System.Windows.Forms.Button button63;
         private System.Windows.Forms.TextBox textBox64;
         private System.Windows.Forms.TabPage tabTC;
@@ -5430,9 +5417,7 @@
         private System.Windows.Forms.Button button94;
         private System.Windows.Forms.Button button96;
         private System.Windows.Forms.GroupBox groupBox17;
-        private System.Windows.Forms.TextBox tbOneM2MDataIN;
         private System.Windows.Forms.GroupBox groupBox16;
-        private System.Windows.Forms.TextBox tbLwM2MDataIN;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.ListView listView2;
@@ -5518,6 +5503,9 @@
         private System.Windows.Forms.Button btProxy333;
         private System.Windows.Forms.TextBox tBProxy332;
         private System.Windows.Forms.Button btProxy332;
+        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.ListView listView4;
+        private System.Windows.Forms.ListView listView5;
     }
 }
 
