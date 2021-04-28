@@ -259,9 +259,7 @@
             this.label37 = new System.Windows.Forms.Label();
             this.textBox73 = new System.Windows.Forms.TextBox();
             this.button104 = new System.Windows.Forms.Button();
-            this.label30 = new System.Windows.Forms.Label();
             this.btReset = new System.Windows.Forms.Button();
-            this.textBox62 = new System.Windows.Forms.TextBox();
             this.btnDeviceFOTA = new System.Windows.Forms.Button();
             this.btnoneM2MModuleVer = new System.Windows.Forms.Button();
             this.btnModemFOTA = new System.Windows.Forms.Button();
@@ -312,8 +310,6 @@
             this.button35 = new System.Windows.Forms.Button();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.tbLwM2MDataIN = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
@@ -400,9 +396,7 @@
             this.btnSetRemoteCSE = new System.Windows.Forms.Button();
             this.btnGetRemoteCSE = new System.Windows.Forms.Button();
             this.btnMEFAuth = new System.Windows.Forms.Button();
-            this.tbSvcCd = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.tbSvcSvrCd = new System.Windows.Forms.TextBox();
             this.label33 = new System.Windows.Forms.Label();
             this.tbSvcSvrNum = new System.Windows.Forms.TextBox();
@@ -445,10 +439,13 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button81 = new System.Windows.Forms.Button();
             this.button72 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
             this.lbActionState = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.tBoxDeviceVer = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
+            this.tbSvcCd = new System.Windows.Forms.TextBox();
             this.tBoxDeviceSN = new System.Windows.Forms.TextBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.tBoxDeviceModel = new System.Windows.Forms.TextBox();
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -503,10 +500,10 @@
             "38400",
             "76800",
             "115200"});
-            this.cBoxBaudRate.Location = new System.Drawing.Point(186, 797);
+            this.cBoxBaudRate.Location = new System.Drawing.Point(141, 12);
             this.cBoxBaudRate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
-            this.cBoxBaudRate.Size = new System.Drawing.Size(93, 20);
+            this.cBoxBaudRate.Size = new System.Drawing.Size(66, 20);
             this.cBoxBaudRate.TabIndex = 2;
             this.cBoxBaudRate.Text = "115200";
             // 
@@ -515,21 +512,21 @@
             this.cBoxCOMPORT.FormattingEnabled = true;
             this.cBoxCOMPORT.Items.AddRange(new object[] {
             "COM103"});
-            this.cBoxCOMPORT.Location = new System.Drawing.Point(55, 797);
+            this.cBoxCOMPORT.Location = new System.Drawing.Point(50, 12);
             this.cBoxCOMPORT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
-            this.cBoxCOMPORT.Size = new System.Drawing.Size(108, 20);
+            this.cBoxCOMPORT.Size = new System.Drawing.Size(84, 20);
             this.cBoxCOMPORT.TabIndex = 1;
-            this.cBoxCOMPORT.Text = "COM1";
+            this.cBoxCOMPORT.Text = "COM103";
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBar1.Location = new System.Drawing.Point(9, 800);
+            this.progressBar1.Location = new System.Drawing.Point(20, 15);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(35, 18);
+            this.progressBar1.Size = new System.Drawing.Size(19, 18);
             this.progressBar1.TabIndex = 2;
             this.progressBar1.Click += new System.EventHandler(this.ProgressBar1_Click);
             // 
@@ -543,20 +540,23 @@
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.button81);
             this.panel1.Controls.Add(this.button72);
-            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.lbActionState);
             this.panel1.Controls.Add(this.progressBar1);
             this.panel1.Controls.Add(this.cBoxBaudRate);
+            this.panel1.Controls.Add(this.label30);
+            this.panel1.Controls.Add(this.tBoxDeviceVer);
             this.panel1.Controls.Add(this.label34);
+            this.panel1.Controls.Add(this.tbSvcCd);
             this.panel1.Controls.Add(this.tBoxDeviceSN);
             this.panel1.Controls.Add(this.cBoxCOMPORT);
+            this.panel1.Controls.Add(this.label31);
             this.panel1.Controls.Add(this.tBoxDeviceModel);
             this.panel1.Controls.Add(this.label32);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1187, 829);
+            this.panel1.Size = new System.Drawing.Size(1188, 804);
             this.panel1.TabIndex = 10;
             // 
             // tabControl1
@@ -570,10 +570,10 @@
             this.tabControl1.Controls.Add(this.tabLOG);
             this.tabControl1.Controls.Add(this.tabTC);
             this.tabControl1.Controls.Add(this.webpage);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(3, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1181, 791);
+            this.tabControl1.Size = new System.Drawing.Size(1181, 758);
             this.tabControl1.TabIndex = 44;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -585,7 +585,7 @@
             this.tabCOM.Controls.Add(this.groupBox10);
             this.tabCOM.Location = new System.Drawing.Point(4, 22);
             this.tabCOM.Name = "tabCOM";
-            this.tabCOM.Size = new System.Drawing.Size(1173, 765);
+            this.tabCOM.Size = new System.Drawing.Size(1173, 732);
             this.tabCOM.TabIndex = 3;
             this.tabCOM.Text = "COM port";
             this.tabCOM.UseVisualStyleBackColor = true;
@@ -600,7 +600,7 @@
             this.groupBox23.Controls.Add(this.textBox79);
             this.groupBox23.Controls.Add(this.button63);
             this.groupBox23.Controls.Add(this.textBox64);
-            this.groupBox23.Location = new System.Drawing.Point(24, 605);
+            this.groupBox23.Location = new System.Drawing.Point(24, 588);
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.Size = new System.Drawing.Size(490, 141);
             this.groupBox23.TabIndex = 70;
@@ -693,7 +693,7 @@
             this.groupBox9.Controls.Add(this.textBox60);
             this.groupBox9.Controls.Add(this.textBox61);
             this.groupBox9.Controls.Add(this.button62);
-            this.groupBox9.Location = new System.Drawing.Point(24, 391);
+            this.groupBox9.Location = new System.Drawing.Point(24, 378);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(490, 202);
             this.groupBox9.TabIndex = 59;
@@ -819,7 +819,7 @@
             this.gbDeviceLog.Controls.Add(this.tBoxDataIN);
             this.gbDeviceLog.Location = new System.Drawing.Point(532, 18);
             this.gbDeviceLog.Name = "gbDeviceLog";
-            this.gbDeviceLog.Size = new System.Drawing.Size(624, 728);
+            this.gbDeviceLog.Size = new System.Drawing.Size(624, 709);
             this.gbDeviceLog.TabIndex = 44;
             this.gbDeviceLog.TabStop = false;
             this.gbDeviceLog.Text = "Device Message";
@@ -834,7 +834,7 @@
             this.tBoxDataIN.Name = "tBoxDataIN";
             this.tBoxDataIN.ReadOnly = true;
             this.tBoxDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tBoxDataIN.Size = new System.Drawing.Size(618, 708);
+            this.tBoxDataIN.Size = new System.Drawing.Size(618, 689);
             this.tBoxDataIN.TabIndex = 22;
             // 
             // groupBox10
@@ -1115,7 +1115,7 @@
             this.tabSMST.Location = new System.Drawing.Point(4, 22);
             this.tabSMST.Name = "tabSMST";
             this.tabSMST.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSMST.Size = new System.Drawing.Size(1173, 765);
+            this.tabSMST.Size = new System.Drawing.Size(1173, 732);
             this.tabSMST.TabIndex = 0;
             this.tabSMST.Text = "SMST setting";
             this.tabSMST.UseVisualStyleBackColor = true;
@@ -1135,7 +1135,7 @@
             this.pnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSetting.Location = new System.Drawing.Point(3, 3);
             this.pnSetting.Name = "pnSetting";
-            this.pnSetting.Size = new System.Drawing.Size(1167, 759);
+            this.pnSetting.Size = new System.Drawing.Size(1167, 726);
             this.pnSetting.TabIndex = 13;
             // 
             // button68
@@ -1264,7 +1264,7 @@
             this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Size = new System.Drawing.Size(419, 301);
+            this.groupBox5.Size = new System.Drawing.Size(419, 271);
             this.groupBox5.TabIndex = 25;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "VoLTE/SMS";
@@ -2018,7 +2018,7 @@
             this.tabPROXY.Location = new System.Drawing.Point(4, 22);
             this.tabPROXY.Name = "tabPROXY";
             this.tabPROXY.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPROXY.Size = new System.Drawing.Size(1173, 765);
+            this.tabPROXY.Size = new System.Drawing.Size(1173, 732);
             this.tabPROXY.TabIndex = 1;
             this.tabPROXY.Text = "PROXY setting";
             this.tabPROXY.UseVisualStyleBackColor = true;
@@ -2035,7 +2035,7 @@
             this.pnProxy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnProxy.Location = new System.Drawing.Point(3, 3);
             this.pnProxy.Name = "pnProxy";
-            this.pnProxy.Size = new System.Drawing.Size(1167, 759);
+            this.pnProxy.Size = new System.Drawing.Size(1167, 726);
             this.pnProxy.TabIndex = 34;
             // 
             // comboBox3
@@ -2873,7 +2873,7 @@
             // 
             // button40
             // 
-            this.button40.Location = new System.Drawing.Point(634, 692);
+            this.button40.Location = new System.Drawing.Point(637, 644);
             this.button40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button40.Name = "button40";
             this.button40.Size = new System.Drawing.Size(99, 24);
@@ -2884,7 +2884,7 @@
             // 
             // button41
             // 
-            this.button41.Location = new System.Drawing.Point(792, 692);
+            this.button41.Location = new System.Drawing.Point(795, 644);
             this.button41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button41.Name = "button41";
             this.button41.Size = new System.Drawing.Size(111, 24);
@@ -2905,7 +2905,7 @@
             this.tabOneM2M.Controls.Add(this.btnoneM2MFullTest);
             this.tabOneM2M.Location = new System.Drawing.Point(4, 22);
             this.tabOneM2M.Name = "tabOneM2M";
-            this.tabOneM2M.Size = new System.Drawing.Size(1173, 765);
+            this.tabOneM2M.Size = new System.Drawing.Size(1173, 732);
             this.tabOneM2M.TabIndex = 4;
             this.tabOneM2M.Text = "oneM2M Device";
             this.tabOneM2M.UseVisualStyleBackColor = true;
@@ -2929,13 +2929,11 @@
             this.groupBox21.Controls.Add(this.label37);
             this.groupBox21.Controls.Add(this.textBox73);
             this.groupBox21.Controls.Add(this.button104);
-            this.groupBox21.Controls.Add(this.label30);
             this.groupBox21.Controls.Add(this.btReset);
-            this.groupBox21.Controls.Add(this.textBox62);
             this.groupBox21.Controls.Add(this.btnDeviceFOTA);
             this.groupBox21.Controls.Add(this.btnoneM2MModuleVer);
             this.groupBox21.Controls.Add(this.btnModemFOTA);
-            this.groupBox21.Location = new System.Drawing.Point(26, 434);
+            this.groupBox21.Location = new System.Drawing.Point(26, 431);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(472, 204);
             this.groupBox21.TabIndex = 82;
@@ -3010,15 +3008,6 @@
             this.button104.UseVisualStyleBackColor = true;
             this.button104.Click += new System.EventHandler(this.button104_Click);
             // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(231, 177);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(89, 12);
-            this.label30.TabIndex = 78;
-            this.label30.Text = "디바이스 버전 :";
-            // 
             // btReset
             // 
             this.btReset.Location = new System.Drawing.Point(24, 173);
@@ -3028,15 +3017,6 @@
             this.btReset.Text = "RESET 보고";
             this.btReset.UseVisualStyleBackColor = true;
             this.btReset.Click += new System.EventHandler(this.btReset_Click);
-            // 
-            // textBox62
-            // 
-            this.textBox62.Location = new System.Drawing.Point(326, 171);
-            this.textBox62.Name = "textBox62";
-            this.textBox62.Size = new System.Drawing.Size(94, 21);
-            this.textBox62.TabIndex = 77;
-            this.textBox62.Text = "1.0.0";
-            this.textBox62.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnDeviceFOTA
             // 
@@ -3076,7 +3056,7 @@
             this.groupBox20.Controls.Add(this.button102);
             this.groupBox20.Controls.Add(this.button103);
             this.groupBox20.Controls.Add(this.button80);
-            this.groupBox20.Location = new System.Drawing.Point(26, 670);
+            this.groupBox20.Location = new System.Drawing.Point(26, 639);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(472, 84);
             this.groupBox20.TabIndex = 81;
@@ -3141,7 +3121,7 @@
             this.groupBox19.Controls.Add(this.button34);
             this.groupBox19.Controls.Add(this.lbSendedData);
             this.groupBox19.Controls.Add(this.btnDelSubscript);
-            this.groupBox19.Location = new System.Drawing.Point(26, 272);
+            this.groupBox19.Location = new System.Drawing.Point(26, 271);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(472, 157);
             this.groupBox19.TabIndex = 80;
@@ -3279,7 +3259,7 @@
             this.groupBox18.Controls.Add(this.btnCreateDeviceCSR);
             this.groupBox18.Controls.Add(this.btnDelDeviceCSR);
             this.groupBox18.Controls.Add(this.btnDeviceUpdateCSR);
-            this.groupBox18.Location = new System.Drawing.Point(26, 159);
+            this.groupBox18.Location = new System.Drawing.Point(26, 158);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(472, 109);
             this.groupBox18.TabIndex = 79;
@@ -3486,14 +3466,12 @@
             // 
             this.tabLwM2M.Controls.Add(this.groupBox22);
             this.tabLwM2M.Controls.Add(this.groupBox16);
-            this.tabLwM2M.Controls.Add(this.label1);
-            this.tabLwM2M.Controls.Add(this.tBoxDeviceVer);
             this.tabLwM2M.Controls.Add(this.button113);
             this.tabLwM2M.Controls.Add(this.groupBox11);
             this.tabLwM2M.Controls.Add(this.button125);
             this.tabLwM2M.Location = new System.Drawing.Point(4, 22);
             this.tabLwM2M.Name = "tabLwM2M";
-            this.tabLwM2M.Size = new System.Drawing.Size(1173, 765);
+            this.tabLwM2M.Size = new System.Drawing.Size(1173, 732);
             this.tabLwM2M.TabIndex = 5;
             this.tabLwM2M.Text = "LwM2M Device";
             this.tabLwM2M.UseVisualStyleBackColor = true;
@@ -3570,7 +3548,7 @@
             this.groupBox16.Controls.Add(this.tbLwM2MDataIN);
             this.groupBox16.Location = new System.Drawing.Point(540, 15);
             this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(617, 732);
+            this.groupBox16.Size = new System.Drawing.Size(617, 704);
             this.groupBox16.TabIndex = 45;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Device Message";
@@ -3585,30 +3563,12 @@
             this.tbLwM2MDataIN.Name = "tbLwM2MDataIN";
             this.tbLwM2MDataIN.ReadOnly = true;
             this.tbLwM2MDataIN.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbLwM2MDataIN.Size = new System.Drawing.Size(611, 712);
+            this.tbLwM2MDataIN.Size = new System.Drawing.Size(611, 684);
             this.tbLwM2MDataIN.TabIndex = 22;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(180, 745);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 12);
-            this.label1.TabIndex = 62;
-            this.label1.Text = "디바이스 버전 :";
-            // 
-            // tBoxDeviceVer
-            // 
-            this.tBoxDeviceVer.Location = new System.Drawing.Point(275, 739);
-            this.tBoxDeviceVer.Name = "tBoxDeviceVer";
-            this.tBoxDeviceVer.Size = new System.Drawing.Size(126, 21);
-            this.tBoxDeviceVer.TabIndex = 61;
-            this.tBoxDeviceVer.Text = "1.0.0";
-            this.tBoxDeviceVer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // button113
             // 
-            this.button113.Location = new System.Drawing.Point(246, 14);
+            this.button113.Location = new System.Drawing.Point(296, 14);
             this.button113.Name = "button113";
             this.button113.Size = new System.Drawing.Size(155, 28);
             this.button113.TabIndex = 55;
@@ -3662,7 +3622,7 @@
             this.groupBox11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox11.Size = new System.Drawing.Size(513, 571);
+            this.groupBox11.Size = new System.Drawing.Size(513, 556);
             this.groupBox11.TabIndex = 36;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
@@ -3814,7 +3774,7 @@
             // 
             // textBox69
             // 
-            this.textBox69.Location = new System.Drawing.Point(210, 535);
+            this.textBox69.Location = new System.Drawing.Point(210, 526);
             this.textBox69.Name = "textBox69";
             this.textBox69.Size = new System.Drawing.Size(291, 21);
             this.textBox69.TabIndex = 53;
@@ -3822,7 +3782,7 @@
             // 
             // button108
             // 
-            this.button108.Location = new System.Drawing.Point(8, 532);
+            this.button108.Location = new System.Drawing.Point(8, 523);
             this.button108.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button108.Name = "button108";
             this.button108.Size = new System.Drawing.Size(196, 24);
@@ -3957,7 +3917,7 @@
             // 
             // textBox51
             // 
-            this.textBox51.Location = new System.Drawing.Point(210, 501);
+            this.textBox51.Location = new System.Drawing.Point(210, 496);
             this.textBox51.Name = "textBox51";
             this.textBox51.Size = new System.Drawing.Size(291, 21);
             this.textBox51.TabIndex = 30;
@@ -3965,7 +3925,7 @@
             // 
             // btnDeviceVerLwM2M
             // 
-            this.btnDeviceVerLwM2M.Location = new System.Drawing.Point(8, 498);
+            this.btnDeviceVerLwM2M.Location = new System.Drawing.Point(8, 493);
             this.btnDeviceVerLwM2M.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDeviceVerLwM2M.Name = "btnDeviceVerLwM2M";
             this.btnDeviceVerLwM2M.Size = new System.Drawing.Size(196, 24);
@@ -4052,7 +4012,7 @@
             // 
             // button125
             // 
-            this.button125.Location = new System.Drawing.Point(51, 14);
+            this.button125.Location = new System.Drawing.Point(73, 14);
             this.button125.Name = "button125";
             this.button125.Size = new System.Drawing.Size(131, 28);
             this.button125.TabIndex = 54;
@@ -4069,22 +4029,20 @@
             this.tabServer.Controls.Add(this.groupBox14);
             this.tabServer.Controls.Add(this.groupBox15);
             this.tabServer.Controls.Add(this.btnMEFAuth);
-            this.tabServer.Controls.Add(this.tbSvcCd);
             this.tabServer.Controls.Add(this.label28);
-            this.tabServer.Controls.Add(this.label31);
             this.tabServer.Controls.Add(this.tbSvcSvrCd);
             this.tabServer.Controls.Add(this.label33);
             this.tabServer.Controls.Add(this.tbSvcSvrNum);
             this.tabServer.Location = new System.Drawing.Point(4, 22);
             this.tabServer.Name = "tabServer";
-            this.tabServer.Size = new System.Drawing.Size(1173, 765);
+            this.tabServer.Size = new System.Drawing.Size(1173, 732);
             this.tabServer.TabIndex = 6;
             this.tabServer.Text = "Service Server";
             this.tabServer.UseVisualStyleBackColor = true;
             // 
             // label23
             // 
-            this.label23.Location = new System.Drawing.Point(160, 109);
+            this.label23.Location = new System.Drawing.Point(160, 99);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(224, 22);
             this.label23.TabIndex = 77;
@@ -4094,7 +4052,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(53, 114);
+            this.label25.Location = new System.Drawing.Point(53, 104);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(99, 12);
             this.label25.TabIndex = 76;
@@ -4227,7 +4185,7 @@
             this.groupBox12.Controls.Add(this.tbLog);
             this.groupBox12.Location = new System.Drawing.Point(489, 24);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(668, 715);
+            this.groupBox12.Size = new System.Drawing.Size(668, 696);
             this.groupBox12.TabIndex = 49;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "SERVER INTERFACE";
@@ -4239,7 +4197,7 @@
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(662, 695);
+            this.tbLog.Size = new System.Drawing.Size(662, 676);
             this.tbLog.TabIndex = 26;
             // 
             // groupBox14
@@ -4503,45 +4461,26 @@
             // 
             // btnMEFAuth
             // 
-            this.btnMEFAuth.Location = new System.Drawing.Point(273, 24);
+            this.btnMEFAuth.Location = new System.Drawing.Point(273, 41);
             this.btnMEFAuth.Name = "btnMEFAuth";
-            this.btnMEFAuth.Size = new System.Drawing.Size(110, 74);
+            this.btnMEFAuth.Size = new System.Drawing.Size(110, 57);
             this.btnMEFAuth.TabIndex = 0;
             this.btnMEFAuth.Text = "MEF 인증";
             this.btnMEFAuth.UseVisualStyleBackColor = true;
             this.btnMEFAuth.Click += new System.EventHandler(this.btnMEFAuth_Click);
             // 
-            // tbSvcCd
-            // 
-            this.tbSvcCd.Location = new System.Drawing.Point(116, 24);
-            this.tbSvcCd.Name = "tbSvcCd";
-            this.tbSvcCd.Size = new System.Drawing.Size(67, 21);
-            this.tbSvcCd.TabIndex = 34;
-            this.tbSvcCd.Text = "CATO";
-            this.tbSvcCd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tbSvcCd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSvcCd_KeyDown);
-            // 
             // label28
             // 
-            this.label28.Location = new System.Drawing.Point(24, 57);
+            this.label28.Location = new System.Drawing.Point(25, 47);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(86, 16);
             this.label28.TabIndex = 6;
             this.label28.Text = "서버 SEQ";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label31
-            // 
-            this.label31.Location = new System.Drawing.Point(24, 24);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(86, 16);
-            this.label31.TabIndex = 6;
-            this.label31.Text = "서비스코드";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // tbSvcSvrCd
             // 
-            this.tbSvcSvrCd.Location = new System.Drawing.Point(116, 51);
+            this.tbSvcSvrCd.Location = new System.Drawing.Point(117, 41);
             this.tbSvcSvrCd.Name = "tbSvcSvrCd";
             this.tbSvcSvrCd.Size = new System.Drawing.Size(100, 21);
             this.tbSvcSvrCd.TabIndex = 7;
@@ -4549,7 +4488,7 @@
             // 
             // label33
             // 
-            this.label33.Location = new System.Drawing.Point(24, 82);
+            this.label33.Location = new System.Drawing.Point(25, 72);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(86, 16);
             this.label33.TabIndex = 6;
@@ -4558,7 +4497,7 @@
             // 
             // tbSvcSvrNum
             // 
-            this.tbSvcSvrNum.Location = new System.Drawing.Point(116, 81);
+            this.tbSvcSvrNum.Location = new System.Drawing.Point(117, 71);
             this.tbSvcSvrNum.Name = "tbSvcSvrNum";
             this.tbSvcSvrNum.Size = new System.Drawing.Size(100, 21);
             this.tbSvcSvrNum.TabIndex = 7;
@@ -4595,7 +4534,7 @@
             this.tabLOG.Controls.Add(this.label20);
             this.tabLOG.Location = new System.Drawing.Point(4, 22);
             this.tabLOG.Name = "tabLOG";
-            this.tabLOG.Size = new System.Drawing.Size(1173, 765);
+            this.tabLOG.Size = new System.Drawing.Size(1173, 732);
             this.tabLOG.TabIndex = 7;
             this.tabLOG.Text = "Platform LOG";
             this.tabLOG.UseVisualStyleBackColor = true;
@@ -4769,7 +4708,7 @@
             this.listBox3.ItemHeight = 12;
             this.listBox3.Location = new System.Drawing.Point(586, 368);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(543, 364);
+            this.listBox3.Size = new System.Drawing.Size(543, 340);
             this.listBox3.TabIndex = 58;
             this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
@@ -4812,7 +4751,7 @@
             this.listBox1.ItemHeight = 12;
             this.listBox1.Location = new System.Drawing.Point(6, 96);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(543, 640);
+            this.listBox1.Size = new System.Drawing.Size(543, 616);
             this.listBox1.TabIndex = 44;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -4876,7 +4815,7 @@
             this.tabTC.Controls.Add(this.gbTCResult);
             this.tabTC.Location = new System.Drawing.Point(4, 22);
             this.tabTC.Name = "tabTC";
-            this.tabTC.Size = new System.Drawing.Size(1173, 765);
+            this.tabTC.Size = new System.Drawing.Size(1173, 732);
             this.tabTC.TabIndex = 8;
             this.tabTC.Text = "시험절차서";
             this.tabTC.UseVisualStyleBackColor = true;
@@ -4926,7 +4865,7 @@
             this.gbTCResult.Controls.Add(this.tbTCResult);
             this.gbTCResult.Location = new System.Drawing.Point(586, 338);
             this.gbTCResult.Name = "gbTCResult";
-            this.gbTCResult.Size = new System.Drawing.Size(557, 401);
+            this.gbTCResult.Size = new System.Drawing.Size(557, 377);
             this.gbTCResult.TabIndex = 38;
             this.gbTCResult.TabStop = false;
             this.gbTCResult.Text = "TestCase Message";
@@ -4938,7 +4877,7 @@
             this.tbTCResult.Multiline = true;
             this.tbTCResult.Name = "tbTCResult";
             this.tbTCResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTCResult.Size = new System.Drawing.Size(551, 381);
+            this.tbTCResult.Size = new System.Drawing.Size(551, 357);
             this.tbTCResult.TabIndex = 35;
             // 
             // webpage
@@ -4946,7 +4885,7 @@
             this.webpage.Controls.Add(this.webBrowser1);
             this.webpage.Location = new System.Drawing.Point(4, 22);
             this.webpage.Name = "webpage";
-            this.webpage.Size = new System.Drawing.Size(1173, 765);
+            this.webpage.Size = new System.Drawing.Size(1173, 732);
             this.webpage.TabIndex = 9;
             this.webpage.Text = "Admin page";
             this.webpage.UseVisualStyleBackColor = true;
@@ -4957,17 +4896,17 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1173, 765);
+            this.webBrowser1.Size = new System.Drawing.Size(1173, 732);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
             // button81
             // 
-            this.button81.Location = new System.Drawing.Point(1036, 796);
+            this.button81.Location = new System.Drawing.Point(1098, 11);
             this.button81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button81.Name = "button81";
-            this.button81.Size = new System.Drawing.Size(72, 24);
+            this.button81.Size = new System.Drawing.Size(71, 24);
             this.button81.TabIndex = 41;
             this.button81.Text = "엑셀 쓰기";
             this.button81.UseVisualStyleBackColor = true;
@@ -4975,55 +4914,82 @@
             // 
             // button72
             // 
-            this.button72.Location = new System.Drawing.Point(933, 796);
+            this.button72.Location = new System.Drawing.Point(1020, 11);
             this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button72.Name = "button72";
-            this.button72.Size = new System.Drawing.Size(81, 24);
+            this.button72.Size = new System.Drawing.Size(70, 24);
             this.button72.TabIndex = 42;
             this.button72.Text = "엑셀 읽기";
             this.button72.UseVisualStyleBackColor = true;
             this.button72.Click += new System.EventHandler(this.button62_Click);
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(307, 800);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
-            this.label6.TabIndex = 57;
-            this.label6.Text = "통신 상태 :";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // lbActionState
             // 
             this.lbActionState.AutoSize = true;
-            this.lbActionState.Location = new System.Drawing.Point(378, 800);
+            this.lbActionState.Location = new System.Drawing.Point(213, 15);
             this.lbActionState.Name = "lbActionState";
             this.lbActionState.Size = new System.Drawing.Size(43, 12);
             this.lbActionState.TabIndex = 58;
             this.lbActionState.Text = "closed";
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(732, 15);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(37, 12);
+            this.label30.TabIndex = 78;
+            this.label30.Text = "버전 :";
+            // 
+            // tBoxDeviceVer
+            // 
+            this.tBoxDeviceVer.Location = new System.Drawing.Point(775, 9);
+            this.tBoxDeviceVer.Name = "tBoxDeviceVer";
+            this.tBoxDeviceVer.Size = new System.Drawing.Size(81, 21);
+            this.tBoxDeviceVer.TabIndex = 77;
+            this.tBoxDeviceVer.Text = "1.0.0";
+            this.tBoxDeviceVer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(456, 800);
+            this.label34.Location = new System.Drawing.Point(389, 15);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(101, 12);
+            this.label34.Size = new System.Drawing.Size(49, 12);
             this.label34.TabIndex = 74;
-            this.label34.Text = "디바이스 모델명 :";
+            this.label34.Text = "모델명 :";
+            // 
+            // tbSvcCd
+            // 
+            this.tbSvcCd.Location = new System.Drawing.Point(936, 12);
+            this.tbSvcCd.Name = "tbSvcCd";
+            this.tbSvcCd.Size = new System.Drawing.Size(67, 21);
+            this.tbSvcCd.TabIndex = 34;
+            this.tbSvcCd.Text = "CATO";
+            this.tbSvcCd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbSvcCd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSvcCd_KeyDown);
             // 
             // tBoxDeviceSN
             // 
-            this.tBoxDeviceSN.Location = new System.Drawing.Point(813, 796);
+            this.tBoxDeviceSN.Location = new System.Drawing.Point(622, 11);
             this.tBoxDeviceSN.Name = "tBoxDeviceSN";
             this.tBoxDeviceSN.Size = new System.Drawing.Size(100, 21);
             this.tBoxDeviceSN.TabIndex = 59;
             this.tBoxDeviceSN.Text = "123456";
             this.tBoxDeviceSN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // label31
+            // 
+            this.label31.Location = new System.Drawing.Point(844, 13);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(86, 16);
+            this.label31.TabIndex = 6;
+            this.label31.Text = "서비스코드";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // tBoxDeviceModel
             // 
-            this.tBoxDeviceModel.Location = new System.Drawing.Point(563, 797);
+            this.tBoxDeviceModel.Location = new System.Drawing.Point(447, 12);
             this.tBoxDeviceModel.Name = "tBoxDeviceModel";
             this.tBoxDeviceModel.Size = new System.Drawing.Size(98, 21);
             this.tBoxDeviceModel.TabIndex = 36;
@@ -5033,11 +4999,11 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(694, 800);
+            this.label32.Location = new System.Drawing.Point(556, 15);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(113, 12);
+            this.label32.Size = new System.Drawing.Size(61, 12);
             this.label32.TabIndex = 76;
-            this.label32.Text = "디바이스 일련번호 :";
+            this.label32.Text = "일련번호 :";
             // 
             // timer1
             // 
@@ -5052,7 +5018,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1187, 829);
+            this.ClientSize = new System.Drawing.Size(1188, 804);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
@@ -5105,7 +5071,6 @@
             this.gbOneM2MDevice.ResumeLayout(false);
             this.gbOneM2MDevice.PerformLayout();
             this.tabLwM2M.ResumeLayout(false);
-            this.tabLwM2M.PerformLayout();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             this.groupBox16.ResumeLayout(false);
@@ -5438,15 +5403,12 @@
         private System.Windows.Forms.Button btnSendDataOneM2M;
         private System.Windows.Forms.Button btnoneM2MFullTest;
         private System.Windows.Forms.Label lbActionState;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnDeviceVerLwM2M;
         private System.Windows.Forms.Button btnDeregister;
         private System.Windows.Forms.Button btnBootstrap;
         private System.Windows.Forms.Label lbLwM2MRcvData;
         private System.Windows.Forms.Label lbDevLwM2MData;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox tBoxDeviceVer;
         private System.Windows.Forms.TextBox tBoxDeviceSN;
         private System.Windows.Forms.Label lbDirectRxData;
         private System.Windows.Forms.Label lbmodemfwrver;
@@ -5455,7 +5417,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnDeviceCheck;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox textBox62;
+        private System.Windows.Forms.TextBox tBoxDeviceVer;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TextBox textBox71;

@@ -326,6 +326,7 @@ namespace WindowsFormsApp2
             onem2mtc0211033,
             onem2mtc0211034,
             onem2mtc0211035,
+            onem2mtc0211040,        // module reset 이후 oneM2M 모드 요청
             onem2mtc0211041,        // module version finsh를 위해 MEF인증 요청
             onem2mtc0211042,        // module version report 요청
             onem2mtc0211043,        // module version 완료
@@ -1072,14 +1073,14 @@ namespace WindowsFormsApp2
                     else if (lbActionState.Text == states.modemFWUPboot.ToString())
                     {
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                         lbActionState.Text = states.mfotamefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
-                    else if (lbActionState.Text == states.onem2mtc0211041.ToString())
+                    else if (lbActionState.Text == states.onem2mtc0211040.ToString() || lbActionState.Text == states.onem2mtc0211041.ToString())
                     {
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                         lbActionState.Text = states.onem2mtc0211042.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
@@ -1228,7 +1229,7 @@ namespace WindowsFormsApp2
                         {
                             endoneM2MTC("tc021001", string.Empty, string.Empty, string.Empty, str2);
 
-                            textBox62.Text = deviceverinfos[1];
+                            tBoxDeviceVer.Text = deviceverinfos[1];
                             logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
 
                             this.sendDataOut(commands["deviceFWUPstart"]);
@@ -1753,7 +1754,7 @@ namespace WindowsFormsApp2
                     if (str2 == "5")
                         nextcommand = states.onem2mtc0211041.ToString();
                     else
-                        nextcommand = states.modemFWUPboot.ToString();
+                        nextcommand = states.onem2mtc0211040.ToString();
                     lbActionState.Text = states.onem2mtc0211035.ToString();
                     break;
                 case states.resetmodechk:
@@ -1871,8 +1872,8 @@ namespace WindowsFormsApp2
                         if (svr.enrmtKeyId != string.Empty)
                         {
                             RetriveDverToPlatform();
-                            if (textBox62.Text != lbdevicever.Text)
-                                endoneM2MTC("tc021004", string.Empty, "20000100", textBox62.Text, lbdevicever.Text);
+                            if (tBoxDeviceVer.Text != lbdevicever.Text)
+                                endoneM2MTC("tc021004", string.Empty, "20000100", tBoxDeviceVer.Text, lbdevicever.Text);
                             else
                                 endoneM2MTC("tc021004", string.Empty, string.Empty, string.Empty, str2);
                         }
@@ -2407,7 +2408,7 @@ namespace WindowsFormsApp2
 
                         startoneM2MTC("tc021004");
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                         lbActionState.Text = states.fotamefauthnt.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                     }
@@ -2422,7 +2423,7 @@ namespace WindowsFormsApp2
                 case states.onem2mtc0210033:
                     startoneM2MTC("tc021004");
                     // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                     lbActionState.Text = states.onem2mtc0210041.ToString();
                     nextresponse = "$OM_AUTH_RSP=";
                     break;
@@ -2701,7 +2702,7 @@ namespace WindowsFormsApp2
                 case states.onem2mtc0210039:
                     startoneM2MTC("tc021004");
                     // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                    this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                     if (lbActionState.Text == states.deviceFWClose.ToString())
                         lbActionState.Text = states.fotamefauthnt.ToString();
                     else
@@ -2712,6 +2713,11 @@ namespace WindowsFormsApp2
                 case states.modemFWUPmodechk:               // $$LGTMPF= 응답 없이 OK가 응답된 경우 예외처리를 위해
                     this.sendDataOut(commands["getonem2mmode"]);
                     lbActionState.Text = states.modemFWUPmodechk.ToString();
+                    nextresponse = "$LGTMPF=";
+                    break;
+                case states.onem2mtc0211040:
+                    this.sendDataOut(commands["getonem2mmode"]);
+                    lbActionState.Text = states.onem2mtc0211034.ToString();
                     nextresponse = "$LGTMPF=";
                     break;
                 case states.resetmodechk:
@@ -3095,7 +3101,7 @@ namespace WindowsFormsApp2
                     case states.deviceFWOpen:
                     case states.onem2mtc0210037:
                         this.sendDataOut(commands["deviceFWOpen"] + nextcmdexts);
-                        if (lbActionState.Text == states.deviceFWOpen.ToString())
+                        if (nextstate == states.deviceFWOpen)
                             lbActionState.Text = states.deviceFWOpen.ToString();
                         else
                             lbActionState.Text = states.onem2mtc0210037.ToString();
@@ -3105,7 +3111,7 @@ namespace WindowsFormsApp2
                     case states.deviceFWRead:
                     case states.onem2mtc0210038:
                         this.sendDataOut(commands["deviceFWRead"] + nextcmdexts);
-                        if (lbActionState.Text == states.deviceFWRead.ToString())
+                        if (nextstate == states.deviceFWRead)
                             lbActionState.Text = states.deviceFWRead.ToString();
                         else
                             lbActionState.Text = states.onem2mtc0210038.ToString();
@@ -3115,22 +3121,26 @@ namespace WindowsFormsApp2
                     case states.deviceFWClose:
                     case states.onem2mtc0210039:
                         this.sendDataOut(commands["deviceFWClose"] + nextcmdexts);
-                        if (lbActionState.Text == states.deviceFWClose.ToString())
+                        if (nextstate == states.deviceFWClose)
                             lbActionState.Text = states.deviceFWClose.ToString();
                         else
                             lbActionState.Text = states.onem2mtc0210039.ToString();
                         nextcmdexts = string.Empty;
                         break;
                     case states.modemFWUPboot:
+                    case states.onem2mtc0211040:
                         this.sendDataOut(commands["setonem2mmode"]);
-                        lbActionState.Text = states.modemFWUPboot.ToString();
+                        if (nextstate == states.modemFWUPboot)
+                            lbActionState.Text = states.modemFWUPboot.ToString();
+                        else
+                            lbActionState.Text = states.onem2mtc0211040.ToString();
                         nextresponse = "$LGTMPF=";
                         break;
                     case states.modemFWUPmodeset:
                     case states.onem2mtc0211041:
                         // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
-                        if (lbActionState.Text == states.modemFWUPmodeset.ToString())
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
+                        if (nextstate == states.modemFWUPmodeset)
                             lbActionState.Text = states.mfotamefauth.ToString();
                         else
                             lbActionState.Text = states.onem2mtc0211042.ToString();
@@ -3175,7 +3185,7 @@ namespace WindowsFormsApp2
                     case states.resetmefauth:
 
                         // RESET 상태 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                        this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                         lbActionState.Text = states.resetmefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
                         break;
@@ -5168,6 +5178,9 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(button115.Text);
                 worksheet.Cells[i, 1] = new Cell(checkBox4.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(label50.Text);
+                worksheet.Cells[i, 1] = new Cell(textBox76.Text);
                 workbook.Worksheets.Add(worksheet);
 
                 workbook.Save(Application.StartupPath + @"/" + tbDeviceName.Text + "_config.xls");
@@ -5621,6 +5634,8 @@ namespace WindowsFormsApp2
                             checkBox4.Checked = false;
                             checkBox4.Text = "미지원";
                         }
+                        i++;
+                        textBox76.Text = worksheet.Cells[i, 1].ToString();
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -9164,7 +9179,7 @@ namespace WindowsFormsApp2
         {
             startoneM2MTC("tc021104");
             // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-            this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+            this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
             lbActionState.Text = states.setmefauth.ToString();
             nextresponse = "$OM_AUTH_RSP=";
         }
@@ -9267,7 +9282,7 @@ namespace WindowsFormsApp2
         {
             startoneM2MTC("tc021004");
             // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-            this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+            this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
             lbActionState.Text = states.fotamefauthnt.ToString();
             nextresponse = "$OM_AUTH_RSP=";
         }
@@ -9298,7 +9313,7 @@ namespace WindowsFormsApp2
             {
                 startoneM2MTC("tc021104");
                 // 디바이스 펌웨어 버전 등록을 위해 플랫폼 서버 MEF AUTH 요청
-                this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                 lbActionState.Text = states.mfotamefauth.ToString();
                 nextresponse = "$OM_AUTH_RSP=";
             }
@@ -9323,7 +9338,7 @@ namespace WindowsFormsApp2
             }
             else
             {
-                this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + textBox62.Text + "," + tBoxDeviceSN.Text);
+                this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                 lbActionState.Text = states.resetmefauth.ToString();
                 nextresponse = "$OM_AUTH_RSP=";
             }
