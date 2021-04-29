@@ -36,6 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabCOM = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.button128 = new System.Windows.Forms.Button();
             this.textBox81 = new System.Windows.Forms.TextBox();
@@ -59,6 +60,7 @@
             this.textBox61 = new System.Windows.Forms.TextBox();
             this.button62 = new System.Windows.Forms.Button();
             this.gbDeviceLog = new System.Windows.Forms.GroupBox();
+            this.listView3 = new System.Windows.Forms.ListView();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label47 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
@@ -288,6 +290,7 @@
             this.btnDelDeviceCSR = new System.Windows.Forms.Button();
             this.btnDeviceUpdateCSR = new System.Windows.Forms.Button();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.listView4 = new System.Windows.Forms.ListView();
             this.gbOneM2MDevice = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button114 = new System.Windows.Forms.Button();
@@ -307,6 +310,7 @@
             this.textBox71 = new System.Windows.Forms.TextBox();
             this.button35 = new System.Windows.Forms.Button();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.listView5 = new System.Windows.Forms.ListView();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
@@ -431,7 +435,6 @@
             this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
             this.gbTCResult = new System.Windows.Forms.GroupBox();
-            this.tbTCResult = new System.Windows.Forms.TextBox();
             this.webpage = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button81 = new System.Windows.Forms.Button();
@@ -447,9 +450,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.listView3 = new System.Windows.Forms.ListView();
-            this.listView4 = new System.Windows.Forms.ListView();
-            this.listView5 = new System.Windows.Forms.ListView();
+            this.listView6 = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -579,6 +580,7 @@
             // 
             // tabCOM
             // 
+            this.tabCOM.Controls.Add(this.textBox1);
             this.tabCOM.Controls.Add(this.groupBox23);
             this.tabCOM.Controls.Add(this.groupBox9);
             this.tabCOM.Controls.Add(this.gbDeviceLog);
@@ -589,6 +591,13 @@
             this.tabCOM.TabIndex = 3;
             this.tabCOM.Text = "COM port";
             this.tabCOM.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(535, 708);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(618, 21);
+            this.textBox1.TabIndex = 71;
             // 
             // groupBox23
             // 
@@ -819,10 +828,21 @@
             this.gbDeviceLog.Controls.Add(this.listView3);
             this.gbDeviceLog.Location = new System.Drawing.Point(532, 18);
             this.gbDeviceLog.Name = "gbDeviceLog";
-            this.gbDeviceLog.Size = new System.Drawing.Size(624, 709);
+            this.gbDeviceLog.Size = new System.Drawing.Size(624, 684);
             this.gbDeviceLog.TabIndex = 44;
             this.gbDeviceLog.TabStop = false;
             this.gbDeviceLog.Text = "Device Message";
+            // 
+            // listView3
+            // 
+            this.listView3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView3.HideSelection = false;
+            this.listView3.Location = new System.Drawing.Point(3, 17);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(618, 664);
+            this.listView3.TabIndex = 23;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            this.listView3.SelectedIndexChanged += new System.EventHandler(this.listView3_SelectedIndexChanged);
             // 
             // groupBox10
             // 
@@ -3326,6 +3346,16 @@
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Device Message";
             // 
+            // listView4
+            // 
+            this.listView4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView4.HideSelection = false;
+            this.listView4.Location = new System.Drawing.Point(3, 17);
+            this.listView4.Name = "listView4";
+            this.listView4.Size = new System.Drawing.Size(617, 700);
+            this.listView4.TabIndex = 23;
+            this.listView4.UseCompatibleStateImageBehavior = false;
+            // 
             // gbOneM2MDevice
             // 
             this.gbOneM2MDevice.Controls.Add(this.checkBox1);
@@ -3526,6 +3556,16 @@
             this.groupBox16.TabIndex = 45;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Device Message";
+            // 
+            // listView5
+            // 
+            this.listView5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView5.HideSelection = false;
+            this.listView5.Location = new System.Drawing.Point(3, 17);
+            this.listView5.Name = "listView5";
+            this.listView5.Size = new System.Drawing.Size(611, 684);
+            this.listView5.TabIndex = 23;
+            this.listView5.UseCompatibleStateImageBehavior = false;
             // 
             // button113
             // 
@@ -4823,23 +4863,13 @@
             // 
             // gbTCResult
             // 
-            this.gbTCResult.Controls.Add(this.tbTCResult);
+            this.gbTCResult.Controls.Add(this.listView6);
             this.gbTCResult.Location = new System.Drawing.Point(586, 338);
             this.gbTCResult.Name = "gbTCResult";
             this.gbTCResult.Size = new System.Drawing.Size(557, 377);
             this.gbTCResult.TabIndex = 38;
             this.gbTCResult.TabStop = false;
             this.gbTCResult.Text = "TestCase Message";
-            // 
-            // tbTCResult
-            // 
-            this.tbTCResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbTCResult.Location = new System.Drawing.Point(3, 17);
-            this.tbTCResult.Multiline = true;
-            this.tbTCResult.Name = "tbTCResult";
-            this.tbTCResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbTCResult.Size = new System.Drawing.Size(551, 357);
-            this.tbTCResult.TabIndex = 35;
             // 
             // webpage
             // 
@@ -4975,35 +5005,16 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // listView3
+            // listView6
             // 
-            this.listView3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView3.HideSelection = false;
-            this.listView3.Location = new System.Drawing.Point(3, 17);
-            this.listView3.Name = "listView3";
-            this.listView3.Size = new System.Drawing.Size(618, 689);
-            this.listView3.TabIndex = 23;
-            this.listView3.UseCompatibleStateImageBehavior = false;
-            // 
-            // listView4
-            // 
-            this.listView4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView4.HideSelection = false;
-            this.listView4.Location = new System.Drawing.Point(3, 17);
-            this.listView4.Name = "listView4";
-            this.listView4.Size = new System.Drawing.Size(617, 700);
-            this.listView4.TabIndex = 23;
-            this.listView4.UseCompatibleStateImageBehavior = false;
-            // 
-            // listView5
-            // 
-            this.listView5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView5.HideSelection = false;
-            this.listView5.Location = new System.Drawing.Point(3, 17);
-            this.listView5.Name = "listView5";
-            this.listView5.Size = new System.Drawing.Size(611, 684);
-            this.listView5.TabIndex = 23;
-            this.listView5.UseCompatibleStateImageBehavior = false;
+            this.listView6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView6.HideSelection = false;
+            this.listView6.Location = new System.Drawing.Point(3, 17);
+            this.listView6.Name = "listView6";
+            this.listView6.Size = new System.Drawing.Size(551, 357);
+            this.listView6.TabIndex = 36;
+            this.listView6.UseCompatibleStateImageBehavior = false;
+            this.listView6.SelectedIndexChanged += new System.EventHandler(this.listView6_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -5024,6 +5035,7 @@
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabCOM.ResumeLayout(false);
+            this.tabCOM.PerformLayout();
             this.groupBox23.ResumeLayout(false);
             this.groupBox23.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -5078,7 +5090,6 @@
             this.tabTC.ResumeLayout(false);
             this.tabTC.PerformLayout();
             this.gbTCResult.ResumeLayout(false);
-            this.gbTCResult.PerformLayout();
             this.webpage.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -5367,7 +5378,6 @@
         private System.Windows.Forms.TextBox textBox64;
         private System.Windows.Forms.TabPage tabTC;
         private System.Windows.Forms.GroupBox gbTCResult;
-        private System.Windows.Forms.TextBox tbTCResult;
         private System.Windows.Forms.GroupBox gbOneM2MDevice;
         private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.Button button34;
@@ -5506,6 +5516,8 @@
         private System.Windows.Forms.ListView listView3;
         private System.Windows.Forms.ListView listView4;
         private System.Windows.Forms.ListView listView5;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ListView listView6;
     }
 }
 

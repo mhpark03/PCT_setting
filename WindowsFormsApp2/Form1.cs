@@ -758,7 +758,6 @@ namespace WindowsFormsApp2
                 tc.onem2m[i, 4] = string.Empty;
             }
 
-            tbTCResult.Text = string.Empty;
             tbLog.Text = string.Empty;
 
             lbActionState.Text = "idle";
@@ -840,6 +839,17 @@ namespace WindowsFormsApp2
             listView5.Columns.Add("state", 120, HorizontalAlignment.Left);
             listView5.Columns.Add("  ", 30, HorizontalAlignment.Center);
             listView5.Columns.Add("  AT COMMAND", 1000, HorizontalAlignment.Left);
+
+            listView6.View = View.Details;
+            listView6.GridLines = true;
+            listView6.FullRowSelect = true;
+            listView6.CheckBoxes = false;
+
+            listView6.Columns.Add("시간", 60, HorizontalAlignment.Center);
+            listView6.Columns.Add("state", 80, HorizontalAlignment.Left);
+            listView6.Columns.Add("항목", 280, HorizontalAlignment.Left);
+            listView6.Columns.Add("결과", 40, HorizontalAlignment.Center);
+            listView6.Columns.Add("LogID", 80, HorizontalAlignment.Center);
 
             tcStartTime = DateTime.Now.AddHours(-2);
             dateTimePicker1.Value = tcStartTime;
@@ -971,7 +981,8 @@ namespace WindowsFormsApp2
                     newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
                 }
                 listView3.Items.Add(newitem);
-                listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
+                if (listView3.Items.Count > 35)
+                    listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
 
                 if (kind == " ")
                     newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
@@ -980,7 +991,8 @@ namespace WindowsFormsApp2
                     newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
                 }
                 listView4.Items.Add(newitem);
-                listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
+                if (listView4.Items.Count > 35)
+                    listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
 
                 if (kind == " ")
                     newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
@@ -989,7 +1001,8 @@ namespace WindowsFormsApp2
                     newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
                 }
                 listView5.Items.Add(newitem);
-                listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
+                if (listView5.Items.Count > 35)
+                    listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
             }
         }
 
@@ -6207,6 +6220,8 @@ namespace WindowsFormsApp2
                     break;
                 case "otafd":
                     getSvrDetailLog(logId, "tc021103", resultCode, resultCodeName);
+                    if (tcmsg == string.Empty)
+                        tcmsg = "Module FW Read";
                     break;
                 case "fwr":
                     if (trgAddr == "/mgo/fwr")
@@ -6993,7 +7008,7 @@ namespace WindowsFormsApp2
 
                                 if (values[3] == "D")
                                 {
-                                    tcmsg = "Device FW Noti";
+                                    tcmsg = "Device FW Check";
                                     if (ntparam == string.Empty)
                                         endoneM2MTC("tc021001", tlogid, "20000100", tresultCodeName, "NO CELL info");
                                     else
@@ -7001,7 +7016,7 @@ namespace WindowsFormsApp2
                                 }
                                 else
                                 {
-                                    tcmsg = "Module FW Noti";
+                                    tcmsg = "Module FW Check";
                                     if (ntparam == string.Empty)
                                         endoneM2MTC("tc021101", tlogid, "20000100", tresultCodeName, "NO CELL info");
                                     else
@@ -7010,7 +7025,7 @@ namespace WindowsFormsApp2
                             }
                             else
                             {
-                                tcmsg = "Device FW Noti";
+                                tcmsg = "Device FW Check";
                                 endoneM2MTC("tc021001", tlogid, tresultCode, tresultCodeName, string.Empty);
                             }
                         }
@@ -7233,7 +7248,7 @@ namespace WindowsFormsApp2
         private void startLwM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
         {
             tc.state = tcindex;
-            logPrintTC(lwm2mtclist[tcindex] + " [시작]");
+            logPrintTC(lwm2mtclist[tcindex],"시작",string.Empty);
             lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
             if (tc.lwm2m[(int)index, 0] != "FAIL")
             {
@@ -7255,9 +7270,9 @@ namespace WindowsFormsApp2
             if (resultCode == string.Empty || resultCode == "20000000")
             {
                 if (logId == string.Empty)
-                    logPrintTC(lwm2mtclist[tcindex] + " [성공]");
+                    logPrintTC(lwm2mtclist[tcindex],"성공", string.Empty);
                 else
-                    logPrintTC(lwm2mtclist[tcindex] + " [성공] - " + logId);
+                    logPrintTC(lwm2mtclist[tcindex],"성공",logId);
 
                 string result = tc.lwm2m[(int)index, 0];
                 if (result != "FAIL")
@@ -7275,9 +7290,9 @@ namespace WindowsFormsApp2
             else
             {
                 if (logId == string.Empty)
-                    logPrintTC(lwm2mtclist[tcindex] + " [오류]");
+                    logPrintTC(lwm2mtclist[tcindex],"실패", string.Empty);
                 else
-                    logPrintTC(lwm2mtclist[tcindex] + " [오류] - " + logId);
+                    logPrintTC(lwm2mtclist[tcindex],"실패", logId);
                 tc.lwm2m[(int)index, 0] = "FAIL";             // 시험 결과 저장
                 tc.lwm2m[(int)index, 1] = resultCode;
                 tc.lwm2m[(int)index, 2] = logId;
@@ -7322,7 +7337,7 @@ namespace WindowsFormsApp2
         private void startoneM2MTC(string tcindex)
         {
             tc.state = tcindex;
-            logPrintTC(onem2mtclist[tcindex] + " [시작]");
+            logPrintTC(onem2mtclist[tcindex],"시작", string.Empty);
             onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
             if (tc.onem2m[(int)index, 0] != "FAIL")
             {
@@ -7344,9 +7359,9 @@ namespace WindowsFormsApp2
             if (resultCode == string.Empty || resultCode == "20000000")
             {
                 if (logId == string.Empty)
-                    logPrintTC(onem2mtclist[tcindex] + " [성공]");
+                    logPrintTC(onem2mtclist[tcindex],"성공", string.Empty);
                 else
-                    logPrintTC(onem2mtclist[tcindex] + " [성공] - " + logId);
+                    logPrintTC(onem2mtclist[tcindex],"성공",logId);
                 string result = tc.onem2m[(int)index, 0];
 
                 if (result != "FAIL")
@@ -7375,9 +7390,9 @@ namespace WindowsFormsApp2
             else
             {
                 if (logId == string.Empty)
-                    logPrintTC(onem2mtclist[tcindex] + " [오류]");
+                    logPrintTC(onem2mtclist[tcindex],"실패", string.Empty);
                 else
-                    logPrintTC(onem2mtclist[tcindex] + " [오류] - " + logId);
+                    logPrintTC(onem2mtclist[tcindex],"실패",logId);
                 tc.onem2m[(int)index, 0] = "FAIL";             // 시험 결과 저장
                 tc.onem2m[(int)index, 1] = resultCode;
                 tc.onem2m[(int)index, 2] = logId;
@@ -7425,14 +7440,20 @@ namespace WindowsFormsApp2
         }
 
         // 시험절차서 시험 결과를 tbTCResult에 표시.
-        public void logPrintTC(string message)
+        public void logPrintTC(string message, string result, string logID)
         {
             BeginInvoke(new Action(() =>
             {
-                tbTCResult.AppendText(Environment.NewLine);
-                tbTCResult.AppendText(DateTime.Now.ToString("hh:mm:ss.fff") + " (" + lbActionState.Text + ") : " + message);
-                tbTCResult.SelectionStart = tbTCResult.TextLength;
-                tbTCResult.ScrollToCaret();
+                string kind = message.Substring(0, 1);
+                string msg = message.Substring(1, message.Length - 1);
+                string time = DateTime.Now.ToString("hh:mm:ss");
+
+                ListViewItem newitem = new ListViewItem(new string[] { time, lbActionState.Text, message, result, logID});
+                listView6.Items.Add(newitem);
+                if (result == "실패")
+                    listView6.Items[listView6.Items.Count - 1].BackColor = Color.Orange;
+                if (listView6.Items.Count > 20)
+                    listView6.TopItem = listView6.Items[listView6.Items.Count - 1];
             }));
         }
 
@@ -9844,23 +9865,53 @@ namespace WindowsFormsApp2
                 worksheet.Cells.ColumnWidth[0] = 11000;
                 workbook.Worksheets.Add(worksheet);
 
+                worksheet = new Worksheet("platform");
+                worksheet.Cells[0, 0] = new Cell("시간");
+                worksheet.Cells[0, 1] = new Cell("ID");
+                worksheet.Cells[0, 2] = new Cell("이벤트");
+                worksheet.Cells[0, 3] = new Cell("resultCode");
+                worksheet.Cells[0, 4] = new Cell("비고");
+
+                for (i=0;i<listBox1.Items.Count;i++)
+                {
+                    string[] values = listBox1.Items[i].ToString().Split('\t');
+
+                    worksheet.Cells[i + 1, 0] = new Cell(values[0]);
+                    worksheet.Cells[i + 1, 1] = new Cell(values[1]);
+                    worksheet.Cells[i + 1, 2] = new Cell(values[2]);
+                    worksheet.Cells[i + 1, 3] = new Cell(values[3]);
+                    worksheet.Cells[i + 1, 4] = new Cell(values[4]);
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 3000;
+                worksheet.Cells.ColumnWidth[1] = 3000;
+                worksheet.Cells.ColumnWidth[2] = 6000;
+                worksheet.Cells.ColumnWidth[3] = 3000;
+                worksheet.Cells.ColumnWidth[4] = 20000;
+                workbook.Worksheets.Add(worksheet);
+
                 worksheet = new Worksheet("testcase");
                 worksheet.Cells[0, 0] = new Cell("시간");
                 worksheet.Cells[0, 1] = new Cell("state");
-                worksheet.Cells[0, 2] = new Cell("종류");
-                worksheet.Cells[0, 3] = new Cell("내용");
+                worksheet.Cells[0, 2] = new Cell("시험항목");
+                worksheet.Cells[0, 3] = new Cell("결과");
+                worksheet.Cells[0, 4] = new Cell("LogID");
 
-                i = 1;
-                byteArray = Encoding.UTF8.GetBytes(tbTCResult.Text);
-                stream = new MemoryStream(byteArray);
-                reader = new StreamReader(stream);
-                while ((line = reader.ReadLine()) != null)
+                for (i = 0; i < listView6.Items.Count; i++)
                 {
-                    worksheet.Cells[i, 0] = new Cell(line);
-                    i++;
+                    worksheet.Cells[i + 1, 0] = new Cell(listView6.Items[i].SubItems[0].Text);
+                    worksheet.Cells[i + 1, 1] = new Cell(listView6.Items[i].SubItems[1].Text);
+                    worksheet.Cells[i + 1, 2] = new Cell(listView6.Items[i].SubItems[2].Text);
+                    worksheet.Cells[i + 1, 3] = new Cell(listView6.Items[i].SubItems[3].Text);
+                    worksheet.Cells[i + 1, 4] = new Cell(listView6.Items[i].SubItems[4].Text);
                 }
 
-                worksheet.Cells.ColumnWidth[0] = 11000;
+                worksheet.Cells.ColumnWidth[0] = 2500;
+                worksheet.Cells.ColumnWidth[1] = 4000;
+                worksheet.Cells.ColumnWidth[2] = 15000;
+                worksheet.Cells.ColumnWidth[3] = 1500;
+                worksheet.Cells.ColumnWidth[4] = 2500;
+
                 workbook.Worksheets.Add(worksheet);
 
                 workbook.Save(pathname + filename);
@@ -10030,6 +10081,29 @@ namespace WindowsFormsApp2
         {
             this.sendDataOut(tBProxy334.Text);
             lbActionState.Text = states.testatcmd.ToString();
+        }
+
+        private void listView3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView3.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                textBox1.Text = item.SubItems[3].Text;
+            }
+        }
+
+        private void listView6_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView6.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                if (item.SubItems[4].Text != string.Empty)
+                {
+                    textBox95.Text = item.SubItems[4].Text;
+                    getSvrEventLog(textBox95.Text, string.Empty, string.Empty, string.Empty);
+                    tabControl1.SelectedTab = tabLOG;
+                }
+            }
         }
     }
 
