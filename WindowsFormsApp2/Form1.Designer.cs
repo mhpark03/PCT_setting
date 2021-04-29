@@ -370,7 +370,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.btnLwM2MData = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.tbLog = new System.Windows.Forms.TextBox();
+            this.listView7 = new System.Windows.Forms.ListView();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -435,6 +435,7 @@
             this.listView2 = new System.Windows.Forms.ListView();
             this.listView1 = new System.Windows.Forms.ListView();
             this.gbTCResult = new System.Windows.Forms.GroupBox();
+            this.listView6 = new System.Windows.Forms.ListView();
             this.webpage = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.button81 = new System.Windows.Forms.Button();
@@ -450,7 +451,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.listView6 = new System.Windows.Forms.ListView();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -4183,7 +4183,7 @@
             // 
             // groupBox12
             // 
-            this.groupBox12.Controls.Add(this.tbLog);
+            this.groupBox12.Controls.Add(this.listView7);
             this.groupBox12.Location = new System.Drawing.Point(489, 24);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(668, 696);
@@ -4191,15 +4191,15 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "SERVER INTERFACE";
             // 
-            // tbLog
+            // listView7
             // 
-            this.tbLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLog.Location = new System.Drawing.Point(3, 17);
-            this.tbLog.Multiline = true;
-            this.tbLog.Name = "tbLog";
-            this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(662, 676);
-            this.tbLog.TabIndex = 26;
+            this.listView7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView7.HideSelection = false;
+            this.listView7.Location = new System.Drawing.Point(3, 17);
+            this.listView7.Name = "listView7";
+            this.listView7.Size = new System.Drawing.Size(662, 676);
+            this.listView7.TabIndex = 27;
+            this.listView7.UseCompatibleStateImageBehavior = false;
             // 
             // groupBox14
             // 
@@ -4871,6 +4871,17 @@
             this.gbTCResult.TabStop = false;
             this.gbTCResult.Text = "TestCase Message";
             // 
+            // listView6
+            // 
+            this.listView6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView6.HideSelection = false;
+            this.listView6.Location = new System.Drawing.Point(3, 17);
+            this.listView6.Name = "listView6";
+            this.listView6.Size = new System.Drawing.Size(551, 357);
+            this.listView6.TabIndex = 36;
+            this.listView6.UseCompatibleStateImageBehavior = false;
+            this.listView6.SelectedIndexChanged += new System.EventHandler(this.listView6_SelectedIndexChanged);
+            // 
             // webpage
             // 
             this.webpage.Controls.Add(this.webBrowser1);
@@ -5005,17 +5016,6 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // listView6
-            // 
-            this.listView6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView6.HideSelection = false;
-            this.listView6.Location = new System.Drawing.Point(3, 17);
-            this.listView6.Name = "listView6";
-            this.listView6.Size = new System.Drawing.Size(551, 357);
-            this.listView6.TabIndex = 36;
-            this.listView6.UseCompatibleStateImageBehavior = false;
-            this.listView6.SelectedIndexChanged += new System.EventHandler(this.listView6_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5081,7 +5081,6 @@
             this.tabServer.PerformLayout();
             this.groupBox13.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             this.groupBox14.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
@@ -5349,7 +5348,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnLwM2MData;
         private System.Windows.Forms.GroupBox groupBox12;
-        private System.Windows.Forms.TextBox tbLog;
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.Label lboneM2MRxData;
         private System.Windows.Forms.Button btnDataRetrive;
@@ -5518,6 +5516,7 @@
         private System.Windows.Forms.ListView listView5;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListView listView6;
+        private System.Windows.Forms.ListView listView7;
     }
 }
 

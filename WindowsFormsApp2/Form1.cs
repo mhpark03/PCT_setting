@@ -758,8 +758,6 @@ namespace WindowsFormsApp2
                 tc.onem2m[i, 4] = string.Empty;
             }
 
-            tbLog.Text = string.Empty;
-
             lbActionState.Text = "idle";
 
             commmode = "catm1";
@@ -850,6 +848,16 @@ namespace WindowsFormsApp2
             listView6.Columns.Add("항목", 280, HorizontalAlignment.Left);
             listView6.Columns.Add("결과", 40, HorizontalAlignment.Center);
             listView6.Columns.Add("LogID", 80, HorizontalAlignment.Center);
+
+            listView7.View = View.Details;
+            listView7.GridLines = true;
+            listView7.FullRowSelect = true;
+            listView7.CheckBoxes = false;
+
+            listView7.Columns.Add("시간", 60, HorizontalAlignment.Center);
+            listView7.Columns.Add("state", 120, HorizontalAlignment.Left);
+            listView7.Columns.Add("", 30, HorizontalAlignment.Center);
+            listView7.Columns.Add(" 전송 내용", 1000, HorizontalAlignment.Left);
 
             tcStartTime = DateTime.Now.AddHours(-2);
             dateTimePicker1.Value = tcStartTime;
@@ -1520,7 +1528,6 @@ namespace WindowsFormsApp2
                                 startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
                                 lbActionState.Text = states.lwm2mtc0503.ToString();
 
-                                LogWrite("----------DEVICE CHECK STATUS----------");
                                 rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
                                 rTh.Start();
                             }
@@ -3196,7 +3203,6 @@ namespace WindowsFormsApp2
 
                         if (svr.enrmtKeyId != string.Empty)
                         {
-                            LogWrite("----------DATA SEND----------");
                             startLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
                             lbActionState.Text = states.lwm2mtc0502.ToString();
                             string[] param = { "lwm2m", "tc0502" };
@@ -7444,8 +7450,6 @@ namespace WindowsFormsApp2
         {
             BeginInvoke(new Action(() =>
             {
-                string kind = message.Substring(0, 1);
-                string msg = message.Substring(1, message.Length - 1);
                 string time = DateTime.Now.ToString("hh:mm:ss");
 
                 ListViewItem newitem = new ListViewItem(new string[] { time, lbActionState.Text, message, result, logID});
@@ -7478,7 +7482,7 @@ namespace WindowsFormsApp2
                     wReq.Headers.Add("X-MEF-EKI", header.X_MEF_EKI);
                 */
 
-                LogWrite(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
+                LogWrite(wReq.Method + " " + wReq.RequestUri,"T");
                 Console.WriteLine(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
                 Console.WriteLine("");
                 for (int i = 0; i < wReq.Headers.Count; ++i)
@@ -7490,6 +7494,7 @@ namespace WindowsFormsApp2
                 wReq.Timeout = 30000;          // 서버 응답을 30초동안 기다림
                 using (wRes = (HttpWebResponse)wReq.GetResponse())
                 {
+                    LogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < wRes.Headers.Count; ++i)
@@ -7514,6 +7519,7 @@ namespace WindowsFormsApp2
                 if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
                 {
                     var resp = (HttpWebResponse)ex.Response;
+                    LogWrite((int)resp.StatusCode + " " + resp.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < resp.Headers.Count; ++i)
@@ -7673,7 +7679,6 @@ namespace WindowsFormsApp2
             packetStr += "</auth>";
             */
 
-            LogWrite("----------MEF 인증----------");
             string retStr = SendHttpRequest(header, xroot.ToString()); // xml
             if (retStr != string.Empty)
             {
@@ -7791,7 +7796,7 @@ namespace WindowsFormsApp2
                 if (header.X_MEF_EKI != string.Empty)
                     wReq.Headers.Add("X-MEF-EKI", header.X_MEF_EKI);
 
-                LogWrite(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
+                LogWrite(wReq.Method + " " + wReq.RequestUri,"T");
                 Console.WriteLine(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
                 Console.WriteLine("");
                 for (int i = 0; i < wReq.Headers.Count; ++i)
@@ -7809,11 +7814,10 @@ namespace WindowsFormsApp2
                     dataStream.Close();
                 }
 
-                LogWrite("----------Response from oneM2M----------");
                 wReq.Timeout = 20000;          // 서버 응답을 20초동안 기다림
                 using (wRes = (HttpWebResponse)wReq.GetResponse())
                 {
-                    LogWriteNoTime("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
+                    LogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString(),"R");
                     Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < wRes.Headers.Count; ++i)
@@ -7846,7 +7850,7 @@ namespace WindowsFormsApp2
                 if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
                 {
                     var resp = (HttpWebResponse)ex.Response;
-                    LogWrite("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
+                    LogWrite((int)resp.StatusCode + " " + resp.StatusCode.ToString(),"R");
                     Console.WriteLine("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < resp.Headers.Count; ++i)
@@ -7868,14 +7872,16 @@ namespace WindowsFormsApp2
             return resResult;
         }
 
-        private void LogWrite(string data)
+        private void LogWrite(string data, string dir)
         {
             BeginInvoke(new Action(() =>
             {
-                tbLog.AppendText(Environment.NewLine);
-                tbLog.AppendText(DateTime.Now.ToString("hh:mm:ss.fff") + " (" + lbActionState.Text + ") : " + data);
-                tbLog.SelectionStart = tbLog.TextLength;
-                tbLog.ScrollToCaret();
+                string time = DateTime.Now.ToString("hh:mm:ss");
+
+                ListViewItem newitem = new ListViewItem(new string[] { time, lbActionState.Text, dir, data });
+                listView7.Items.Add(newitem);
+                if (listView7.Items.Count > 35)
+                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
             }));
         }
 
@@ -7883,6 +7889,7 @@ namespace WindowsFormsApp2
         {
             BeginInvoke(new Action(() =>
             {
+                /*
                 tbLog.AppendText(Environment.NewLine);
                 if (data.StartsWith("<?xml"))
                 {
@@ -7896,6 +7903,12 @@ namespace WindowsFormsApp2
                     tbLog.AppendText(" " + data);
                 tbLog.SelectionStart = tbLog.TextLength;
                 tbLog.ScrollToCaret();
+                */
+
+                ListViewItem newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, data });
+                listView7.Items.Add(newitem);
+                if (listView7.Items.Count > 35)
+                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
             }));
         }
 
@@ -8460,7 +8473,6 @@ namespace WindowsFormsApp2
 
         private void btnGetRemoteCSE_Click(object sender, EventArgs e)
         {
-            LogWrite("----------remoteCSE GET----------");
             if (svr.enrmtKeyId != string.Empty)
                 ReqRemoteCSEGet();
             else
@@ -8485,7 +8497,6 @@ namespace WindowsFormsApp2
 
         private void btnSetRemoteCSE_Click(object sender, EventArgs e)
         {
-            LogWrite("----------remoteCSE SET----------");
             if (svr.enrmtKeyId != string.Empty)
                 ReqRemoteCSECreate();
             else
@@ -8522,7 +8533,6 @@ namespace WindowsFormsApp2
 
         private void btnDelRemoteCSE_Click(object sender, EventArgs e)
         {
-            LogWrite("----------remoteCSE DEL----------");
             if (svr.enrmtKeyId != string.Empty)
                 ReqRemoteCSEDEL();
             else
@@ -8548,7 +8558,6 @@ namespace WindowsFormsApp2
 
         private void btnDataRetrive_Click(object sender, EventArgs e)
         {
-            LogWrite("----------DATA RECIEVE----------");
             if (svr.enrmtKeyId != string.Empty)
             {
                 lbActionState.Text = states.sendonedevstr.ToString();
@@ -8619,7 +8628,6 @@ namespace WindowsFormsApp2
 
         private void btnSendData_Click(object sender, EventArgs e)
         {
-            LogWrite("----------DATA SEND----------");
             if (svr.enrmtKeyId != string.Empty)
             {
                 lbActionState.Text = states.sendonedevdb.ToString();
@@ -8663,7 +8671,6 @@ namespace WindowsFormsApp2
             {
                 if (lbDevEntityId.Text != ".")
                 {
-                    LogWrite("----------DATA SEND----------");
                     string[] param = { "lwm2m", "tc0502" };
                     rTh = new Thread(new ParameterizedThreadStart(SendDataToLwM2M));
                     rTh.Start(param);
@@ -8713,7 +8720,6 @@ namespace WindowsFormsApp2
             {
                 if (lbDevEntityId.Text != ".")
                 {
-                    LogWrite("----------DEVICE CHECK STATUS----------");
                     string[] param = { "lwm2m" };
                     rTh = new Thread(new ParameterizedThreadStart(RetriveDataToLwM2M));
                     rTh.Start(param);
@@ -8822,7 +8828,6 @@ namespace WindowsFormsApp2
             {
                 if (lbDevEntityId.Text != ".")
                 {
-                    LogWrite("----------DEVICE CHECK STATUS----------");
                     string[] param = { "onem2m" };
                     rTh = new Thread(new ParameterizedThreadStart(RetriveDataToDevice));
                     rTh.Start(param);
@@ -8923,7 +8928,6 @@ namespace WindowsFormsApp2
             {
                 if (lbDevEntityId.Text != ".")
                 {
-                    LogWrite("----------DATA SEND----------");
                     rTh = new Thread(new ThreadStart(SendDataToOneM2M));
                     rTh.Start();
                 }
@@ -9461,15 +9465,24 @@ namespace WindowsFormsApp2
                     webBrowser1.Navigate("https://testadm.onem2m.uplus.co.kr:8443");
             }
             else if (tabControl1.SelectedTab.Name == "tabCOM")
-                listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
+            {
+                if (listView3.Items.Count > 35)
+                    listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
+            }
             else if (tabControl1.SelectedTab.Name == "tabOneM2M")
-                listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
+            {
+                if (listView4.Items.Count > 35)
+                    listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
+            }
             else if (tabControl1.SelectedTab.Name == "tabLwM2M")
-                listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
+            {
+                if (listView5.Items.Count > 35)
+                    listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
+            }
             else if (tabControl1.SelectedTab.Name == "tabServer")
             {
-                tbLog.SelectionStart = tbLog.TextLength;
-                tbLog.ScrollToCaret();
+                if (listView7.Items.Count > 35)
+                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
             }
         }
 
@@ -9836,7 +9849,7 @@ namespace WindowsFormsApp2
                     worksheet.Cells[i+1, 3] = new Cell(listView3.Items[i].SubItems[3].Text);
                 }
 
-                worksheet.Cells.ColumnWidth[0] = 3500;
+                worksheet.Cells.ColumnWidth[0] = 2500;
                 worksheet.Cells.ColumnWidth[1] = 5000;
                 worksheet.Cells.ColumnWidth[2] = 700;
                 worksheet.Cells.ColumnWidth[3] = 30000;
@@ -9845,9 +9858,22 @@ namespace WindowsFormsApp2
                 worksheet = new Worksheet("server");
                 worksheet.Cells[0, 0] = new Cell("시간");
                 worksheet.Cells[0, 1] = new Cell("state");
-                worksheet.Cells[0, 2] = new Cell("종류");
+                worksheet.Cells[0, 2] = new Cell(" ");
                 worksheet.Cells[0, 3] = new Cell("내용");
 
+                for (i = 0; i < listView7.Items.Count; i++)
+                {
+                    worksheet.Cells[i + 1, 0] = new Cell(listView7.Items[i].SubItems[0].Text);
+                    worksheet.Cells[i + 1, 1] = new Cell(listView7.Items[i].SubItems[1].Text);
+                    worksheet.Cells[i + 1, 2] = new Cell(listView7.Items[i].SubItems[2].Text);
+                    worksheet.Cells[i + 1, 3] = new Cell(listView7.Items[i].SubItems[3].Text);
+                }
+
+                worksheet.Cells.ColumnWidth[0] = 2500;
+                worksheet.Cells.ColumnWidth[1] = 5000;
+                worksheet.Cells.ColumnWidth[2] = 700;
+                worksheet.Cells.ColumnWidth[3] = 30000;
+/*
                 i = 1;
                 // convert string to stream
                 byte[] byteArray = Encoding.UTF8.GetBytes(tbLog.Text);
@@ -9863,6 +9889,7 @@ namespace WindowsFormsApp2
                 }
 
                 worksheet.Cells.ColumnWidth[0] = 11000;
+*/
                 workbook.Worksheets.Add(worksheet);
 
                 worksheet = new Worksheet("platform");
@@ -9883,7 +9910,7 @@ namespace WindowsFormsApp2
                     worksheet.Cells[i + 1, 4] = new Cell(values[4]);
                 }
 
-                worksheet.Cells.ColumnWidth[0] = 3000;
+                worksheet.Cells.ColumnWidth[0] = 2500;
                 worksheet.Cells.ColumnWidth[1] = 3000;
                 worksheet.Cells.ColumnWidth[2] = 6000;
                 worksheet.Cells.ColumnWidth[3] = 3000;
