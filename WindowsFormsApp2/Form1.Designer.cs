@@ -451,6 +451,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -580,6 +581,7 @@
             // 
             // tabCOM
             // 
+            this.tabCOM.Controls.Add(this.textBox2);
             this.tabCOM.Controls.Add(this.textBox1);
             this.tabCOM.Controls.Add(this.groupBox23);
             this.tabCOM.Controls.Add(this.groupBox9);
@@ -594,9 +596,9 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(535, 708);
+            this.textBox1.Location = new System.Drawing.Point(685, 705);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(618, 21);
+            this.textBox1.Size = new System.Drawing.Size(468, 21);
             this.textBox1.TabIndex = 71;
             // 
             // groupBox23
@@ -5016,6 +5018,13 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(532, 705);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(147, 21);
+            this.textBox2.TabIndex = 72;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5517,6 +5526,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListView listView6;
         private System.Windows.Forms.ListView listView7;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

@@ -253,6 +253,7 @@ namespace WindowsFormsApp2
             lwm2mtc06031,           //"6.3 단말 펌웨어 업그레이드 시험");
             lwm2mtc06032,
             lwm2mtc06033,
+            lwm2mtc06034,
 
             onem2mtc0201011,        // MEF server 설정
             onem2mtc0201012,        // BRK server 설정
@@ -957,8 +958,8 @@ namespace WindowsFormsApp2
         {
             if (message != "\r" && message != "\r\r")
             {
-                if (kind == "")
-                    kind = " ";
+                if (kind == "tx")
+                    kind = "T";
                 else if (kind == "rx")
                 {
                     kind = "R";
@@ -978,7 +979,7 @@ namespace WindowsFormsApp2
 */                  
                 }
                 else
-                    kind = "T";
+                    kind = " ";
 
                 SetTextBox(listView3, kind + message);
             }
@@ -1581,10 +1582,10 @@ namespace WindowsFormsApp2
                             switch (state[2])
                             {
                                 case "2":
-                                    logPrintInTextBox("registration completed", " ");
+                                    logPrintInTextBox("registration completed", "");
                                     break;
                                 case "9":
-                                    logPrintInTextBox("Bootstrap finished", " ");
+                                    logPrintInTextBox("Bootstrap finished", "");
                                     endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
 
                                     if (lbActionState.Text == states.lwm2mtc02011.ToString() || lbActionState.Text == states.lwm2mtc02012.ToString())
@@ -1604,7 +1605,7 @@ namespace WindowsFormsApp2
                         {
                             if (state[2] == "/26241/0/0")
                             {
-                                logPrintInTextBox("26241 object subscription completed", " ");
+                                logPrintInTextBox("26241 object subscription completed", "");
                                 endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
 
                                 if (lbActionState.Text == states.lwm2mtc03011.ToString() || lbActionState.Text == states.lwm2mtc03012.ToString()
@@ -1639,11 +1640,11 @@ namespace WindowsFormsApp2
                         switch (str2)
                         {
                             case "0":
-                                logPrintInTextBox("registration completed", " ");
+                                logPrintInTextBox("registration completed", "");
                                 break;
                             case "1":
                                 endLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, string.Empty);
-                                logPrintInTextBox("deregistration completed", " ");
+                                logPrintInTextBox("deregistration completed", "");
 
                                 if (lbActionState.Text == states.lwm2mtc0401.ToString())
                                 {
@@ -1662,13 +1663,13 @@ namespace WindowsFormsApp2
                                     lbActionState.Text = states.idle.ToString();
                                 break;
                             case "2":
-                                logPrintInTextBox("registration update completed", " ");
+                                logPrintInTextBox("registration update completed", "");
                                 break;
                             case "3":
-                                logPrintInTextBox("10250 object subscription completed", " ");
+                                logPrintInTextBox("10250 object subscription completed", "");
                                 break;
                             case "4":
-                                logPrintInTextBox("Bootstrap finished", " ");
+                                logPrintInTextBox("Bootstrap finished", "");
                                 endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
 
                                 if (lbActionState.Text == states.lwm2mtc02011.ToString() || lbActionState.Text == states.lwm2mtc02012.ToString())
@@ -1701,13 +1702,13 @@ namespace WindowsFormsApp2
                                 }
                                 break;
                             case "6":
-                                logPrintInTextBox("fota downloading request", " ");
+                                logPrintInTextBox("fota downloading request", "");
                                 break;
                             case "7":
-                                logPrintInTextBox("fota update request", " ");
+                                logPrintInTextBox("fota update request", "");
                                 break;
                             case "8":
-                                logPrintInTextBox("26241 object subscription completed", " ");
+                                logPrintInTextBox("26241 object subscription completed", "");
                                 endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
 
                                 if (lbActionState.Text == states.lwm2mtc03011.ToString() || lbActionState.Text == states.lwm2mtc03012.ToString()
@@ -2742,6 +2743,22 @@ namespace WindowsFormsApp2
                     }
                     else
                         lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.lwm2mtc06034:
+                    txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+                    lbDevLwM2MData.Text = txData;
+
+                    if (checkBox8.Checked == true)
+                    {
+                        string hexOutput = StringToBCD(txData.ToCharArray());
+
+                        this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                    }
+                    else
+                        this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
+                    startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                    lbActionState.Text = states.lwm2mtc06034.ToString();
+                    nextcommand = states.lwm2mtc0501.ToString();
                     break;
                 default:
                     lbActionState.Text = states.idle.ToString();
@@ -9620,21 +9637,7 @@ namespace WindowsFormsApp2
                         DeviceFWVerSend();
 
                         if (lbActionState.Text == states.lwm2mtc06032.ToString() || lbActionState.Text == states.lwm2mtc06033.ToString())
-                        {
-                            string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
-                            lbDevLwM2MData.Text = txData;
-
-                            if (checkBox8.Checked == true)
-                            {
-                                string hexOutput = StringToBCD(txData.ToCharArray());
-
-                                this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
-                            }
-                            else
-                                this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                            startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
-                            nextcommand = states.lwm2mtc0501.ToString();
-                        }
+                            nextcommand = states.lwm2mtc06034.ToString();
                     }
                 }
             }
@@ -10136,6 +10139,7 @@ namespace WindowsFormsApp2
             foreach (ListViewItem item in itemColl)
             {
                 textBox1.Text = item.SubItems[3].Text;
+                textBox2.Text = item.SubItems[1].Text;
             }
         }
 
