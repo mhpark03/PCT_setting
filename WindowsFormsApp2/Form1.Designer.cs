@@ -518,7 +518,7 @@
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
             this.cBoxCOMPORT.Size = new System.Drawing.Size(84, 20);
             this.cBoxCOMPORT.TabIndex = 1;
-            this.cBoxCOMPORT.Text = "COM103";
+            this.cBoxCOMPORT.Text = "COM1";
             // 
             // progressBar1
             // 

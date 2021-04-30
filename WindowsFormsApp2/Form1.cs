@@ -955,14 +955,33 @@ namespace WindowsFormsApp2
         // 송수신 명령/응답 값과 동작 설명을 textbox에 삽입하고 앱 종료시 로그파일로 저장한다.
         public void logPrintInTextBox(string message, string kind)
         {
-            if (kind == "")
-                kind = " ";
-            else if (kind == "rx")
-                kind = "R";
-            else
-                kind = "T";
+            if (message != "\r" && message != "\r\r")
+            {
+                if (kind == "")
+                    kind = " ";
+                else if (kind == "rx")
+                {
+                    kind = "R";
 
-            SetTextBox(listView3, kind + message);
+                    /* Debug를 위해 Hex로 문자열 표시*/
+/*
+                    char[] charValues = message.ToCharArray();
+                    string hexOutput = "";
+                    foreach (char _eachChar in charValues)
+                    {
+                        int value = Convert.ToInt32(_eachChar);
+                        if (value < 16)
+                            hexOutput += "0";
+                        hexOutput += String.Format("{0:X}", value);
+                    }
+                    message = hexOutput;
+*/                  
+                }
+                else
+                    kind = "T";
+
+                SetTextBox(listView3, kind + message);
+            }
         }
 
         private void SetTextBox(Control ctr, string message)
@@ -981,36 +1000,37 @@ namespace WindowsFormsApp2
                 string msg = message.Substring(1, message.Length - 1);
                 string time = DateTime.Now.ToString("hh:mm:ss");
 
-                ListViewItem newitem;
+                ListViewItem newitem3;
+                ListViewItem newitem4;
+                ListViewItem newitem5;
                 if (kind == " ")
-                    newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
+                {
+                    newitem3 = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
+                    newitem4 = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
+                    newitem5 = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
+                }
                 else
                 {
-                    newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
+                    newitem3 = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
+                    newitem4 = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
+                    newitem5 = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
                 }
-                listView3.Items.Add(newitem);
+                listView3.Items.Add(newitem3);
+                listView4.Items.Add(newitem4);
+                listView5.Items.Add(newitem5);
+                if (kind == "T")
+                {
+                    listView3.Items[listView3.Items.Count - 1].BackColor = Color.LightBlue;
+                    listView4.Items[listView4.Items.Count - 1].BackColor = Color.LightBlue;
+                    listView5.Items[listView5.Items.Count - 1].BackColor = Color.LightBlue;
+                }
+
                 if (listView3.Items.Count > 35)
+                {
                     listView3.TopItem = listView3.Items[listView3.Items.Count - 1];
-
-                if (kind == " ")
-                    newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
-                else
-                {
-                    newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
-                }
-                listView4.Items.Add(newitem);
-                if (listView4.Items.Count > 35)
                     listView4.TopItem = listView4.Items[listView4.Items.Count - 1];
-
-                if (kind == " ")
-                    newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, msg });
-                else
-                {
-                    newitem = new ListViewItem(new string[] { time, lbActionState.Text, kind, msg });
-                }
-                listView5.Items.Add(newitem);
-                if (listView5.Items.Count > 35)
                     listView5.TopItem = listView5.Items[listView5.Items.Count - 1];
+                }
             }
         }
 
