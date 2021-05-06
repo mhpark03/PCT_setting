@@ -4738,7 +4738,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(114, 20);
             this.comboBox1.TabIndex = 30;
-            this.comboBox1.Text = "LwM2M";
+            this.comboBox1.Text = "oneM2M";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // textBox95

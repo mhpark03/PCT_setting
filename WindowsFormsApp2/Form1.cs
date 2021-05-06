@@ -6153,10 +6153,7 @@ namespace WindowsFormsApp2
                             path = resType.ToString() + " : " + trgAddr.ToString();
 
                         tcmsg = string.Empty;
-                        if (dev.type == "onem2m")
-                            OneM2MTcResultReport(jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString(), trgAddr.ToString(), oprType.ToString());
-                        else
-                            LwM2MTcResultReport(path, jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString());
+                        OneM2MTcResultReport(path, jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString(), trgAddr.ToString(), oprType.ToString());
 
                         ListViewItem newitem = new ListViewItem(new string[] { logtime, jobj["logId"].ToString(), tcmsg, jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString() + " (" + path + ")" });
                         listView8.Items.Add(newitem);
@@ -6179,7 +6176,7 @@ namespace WindowsFormsApp2
                 MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tBProxy304.Text + " DEVICE 상태 정보");
         }
 
-        private void OneM2MTcResultReport(string logId, string resultCode, string resultCodeName, string resType, string trgAddr, string oprType)
+        private void OneM2MTcResultReport(string path, string logId, string resultCode, string resultCodeName, string resType, string trgAddr, string oprType)
         {
             // oprType = 1:POST(Create), 2:GET(Read), 3:PUT(Update),4:DELETE,5:POST(Noti)
             switch (resType)
@@ -6351,7 +6348,95 @@ namespace WindowsFormsApp2
                 case "mgo":
                     tcmsg = "FW/Reset report";
                     break;
+                case "":
+                    tcmsg = "Service Server";
+                    break;
+                case "lbkbt":
+                    tcmsg = "Bootstrap   ";
+                    endLwM2MTC("tc0203", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "lbkre":
+                    if (resultCode == "20000000")
+                    {
+                        Console.WriteLine("registration device parameter checking");
+                        getSvrDetailLog(logId, "tc0302", resultCode, resultCodeName);
+                        if (tcmsg == string.Empty)
+                        {
+                            tcmsg = "Registration";
+                            endLwM2MTC("tc0302", logId, resultCode, resultCodeName, string.Empty);
+                        }
+                    }
+                    else
+                    {
+                        tcmsg = "Registration";
+                        endLwM2MTC("tc0302", logId, resultCode, resultCodeName, string.Empty);
+                    }
+                    break;
+                case "lbkru":
+                    tcmsg = "Regist. Update";
+                    endLwM2MTC("tc0303", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "lbkrd":
+                    tcmsg = "Deragistration";
+                    endLwM2MTC("tc0401", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "lbknt":
+                    if (path == "10250/0/0")
+                    {
+                        tcmsg = "Data Send";
+                        getSvrDetailLog(logId, "tc0501", resultCode, resultCodeName);
+                        //endLwM2MTC("tc0501", logId, resultCode, resultCodeName, string.Empty);
+                    }
+                    else if (path == "26241/0/0")
+                    {
+                        tcmsg = "Device FW Report";
+                        endLwM2MTC("tc0601", logId, resultCode, resultCodeName, string.Empty);
+                    }
+                    else if (path == "5/0/3")
+                        tcmsg = "Module FW Report";
+                    break;
+                case "lbkdc":
+                    if (path == "mgo/fwr")
+                    {
+                        getSvrDetailLog(logId, "tc0603", resultCode, resultCodeName);
+                        if (tcmsg == string.Empty)
+                        {
+                            tcmsg = "Remote Device FW";
+                            endLwM2MTC("tc0603", logId, resultCode, resultCodeName, string.Empty);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("device control checking");
+                        getSvrDetailLog(logId, "tc0502", resultCode, resultCodeName);
+                        if (tcmsg == string.Empty)
+                        {
+                            tcmsg = "Device Control";
+                            endLwM2MTC("tc0502", logId, resultCode, resultCodeName, string.Empty);
+                        }
+                    }
+                    break;
+                case "lbkfd":
+                    tcmsg = "Module FW DL";
+                    endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "lbkfs":
+                    tcmsg = "Module FW Update";
+                    endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "lbkfu":
+                    tcmsg = "Device FW Update";
+                    endLwM2MTC("tc0603", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "UNKNOWN":
+                    tcmsg = "UNKNOWN";
+                    break;
                 default:
+                    if (path.StartsWith("firmware"))
+                    {
+                        tcmsg = "Module FW DL";
+                        endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
+                    }
                     break;
             }
         }
@@ -7238,97 +7323,6 @@ namespace WindowsFormsApp2
             return (bodymsg + decode);
         }
 
-        private void LwM2MTcResultReport(string path, string logId, string resultCode, string resultCodeName, string resType)
-        {
-            switch (resType)
-            {
-                case "lbkbt":
-                    tcmsg = "Bootstrap   ";
-                    endLwM2MTC("tc0203", logId, resultCode, resultCodeName, string.Empty);
-                    break;
-                case "lbkre":
-                    if (resultCode == "20000000")
-                    {
-                        Console.WriteLine("registration device parameter checking");
-                        getSvrDetailLog(logId, "tc0302", resultCode, resultCodeName);
-                        if (tcmsg == string.Empty)
-                        {
-                            tcmsg = "Registration";
-                            endLwM2MTC("tc0302", logId, resultCode, resultCodeName, string.Empty);
-                        }
-                    }
-                    else
-                    {
-                        tcmsg = "Registration";
-                        endLwM2MTC("tc0302", logId, resultCode, resultCodeName, string.Empty);
-                    }
-                    break;
-                case "lbkru":
-                    tcmsg = "Regist. Update";
-                    endLwM2MTC("tc0303", logId, resultCode, resultCodeName, string.Empty);
-                    break;
-                case "lbkrd":
-                    tcmsg = "Deragistration";
-                    endLwM2MTC("tc0401", logId, resultCode, resultCodeName, string.Empty);
-                    break;
-                case "lbknt":
-                    if (path == "10250/0/0")
-                    {
-                        tcmsg = "Data Send";
-                        getSvrDetailLog(logId, "tc0501", resultCode, resultCodeName);
-                        //endLwM2MTC("tc0501", logId, resultCode, resultCodeName, string.Empty);
-                    }
-                    else if (path == "26241/0/0")
-                    {
-                        tcmsg = "Device FW Report";
-                        endLwM2MTC("tc0601", logId, resultCode, resultCodeName, string.Empty);
-                    }
-                    else if (path == "5/0/3")
-                        tcmsg = "Module FW Report";
-                    break;
-                case "lbkdc":
-                    if (path == "mgo/fwr")
-                    {
-                        getSvrDetailLog(logId, "tc0603", resultCode, resultCodeName);
-                        if (tcmsg == string.Empty)
-                        {
-                            tcmsg = "Remote Device FW";
-                            endLwM2MTC("tc0603", logId, resultCode, resultCodeName, string.Empty);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("device control checking");
-                        getSvrDetailLog(logId, "tc0502", resultCode, resultCodeName);
-                        if (tcmsg == string.Empty)
-                        {
-                            tcmsg = "Device Control";
-                            endLwM2MTC("tc0502", logId, resultCode, resultCodeName, string.Empty);
-                        }
-                    }
-                    break;
-                case "lbkfd":
-                    tcmsg = "Module FW DL";
-                    endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
-                    break;
-                case "lbkfs":
-                    tcmsg = "Module FW Update";
-                    endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
-                    break;
-                case "lbkfu":
-                    tcmsg = "Device FW Update";
-                    endLwM2MTC("tc0603", logId, resultCode, resultCodeName, string.Empty);
-                    break;
-                default:
-                    if (path.StartsWith("firmware"))
-                    {
-                        tcmsg = "Module FW DL";
-                        endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
-                    }
-                    break;
-            }
-        }
-
         private void startLwM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
         {
             tc.state = tcindex;
@@ -7656,13 +7650,16 @@ namespace WindowsFormsApp2
                         var logId = jobj["logId"] ?? " ";
                         var resultCode = jobj["resultCode"] ?? " ";
                         var resultCodeName = jobj["resultCodeName"] ?? " ";
+                        var oprType = jobj["oprType"] ?? " ";
 
                         string path = pathInfo.ToString();
                         if (path == " ")
                             path = jobj["resType"].ToString() + " : " + trgAddr.ToString();
 
-                        ListViewItem newitem = new ListViewItem(new string[] { logtime, logId.ToString(), string.Empty, resultCode.ToString(), resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")" });
-//                        ListViewItem newitem = new ListViewItem(new string[] { logtime, logId.ToString(), tcmsg, resultCode.ToString(), resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")" });
+                        tcmsg = string.Empty;
+                        OneM2MTcResultReport(path, jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString(), trgAddr.ToString(), oprType.ToString());
+
+                        ListViewItem newitem = new ListViewItem(new string[] { logtime, logId.ToString(), tcmsg, resultCode.ToString(), resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")" });
                         listView9.Items.Add(newitem);
                     }
 
@@ -9925,7 +9922,7 @@ namespace WindowsFormsApp2
                 worksheet.Cells[0, 3] = new Cell("resultCode");
                 worksheet.Cells[0, 4] = new Cell("비고");
 
-                for (i = 0; i < listView7.Items.Count; i++)
+                for (i = 0; i < listView7.Items.Count && i<100 ; i++)
                 {
                     worksheet.Cells[i + 1, 0] = new Cell(listView8.Items[i].SubItems[0].Text);
                     worksheet.Cells[i + 1, 1] = new Cell(listView8.Items[i].SubItems[1].Text);
