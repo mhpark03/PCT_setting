@@ -36,6 +36,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabCOM = new System.Windows.Forms.TabPage();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.button128 = new System.Windows.Forms.Button();
@@ -402,6 +403,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.tbSvcSvrNum = new System.Windows.Forms.TextBox();
             this.tabLOG = new System.Windows.Forms.TabPage();
+            this.listView10 = new System.Windows.Forms.ListView();
+            this.listView9 = new System.Windows.Forms.ListView();
+            this.listView8 = new System.Windows.Forms.ListView();
             this.label49 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
@@ -416,19 +420,13 @@
             this.textBox94 = new System.Windows.Forms.TextBox();
             this.tbDeviceCTN = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.button123 = new System.Windows.Forms.Button();
-            this.listBox3 = new System.Windows.Forms.ListBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox95 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.btnGetLogList = new System.Windows.Forms.Button();
             this.button124 = new System.Windows.Forms.Button();
             this.label21 = new System.Windows.Forms.Label();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.label20 = new System.Windows.Forms.Label();
             this.tabTC = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -451,7 +449,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -593,6 +590,13 @@
             this.tabCOM.TabIndex = 3;
             this.tabCOM.Text = "COM port";
             this.tabCOM.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(532, 705);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(147, 21);
+            this.textBox2.TabIndex = 72;
             // 
             // textBox1
             // 
@@ -4508,6 +4512,9 @@
             // 
             // tabLOG
             // 
+            this.tabLOG.Controls.Add(this.listView10);
+            this.tabLOG.Controls.Add(this.listView9);
+            this.tabLOG.Controls.Add(this.listView8);
             this.tabLOG.Controls.Add(this.label49);
             this.tabLOG.Controls.Add(this.label48);
             this.tabLOG.Controls.Add(this.dateTimePicker1);
@@ -4522,25 +4529,49 @@
             this.tabLOG.Controls.Add(this.textBox94);
             this.tabLOG.Controls.Add(this.tbDeviceCTN);
             this.tabLOG.Controls.Add(this.label26);
-            this.tabLOG.Controls.Add(this.label24);
             this.tabLOG.Controls.Add(this.label22);
             this.tabLOG.Controls.Add(this.button123);
-            this.tabLOG.Controls.Add(this.listBox3);
             this.tabLOG.Controls.Add(this.comboBox1);
             this.tabLOG.Controls.Add(this.textBox95);
-            this.tabLOG.Controls.Add(this.label12);
-            this.tabLOG.Controls.Add(this.listBox1);
             this.tabLOG.Controls.Add(this.btnGetLogList);
             this.tabLOG.Controls.Add(this.button124);
             this.tabLOG.Controls.Add(this.label21);
-            this.tabLOG.Controls.Add(this.listBox2);
-            this.tabLOG.Controls.Add(this.label20);
             this.tabLOG.Location = new System.Drawing.Point(4, 22);
             this.tabLOG.Name = "tabLOG";
             this.tabLOG.Size = new System.Drawing.Size(1173, 732);
             this.tabLOG.TabIndex = 7;
             this.tabLOG.Text = "Platform LOG";
             this.tabLOG.UseVisualStyleBackColor = true;
+            // 
+            // listView10
+            // 
+            this.listView10.HideSelection = false;
+            this.listView10.Location = new System.Drawing.Point(591, 344);
+            this.listView10.Name = "listView10";
+            this.listView10.Size = new System.Drawing.Size(542, 364);
+            this.listView10.TabIndex = 79;
+            this.listView10.UseCompatibleStateImageBehavior = false;
+            this.listView10.SelectedIndexChanged += new System.EventHandler(this.listView10_SelectedIndexChanged);
+            // 
+            // listView9
+            // 
+            this.listView9.HideSelection = false;
+            this.listView9.Location = new System.Drawing.Point(591, 162);
+            this.listView9.Name = "listView9";
+            this.listView9.Size = new System.Drawing.Size(542, 145);
+            this.listView9.TabIndex = 78;
+            this.listView9.UseCompatibleStateImageBehavior = false;
+            this.listView9.SelectedIndexChanged += new System.EventHandler(this.listView9_SelectedIndexChanged);
+            // 
+            // listView8
+            // 
+            this.listView8.HideSelection = false;
+            this.listView8.Location = new System.Drawing.Point(7, 68);
+            this.listView8.Name = "listView8";
+            this.listView8.Size = new System.Drawing.Size(542, 640);
+            this.listView8.TabIndex = 77;
+            this.listView8.UseCompatibleStateImageBehavior = false;
+            this.listView8.SelectedIndexChanged += new System.EventHandler(this.listView8_SelectedIndexChanged);
             // 
             // label49
             // 
@@ -4674,16 +4705,6 @@
             this.label26.Text = "LogID";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(587, 350);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(302, 12);
-            this.label24.TabIndex = 61;
-            this.label24.Text = "  서버       TYPE      Method                   Description";
-            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -4704,16 +4725,6 @@
             this.button123.Text = "LOGID 로그 조회";
             this.button123.UseVisualStyleBackColor = true;
             this.button123.Click += new System.EventHandler(this.button123_Click);
-            // 
-            // listBox3
-            // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 12;
-            this.listBox3.Location = new System.Drawing.Point(586, 368);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(543, 340);
-            this.listBox3.TabIndex = 58;
-            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
             // comboBox1
             // 
@@ -4737,26 +4748,6 @@
             this.textBox95.Size = new System.Drawing.Size(104, 21);
             this.textBox95.TabIndex = 64;
             this.textBox95.Text = "12345678";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(5, 81);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(393, 12);
-            this.label12.TabIndex = 50;
-            this.label12.Text = "요청시간      ID      Event Description    ResultCode  결과 (요청  내용)";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(6, 96);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(543, 616);
-            this.listBox1.TabIndex = 44;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // btnGetLogList
             // 
@@ -4788,26 +4779,6 @@
             this.label21.TabIndex = 59;
             this.label21.Text = "서버로그  ID : ";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(591, 187);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(543, 124);
-            this.listBox2.TabIndex = 56;
-            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(592, 167);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(279, 12);
-            this.label20.TabIndex = 57;
-            this.label20.Text = "요청시간      ID      ResultCode  결과 (요청  내용)";
-            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tabTC
             // 
@@ -5017,13 +4988,6 @@
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(532, 705);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(147, 21);
-            this.textBox2.TabIndex = 72;
             // 
             // Form1
             // 
@@ -5336,19 +5300,13 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox textBox94;
         private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button button123;
-        private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.TextBox textBox95;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnGetLogList;
         private System.Windows.Forms.Button button124;
         private System.Windows.Forms.Button button125;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button button127;
         private System.Windows.Forms.Button button113;
         private System.Windows.Forms.GroupBox groupBox13;
@@ -5527,6 +5485,9 @@
         private System.Windows.Forms.ListView listView6;
         private System.Windows.Forms.ListView listView7;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ListView listView8;
+        private System.Windows.Forms.ListView listView10;
+        private System.Windows.Forms.ListView listView9;
     }
 }
 

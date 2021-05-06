@@ -860,6 +860,39 @@ namespace WindowsFormsApp2
             listView7.Columns.Add("", 30, HorizontalAlignment.Center);
             listView7.Columns.Add(" 전송 내용", 1000, HorizontalAlignment.Left);
 
+            listView8.View = View.Details;
+            listView8.GridLines = true;
+            listView8.FullRowSelect = true;
+            listView8.CheckBoxes = false;
+
+            listView8.Columns.Add("시간", 55, HorizontalAlignment.Center);
+            listView8.Columns.Add("ID", 70, HorizontalAlignment.Center);
+            listView8.Columns.Add("이벤트", 120, HorizontalAlignment.Left);
+            listView8.Columns.Add("rsltCode", 60, HorizontalAlignment.Center);
+            listView8.Columns.Add(" 비고", 800, HorizontalAlignment.Left);
+
+            listView9.View = View.Details;
+            listView9.GridLines = true;
+            listView9.FullRowSelect = true;
+            listView9.CheckBoxes = false;
+
+            listView9.Columns.Add("시간", 55, HorizontalAlignment.Center);
+            listView9.Columns.Add("ID", 70, HorizontalAlignment.Center);
+            listView9.Columns.Add("이벤트", 120, HorizontalAlignment.Left);
+            listView9.Columns.Add("rsltCode", 60, HorizontalAlignment.Center);
+            listView9.Columns.Add(" 비고", 800, HorizontalAlignment.Left);
+
+            listView10.View = View.Details;
+            listView10.GridLines = true;
+            listView10.FullRowSelect = true;
+            listView10.CheckBoxes = false;
+
+            listView10.Columns.Add("서버", 60, HorizontalAlignment.Center);
+            listView10.Columns.Add("TYPE", 70, HorizontalAlignment.Center);
+            listView10.Columns.Add("Method", 100, HorizontalAlignment.Center);
+            listView10.Columns.Add(" 상세 내용", 200, HorizontalAlignment.Left);
+            listView10.Columns.Add(" 상세 전문", 800, HorizontalAlignment.Left);
+
             tcStartTime = DateTime.Now.AddHours(-2);
             dateTimePicker1.Value = tcStartTime;
         }
@@ -6103,9 +6136,9 @@ namespace WindowsFormsApp2
                 {
                     JArray jarr = JArray.Parse(retStr); //json 객체로
 
-                    listBox1.Items.Clear();
-                    listBox2.Items.Clear();
-                    listBox3.Items.Clear();
+                    listView8.Items.Clear();
+                    listView9.Items.Clear();
+                    listView10.Items.Clear();
                     foreach (JObject jobj in jarr)
                     {
                         string time = jobj["logTime"].ToString();
@@ -6125,11 +6158,15 @@ namespace WindowsFormsApp2
                         else
                             LwM2MTcResultReport(path, jobj["logId"].ToString(), jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString(), resType.ToString());
 
-                        listBox1.Items.Add(logtime + "\t" + jobj["logId"].ToString() + "\t" + tcmsg + "\t" + jobj["resultCode"].ToString() + "\t   " + jobj["resultCodeName"].ToString() + " (" + path + ")");
+                        ListViewItem newitem = new ListViewItem(new string[] { logtime, jobj["logId"].ToString(), tcmsg, jobj["resultCode"].ToString(), jobj["resultCodeName"].ToString() + " (" + path + ")" });
+                        listView8.Items.Add(newitem);
                     }
 
-                    if (listBox1.Items.Count != 0)
-                        listBox1.SelectedIndex = 0;
+                    if (listView8.Items.Count > 0)
+                    {
+                        listView8.Items[0].Focused = true;
+                        listView8.Items[0].Selected = true;
+                    }
                     else if (mode == "man")
                         MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tBProxy304.Text + " DEVICE 상태 정보");
                 }
@@ -6334,9 +6371,7 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = svr.enrmtKeyId;
             string retStr = GetHttpLog(header, string.Empty);
 
-            listBox3.Items.Clear();
-            //listBox3.Items.Add(DateTime.Now.ToString("hh:mm:ss.fff") + " : " + values[1]);
-
+            listView10.Items.Clear();
             if (retStr != string.Empty)
             {
                 //LogWriteNoTime(retStr);
@@ -6351,7 +6386,8 @@ namespace WindowsFormsApp2
                         var logType = jobj["logType"] ?? " ";
                         var svrType = jobj["svrType"] ?? " ";
 
-                        string message = " \t ";
+                        string message = string.Empty;
+                        string msgbody = string.Empty;
 
                         string logtype = logType.ToString();
                         if (logtype == "COAP")
@@ -6413,7 +6449,7 @@ namespace WindowsFormsApp2
                                 }
                             }
 
-                            message += ")\t ";
+                            message += ")";
 
                             var coapPayload = jobj["coapPayload"] ?? "";
                             if (coapPayload.ToString() != "")
@@ -6488,26 +6524,26 @@ namespace WindowsFormsApp2
 
                                 var uriQuery = jobj["uriQuery"] ?? " ";
                                 if (uriQuery.ToString() == " ")
-                                    message += coapmsg;
+                                    msgbody = coapmsg;
                                 else
                                 {
                                     if (path.StartsWith("rd/", System.StringComparison.CurrentCultureIgnoreCase))
                                     {
-                                        message += coapmsg;
+                                        msgbody = coapmsg;
                                     }
                                     else
                                     {
-                                        message += uriQuery.ToString() + "\n";
+                                        msgbody = uriQuery.ToString() + "\n";
 
                                         if (uriPath.ToString() == "rd")
                                         {
                                             var others = jobj["others"] ?? "";
                                             if (others.ToString() == "")
                                             {
-                                                message += "\n2048(EKI), 2049(TOKEN) 정보가 없습니다\n";
+                                                msgbody += "\n2048(EKI), 2049(TOKEN) 정보가 없습니다\n";
                                             }
                                         }
-                                        message += "\n" + coapmsg;
+                                        msgbody += "\n" + coapmsg;
                                     }
                                 }
                             }
@@ -6524,7 +6560,8 @@ namespace WindowsFormsApp2
                             if (protocol != "")
                                 protocol = "(" + protocol + ")";
 
-                            message = resultCode.ToString() + " " + protocol + "\t" + trgAddr.ToString();
+                            message = resultCode.ToString() + " " + protocol;
+                            msgbody = trgAddr.ToString();
                         }
                         else if (logtype == "HTTP")
                         {
@@ -6586,7 +6623,8 @@ namespace WindowsFormsApp2
                             string bodymsg = ParsingReqBodyMsg(body.ToString(), kind, tlogid, tresultCode, tresultCodeName);
                             string resbodymsg = ParsingResBodyMsg(responseBody.ToString(), kind, tlogid, tresultCode, tresultCodeName, ntparam);
 
-                            message = httpMethod.ToString() + " " + uri.ToString() + "\tREQUEST\n" + httpheader + "\n" + bodymsg + "\n\nRESPONSE\n" + responseBody + resbodymsg;
+                            message = httpMethod.ToString() + " " + uri.ToString();
+                            msgbody = "REQUEST\n" + httpheader + "\n" + bodymsg + "\n\nRESPONSE\n" + responseBody + resbodymsg;
 
                         }
                         else if (logtype == "HTTP_CLIENT")
@@ -6609,7 +6647,8 @@ namespace WindowsFormsApp2
                                 //    tBResultCode.Text = resultcode.ToString();
                             }
 
-                            message = resp + " (" + uri.ToString() + ")\tREQUEST\n" + reqheader + "\n\nRESPONSE\n" + responseHeader;
+                            message = resp + " (" + uri.ToString() + ")";
+                            msgbody = "REQUEST\n" + reqheader + "\n\nRESPONSE\n" + responseHeader;
                         }
                         else if (logtype == "RUNTIME_LOG")
                         {
@@ -6618,7 +6657,8 @@ namespace WindowsFormsApp2
                             var requestEntity = jobj["requestEntity"] ?? " ";
                             var responseEntity = jobj["responseEntity"] ?? " ";
 
-                            message = topicOrEntityId.ToString() + "\tREQUEST\n" + requestEntity + "\n\nRESPONSE\n" + responseEntity;
+                            message = topicOrEntityId.ToString();
+                            msgbody = "REQUEST\n" + requestEntity + "\n\nRESPONSE\n" + responseEntity;
                         }
 
                         string svrtype = svrType.ToString();
@@ -6632,7 +6672,8 @@ namespace WindowsFormsApp2
                         if (method.Length < 8)
                             method += "         ";
 
-                        listBox3.Items.Add(svrtype + "\t" + logtype + "\t" + method + "\t" + message);
+                        ListViewItem newitem = new ListViewItem(new string[] { svrtype, logtype, method, message, msgbody});
+                        listView10.Items.Add(newitem);
                     }
                 }
                 catch (Exception ex)
@@ -7578,16 +7619,7 @@ namespace WindowsFormsApp2
             return resResult;
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string[] values = listBox1.SelectedItem.ToString().Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-            textBox95.Text = values[1];
-            tBResultCode.Text = values[2];
-
-            getSvrEventLog(values[1], string.Empty, values[2], values[3]);
-        }
-
-        private void getSvrEventLog(string tlogid, string kind, string tresultCode, string tresultCodeName)
+        private void getSvrEventLog(string tlogid, string tresultCode, string tresultCodeName)
         {
             label21.Text = "서버로그 ID : " + tlogid + " 상세내역";
 
@@ -7603,8 +7635,8 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = svr.enrmtKeyId;
             string retStr = GetHttpLog(header, string.Empty);
 
-            listBox2.Items.Clear();
-            listBox3.Items.Clear();
+            listView9.Items.Clear();
+            listView10.Items.Clear();
 
             if (retStr != string.Empty)
             {
@@ -7629,50 +7661,21 @@ namespace WindowsFormsApp2
                         if (path == " ")
                             path = jobj["resType"].ToString() + " : " + trgAddr.ToString();
 
-                        listBox2.Items.Add(logtime + "\t" + logId.ToString() + "\t" + resultCode.ToString() + "\t   " + resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")");
+                        ListViewItem newitem = new ListViewItem(new string[] { logtime, logId.ToString(), string.Empty, resultCode.ToString(), resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")" });
+//                        ListViewItem newitem = new ListViewItem(new string[] { logtime, logId.ToString(), tcmsg, resultCode.ToString(), resultCodeName.ToString() + " (" + logType.ToString() + " => " + path + ")" });
+                        listView9.Items.Add(newitem);
                     }
 
-                    if (kind != string.Empty)
+                    if (listView9.Items.Count > 0)
                     {
-                        getSvrDetailLog(tlogid, kind, tresultCode, tresultCodeName);
-                    }
-                    else if (listBox2.Items.Count != 0)
-                    {
-                        listBox2.SelectedIndex = 0;
+                        listView9.Items[0].Focused = true;
+                        listView9.Items[0].Selected = true;
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
-            }
-        }
-
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string[] values = listBox2.SelectedItem.ToString().Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-            tBResultCode.Text = values[2];
-            textBox94.Text = values[1];
-
-            getSvrDetailLog(values[1], string.Empty, values[2], values[3]);
-        }
-
-        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selected_msg = listBox3.SelectedItem.ToString();
-            string[] values = selected_msg.Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-
-            if (values[4] != " ")
-            {
-                if (listBox1.SelectedItem != null)
-                {
-                    string logs_msg = listBox1.SelectedItem.ToString();
-                    string[] titles = logs_msg.Split('\t');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-
-                    MessageBox.Show(values[3] + "\n\n" + values[4], titles[2] + " 상세내역");
-                }
-                else
-                    MessageBox.Show(values[3] + "\n\n" + values[4], "상세내역");
             }
         }
 
@@ -8192,7 +8195,7 @@ namespace WindowsFormsApp2
 
         private void button123_Click(object sender, EventArgs e)
         {
-            getSvrEventLog(textBox95.Text, string.Empty, string.Empty, string.Empty);
+            getSvrEventLog(textBox95.Text, string.Empty, string.Empty);
         }
 
         private void button122_Click(object sender, EventArgs e)
@@ -9014,7 +9017,7 @@ namespace WindowsFormsApp2
                     textBox95.Text = item.SubItems[3].Text;
                     tBResultCode.Text = item.SubItems[2].Text;
 
-                    getSvrEventLog(item.SubItems[3].Text, string.Empty, item.SubItems[2].Text, item.SubItems[4].Text);
+                    getSvrEventLog(item.SubItems[3].Text, item.SubItems[2].Text, item.SubItems[4].Text);
 
                     tabControl1.SelectedTab = tabLOG;
                 }
@@ -9031,7 +9034,7 @@ namespace WindowsFormsApp2
                     textBox95.Text = item.SubItems[3].Text;
                     tBResultCode.Text = item.SubItems[2].Text;
 
-                    getSvrEventLog(item.SubItems[3].Text, string.Empty, item.SubItems[2].Text, item.SubItems[4].Text);
+                    getSvrEventLog(item.SubItems[3].Text, item.SubItems[2].Text, item.SubItems[4].Text);
 
                     tabControl1.SelectedTab = tabLOG;
                 }
@@ -9922,15 +9925,13 @@ namespace WindowsFormsApp2
                 worksheet.Cells[0, 3] = new Cell("resultCode");
                 worksheet.Cells[0, 4] = new Cell("비고");
 
-                for (i=0;i<listBox1.Items.Count;i++)
+                for (i = 0; i < listView7.Items.Count; i++)
                 {
-                    string[] values = listBox1.Items[i].ToString().Split('\t');
-
-                    worksheet.Cells[i + 1, 0] = new Cell(values[0]);
-                    worksheet.Cells[i + 1, 1] = new Cell(values[1]);
-                    worksheet.Cells[i + 1, 2] = new Cell(values[2]);
-                    worksheet.Cells[i + 1, 3] = new Cell(values[3]);
-                    worksheet.Cells[i + 1, 4] = new Cell(values[4]);
+                    worksheet.Cells[i + 1, 0] = new Cell(listView8.Items[i].SubItems[0].Text);
+                    worksheet.Cells[i + 1, 1] = new Cell(listView8.Items[i].SubItems[1].Text);
+                    worksheet.Cells[i + 1, 2] = new Cell(listView8.Items[i].SubItems[2].Text);
+                    worksheet.Cells[i + 1, 3] = new Cell(listView8.Items[i].SubItems[3].Text);
+                    worksheet.Cells[i + 1, 4] = new Cell(listView8.Items[i].SubItems[4].Text);
                 }
 
                 worksheet.Cells.ColumnWidth[0] = 2500;
@@ -10151,9 +10152,43 @@ namespace WindowsFormsApp2
                 if (item.SubItems[4].Text != string.Empty)
                 {
                     textBox95.Text = item.SubItems[4].Text;
-                    getSvrEventLog(textBox95.Text, string.Empty, string.Empty, string.Empty);
+                    getSvrEventLog(textBox95.Text, string.Empty, string.Empty);
                     tabControl1.SelectedTab = tabLOG;
                 }
+            }
+        }
+
+        private void listView8_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView8.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                textBox95.Text = item.SubItems[1].Text;
+                tBResultCode.Text = item.SubItems[2].Text;
+
+                getSvrEventLog(item.SubItems[1].Text, item.SubItems[2].Text, item.SubItems[3].Text);
+            }
+        }
+
+        private void listView9_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView9.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                textBox94.Text = item.SubItems[1].Text;
+                tBResultCode.Text = item.SubItems[3].Text;
+
+                getSvrDetailLog(item.SubItems[1].Text, string.Empty, item.SubItems[3].Text, item.SubItems[4].Text);
+            }
+        }
+
+        private void listView10_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView10.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                if (item.SubItems[4].Text != " ")
+                    MessageBox.Show(item.SubItems[3].Text + "\n\n" + item.SubItems[4].Text, "상세내역");
             }
         }
     }
