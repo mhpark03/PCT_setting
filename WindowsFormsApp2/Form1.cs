@@ -6182,7 +6182,11 @@ namespace WindowsFormsApp2
             switch (resType)
             {
                 case "mefda":
-                    tcmsg = "MEF Certification";
+                    tcmsg = "Device MEF Certi.";
+                    endoneM2MTC("tc020201", logId, resultCode, resultCodeName, string.Empty);
+                    break;
+                case "mefsa":
+                    tcmsg = "Server MEF Certi.";
                     endoneM2MTC("tc020201", logId, resultCode, resultCodeName, string.Empty);
                     break;
                 case "cb":
