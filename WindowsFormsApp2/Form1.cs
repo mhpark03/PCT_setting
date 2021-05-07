@@ -9926,7 +9926,7 @@ namespace WindowsFormsApp2
                 worksheet.Cells[0, 3] = new Cell("resultCode");
                 worksheet.Cells[0, 4] = new Cell("비고");
 
-                for (i = 0; i < listView7.Items.Count && i<100 ; i++)
+                for (i = 0; i < listView8.Items.Count; i++)
                 {
                     worksheet.Cells[i + 1, 0] = new Cell(listView8.Items[i].SubItems[0].Text);
                     worksheet.Cells[i + 1, 1] = new Cell(listView8.Items[i].SubItems[1].Text);
