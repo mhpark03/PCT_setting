@@ -10192,6 +10192,28 @@ namespace WindowsFormsApp2
                     MessageBox.Show(item.SubItems[3].Text + "\n\n" + item.SubItems[4].Text, "상세내역");
             }
         }
+
+        private void listView7_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView7.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                string data = item.SubItems[3].Text;
+                if (data.StartsWith("<?xml"))
+                {
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.LoadXml(data);
+                    StringWriter writer = new StringWriter();
+                    xDoc.Save(writer);
+                    MessageBox.Show(writer.ToString(), "상세 내용");
+                }
+                else if (data.StartsWith("{") || data.StartsWith("["))
+                {
+                    string beautifiedJson = JValue.Parse(data).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                    MessageBox.Show(beautifiedJson, "상세 내용");
+                }
+            }
+        }
     }
 
     public class TCResult
