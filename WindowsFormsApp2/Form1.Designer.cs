@@ -449,6 +449,38 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button44 = new System.Windows.Forms.Button();
+            this.button45 = new System.Windows.Forms.Button();
+            this.button46 = new System.Windows.Forms.Button();
+            this.button47 = new System.Windows.Forms.Button();
+            this.button48 = new System.Windows.Forms.Button();
+            this.button49 = new System.Windows.Forms.Button();
+            this.button50 = new System.Windows.Forms.Button();
+            this.button54 = new System.Windows.Forms.Button();
+            this.button60 = new System.Windows.Forms.Button();
+            this.button61 = new System.Windows.Forms.Button();
+            this.button64 = new System.Windows.Forms.Button();
+            this.button65 = new System.Windows.Forms.Button();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.button66 = new System.Windows.Forms.Button();
+            this.button67 = new System.Windows.Forms.Button();
+            this.button69 = new System.Windows.Forms.Button();
+            this.button74 = new System.Windows.Forms.Button();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.button75 = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.listView11 = new System.Windows.Forms.ListView();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.button59 = new System.Windows.Forms.Button();
+            this.button58 = new System.Windows.Forms.Button();
+            this.button57 = new System.Windows.Forms.Button();
+            this.button56 = new System.Windows.Forms.Button();
+            this.button55 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -487,6 +519,13 @@
             this.tabTC.SuspendLayout();
             this.gbTCResult.SuspendLayout();
             this.webpage.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox24.SuspendLayout();
+            this.groupBox25.SuspendLayout();
+            this.groupBox26.SuspendLayout();
+            this.groupBox27.SuspendLayout();
+            this.groupBox28.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // cBoxBaudRate
@@ -555,7 +594,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1188, 804);
+            this.panel1.Size = new System.Drawing.Size(1187, 804);
             this.panel1.TabIndex = 10;
             // 
             // tabControl1
@@ -569,6 +608,7 @@
             this.tabControl1.Controls.Add(this.tabLOG);
             this.tabControl1.Controls.Add(this.tabTC);
             this.tabControl1.Controls.Add(this.webpage);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(3, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -4990,11 +5030,341 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox28);
+            this.tabPage1.Controls.Add(this.groupBox8);
+            this.tabPage1.Controls.Add(this.groupBox27);
+            this.tabPage1.Controls.Add(this.groupBox26);
+            this.tabPage1.Controls.Add(this.groupBox24);
+            this.tabPage1.Controls.Add(this.groupBox25);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(1173, 732);
+            this.tabPage1.TabIndex = 10;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button44
+            // 
+            this.button44.Location = new System.Drawing.Point(17, 20);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(97, 46);
+            this.button44.TabIndex = 33;
+            this.button44.Text = "MEF 인증";
+            this.button44.UseVisualStyleBackColor = true;
+            this.button44.Click += new System.EventHandler(this.button44_Click_1);
+            // 
+            // button45
+            // 
+            this.button45.Location = new System.Drawing.Point(24, 20);
+            this.button45.Name = "button45";
+            this.button45.Size = new System.Drawing.Size(121, 20);
+            this.button45.TabIndex = 21;
+            this.button45.Text = "CSEBase 조회";
+            this.button45.UseVisualStyleBackColor = true;
+            // 
+            // button46
+            // 
+            this.button46.Location = new System.Drawing.Point(24, 46);
+            this.button46.Name = "button46";
+            this.button46.Size = new System.Drawing.Size(121, 20);
+            this.button46.TabIndex = 22;
+            this.button46.Text = "CSR 조회";
+            this.button46.UseVisualStyleBackColor = true;
+            // 
+            // button47
+            // 
+            this.button47.Location = new System.Drawing.Point(225, 46);
+            this.button47.Name = "button47";
+            this.button47.Size = new System.Drawing.Size(118, 20);
+            this.button47.TabIndex = 25;
+            this.button47.Text = "CSR 생성";
+            this.button47.UseVisualStyleBackColor = true;
+            // 
+            // button48
+            // 
+            this.button48.Location = new System.Drawing.Point(225, 72);
+            this.button48.Name = "button48";
+            this.button48.Size = new System.Drawing.Size(119, 20);
+            this.button48.TabIndex = 26;
+            this.button48.Text = "CSR 삭제";
+            this.button48.UseVisualStyleBackColor = true;
+            // 
+            // button49
+            // 
+            this.button49.Location = new System.Drawing.Point(24, 72);
+            this.button49.Name = "button49";
+            this.button49.Size = new System.Drawing.Size(119, 20);
+            this.button49.TabIndex = 32;
+            this.button49.Text = "CSR 수정";
+            this.button49.UseVisualStyleBackColor = true;
+            // 
+            // button50
+            // 
+            this.button50.Location = new System.Drawing.Point(25, 20);
+            this.button50.Name = "button50";
+            this.button50.Size = new System.Drawing.Size(118, 20);
+            this.button50.TabIndex = 36;
+            this.button50.Text = "폴더생성";
+            this.button50.UseVisualStyleBackColor = true;
+            // 
+            // button54
+            // 
+            this.button54.Location = new System.Drawing.Point(22, 103);
+            this.button54.Name = "button54";
+            this.button54.Size = new System.Drawing.Size(121, 20);
+            this.button54.TabIndex = 19;
+            this.button54.Text = "데이터전송 (DB)";
+            this.button54.UseVisualStyleBackColor = true;
+            // 
+            // button60
+            // 
+            this.button60.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button60.Location = new System.Drawing.Point(201, 20);
+            this.button60.Name = "button60";
+            this.button60.Size = new System.Drawing.Size(119, 22);
+            this.button60.TabIndex = 46;
+            this.button60.Text = "권한 관리 정보 생성";
+            this.button60.UseVisualStyleBackColor = true;
+            // 
+            // button61
+            // 
+            this.button61.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button61.Location = new System.Drawing.Point(201, 47);
+            this.button61.Name = "button61";
+            this.button61.Size = new System.Drawing.Size(119, 22);
+            this.button61.TabIndex = 48;
+            this.button61.Text = "권한 관리 정보 삭제";
+            this.button61.UseVisualStyleBackColor = true;
+            // 
+            // button64
+            // 
+            this.button64.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button64.Location = new System.Drawing.Point(24, 20);
+            this.button64.Name = "button64";
+            this.button64.Size = new System.Drawing.Size(119, 22);
+            this.button64.TabIndex = 45;
+            this.button64.Text = "권한 관리 정보 조회";
+            this.button64.UseVisualStyleBackColor = true;
+            // 
+            // button65
+            // 
+            this.button65.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button65.Location = new System.Drawing.Point(24, 47);
+            this.button65.Name = "button65";
+            this.button65.Size = new System.Drawing.Size(119, 22);
+            this.button65.TabIndex = 47;
+            this.button65.Text = "권한 관리 정보 수정";
+            this.button65.UseVisualStyleBackColor = true;
+            // 
+            // groupBox24
+            // 
+            this.groupBox24.Controls.Add(this.button60);
+            this.groupBox24.Controls.Add(this.button61);
+            this.groupBox24.Controls.Add(this.button64);
+            this.groupBox24.Controls.Add(this.button65);
+            this.groupBox24.Location = new System.Drawing.Point(13, 620);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(472, 84);
+            this.groupBox24.TabIndex = 87;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "oneM2M ACP";
+            // 
+            // button66
+            // 
+            this.button66.Location = new System.Drawing.Point(174, 20);
+            this.button66.Name = "button66";
+            this.button66.Size = new System.Drawing.Size(120, 20);
+            this.button66.TabIndex = 37;
+            this.button66.Text = "폴더삭제";
+            this.button66.UseVisualStyleBackColor = true;
+            // 
+            // button67
+            // 
+            this.button67.Location = new System.Drawing.Point(174, 46);
+            this.button67.Name = "button67";
+            this.button67.Size = new System.Drawing.Size(120, 20);
+            this.button67.TabIndex = 39;
+            this.button67.Text = "구독삭제";
+            this.button67.UseVisualStyleBackColor = true;
+            // 
+            // button69
+            // 
+            this.button69.Location = new System.Drawing.Point(22, 77);
+            this.button69.Name = "button69";
+            this.button69.Size = new System.Drawing.Size(121, 20);
+            this.button69.TabIndex = 30;
+            this.button69.Text = "데이터 수신";
+            this.button69.UseVisualStyleBackColor = true;
+            // 
+            // button74
+            // 
+            this.button74.Location = new System.Drawing.Point(23, 46);
+            this.button74.Name = "button74";
+            this.button74.Size = new System.Drawing.Size(120, 20);
+            this.button74.TabIndex = 34;
+            this.button74.Text = "구독신청";
+            this.button74.UseVisualStyleBackColor = true;
+            // 
+            // groupBox25
+            // 
+            this.groupBox25.Controls.Add(this.button50);
+            this.groupBox25.Controls.Add(this.button54);
+            this.groupBox25.Controls.Add(this.button69);
+            this.groupBox25.Controls.Add(this.label20);
+            this.groupBox25.Controls.Add(this.button74);
+            this.groupBox25.Controls.Add(this.button66);
+            this.groupBox25.Controls.Add(this.button75);
+            this.groupBox25.Controls.Add(this.label24);
+            this.groupBox25.Controls.Add(this.button67);
+            this.groupBox25.Location = new System.Drawing.Point(13, 290);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(472, 157);
+            this.groupBox25.TabIndex = 86;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "oneM2M DATA";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(160, 81);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(9, 12);
+            this.label20.TabIndex = 31;
+            this.label20.Text = ".";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // button75
+            // 
+            this.button75.Location = new System.Drawing.Point(23, 129);
+            this.button75.Name = "button75";
+            this.button75.Size = new System.Drawing.Size(121, 20);
+            this.button75.TabIndex = 42;
+            this.button75.Text = "데이터전송 (서버)";
+            this.button75.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(160, 107);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(9, 12);
+            this.label24.TabIndex = 38;
+            this.label24.Text = ".";
+            this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // groupBox26
+            // 
+            this.groupBox26.Controls.Add(this.button45);
+            this.groupBox26.Controls.Add(this.button46);
+            this.groupBox26.Controls.Add(this.button47);
+            this.groupBox26.Controls.Add(this.button48);
+            this.groupBox26.Controls.Add(this.button49);
+            this.groupBox26.Location = new System.Drawing.Point(13, 148);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(472, 109);
+            this.groupBox26.TabIndex = 85;
+            this.groupBox26.TabStop = false;
+            this.groupBox26.Text = "remoteCSE";
+            // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.button44);
+            this.groupBox27.Location = new System.Drawing.Point(13, 25);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(472, 95);
+            this.groupBox27.TabIndex = 84;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "oneM2M 인증";
+            // 
+            // listView11
+            // 
+            this.listView11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView11.HideSelection = false;
+            this.listView11.Location = new System.Drawing.Point(3, 17);
+            this.listView11.Name = "listView11";
+            this.listView11.Size = new System.Drawing.Size(617, 700);
+            this.listView11.TabIndex = 23;
+            this.listView11.UseCompatibleStateImageBehavior = false;
+            // 
+            // groupBox28
+            // 
+            this.groupBox28.Controls.Add(this.listView11);
+            this.groupBox28.Location = new System.Drawing.Point(539, 8);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(623, 720);
+            this.groupBox28.TabIndex = 84;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "Device Message";
+            // 
+            // button59
+            // 
+            this.button59.Location = new System.Drawing.Point(234, 49);
+            this.button59.Name = "button59";
+            this.button59.Size = new System.Drawing.Size(118, 23);
+            this.button59.TabIndex = 24;
+            this.button59.Text = "ModemFW 조회";
+            this.button59.UseVisualStyleBackColor = true;
+            // 
+            // button58
+            // 
+            this.button58.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button58.Location = new System.Drawing.Point(25, 49);
+            this.button58.Name = "button58";
+            this.button58.Size = new System.Drawing.Size(118, 22);
+            this.button58.TabIndex = 40;
+            this.button58.Text = "ModemFW 보고";
+            this.button58.UseVisualStyleBackColor = true;
+            // 
+            // button57
+            // 
+            this.button57.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button57.Location = new System.Drawing.Point(234, 21);
+            this.button57.Name = "button57";
+            this.button57.Size = new System.Drawing.Size(118, 22);
+            this.button57.TabIndex = 23;
+            this.button57.Text = "DeviceFW 조회";
+            this.button57.UseVisualStyleBackColor = true;
+            // 
+            // button56
+            // 
+            this.button56.Location = new System.Drawing.Point(24, 77);
+            this.button56.Name = "button56";
+            this.button56.Size = new System.Drawing.Size(118, 21);
+            this.button56.TabIndex = 44;
+            this.button56.Text = "RESET 보고";
+            this.button56.UseVisualStyleBackColor = true;
+            // 
+            // button55
+            // 
+            this.button55.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button55.Location = new System.Drawing.Point(24, 21);
+            this.button55.Name = "button55";
+            this.button55.Size = new System.Drawing.Size(119, 22);
+            this.button55.TabIndex = 49;
+            this.button55.Text = "DeviceFW 보고";
+            this.button55.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.button55);
+            this.groupBox8.Controls.Add(this.button56);
+            this.groupBox8.Controls.Add(this.button57);
+            this.groupBox8.Controls.Add(this.button58);
+            this.groupBox8.Controls.Add(this.button59);
+            this.groupBox8.Location = new System.Drawing.Point(13, 471);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(472, 114);
+            this.groupBox8.TabIndex = 88;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "oneM2M Firmware";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1188, 804);
+            this.ClientSize = new System.Drawing.Size(1187, 804);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
@@ -5064,6 +5434,14 @@
             this.tabTC.PerformLayout();
             this.gbTCResult.ResumeLayout(false);
             this.webpage.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
+            this.groupBox26.ResumeLayout(false);
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -5489,6 +5867,38 @@
         private System.Windows.Forms.ListView listView8;
         private System.Windows.Forms.ListView listView10;
         private System.Windows.Forms.ListView listView9;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.GroupBox groupBox28;
+        private System.Windows.Forms.ListView listView11;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.Button button44;
+        private System.Windows.Forms.GroupBox groupBox26;
+        private System.Windows.Forms.Button button45;
+        private System.Windows.Forms.Button button46;
+        private System.Windows.Forms.Button button47;
+        private System.Windows.Forms.Button button48;
+        private System.Windows.Forms.Button button49;
+        private System.Windows.Forms.GroupBox groupBox24;
+        private System.Windows.Forms.Button button60;
+        private System.Windows.Forms.Button button61;
+        private System.Windows.Forms.Button button64;
+        private System.Windows.Forms.Button button65;
+        private System.Windows.Forms.GroupBox groupBox25;
+        private System.Windows.Forms.Button button50;
+        private System.Windows.Forms.Button button54;
+        private System.Windows.Forms.Button button69;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button button74;
+        private System.Windows.Forms.Button button66;
+        private System.Windows.Forms.Button button75;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button button67;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Button button55;
+        private System.Windows.Forms.Button button56;
+        private System.Windows.Forms.Button button57;
+        private System.Windows.Forms.Button button58;
+        private System.Windows.Forms.Button button59;
     }
 }
 

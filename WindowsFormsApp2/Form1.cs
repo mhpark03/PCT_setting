@@ -10128,6 +10128,52 @@ namespace WindowsFormsApp2
                 }
             }
         }
+
+        private void button44_Click_1(object sender, EventArgs e)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "https://" + oneM2MMEFIP +":"+ oneM2MMEFPort + "/mef";
+            header.Method = "POST";
+            header.ContentType = "application/xml";
+            header.X_M2M_RI = string.Empty;
+            header.X_M2M_Origin = string.Empty;
+            header.X_MEF_TK = string.Empty;
+            header.X_MEF_EKI = string.Empty;
+            header.X_M2M_NM = string.Empty;
+
+            XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+            XElement xroot = new XElement("auth");
+            xdoc.Add(xroot);
+
+            XElement xparams = new XElement("deviceModel", tBoxDeviceModel.Text);
+            xroot.Add(xparams);
+            xparams = new XElement("deviceSerialNo", tBoxDeviceSN.Text);
+            xroot.Add(xparams);
+            xparams = new XElement("serviceCode", tbSvcCd.Text);
+            xroot.Add(xparams);
+            xparams = new XElement("deviceType", "apn");
+            xroot.Add(xparams);
+            xparams = new XElement("mac", string.Empty);
+            xroot.Add(xparams);
+            xparams = new XElement("ctn", tbDeviceCTN.Text);
+            xroot.Add(xparams);
+            xparams = new XElement("iccid", lbIccid.Text.Substring(13,6));
+            xroot.Add(xparams);
+            xparams = new XElement("useLongUuid", "false");
+            xroot.Add(xparams);
+
+            string retStr = SendHttpRequest(header, xroot.ToString()); // xml
+/*
+            if (retStr != string.Empty)
+            {
+                ParsingXml(retStr);
+
+                string nameCSR = svr.entityId.Replace("-", "");
+                svr.remoteCSEName = "csr-" + nameCSR;
+                //LogWrite("svr.remoteCSEName = " + svr.remoteCSEName);
+            }
+*/
+        }
     }
 
     public class TCResult
