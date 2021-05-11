@@ -10131,8 +10131,14 @@ namespace WindowsFormsApp2
 
         private void button44_Click_1(object sender, EventArgs e)
         {
+            oneM2MMefAuth(tbSvcCd.Text, tBoxDeviceModel.Text, tBoxDeviceVer.Text, tBoxDeviceSN.Text);
+        }
+
+        private void oneM2MMefAuth(string svcCode, string model, string version, string serialNo)
+        {
+
             ReqHeader header = new ReqHeader();
-            header.Url = "https://" + oneM2MMEFIP +":"+ oneM2MMEFPort + "/mef";
+            header.Url = "https://" + oneM2MMEFIP + ":" + oneM2MMEFPort + "/mef";
             header.Method = "POST";
             header.ContentType = "application/xml";
             header.X_M2M_RI = string.Empty;
@@ -10145,11 +10151,11 @@ namespace WindowsFormsApp2
             XElement xroot = new XElement("auth");
             xdoc.Add(xroot);
 
-            XElement xparams = new XElement("deviceModel", tBoxDeviceModel.Text);
+            XElement xparams = new XElement("deviceModel", model);
             xroot.Add(xparams);
-            xparams = new XElement("deviceSerialNo", tBoxDeviceSN.Text);
+            xparams = new XElement("deviceSerialNo", serialNo);
             xroot.Add(xparams);
-            xparams = new XElement("serviceCode", tbSvcCd.Text);
+            xparams = new XElement("serviceCode", svcCode);
             xroot.Add(xparams);
             xparams = new XElement("deviceType", "apn");
             xroot.Add(xparams);
@@ -10157,22 +10163,26 @@ namespace WindowsFormsApp2
             xroot.Add(xparams);
             xparams = new XElement("ctn", tbDeviceCTN.Text);
             xroot.Add(xparams);
-            xparams = new XElement("iccid", lbIccid.Text.Substring(13,6));
+            string iccid = lbIccid.Text;
+            if (iccid.Length > 6)
+                xparams = new XElement("iccid", iccid.Substring(iccid.Length - 6, 6));
+            else
+                xparams = new XElement("iccid", "000000");
             xroot.Add(xparams);
             xparams = new XElement("useLongUuid", "false");
             xroot.Add(xparams);
 
             string retStr = SendHttpRequest(header, xroot.ToString()); // xml
-/*
-            if (retStr != string.Empty)
-            {
-                ParsingXml(retStr);
+            /*
+                        if (retStr != string.Empty)
+                        {
+                            ParsingXml(retStr);
 
-                string nameCSR = svr.entityId.Replace("-", "");
-                svr.remoteCSEName = "csr-" + nameCSR;
-                //LogWrite("svr.remoteCSEName = " + svr.remoteCSEName);
-            }
-*/
+                            string nameCSR = svr.entityId.Replace("-", "");
+                            svr.remoteCSEName = "csr-" + nameCSR;
+                            //LogWrite("svr.remoteCSEName = " + svr.remoteCSEName);
+                        }
+            */
         }
     }
 
