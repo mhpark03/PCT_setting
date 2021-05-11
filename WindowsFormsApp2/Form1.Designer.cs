@@ -4206,6 +4206,7 @@
             this.listView7.Size = new System.Drawing.Size(662, 676);
             this.listView7.TabIndex = 27;
             this.listView7.UseCompatibleStateImageBehavior = false;
+            this.listView7.SelectedIndexChanged += new System.EventHandler(this.listView7_SelectedIndexChanged);
             // 
             // groupBox14
             // 
