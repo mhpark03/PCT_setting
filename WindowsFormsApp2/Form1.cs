@@ -739,26 +739,6 @@ namespace WindowsFormsApp2
             svr.enrmtKeyId = string.Empty;
             svr.entityId = string.Empty;
 
-            tc.state = string.Empty;
-            tc.lwm2m = new string[(int)lwm2mtc.tc0603 + 1, 5];
-            for (int i = 0; i < (int)lwm2mtc.tc0603 + 1; i++)
-            {
-                tc.lwm2m[i, 0] = "Not TEST";
-                tc.lwm2m[i, 1] = string.Empty;
-                tc.lwm2m[i, 2] = string.Empty;
-                tc.lwm2m[i, 3] = string.Empty;
-                tc.lwm2m[i, 4] = string.Empty;
-            }
-            tc.onem2m = new string[(int)onem2mtc.tc021401 + 1, 5];
-            for (int i = 0; i < (int)onem2mtc.tc021401 + 1; i++)
-            {
-                tc.onem2m[i, 0] = "Not TEST";
-                tc.onem2m[i, 1] = string.Empty;
-                tc.onem2m[i, 2] = string.Empty;
-                tc.onem2m[i, 3] = string.Empty;
-                tc.onem2m[i, 4] = string.Empty;
-            }
-
             lbActionState.Text = "idle";
 
             commmode = "catm1";
@@ -785,8 +765,7 @@ namespace WindowsFormsApp2
 
             foreach (string tcindex in Enum.GetNames(typeof(onem2mtc)))
             {
-                onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
-                ListViewItem newitem = new ListViewItem(new string[] { onem2mtclist[tcindex], tc.onem2m[(int)index, 0], tc.onem2m[(int)index, 1], tc.onem2m[(int)index, 2], tc.onem2m[(int)index, 3], tc.onem2m[(int)index, 4] });
+                ListViewItem newitem = new ListViewItem(new string[] { onem2mtclist[tcindex], "Not TEST", string.Empty, string.Empty, string.Empty, string.Empty });
                 listView1.Items.Add(newitem);
             }
 
@@ -804,8 +783,7 @@ namespace WindowsFormsApp2
 
             foreach (string tcindex in Enum.GetNames(typeof(lwm2mtc)))
             {
-                lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
-                ListViewItem newitem = new ListViewItem(new string[] { lwm2mtclist[tcindex], tc.lwm2m[(int)index, 0], tc.lwm2m[(int)index, 1], tc.lwm2m[(int)index, 2], tc.lwm2m[(int)index, 3], tc.lwm2m[(int)index, 4] });
+                ListViewItem newitem = new ListViewItem(new string[] { lwm2mtclist[tcindex], "Not TEST", string.Empty, string.Empty, string.Empty, string.Empty });
                 listView2.Items.Add(newitem);
             }
 
@@ -7329,25 +7307,17 @@ namespace WindowsFormsApp2
 
         private void startLwM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
         {
-            tc.state = tcindex;
             logPrintTC(lwm2mtclist[tcindex],"시작",string.Empty);
             lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
-            if (tc.lwm2m[(int)index, 0] != "FAIL")
-            {
-                tc.lwm2m[(int)index, 0] = "START";             // 시험 결과 초기 값(FAIL) 설정, 테스트 후 결과 수정
-                tc.lwm2m[(int)index, 1] = string.Empty;
-                tc.lwm2m[(int)index, 2] = string.Empty;
-                tc.lwm2m[(int)index, 3] = string.Empty;
-                tc.lwm2m[(int)index, 4] = string.Empty;
-
-                int idx = (int)index;
+            int idx = (int)index;
+            if (listView2.Items[idx].SubItems[0].Text != "FAIL")
                 SetTextlist2(listView2, idx.ToString() + "," + "START" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "0");
-            }
         }
 
         private void endLwM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
         {
             lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
+            int idx = (int)index;
 
             if (resultCode == string.Empty || resultCode == "20000000")
             {
@@ -7356,18 +7326,8 @@ namespace WindowsFormsApp2
                 else
                     logPrintTC(lwm2mtclist[tcindex],"성공",logId);
 
-                string result = tc.lwm2m[(int)index, 0];
-                if (result != "FAIL")
-                {
-                    tc.lwm2m[(int)index, 0] = "PASS";             // 시험 결과 저장
-                    tc.lwm2m[(int)index, 1] = resultCode;
-                    tc.lwm2m[(int)index, 2] = logId;
-                    tc.lwm2m[(int)index, 3] = resultCodeName;
-                    tc.lwm2m[(int)index, 4] = remark;
-
-                    int idx = (int)index;
+                if (listView2.Items[idx].SubItems[0].Text != "FAIL")
                     SetTextlist2(listView2, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
-                }
             }
             else
             {
@@ -7375,16 +7335,9 @@ namespace WindowsFormsApp2
                     logPrintTC(lwm2mtclist[tcindex],"실패", string.Empty);
                 else
                     logPrintTC(lwm2mtclist[tcindex],"실패", logId);
-                tc.lwm2m[(int)index, 0] = "FAIL";             // 시험 결과 저장
-                tc.lwm2m[(int)index, 1] = resultCode;
-                tc.lwm2m[(int)index, 2] = logId;
-                tc.lwm2m[(int)index, 3] = resultCodeName;
-                tc.lwm2m[(int)index, 4] = remark;
 
-                int idx = (int)index;
                 SetTextlist2(listView2, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
             }
-            tc.state = string.Empty;
         }
 
         private void SetTextlist2(Control ctr, string txtValue)
@@ -7418,25 +7371,17 @@ namespace WindowsFormsApp2
 
         private void startoneM2MTC(string tcindex)
         {
-            tc.state = tcindex;
             logPrintTC(onem2mtclist[tcindex],"시작", string.Empty);
             onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
-            if (tc.onem2m[(int)index, 0] != "FAIL")
-            {
-                tc.onem2m[(int)index, 0] = "START";             // 시험 결과 초기 값(FAIL) 설정, 테스트 후 결과 수정
-                tc.onem2m[(int)index, 1] = string.Empty;
-                tc.onem2m[(int)index, 2] = string.Empty;
-                tc.onem2m[(int)index, 3] = string.Empty;
-                tc.onem2m[(int)index, 4] = string.Empty;
-
-                int idx = (int) index;
+            int idx = (int)index;
+            if (listView1.Items[idx].SubItems[0].Text != "FAIL")
                 SetTextlist1(listView1, idx.ToString() + "," +"START" + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + "0");
-            }
         }
 
         private void endoneM2MTC(string tcindex, string logId, string resultCode, string resultCodeName, string remark)
         {
             onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
+            int idx = (int)index;
 
             if (resultCode == string.Empty || resultCode == "20000000")
             {
@@ -7444,29 +7389,12 @@ namespace WindowsFormsApp2
                     logPrintTC(onem2mtclist[tcindex],"성공", string.Empty);
                 else
                     logPrintTC(onem2mtclist[tcindex],"성공",logId);
-                string result = tc.onem2m[(int)index, 0];
 
-                if (result != "FAIL")
-                {
-                    tc.onem2m[(int)index, 0] = "PASS";             // 시험 결과 저장
-                    tc.onem2m[(int)index, 1] = resultCode;
-                    tc.onem2m[(int)index, 2] = logId;
-                    tc.onem2m[(int)index, 3] = resultCodeName;
-                    tc.onem2m[(int)index, 4] = remark;
-
-                    int idx = (int)index;
+                if (listView1.Items[idx].SubItems[0].Text != "FAIL")
                     SetTextlist1(listView1, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
-                }
             }
             else if (resultCode == "20000200")
             {
-                tc.onem2m[(int)index, 0] = "N/A";             // 시험 결과 저장
-                tc.onem2m[(int)index, 1] = resultCode;
-                tc.onem2m[(int)index, 2] = logId;
-                tc.onem2m[(int)index, 3] = resultCodeName;
-                tc.onem2m[(int)index, 4] = remark;
-
-                int idx = (int)index;
                 SetTextlist1(listView1, idx.ToString() + "," + "N/A" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "3");
             }
             else
@@ -7475,16 +7403,9 @@ namespace WindowsFormsApp2
                     logPrintTC(onem2mtclist[tcindex],"실패", string.Empty);
                 else
                     logPrintTC(onem2mtclist[tcindex],"실패",logId);
-                tc.onem2m[(int)index, 0] = "FAIL";             // 시험 결과 저장
-                tc.onem2m[(int)index, 1] = resultCode;
-                tc.onem2m[(int)index, 2] = logId;
-                tc.onem2m[(int)index, 3] = resultCodeName;
-                tc.onem2m[(int)index, 4] = remark;
 
-                int idx = (int)index;
                 SetTextlist1(listView1, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
             }
-            tc.state = string.Empty;
         }
 
         private void SetTextlist1(Control ctr, string txtValue)
@@ -8038,26 +7959,22 @@ namespace WindowsFormsApp2
                                 {
                                     comboBox1.SelectedIndex = 0;
 
-                                    for (int i = 0; i < (int)onem2mtc.tc021401 + 1; i++)
+                                    listView1.Items.Clear();
+                                    foreach (string tcindex in Enum.GetNames(typeof(onem2mtc)))
                                     {
-                                        tc.onem2m[i, 0] = "Not TEST";
-                                        tc.onem2m[i, 1] = string.Empty;
-                                        tc.onem2m[i, 2] = string.Empty;
-                                        tc.onem2m[i, 3] = string.Empty;
-                                        tc.onem2m[i, 4] = string.Empty;
+                                        ListViewItem newitem = new ListViewItem(new string[] { onem2mtclist[tcindex], "Not TEST", string.Empty, string.Empty, string.Empty, string.Empty });
+                                        listView1.Items.Add(newitem);
                                     }
                                 }
                                 else
                                 {
                                     comboBox1.SelectedIndex = 1;
 
-                                    for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
+                                    listView2.Items.Clear();
+                                    foreach (string tcindex in Enum.GetNames(typeof(lwm2mtc)))
                                     {
-                                        tc.lwm2m[i, 0] = "Not TEST";
-                                        tc.lwm2m[i, 1] = string.Empty;
-                                        tc.lwm2m[i, 2] = string.Empty;
-                                        tc.lwm2m[i, 3] = string.Empty;
-                                        tc.lwm2m[i, 4] = string.Empty;
+                                        ListViewItem newitem = new ListViewItem(new string[] { lwm2mtclist[tcindex], "Not TEST", string.Empty, string.Empty, string.Empty, string.Empty });
+                                        listView2.Items.Add(newitem);
                                     }
                                 }
 
@@ -8386,13 +8303,11 @@ namespace WindowsFormsApp2
             tcStartTime = DateTime.Now.AddMinutes(-1);
             dateTimePicker1.Value = tcStartTime;
 
-            for (int i = 1; i < (int)lwm2mtc.tc0603 + 1; i++)
+            listView2.Items.Clear();
+            foreach (string tcindex in Enum.GetNames(typeof(lwm2mtc)))
             {
-                tc.lwm2m[i, 0] = "Not TEST";
-                tc.lwm2m[i, 1] = string.Empty;
-                tc.lwm2m[i, 2] = string.Empty;
-                tc.lwm2m[i, 3] = string.Empty;
-                tc.lwm2m[i, 4] = string.Empty;
+                ListViewItem newitem = new ListViewItem(new string[] { lwm2mtclist[tcindex], "Not TEST", string.Empty, string.Empty, string.Empty, string.Empty });
+                listView2.Items.Add(newitem);
             }
 
             this.sendDataOut(textBox71.Text);
@@ -8830,7 +8745,7 @@ namespace WindowsFormsApp2
 
                 if (lbDirectRxData.Text == lbSendedData.Text)
                 {
-                    endoneM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                    endLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
                 }
                 else
                 {
@@ -9196,14 +9111,13 @@ namespace WindowsFormsApp2
             tcStartTime = DateTime.Now.AddMinutes(-1);
             dateTimePicker1.Value = tcStartTime;
 
-            for (int i = 1; i < (int)onem2mtc.tc021401 + 1; i++)
+            listView1.Items.Clear();
+            foreach (string tcindex in Enum.GetNames(typeof(onem2mtc)))
             {
-                tc.onem2m[i, 0] = "Not TEST";
-                tc.onem2m[i, 1] = string.Empty;
-                tc.onem2m[i, 2] = string.Empty;
-                tc.onem2m[i, 3] = string.Empty;
-                tc.onem2m[i, 4] = string.Empty;
+                ListViewItem newitem = new ListViewItem(new string[] { onem2mtclist[tcindex], "Not TEST", string.Empty, string.Empty, string.Empty, string.Empty });
+                listView1.Items.Add(newitem);
             }
+
             svr.svcSvrCd = tbSvcSvrCd.Text; // 서비스 서버의 시퀀스
             svr.svcCd = tbSvcCd.Text; // 서비스 서버의 서비스코드
             svr.svcSvrNum = tbSvcSvrNum.Text; // 서비스 서버의 Number
@@ -9749,7 +9663,7 @@ namespace WindowsFormsApp2
                     SetText(lbDirectRxData, value);
 
                 if (lbDirectRxData.Text == lbDevLwM2MData.Text)
-                    endoneM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                    endLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
                 else
                     endLwM2MTC("tc0503", string.Empty, "20000100", lbDirectRxData.Text, lbDevLwM2MData.Text);
             }
@@ -10218,7 +10132,6 @@ namespace WindowsFormsApp2
 
     public class TCResult
     {
-        public string state { get; set; }            // 테스트 중인 항목
         public string[,] lwm2m { get; set; }           // LwM2M 항목별 시험결과
         public string[,] onem2m { get; set; }           // oneM2M 항목별 시험결과
     }
