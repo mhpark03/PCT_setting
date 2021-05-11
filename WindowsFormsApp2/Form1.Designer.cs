@@ -560,6 +560,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabCOM);
             this.tabControl1.Controls.Add(this.tabSMST);
             this.tabControl1.Controls.Add(this.tabPROXY);
@@ -593,6 +596,7 @@
             // 
             // textBox2
             // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.Location = new System.Drawing.Point(532, 705);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(147, 21);
@@ -600,6 +604,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox1.Location = new System.Drawing.Point(685, 705);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(468, 21);
@@ -831,6 +837,9 @@
             // 
             // gbDeviceLog
             // 
+            this.gbDeviceLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDeviceLog.Controls.Add(this.listView3);
             this.gbDeviceLog.Location = new System.Drawing.Point(532, 18);
             this.gbDeviceLog.Name = "gbDeviceLog";
@@ -1153,6 +1162,7 @@
             // 
             // button68
             // 
+            this.button68.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button68.Location = new System.Drawing.Point(754, 54);
             this.button68.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button68.Name = "button68";
@@ -1164,6 +1174,7 @@
             // 
             // button33
             // 
+            this.button33.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button33.Location = new System.Drawing.Point(382, 54);
             this.button33.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button33.Name = "button33";
@@ -1175,6 +1186,7 @@
             // 
             // button32
             // 
+            this.button32.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button32.Location = new System.Drawing.Point(569, 54);
             this.button32.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button32.Name = "button32";
@@ -1186,6 +1198,7 @@
             // 
             // button31
             // 
+            this.button31.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button31.Location = new System.Drawing.Point(198, 54);
             this.button31.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button31.Name = "button31";
@@ -1197,6 +1210,7 @@
             // 
             // button24
             // 
+            this.button24.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button24.Location = new System.Drawing.Point(615, 604);
             this.button24.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button24.Name = "button24";
@@ -1208,6 +1222,7 @@
             // 
             // button23
             // 
+            this.button23.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button23.Location = new System.Drawing.Point(810, 604);
             this.button23.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button23.Name = "button23";
@@ -1219,6 +1234,7 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox6.Controls.Add(this.cbNBIPVer);
             this.groupBox6.Controls.Add(this.button36);
             this.groupBox6.Location = new System.Drawing.Point(611, 501);
@@ -1255,6 +1271,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox5.Controls.Add(this.checkBox9);
             this.groupBox5.Controls.Add(this.tbDeviceType);
             this.groupBox5.Controls.Add(this.cbVideo);
@@ -1465,6 +1482,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox2.Controls.Add(this.cbCatagory);
             this.groupBox2.Controls.Add(this.cbBandCombin);
             this.groupBox2.Controls.Add(this.cbStandaloneGNSS);
@@ -1789,6 +1807,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox1.Controls.Add(this.cbEMC);
             this.groupBox1.Controls.Add(this.cbImsPDN);
             this.groupBox1.Controls.Add(this.cbCA);
@@ -2053,6 +2072,7 @@
             // 
             // comboBox3
             // 
+            this.comboBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
             "자동",
@@ -2066,6 +2086,7 @@
             // 
             // button73
             // 
+            this.button73.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button73.Location = new System.Drawing.Point(20, 19);
             this.button73.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button73.Name = "button73";
@@ -2076,6 +2097,7 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox7.Controls.Add(this.btProxy430);
             this.groupBox7.Controls.Add(this.tBProxy437);
             this.groupBox7.Controls.Add(this.btProxy437);
@@ -2192,6 +2214,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox4.Controls.Add(this.tBProxy334);
             this.groupBox4.Controls.Add(this.btProxy334);
             this.groupBox4.Controls.Add(this.tBProxy333);
@@ -2413,6 +2436,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox3.Controls.Add(this.btProxy322);
             this.groupBox3.Controls.Add(this.tBProxy320);
             this.groupBox3.Controls.Add(this.btProxy320);
@@ -2886,6 +2910,7 @@
             // 
             // button40
             // 
+            this.button40.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button40.Location = new System.Drawing.Point(637, 644);
             this.button40.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button40.Name = "button40";
@@ -2897,6 +2922,7 @@
             // 
             // button41
             // 
+            this.button41.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.button41.Location = new System.Drawing.Point(795, 644);
             this.button41.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button41.Name = "button41";
@@ -3344,6 +3370,9 @@
             // 
             // groupBox17
             // 
+            this.groupBox17.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox17.Controls.Add(this.listView4);
             this.groupBox17.Location = new System.Drawing.Point(534, 14);
             this.groupBox17.Name = "groupBox17";
@@ -3555,6 +3584,9 @@
             // 
             // groupBox16
             // 
+            this.groupBox16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox16.Controls.Add(this.listView5);
             this.groupBox16.Location = new System.Drawing.Point(540, 15);
             this.groupBox16.Name = "groupBox16";
@@ -4189,6 +4221,9 @@
             // 
             // groupBox12
             // 
+            this.groupBox12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox12.Controls.Add(this.listView7);
             this.groupBox12.Location = new System.Drawing.Point(489, 24);
             this.groupBox12.Name = "groupBox12";
@@ -4545,6 +4580,9 @@
             // 
             // listView10
             // 
+            this.listView10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView10.HideSelection = false;
             this.listView10.Location = new System.Drawing.Point(591, 344);
             this.listView10.Name = "listView10";
@@ -4555,6 +4593,8 @@
             // 
             // listView9
             // 
+            this.listView9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView9.HideSelection = false;
             this.listView9.Location = new System.Drawing.Point(591, 162);
             this.listView9.Name = "listView9";
@@ -4565,6 +4605,8 @@
             // 
             // listView8
             // 
+            this.listView8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listView8.HideSelection = false;
             this.listView8.Location = new System.Drawing.Point(7, 68);
             this.listView8.Name = "listView8";
@@ -4593,6 +4635,7 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dateTimePicker1.Location = new System.Drawing.Point(768, 37);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -4622,6 +4665,7 @@
             // 
             // button127
             // 
+            this.button127.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button127.Location = new System.Drawing.Point(935, 9);
             this.button127.Name = "button127";
             this.button127.Size = new System.Drawing.Size(126, 23);
@@ -4632,6 +4676,7 @@
             // 
             // label27
             // 
+            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(842, 323);
             this.label27.Name = "label27";
@@ -4642,6 +4687,7 @@
             // 
             // tBResultCode
             // 
+            this.tBResultCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tBResultCode.Location = new System.Drawing.Point(710, 89);
             this.tBResultCode.Name = "tBResultCode";
             this.tBResultCode.Size = new System.Drawing.Size(88, 21);
@@ -4651,6 +4697,7 @@
             // 
             // button126
             // 
+            this.button126.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button126.Location = new System.Drawing.Point(807, 91);
             this.button126.Name = "button126";
             this.button126.Size = new System.Drawing.Size(82, 19);
@@ -4661,6 +4708,7 @@
             // 
             // button122
             // 
+            this.button122.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button122.Location = new System.Drawing.Point(1008, 318);
             this.button122.Name = "button122";
             this.button122.Size = new System.Drawing.Size(121, 20);
@@ -4671,6 +4719,7 @@
             // 
             // label19
             // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(627, 96);
             this.label19.Name = "label19";
@@ -4681,6 +4730,7 @@
             // 
             // textBox94
             // 
+            this.textBox94.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox94.Location = new System.Drawing.Point(898, 319);
             this.textBox94.Name = "textBox94";
             this.textBox94.Size = new System.Drawing.Size(104, 21);
@@ -4697,6 +4747,7 @@
             // 
             // label26
             // 
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(846, 139);
             this.label26.Name = "label26";
@@ -4718,6 +4769,7 @@
             // 
             // button123
             // 
+            this.button123.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button123.Location = new System.Drawing.Point(1008, 134);
             this.button123.Name = "button123";
             this.button123.Size = new System.Drawing.Size(121, 20);
@@ -4743,6 +4795,7 @@
             // 
             // textBox95
             // 
+            this.textBox95.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox95.Location = new System.Drawing.Point(898, 135);
             this.textBox95.Name = "textBox95";
             this.textBox95.Size = new System.Drawing.Size(104, 21);
@@ -4751,6 +4804,7 @@
             // 
             // btnGetLogList
             // 
+            this.btnGetLogList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnGetLogList.Location = new System.Drawing.Point(935, 38);
             this.btnGetLogList.Name = "btnGetLogList";
             this.btnGetLogList.Size = new System.Drawing.Size(132, 23);
@@ -4796,6 +4850,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label5.Location = new System.Drawing.Point(587, 29);
@@ -4806,6 +4861,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.label4.Location = new System.Drawing.Point(45, 29);
@@ -4816,6 +4872,7 @@
             // 
             // listView2
             // 
+            this.listView2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(584, 60);
             this.listView2.Name = "listView2";
@@ -4826,16 +4883,18 @@
             // 
             // listView1
             // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(8, 60);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(545, 611);
+            this.listView1.Size = new System.Drawing.Size(545, 655);
             this.listView1.TabIndex = 45;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // gbTCResult
             // 
+            this.gbTCResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.gbTCResult.Controls.Add(this.listView6);
             this.gbTCResult.Location = new System.Drawing.Point(586, 338);
             this.gbTCResult.Name = "gbTCResult";
@@ -4878,6 +4937,7 @@
             // 
             // button81
             // 
+            this.button81.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button81.Location = new System.Drawing.Point(1098, 11);
             this.button81.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button81.Name = "button81";
@@ -4889,6 +4949,7 @@
             // 
             // button72
             // 
+            this.button72.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button72.Location = new System.Drawing.Point(1020, 11);
             this.button72.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button72.Name = "button72";
@@ -4909,6 +4970,7 @@
             // 
             // label30
             // 
+            this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(732, 15);
             this.label30.Name = "label30";
@@ -4918,6 +4980,7 @@
             // 
             // tBoxDeviceVer
             // 
+            this.tBoxDeviceVer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tBoxDeviceVer.Location = new System.Drawing.Point(775, 9);
             this.tBoxDeviceVer.Name = "tBoxDeviceVer";
             this.tBoxDeviceVer.Size = new System.Drawing.Size(81, 21);
@@ -4927,6 +4990,7 @@
             // 
             // label34
             // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(389, 15);
             this.label34.Name = "label34";
@@ -4936,6 +5000,7 @@
             // 
             // tbSvcCd
             // 
+            this.tbSvcCd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSvcCd.Location = new System.Drawing.Point(936, 12);
             this.tbSvcCd.Name = "tbSvcCd";
             this.tbSvcCd.Size = new System.Drawing.Size(67, 21);
@@ -4946,6 +5011,7 @@
             // 
             // tBoxDeviceSN
             // 
+            this.tBoxDeviceSN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tBoxDeviceSN.Location = new System.Drawing.Point(622, 11);
             this.tBoxDeviceSN.Name = "tBoxDeviceSN";
             this.tBoxDeviceSN.Size = new System.Drawing.Size(100, 21);
@@ -4955,6 +5021,7 @@
             // 
             // label31
             // 
+            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label31.Location = new System.Drawing.Point(844, 13);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(86, 16);
@@ -4964,6 +5031,7 @@
             // 
             // tBoxDeviceModel
             // 
+            this.tBoxDeviceModel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tBoxDeviceModel.Location = new System.Drawing.Point(447, 12);
             this.tBoxDeviceModel.Name = "tBoxDeviceModel";
             this.tBoxDeviceModel.Size = new System.Drawing.Size(98, 21);
@@ -4973,6 +5041,7 @@
             // 
             // label32
             // 
+            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label32.AutoSize = true;
             this.label32.Location = new System.Drawing.Point(556, 15);
             this.label32.Name = "label32";
@@ -4996,9 +5065,8 @@
             this.ClientSize = new System.Drawing.Size(1188, 804);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MaximumSize = new System.Drawing.Size(1920, 1066);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(750, 522);
+            this.MinimumSize = new System.Drawing.Size(1204, 843);
             this.Name = "Form1";
             this.Text = "LGU+ PCT";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
