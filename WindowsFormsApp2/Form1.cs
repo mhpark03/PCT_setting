@@ -7641,7 +7641,7 @@ namespace WindowsFormsApp2
             packetStr += "</auth>";
             */
 
-            string retStr = SendHttpRequest(header, xroot.ToString()); // xml
+            string retStr = SendHttpRequest(header, xdoc.ToString()); // xml
             if (retStr != string.Empty)
             {
                 ParsingXml(retStr);
@@ -10138,7 +10138,7 @@ namespace WindowsFormsApp2
         {
 
             ReqHeader header = new ReqHeader();
-            header.Url = "https://" + oneM2MMEFIP + ":" + oneM2MMEFPort + "/mef";
+            header.Url = "http://" + oneM2MMEFIP + ":" + oneM2MMEFPort + "/mef";
             header.Method = "POST";
             header.ContentType = "application/xml";
             header.X_M2M_RI = string.Empty;
@@ -10147,42 +10147,358 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = string.Empty;
             header.X_M2M_NM = string.Empty;
 
-            XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
-            XElement xroot = new XElement("auth");
-            xdoc.Add(xroot);
-
-            XElement xparams = new XElement("deviceModel", model);
-            xroot.Add(xparams);
-            xparams = new XElement("deviceSerialNo", serialNo);
-            xroot.Add(xparams);
-            xparams = new XElement("serviceCode", svcCode);
-            xroot.Add(xparams);
-            xparams = new XElement("deviceType", "apn");
-            xroot.Add(xparams);
-            xparams = new XElement("mac", string.Empty);
-            xroot.Add(xparams);
-            xparams = new XElement("ctn", tbDeviceCTN.Text);
-            xroot.Add(xparams);
+            string bodymsg = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><auth><deviceModel>";
+            bodymsg += model;
+            bodymsg += "</deviceModel><deviceSerialNo>";
+            bodymsg += serialNo;
+            bodymsg += "</deviceSerialNo><serviceCode>";
+            bodymsg += svcCode;
+            bodymsg += "</serviceCode><deviceType>asn</deviceType><ctn>";
+            bodymsg += tbDeviceCTN.Text;
+            bodymsg += "</ctn><mac></mac><iccId>";
             string iccid = lbIccid.Text;
             if (iccid.Length > 6)
-                xparams = new XElement("iccid", iccid.Substring(iccid.Length - 6, 6));
+                bodymsg += iccid.Substring(iccid.Length - 6, 6);
             else
-                xparams = new XElement("iccid", "000000");
-            xroot.Add(xparams);
-            xparams = new XElement("useLongUuid", "false");
-            xroot.Add(xparams);
-
-            string retStr = SendHttpRequest(header, xroot.ToString()); // xml
+                bodymsg += "000000";
+            bodymsg += "</iccId></auth>";
             /*
-                        if (retStr != string.Empty)
-                        {
-                            ParsingXml(retStr);
+                        XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+                        XElement xroot = new XElement("auth");
+                        xdoc.Add(xroot);
 
-                            string nameCSR = svr.entityId.Replace("-", "");
-                            svr.remoteCSEName = "csr-" + nameCSR;
-                            //LogWrite("svr.remoteCSEName = " + svr.remoteCSEName);
-                        }
+                        XElement xparams = new XElement("deviceModel", model);
+                        xroot.Add(xparams);
+                        xparams = new XElement("deviceSerialNo", serialNo);
+                        xroot.Add(xparams);
+                        xparams = new XElement("serviceCode", svcCode);
+                        xroot.Add(xparams);
+                        xparams = new XElement("deviceType", "apn");
+                        xroot.Add(xparams);
+                        xparams = new XElement("mac", string.Empty);
+                        xroot.Add(xparams);
+                        xparams = new XElement("ctn", tbDeviceCTN.Text);
+                        xroot.Add(xparams);
+                        string iccid = lbIccid.Text;
+                        if (iccid.Length > 6)
+                            xparams = new XElement("iccid", iccid.Substring(iccid.Length - 6, 6));
+                        else
+                            xparams = new XElement("iccid", "000000");
+                        xroot.Add(xparams);
+                        xparams = new XElement("useLongUuid", "false");
+                        xroot.Add(xparams);
+
+                        StringWriter writer = new StringWriter();
+                        Console.WriteLine(xdoc.Declaration.Encoding);
+                        xdoc.Save(writer);
+                        Console.WriteLine(writer.ToString());
+
+                        string retStr = DeviceHttpRequest(header, writer.ToString()); // xml
             */
+            string retStr = DeviceHttpRequest(header, bodymsg);
+            if (retStr != string.Empty)
+            {
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/authdata/http"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    dev.enrmtKey = xn["enrmtKey"].InnerText; // oneM2M 인증 KeyID를 생성하기 위한 Key
+                    dev.entityId = xn["entityId"].InnerText; // oneM2M에서 사용하는 단말 ID
+                    dev.token = xn["token"].InnerText; // 인증구간 통신을 위해 발급하는 Token
+                }
+
+                // EKI값 계산하기
+                // short uuid구하기
+                string suuid = dev.entityId.Substring(10, 10);
+                //LogWrite("suuid = " + suuid);
+
+                // KeyData Base64URL Decoding
+                string output = dev.enrmtKey;
+                output = output.Replace('-', '+'); // 62nd char of encoding
+                output = output.Replace('_', '/'); // 63rd char of encoding
+
+                switch (output.Length % 4) // Pad with trailing '='s
+                {
+                    case 0:
+                        break; // No pad chars in this case
+                    case 2:
+                        output += "==";
+                        break; // Two pad chars
+                    case 3:
+                        output += "=";
+                        break; // One pad char
+                    default:
+                        throw new ArgumentOutOfRangeException(
+                            nameof(dev.enrmtKey), "Illegal base64url string!");
+                }
+
+                var converted = Convert.FromBase64String(output); // Standard base64 decoder
+
+                // keyData로 AES 128비트 비밀키 생성
+                System.Text.UTF8Encoding UTF8 = new System.Text.UTF8Encoding();
+                AesManaged tdes = new AesManaged();
+                tdes.Key = converted;
+                tdes.Mode = CipherMode.ECB;
+                tdes.Padding = PaddingMode.PKCS7;
+                ICryptoTransform crypt = tdes.CreateEncryptor();
+                byte[] plain = Encoding.UTF8.GetBytes(suuid);
+                byte[] cipher = crypt.TransformFinalBlock(plain, 0, plain.Length);
+                String enrmtKeyId = Convert.ToBase64String(cipher);
+
+                enrmtKeyId = enrmtKeyId.Split('=')[0]; // Remove any trailing '='s
+                enrmtKeyId = enrmtKeyId.Replace('+', '-'); // 62nd char of encoding
+                enrmtKeyId = enrmtKeyId.Replace('/', '_'); // 63rd char of encoding
+
+                dev.enrmtKeyId = enrmtKeyId;
+                Console.WriteLine("dev.enrmtKeyId = " + dev.enrmtKeyId);
+                dev.remoteCSEName = "csr-m2m_" + tbDeviceCTN.Text;
+            }
+        }
+
+        public string DeviceHttpRequest(ReqHeader header, string data)
+        {
+            string resResult = string.Empty;
+
+            try
+            {
+                wReq = (HttpWebRequest)WebRequest.Create(header.Url);
+                wReq.Method = header.Method;
+                if (header.Accept != string.Empty)
+                    wReq.Accept = header.Accept;
+                if (header.ContentType != string.Empty)
+                    wReq.ContentType = header.ContentType;
+                if (header.X_M2M_RI != string.Empty)
+                    wReq.Headers.Add("X-M2M-RI", header.X_M2M_RI);
+                if (header.X_M2M_Origin != string.Empty)
+                    wReq.Headers.Add("X-M2M-Origin", header.X_M2M_Origin);
+                if (header.X_M2M_NM != string.Empty)
+                    wReq.Headers.Add("X-M2M-NM", header.X_M2M_NM);
+                if (header.X_MEF_TK != string.Empty)
+                    wReq.Headers.Add("X-MEF-TK", header.X_MEF_TK);
+                if (header.X_MEF_EKI != string.Empty)
+                    wReq.Headers.Add("X-MEF-EKI", header.X_MEF_EKI);
+                wReq.Headers.Add("X-LGU-DM", tBoxDeviceModel.Text);
+                wReq.Headers.Add("X-LGU-NI", "20");
+
+                DevLogWrite(wReq.Method + " " + wReq.RequestUri, "T");
+                Console.WriteLine(wReq.Method + " " + wReq.RequestUri + " HTTP/1.1");
+                Console.WriteLine("");
+                for (int i = 0; i < wReq.Headers.Count; ++i)
+                    Console.WriteLine(wReq.Headers.Keys[i] + ": " + wReq.Headers[i]);
+                Console.WriteLine("");
+                Console.WriteLine(data);
+                Console.WriteLine("");
+
+                // POST 전송일 경우      
+                if (header.Method == "POST")
+                {
+                    byte[] byteArray = Encoding.UTF8.GetBytes(data);
+                    Stream dataStream = wReq.GetRequestStream();
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                    dataStream.Close();
+                }
+
+                wReq.Timeout = 20000;          // 서버 응답을 20초동안 기다림
+                using (wRes = (HttpWebResponse)wReq.GetResponse())
+                {
+                    DevLogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString(), "R");
+                    Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
+                    Console.WriteLine("");
+                    for (int i = 0; i < wRes.Headers.Count; ++i)
+                        Console.WriteLine("[" + wRes.Headers.Keys[i] + "] " + wRes.Headers[i]);
+                    Console.WriteLine("");
+
+                    Stream respPostStream = wRes.GetResponseStream();
+                    StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
+                    resResult = readerPost.ReadToEnd();
+                    if (resResult.StartsWith("<?xml"))
+                    {
+                        XmlDocument xDoc = new XmlDocument();
+                        xDoc.LoadXml(resResult);
+                        StringWriter writer = new StringWriter();
+                        xDoc.Save(writer);
+                        Console.WriteLine(writer.ToString());
+                    }
+                    else if (resResult.StartsWith("{") || resResult.StartsWith("["))
+                    {
+                        string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                        Console.WriteLine(beautifiedJson);
+                    }
+                    else
+                        Console.WriteLine(resResult);
+                    Console.WriteLine("");
+                }
+            }
+            catch (WebException ex)
+            {
+                if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
+                {
+                    var resp = (HttpWebResponse)ex.Response;
+                    DevLogWrite((int)resp.StatusCode + " " + resp.StatusCode.ToString(), "R");
+                    Console.WriteLine("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
+                    Console.WriteLine("");
+                    for (int i = 0; i < resp.Headers.Count; ++i)
+                        Console.WriteLine(" " + resp.Headers.Keys[i] + ": " + resp.Headers[i]);
+                    Console.WriteLine("");
+
+                    Stream respPostStream = resp.GetResponseStream();
+                    StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
+                    string resError = readerPost.ReadToEnd();
+                    Console.WriteLine(resError);
+                    Console.WriteLine("");
+                    //Console.WriteLine("[" + (int)resp.StatusCode + "] " + resp.StatusCode.ToString());
+                }
+                else
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+            }
+            return resResult;
+        }
+
+        private void DevLogWrite(string data, string dir)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                string time = DateTime.Now.ToString("hh:mm:ss");
+
+                ListViewItem newitem = new ListViewItem(new string[] { time, lbActionState.Text, dir, data });
+                listView7.Items.Add(newitem);
+                if (listView7.Items.Count > 35)
+                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
+            }));
+        }
+
+        private void DevLogWriteNoTime(string data)
+        {
+            BeginInvoke(new Action(() =>
+            {
+                ListViewItem newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, data });
+                listView7.Items.Add(newitem);
+                if (listView7.Items.Count > 35)
+                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
+            }));
+        }
+
+        private void button45_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevCSEBaseGet();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevCSEBaseGet()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1";
+            header.Method = "GET";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "CSEBase_Retrieve";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+                DevLogWriteNoTime(retStr);
+        }
+
+        private void button46_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevRemoteCSEGet();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevRemoteCSEGet()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "GET";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Retrieve";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+                DevLogWriteNoTime(retStr);
+        }
+
+        private void button47_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevRemoteCSECreate();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        // 3. RemoteCSE-Create
+        private void DevRemoteCSECreate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1";
+            header.Method = "POST";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=16";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = dev.remoteCSEName;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cst>3</cst>";
+            packetStr += "<csi>/" + dev.entityId + "</csi>";
+            packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
+            packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
+            packetStr += "<rr>true</rr>";
+            packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
+            packetStr += "</m2m:csr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
+        }
+
+        private void button49_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevRemoteCSEUpdate();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevRemoteCSEUpdate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/"+ dev.remoteCSEName;
+            header.Method = "PUT";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cst>3</cst>";
+            packetStr += "<csi>/" + dev.entityId + "</csi>";
+            packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
+            packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
+            packetStr += "<rr>true</rr>";
+            packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
+            packetStr += "</m2m:csr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+            //if (retStr != string.Empty)
+            //    LogWrite(retStr);
         }
     }
 
@@ -10205,6 +10521,11 @@ namespace WindowsFormsApp2
         public string version { get; set; }         // 모듈 펌웨어 버전
 
         public string type { get; set; }            // 플랫폼 연동 방식 (None/oneM2M/LwM2M)
+
+        public string enrmtKey { get; set; }        // oneM2M 인증 KeyID를 생성하기 위한 Key
+        public string token { get; set; }           // 인증구간 통신을 위해 발급하는 Token
+        public string enrmtKeyId { get; set; }      // MEF 인증 결과를 통해 생성하는 ID
+        public string remoteCSEName { get; set; }   // RemoteCSE 리소스 이름
     }
 
     public class ServiceServer
