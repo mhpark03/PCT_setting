@@ -4951,6 +4951,7 @@
             this.listView11.Size = new System.Drawing.Size(617, 700);
             this.listView11.TabIndex = 23;
             this.listView11.UseCompatibleStateImageBehavior = false;
+            this.listView11.SelectedIndexChanged += new System.EventHandler(this.listView11_SelectedIndexChanged);
             // 
             // groupBox8
             // 
@@ -5086,6 +5087,7 @@
             this.button48.TabIndex = 26;
             this.button48.Text = "CSR 삭제";
             this.button48.UseVisualStyleBackColor = true;
+            this.button48.Click += new System.EventHandler(this.button48_Click_1);
             // 
             // button49
             // 

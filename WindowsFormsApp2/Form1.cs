@@ -871,6 +871,16 @@ namespace WindowsFormsApp2
             listView10.Columns.Add(" 상세 내용", 200, HorizontalAlignment.Left);
             listView10.Columns.Add(" 상세 전문", 800, HorizontalAlignment.Left);
 
+            listView11.View = View.Details;
+            listView11.GridLines = true;
+            listView11.FullRowSelect = true;
+            listView11.CheckBoxes = false;
+
+            listView11.Columns.Add("시간", 60, HorizontalAlignment.Center);
+            listView11.Columns.Add("state", 120, HorizontalAlignment.Left);
+            listView11.Columns.Add("", 30, HorizontalAlignment.Center);
+            listView11.Columns.Add(" 전송 내용", 1000, HorizontalAlignment.Left);
+
             tcStartTime = DateTime.Now.AddHours(-2);
             dateTimePicker1.Value = tcStartTime;
         }
@@ -7767,9 +7777,10 @@ namespace WindowsFormsApp2
                 Console.WriteLine(data);
                 Console.WriteLine("");
 
-                // POST 전송일 경우      
-                if (header.Method == "POST")
+                if (data != string.Empty)
                 {
+                    LogWriteNoTime(data);
+
                     byte[] byteArray = Encoding.UTF8.GetBytes(data);
                     Stream dataStream = wReq.GetRequestStream();
                     dataStream.Write(byteArray, 0, byteArray.Length);
@@ -10155,13 +10166,13 @@ namespace WindowsFormsApp2
             bodymsg += svcCode;
             bodymsg += "</serviceCode><deviceType>asn</deviceType><ctn>";
             bodymsg += tbDeviceCTN.Text;
-            bodymsg += "</ctn><mac></mac><iccId>";
+            bodymsg += "</ctn><iccId>";
             string iccid = lbIccid.Text;
             if (iccid.Length > 6)
                 bodymsg += iccid.Substring(iccid.Length - 6, 6);
             else
                 bodymsg += "000000";
-            bodymsg += "</iccId></auth>";
+            bodymsg += "</iccId><mac></mac></auth>";
             /*
                         XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
                         XElement xroot = new XElement("auth");
@@ -10292,9 +10303,10 @@ namespace WindowsFormsApp2
                 Console.WriteLine(data);
                 Console.WriteLine("");
 
-                // POST 전송일 경우      
-                if (header.Method == "POST")
+                if (data != string.Empty)
                 {
+                    DevLogWriteNoTime(data);
+
                     byte[] byteArray = Encoding.UTF8.GetBytes(data);
                     Stream dataStream = wReq.GetRequestStream();
                     dataStream.Write(byteArray, 0, byteArray.Length);
@@ -10366,9 +10378,9 @@ namespace WindowsFormsApp2
                 string time = DateTime.Now.ToString("hh:mm:ss");
 
                 ListViewItem newitem = new ListViewItem(new string[] { time, lbActionState.Text, dir, data });
-                listView7.Items.Add(newitem);
-                if (listView7.Items.Count > 35)
-                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
+                listView11.Items.Add(newitem);
+                if (listView11.Items.Count > 35)
+                    listView11.TopItem = listView11.Items[listView11.Items.Count - 1];
             }));
         }
 
@@ -10377,9 +10389,9 @@ namespace WindowsFormsApp2
             BeginInvoke(new Action(() =>
             {
                 ListViewItem newitem = new ListViewItem(new string[] { string.Empty, string.Empty, string.Empty, data });
-                listView7.Items.Add(newitem);
-                if (listView7.Items.Count > 35)
-                    listView7.TopItem = listView7.Items[listView7.Items.Count - 1];
+                listView11.Items.Add(newitem);
+                if (listView11.Items.Count > 35)
+                    listView11.TopItem = listView11.Items[listView11.Items.Count - 1];
             }));
         }
 
@@ -10463,8 +10475,8 @@ namespace WindowsFormsApp2
             packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            //if (retStr != string.Empty)
-            //    LogWrite(retStr);
+            if (retStr != string.Empty)
+                DevLogWriteNoTime(retStr);
         }
 
         private void button49_Click_1(object sender, EventArgs e)
@@ -10480,12 +10492,13 @@ namespace WindowsFormsApp2
             ReqHeader header = new ReqHeader();
             header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/"+ dev.remoteCSEName;
             header.Method = "PUT";
-            header.Accept = "application/vnd.onem2m-res+xml";
+            header.Accept = "application/xml";
             header.ContentType = "application/vnd.onem2m-res+xml";
             header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Update";
             header.X_M2M_Origin = dev.entityId;
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10494,11 +10507,58 @@ namespace WindowsFormsApp2
             packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
             packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
             packetStr += "<rr>true</rr>";
-            packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
+            packetStr += "<poa>http://" + "10.151.21.58" + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            //if (retStr != string.Empty)
-            //    LogWrite(retStr);
+            if (retStr != string.Empty)
+                DevLogWriteNoTime(retStr);
+        }
+
+        private void button48_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevRemoteCSEDEL();
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        // 3. RemoteCSE-Delete
+        private void DevRemoteCSEDEL()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "DELETE";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "RemoteCSE_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+                DevLogWriteNoTime(retStr);
+        }
+
+        private void listView11_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView.SelectedListViewItemCollection itemColl = listView11.SelectedItems;
+            foreach (ListViewItem item in itemColl)
+            {
+                string data = item.SubItems[3].Text;
+                if (data.StartsWith("<?xml"))
+                {
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.LoadXml(data);
+                    StringWriter writer = new StringWriter();
+                    xDoc.Save(writer);
+                    MessageBox.Show(writer.ToString(), "상세 내용");
+                }
+                else if (data.StartsWith("{") || data.StartsWith("["))
+                {
+                    string beautifiedJson = JValue.Parse(data).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                    MessageBox.Show(beautifiedJson, "상세 내용");
+                }
+            }
         }
     }
 
