@@ -473,7 +473,7 @@ namespace WindowsFormsApp2
 
         DateTime tcStartTime = DateTime.Now.AddHours(-1);
         string tcmsg = string.Empty;
-
+        int rescode = 0;
 
         public Form1()
         {
@@ -10206,7 +10206,7 @@ namespace WindowsFormsApp2
 
                         string retStr = DeviceHttpRequest(header, writer.ToString()); // xml
             */
-            string retStr = DeviceHttpRequest(header, bodymsg);
+            string retStr  = DeviceHttpRequest(header, bodymsg);
             if (retStr != string.Empty)
             {
                 XmlDocument xDoc = new XmlDocument();
@@ -10266,6 +10266,7 @@ namespace WindowsFormsApp2
                 dev.enrmtKeyId = enrmtKeyId;
                 Console.WriteLine("dev.enrmtKeyId = " + dev.enrmtKeyId);
                 dev.remoteCSEName = "csr-m2m_" + tbDeviceCTN.Text;
+                dev.nodeName = "nod-m2m_" + tbDeviceCTN.Text;
             }
         }
 
@@ -10316,6 +10317,7 @@ namespace WindowsFormsApp2
                 wReq.Timeout = 20000;          // 서버 응답을 20초동안 기다림
                 using (wRes = (HttpWebResponse)wReq.GetResponse())
                 {
+                    rescode = (int)wRes.StatusCode;
                     DevLogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
                     Console.WriteLine("");
@@ -10326,22 +10328,27 @@ namespace WindowsFormsApp2
                     Stream respPostStream = wRes.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
                     resResult = readerPost.ReadToEnd();
-                    if (resResult.StartsWith("<?xml"))
+                    if (resResult != string.Empty)
                     {
-                        XmlDocument xDoc = new XmlDocument();
-                        xDoc.LoadXml(resResult);
-                        StringWriter writer = new StringWriter();
-                        xDoc.Save(writer);
-                        Console.WriteLine(writer.ToString());
+                        DevLogWriteNoTime(resResult);
+
+                        if (resResult.StartsWith("<?xml"))
+                        {
+                            XmlDocument xDoc = new XmlDocument();
+                            xDoc.LoadXml(resResult);
+                            StringWriter writer = new StringWriter();
+                            xDoc.Save(writer);
+                            Console.WriteLine(writer.ToString());
+                        }
+                        else if (resResult.StartsWith("{") || resResult.StartsWith("["))
+                        {
+                            string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                            Console.WriteLine(beautifiedJson);
+                        }
+                        else
+                            Console.WriteLine(resResult);
+                        Console.WriteLine("");
                     }
-                    else if (resResult.StartsWith("{") || resResult.StartsWith("["))
-                    {
-                        string beautifiedJson = JValue.Parse(resResult).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
-                        Console.WriteLine(beautifiedJson);
-                    }
-                    else
-                        Console.WriteLine(resResult);
-                    Console.WriteLine("");
                 }
             }
             catch (WebException ex)
@@ -10415,8 +10422,6 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
-            if (retStr != string.Empty)
-                DevLogWriteNoTime(retStr);
         }
 
         private void button46_Click_1(object sender, EventArgs e)
@@ -10439,8 +10444,6 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
-            if (retStr != string.Empty)
-                DevLogWriteNoTime(retStr);
         }
 
         private void button47_Click_1(object sender, EventArgs e)
@@ -10475,8 +10478,86 @@ namespace WindowsFormsApp2
             packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (retStr != string.Empty)
-                DevLogWriteNoTime(retStr);
+            if (rescode == 201)
+                DevNodeCreate();
+        }
+
+        private void DevNodeCreate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "POST";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=14";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Node_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = dev.nodeName;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:nod xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<ni>" + dev.remoteCSEName + "_nodid_" + tbDeviceCTN.Text + "</ni>";
+            packetStr += "</m2m:nod>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+            if (rescode == 201)
+                ModemVerCreate();
+        }
+
+        private void ModemVerCreate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName;
+            header.Method = "POST";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "fwr-m2m_M" + tbDeviceCTN.Text;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1001</mgd> ";
+            packetStr += "<dc>module_firmware</dc> ";
+            packetStr += "<vr>"+ lbModemVer + "</vr> ";
+            packetStr += "<fwnnam></fwnnam> ";
+            packetStr += "<url></url> ";
+            packetStr += "<ud>false</ud> ";
+            packetStr += "<hwty>M</hwty> ";
+            packetStr += "</m2m:fwr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+            if (rescode == 201)
+                DeviceVerCreate();
+        }
+
+        private void DeviceVerCreate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName;
+            header.Method = "POST";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "fwr-m2m_D" + tbDeviceCTN.Text;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1001</mgd> ";
+            packetStr += "<dc>module_firmware</dc> ";
+            packetStr += "<vr>" + tBoxDeviceVer + "</vr> ";
+            packetStr += "<fwnnam></fwnnam> ";
+            packetStr += "<url></url> ";
+            packetStr += "<ud>false</ud> ";
+            packetStr += "<hwty>D</hwty> ";
+            packetStr += "</m2m:fwr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+            //if (rescode == 201)
+            //    ModemVerCreate();
         }
 
         private void button49_Click_1(object sender, EventArgs e)
@@ -10510,8 +10591,6 @@ namespace WindowsFormsApp2
             packetStr += "<poa>http://" + "10.151.21.58" + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (retStr != string.Empty)
-                DevLogWriteNoTime(retStr);
         }
 
         private void button48_Click_1(object sender, EventArgs e)
@@ -10535,8 +10614,6 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
-            if (retStr != string.Empty)
-                DevLogWriteNoTime(retStr);
         }
 
         private void listView11_SelectedIndexChanged(object sender, EventArgs e)
@@ -10586,6 +10663,7 @@ namespace WindowsFormsApp2
         public string token { get; set; }           // 인증구간 통신을 위해 발급하는 Token
         public string enrmtKeyId { get; set; }      // MEF 인증 결과를 통해 생성하는 ID
         public string remoteCSEName { get; set; }   // RemoteCSE 리소스 이름
+        public string nodeName { get; set; }        // Node 리소스 이름
     }
 
     public class ServiceServer
