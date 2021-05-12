@@ -473,7 +473,8 @@ namespace WindowsFormsApp2
 
         DateTime tcStartTime = DateTime.Now.AddHours(-1);
         string tcmsg = string.Empty;
-        int rescode = 0;
+        int httpResCode = 0;
+        string httpRSC = string.Empty;
 
         public Form1()
         {
@@ -10301,12 +10302,17 @@ namespace WindowsFormsApp2
                 for (int i = 0; i < wReq.Headers.Count; ++i)
                     Console.WriteLine(wReq.Headers.Keys[i] + ": " + wReq.Headers[i]);
                 Console.WriteLine("");
-                Console.WriteLine(data);
-                Console.WriteLine("");
 
                 if (data != string.Empty)
                 {
                     DevLogWriteNoTime(data);
+
+                    XmlDocument xDoc = new XmlDocument();
+                    xDoc.LoadXml(data);
+                    StringWriter writer = new StringWriter();
+                    xDoc.Save(writer);
+                    Console.WriteLine(writer.ToString());
+                    Console.WriteLine("");
 
                     byte[] byteArray = Encoding.UTF8.GetBytes(data);
                     Stream dataStream = wReq.GetRequestStream();
@@ -10317,12 +10323,17 @@ namespace WindowsFormsApp2
                 wReq.Timeout = 20000;          // 서버 응답을 20초동안 기다림
                 using (wRes = (HttpWebResponse)wReq.GetResponse())
                 {
-                    rescode = (int)wRes.StatusCode;
+                    httpResCode = (int)wRes.StatusCode;
+                    httpRSC = string.Empty;
                     DevLogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < wRes.Headers.Count; ++i)
+                    {
                         Console.WriteLine("[" + wRes.Headers.Keys[i] + "] " + wRes.Headers[i]);
+                        if (wRes.Headers.Keys[i] == "x-m2m-rsc")
+                            httpRSC = wRes.Headers[i];
+                    }
                     Console.WriteLine("");
 
                     Stream respPostStream = wRes.GetResponseStream();
@@ -10356,19 +10367,43 @@ namespace WindowsFormsApp2
                 if (ex.Status == WebExceptionStatus.ProtocolError && ex.Response != null)
                 {
                     var resp = (HttpWebResponse)ex.Response;
+                    httpResCode = (int)resp.StatusCode;
+                    httpRSC = string.Empty;
                     DevLogWrite((int)resp.StatusCode + " " + resp.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < resp.Headers.Count; ++i)
+                    {
                         Console.WriteLine(" " + resp.Headers.Keys[i] + ": " + resp.Headers[i]);
+                        if (resp.Headers.Keys[i] == "x-m2m-rsc")
+                            httpRSC = resp.Headers[i];
+                    }
                     Console.WriteLine("");
 
                     Stream respPostStream = resp.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
                     string resError = readerPost.ReadToEnd();
-                    Console.WriteLine(resError);
-                    Console.WriteLine("");
-                    //Console.WriteLine("[" + (int)resp.StatusCode + "] " + resp.StatusCode.ToString());
+                    if (resError != string.Empty)
+                    {
+                        DevLogWriteNoTime(resError);
+
+                        if (resError.StartsWith("<?xml"))
+                        {
+                            XmlDocument xDoc = new XmlDocument();
+                            xDoc.LoadXml(resError);
+                            StringWriter writer = new StringWriter();
+                            xDoc.Save(writer);
+                            Console.WriteLine(writer.ToString());
+                        }
+                        else if (resError.StartsWith("{") || resError.StartsWith("["))
+                        {
+                            string beautifiedJson = JValue.Parse(resError).ToString((Newtonsoft.Json.Formatting)Formatting.Indented);
+                            Console.WriteLine(beautifiedJson);
+                        }
+                        else
+                            Console.WriteLine(resError);
+                        Console.WriteLine("");
+                    }
                 }
                 else
                 {
@@ -10478,7 +10513,7 @@ namespace WindowsFormsApp2
             packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (rescode == 201)
+            if (httpRSC == "2001")
                 DevNodeCreate();
         }
 
@@ -10500,7 +10535,7 @@ namespace WindowsFormsApp2
             packetStr += "<ni>" + dev.remoteCSEName + "_nodid_" + tbDeviceCTN.Text + "</ni>";
             packetStr += "</m2m:nod>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (rescode == 201)
+            if (httpRSC == "2001")
                 ModemVerCreate();
         }
 
@@ -10509,7 +10544,7 @@ namespace WindowsFormsApp2
             ReqHeader header = new ReqHeader();
             header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName;
             header.Method = "POST";
-            header.Accept = "application/vnd.onem2m-res+xml";
+            header.Accept = "application/xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
             header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
             header.X_M2M_Origin = dev.entityId;
@@ -10519,16 +10554,16 @@ namespace WindowsFormsApp2
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
-            packetStr += "<mgd>1001</mgd> ";
-            packetStr += "<dc>module_firmware</dc> ";
-            packetStr += "<vr>"+ lbModemVer + "</vr> ";
-            packetStr += "<fwnnam></fwnnam> ";
-            packetStr += "<url></url> ";
-            packetStr += "<ud>false</ud> ";
-            packetStr += "<hwty>M</hwty> ";
+            packetStr += "<mgd>1001</mgd>";
+            packetStr += "<dc>module_firmware</dc>";
+            packetStr += "<vr>"+ lbModemVer + "</vr>";
+            packetStr += "<fwnnam></fwnnam>";
+            packetStr += "<url></url>";
+            packetStr += "<ud>false</ud>";
+            packetStr += "<hwty>M</hwty>";
             packetStr += "</m2m:fwr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (rescode == 201)
+            if (httpRSC == "2001")
                 DeviceVerCreate();
         }
 
@@ -10547,16 +10582,16 @@ namespace WindowsFormsApp2
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
-            packetStr += "<mgd>1001</mgd> ";
-            packetStr += "<dc>module_firmware</dc> ";
-            packetStr += "<vr>" + tBoxDeviceVer + "</vr> ";
-            packetStr += "<fwnnam></fwnnam> ";
-            packetStr += "<url></url> ";
-            packetStr += "<ud>false</ud> ";
-            packetStr += "<hwty>D</hwty> ";
+            packetStr += "<mgd>1001</mgd>";
+            packetStr += "<dc>module_firmware</dc>";
+            packetStr += "<vr>" + tBoxDeviceVer + "</vr>";
+            packetStr += "<fwnnam></fwnnam>";
+            packetStr += "<url></url>";
+            packetStr += "<ud>false</ud>";
+            packetStr += "<hwty>D</hwty>";
             packetStr += "</m2m:fwr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            //if (rescode == 201)
+            //if (httpRSC == "2001")
             //    ModemVerCreate();
         }
 
