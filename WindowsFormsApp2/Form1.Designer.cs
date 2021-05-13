@@ -5178,6 +5178,7 @@
             this.button50.TabIndex = 36;
             this.button50.Text = "폴더생성";
             this.button50.UseVisualStyleBackColor = true;
+            this.button50.Click += new System.EventHandler(this.button50_Click_1);
             // 
             // button54
             // 
@@ -5224,6 +5225,7 @@
             this.button66.TabIndex = 37;
             this.button66.Text = "폴더삭제";
             this.button66.UseVisualStyleBackColor = true;
+            this.button66.Click += new System.EventHandler(this.button66_Click_1);
             // 
             // button75
             // 

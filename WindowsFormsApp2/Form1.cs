@@ -10742,6 +10742,57 @@ namespace WindowsFormsApp2
                 }
             }
         }
+
+        private void button50_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevContainerCreate("StoD");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevContainerCreate(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "POST";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=3";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Folder_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "cnt-"+folder;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cnt xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mni>20</mni>";
+            packetStr += "<mbs>40000</mbs>";
+            packetStr += "</m2m:cnt>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button66_Click_1(object sender, EventArgs e)
+        {
+            if (dev.enrmtKeyId != string.Empty)
+                DevContainerDelete("StoD");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevContainerDelete(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/cnt-" + folder;
+            header.Method = "DELETE";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Folder_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
     }
 
     public class TCResult
