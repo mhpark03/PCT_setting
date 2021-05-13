@@ -6298,6 +6298,8 @@ namespace WindowsFormsApp2
                         getSvrDetailLog(logId, "tc021002", resultCode, resultCodeName);
                     else
                         getSvrDetailLog(logId, "tc021004", resultCode, resultCodeName);
+                    if (tcmsg == string.Empty)
+                        tcmsg = "Firmware Report";
                     break;
                 case "FWD":
                     string target = "/" + dev.entityId;
@@ -10325,7 +10327,6 @@ namespace WindowsFormsApp2
                 {
                     httpResCode = (int)wRes.StatusCode;
                     httpRSC = string.Empty;
-                    DevLogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)wRes.StatusCode + " " + wRes.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < wRes.Headers.Count; ++i)
@@ -10335,6 +10336,7 @@ namespace WindowsFormsApp2
                             httpRSC = wRes.Headers[i];
                     }
                     Console.WriteLine("");
+                    DevLogWrite((int)wRes.StatusCode + " " + wRes.StatusCode.ToString()+" (" + httpRSC + ")", "R");
 
                     Stream respPostStream = wRes.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
@@ -10369,7 +10371,6 @@ namespace WindowsFormsApp2
                     var resp = (HttpWebResponse)ex.Response;
                     httpResCode = (int)resp.StatusCode;
                     httpRSC = string.Empty;
-                    DevLogWrite((int)resp.StatusCode + " " + resp.StatusCode.ToString(), "R");
                     Console.WriteLine("HTTP/1.1 " + (int)resp.StatusCode + " " + resp.StatusCode.ToString());
                     Console.WriteLine("");
                     for (int i = 0; i < resp.Headers.Count; ++i)
@@ -10379,6 +10380,7 @@ namespace WindowsFormsApp2
                             httpRSC = resp.Headers[i];
                     }
                     Console.WriteLine("");
+                    DevLogWrite((int)resp.StatusCode + " " + resp.StatusCode.ToString() + " (" + httpRSC + ")", "R");
 
                     Stream respPostStream = resp.GetResponseStream();
                     StreamReader readerPost = new StreamReader(respPostStream, Encoding.GetEncoding("UTF-8"), true);
@@ -10515,6 +10517,8 @@ namespace WindowsFormsApp2
             string retStr = DeviceHttpRequest(header, packetStr);
             if (httpRSC == "2001")
                 DevNodeCreate();
+            else if (httpRSC == "4105")
+                DevRemoteCSEUpdate();
         }
 
         private void DevNodeCreate()
@@ -10535,7 +10539,7 @@ namespace WindowsFormsApp2
             packetStr += "<ni>" + dev.remoteCSEName + "_nodid_" + tbDeviceCTN.Text + "</ni>";
             packetStr += "</m2m:nod>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (httpRSC == "2001")
+            if (httpRSC == "2001" || httpRSC == "4105")
                 ModemVerCreate();
         }
 
@@ -10556,14 +10560,14 @@ namespace WindowsFormsApp2
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<mgd>1001</mgd>";
             packetStr += "<dc>module_firmware</dc>";
-            packetStr += "<vr>"+ lbModemVer + "</vr>";
+            packetStr += "<vr>"+ lbModemVer.Text + "</vr>";
             packetStr += "<fwnnam></fwnnam>";
             packetStr += "<url></url>";
             packetStr += "<ud>false</ud>";
             packetStr += "<hwty>M</hwty>";
             packetStr += "</m2m:fwr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            if (httpRSC == "2001")
+            if (httpRSC == "2001" || httpRSC == "4105")
                 DeviceVerCreate();
         }
 
@@ -10584,15 +10588,37 @@ namespace WindowsFormsApp2
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<mgd>1001</mgd>";
             packetStr += "<dc>module_firmware</dc>";
-            packetStr += "<vr>" + tBoxDeviceVer + "</vr>";
+            packetStr += "<vr>" + tBoxDeviceVer.Text + "</vr>";
             packetStr += "<fwnnam></fwnnam>";
             packetStr += "<url></url>";
             packetStr += "<ud>false</ud>";
             packetStr += "<hwty>D</hwty>";
             packetStr += "</m2m:fwr>";
             string retStr = DeviceHttpRequest(header, packetStr);
-            //if (httpRSC == "2001")
-            //    ModemVerCreate();
+            if (httpRSC == "2001" || httpRSC == "4105")
+                RebootCreate();
+        }
+
+        private void RebootCreate()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName;
+            header.Method = "POST";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "rbo-m2m_" + tbDeviceCTN.Text;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1009</mgd>";
+            packetStr += "<dc>remote reboot</dc>";
+            packetStr += "<far>false</far>";
+            packetStr += "</m2m:rbo>";
+            string retStr = DeviceHttpRequest(header, packetStr);
         }
 
         private void button49_Click_1(object sender, EventArgs e)
@@ -10640,6 +10666,50 @@ namespace WindowsFormsApp2
         private void DevRemoteCSEDEL()
         {
             ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/rbo-m2m_" + tbDeviceCTN.Text;
+            header.Method = "DELETE";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Cver_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = DeviceHttpRequest(header, string.Empty);
+
+            header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/fwr-m2m_D" + tbDeviceCTN.Text;
+            header.Method = "DELETE";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            retStr = DeviceHttpRequest(header, string.Empty);
+
+            header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/fwr-m2m_M" + tbDeviceCTN.Text;
+            header.Method = "DELETE";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            retStr = DeviceHttpRequest(header, string.Empty);
+
+            header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName;
+            header.Method = "DELETE";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Node_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            retStr = DeviceHttpRequest(header, string.Empty);
+
+            header = new ReqHeader();
             header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
             header.Method = "DELETE";
             header.Accept = "application/vnd.onem2m-res+xml";
@@ -10648,7 +10718,7 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
-            string retStr = DeviceHttpRequest(header, string.Empty);
+            retStr = DeviceHttpRequest(header, string.Empty);
         }
 
         private void listView11_SelectedIndexChanged(object sender, EventArgs e)
