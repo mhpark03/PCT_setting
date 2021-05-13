@@ -5188,6 +5188,7 @@
             this.button54.TabIndex = 19;
             this.button54.Text = "데이터전송 (DB)";
             this.button54.UseVisualStyleBackColor = true;
+            this.button54.Click += new System.EventHandler(this.button54_Click_1);
             // 
             // button69
             // 
@@ -5197,6 +5198,7 @@
             this.button69.TabIndex = 30;
             this.button69.Text = "데이터 수신";
             this.button69.UseVisualStyleBackColor = true;
+            this.button69.Click += new System.EventHandler(this.button69_Click_1);
             // 
             // label20
             // 
@@ -5216,6 +5218,7 @@
             this.button74.TabIndex = 34;
             this.button74.Text = "구독신청";
             this.button74.UseVisualStyleBackColor = true;
+            this.button74.Click += new System.EventHandler(this.button74_Click);
             // 
             // button66
             // 
@@ -5254,6 +5257,7 @@
             this.button67.TabIndex = 39;
             this.button67.Text = "구독삭제";
             this.button67.UseVisualStyleBackColor = true;
+            this.button67.Click += new System.EventHandler(this.button67_Click_1);
             // 
             // button81
             // 
