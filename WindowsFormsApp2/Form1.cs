@@ -10426,7 +10426,12 @@ namespace WindowsFormsApp2
                             Console.WriteLine(beautifiedJson);
                         }
                         else
-                            Console.WriteLine(resResult);
+                        {
+                            if (resResult.Length > 256)
+                                Console.WriteLine(resResult.Substring(0,256));
+                            else
+                                Console.WriteLine(resResult);
+                        }
                         Console.WriteLine("");
                     }
                 }
@@ -10645,7 +10650,7 @@ namespace WindowsFormsApp2
             header.Method = "POST";
             header.Accept = "application/vnd.onem2m-res+xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
-            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Create";
             header.X_M2M_Origin = dev.entityId;
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
@@ -10673,7 +10678,7 @@ namespace WindowsFormsApp2
             header.Method = "POST";
             header.Accept = "application/vnd.onem2m-res+xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
-            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Reboot_Create";
             header.X_M2M_Origin = dev.entityId;
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
@@ -11028,6 +11033,203 @@ namespace WindowsFormsApp2
             label24.Text = data;
             packetStr += "</m2m:cin>";
             string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button55_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DeviceVerReport();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+
+        private void DeviceVerReport()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/" + "fwr-m2m_D" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1001</mgd>";
+            packetStr += "<dc>module_firmware</dc>";
+            packetStr += "<vr>" + tBoxDeviceVer.Text + "</vr>";
+            packetStr += "<fwnnam></fwnnam>";
+            packetStr += "<url></url>";
+            packetStr += "<uds><sus>1</sus></uds>";
+            packetStr += "</m2m:fwr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button58_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                ModemVerReport();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void ModemVerReport()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/" + "fwr-m2m_M" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1001</mgd>";
+            packetStr += "<dc>module_firmware</dc>";
+            packetStr += "<vr>" + lbModemVer.Text + "</vr>";
+            packetStr += "<fwnnam></fwnnam>";
+            packetStr += "<url></url>";
+            packetStr += "<uds><sus>1</sus></uds>";
+            packetStr += "</m2m:fwr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button57_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DeviceVerCheck();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DeviceVerCheck()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/updateVersionCheck/firmware/" + tbSvcCd.Text + "/" + tBoxDeviceModel.Text + "/" + tBoxDeviceVer.Text;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Check";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string version = string.Empty;
+                string filename = string.Empty;
+                string url = string.Empty;
+                string dc = string.Empty;
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+
+                XmlNodeList xnList = xDoc.SelectNodes("/fwr"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    version = xn["vr"].InnerText;
+                    filename = xn["fwnnam"].InnerText;
+                    url = xn["url"].InnerText;
+                    dc = xn["dc"].InnerText;
+                }
+                lbdevicever.Text = version;
+
+                DeviceVerDownload(url, filename);
+            }
+        }
+
+        private void DeviceVerDownload(string url, string filename)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/firmware/" + url + "/" + filename;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Download";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+
+            }
+        }
+
+        private void button59_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                ModemVerCheck();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void ModemVerCheck()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/updateVersionCheck/moduleFirmware/" + tbSvcCd.Text + "/" + tBoxDeviceModel.Text + "/" + lbModemVer.Text;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Check";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string version = string.Empty;
+                string filename = string.Empty;
+                string url = string.Empty;
+                string dc = string.Empty;
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+
+                XmlNodeList xnList = xDoc.SelectNodes("/fwr"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    version = xn["vr"].InnerText;
+                    filename = xn["fwnnam"].InnerText;
+                    url = xn["url"].InnerText;
+                    dc = xn["dc"].InnerText;
+                }
+                lbdevicever.Text = version;
+
+                ModemVerDownload(url, filename);
+            }
+        }
+
+        private void ModemVerDownload(string url, string filename)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/firmware/" + url + "/" + filename;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Download";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+
+            }
         }
     }
 
