@@ -442,7 +442,7 @@ namespace WindowsFormsApp2
         string imsmode = "no";
         ServiceServer svr = new ServiceServer();
         Device dev = new Device();
-        TCResult tc = new TCResult();
+        string beforetcstate = string.Empty;
 
         string device_fota_index = "0";
         string device_total_index = "0";
@@ -1671,8 +1671,6 @@ namespace WindowsFormsApp2
 
                                 if (lbActionState.Text == states.lwm2mtc0401.ToString())
                                 {
-                                    this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
-
                                     Thread.Sleep(10000);
                                     GetPlatformFWVer("NO");
 
@@ -1681,9 +1679,11 @@ namespace WindowsFormsApp2
 
                                     getSvrLoglists(kind, "auto");
                                     logPrintInTextBox("전체 시험 완료.", "");
+
+                                    this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
                                 }
-                                else
-                                    lbActionState.Text = states.idle.ToString();
+
+                                lbActionState.Text = states.idle.ToString();
                                 break;
                             case "2":
                                 logPrintInTextBox("registration update completed", "");
@@ -2767,22 +2767,6 @@ namespace WindowsFormsApp2
                     else
                         lbActionState.Text = states.idle.ToString();
                     break;
-                case states.lwm2mtc06034:
-                    txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
-                    lbDevLwM2MData.Text = txData;
-
-                    if (checkBox8.Checked == true)
-                    {
-                        string hexOutput = StringToBCD(txData.ToCharArray());
-
-                        this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
-                    }
-                    else
-                        this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                    startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
-                    lbActionState.Text = states.lwm2mtc06034.ToString();
-                    nextcommand = states.lwm2mtc0501.ToString();
-                    break;
                 default:
                     lbActionState.Text = states.idle.ToString();
                     break;
@@ -3142,6 +3126,26 @@ namespace WindowsFormsApp2
                 case states.holdoffbc95:
                     lbActionState.Text = states.idle.ToString();
                     break;
+                case states.lwm2mtc06034:
+                    endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    if (svr.enrmtKeyId != string.Empty)
+                    {
+                        startLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                        lbActionState.Text = states.lwm2mtc0502.ToString();
+                        string[] param = { "lwm2m", "tc0502" };
+                        rTh = new Thread(new ParameterizedThreadStart(SendDataToLwM2M));
+                        rTh.Start(param);
+                    }
+                    else
+                    {       // Service server 설정이 안되어 있으면 deregister  송신
+                        this.sendDataOut(textBox52.Text);
+                        startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                        lbActionState.Text = states.lwm2mtc0401.ToString();
+                        if (dev.model.StartsWith("BG95"))
+                            nextresponse = "+QLWDEREG: 0";
+                    }
+                    break;
                 default:
                     break;
             }
@@ -3288,6 +3292,21 @@ namespace WindowsFormsApp2
                         this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                         lbActionState.Text = states.resetmefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
+                        break;
+                    case states.lwm2mtc06034:
+                        txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+                        lbDevLwM2MData.Text = txData;
+
+                        if (checkBox8.Checked == true)
+                        {
+                            string hexOutput = StringToBCD(txData.ToCharArray());
+
+                            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                        }
+                        else
+                            this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
+                        startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                        lbActionState.Text = states.lwm2mtc06034.ToString();
                         break;
                     default:
                         break;
@@ -7326,7 +7345,10 @@ namespace WindowsFormsApp2
             logPrintTC(lwm2mtclist[tcindex],"시작",string.Empty);
             lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
             int idx = (int)index;
-            if (listView2.Items[idx].SubItems[0].Text != "FAIL")
+
+            beforetcstate = string.Empty;
+            GetTextlist2(listView2, idx.ToString());
+            if (beforetcstate != "FAIL")
                 SetTextlist2(listView2, idx.ToString() + "," + "START" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "0");
         }
 
@@ -7342,7 +7364,9 @@ namespace WindowsFormsApp2
                 else
                     logPrintTC(lwm2mtclist[tcindex],"성공",logId);
 
-                if (listView2.Items[idx].SubItems[0].Text != "FAIL")
+                beforetcstate = string.Empty;
+                GetTextlist2(listView2, idx.ToString());
+                if (beforetcstate != "FAIL")
                     SetTextlist2(listView2, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
             }
             else
@@ -7353,6 +7377,23 @@ namespace WindowsFormsApp2
                     logPrintTC(lwm2mtclist[tcindex],"실패", logId);
 
                 SetTextlist2(listView2, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
+            }
+        }
+
+        private void GetTextlist2(Control ctr, string index)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (ctr.InvokeRequired)
+            {
+                Ctr_Involk CI = new Ctr_Involk(GetTextlist2);
+                ctr.Invoke(CI, ctr, index);
+            }
+            else
+            {
+                int idx1 = Convert.ToInt32(index);
+                beforetcstate = listView2.Items[idx1].SubItems[1].Text;
             }
         }
 
@@ -7390,7 +7431,10 @@ namespace WindowsFormsApp2
             logPrintTC(onem2mtclist[tcindex],"시작", string.Empty);
             onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
             int idx = (int)index;
-            if (listView1.Items[idx].SubItems[0].Text != "FAIL")
+
+            beforetcstate = string.Empty;
+            GetTextlist1(listView1, idx.ToString());
+            if (beforetcstate != "FAIL")
                 SetTextlist1(listView1, idx.ToString() + "," +"START" + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + "0");
         }
 
@@ -7406,7 +7450,9 @@ namespace WindowsFormsApp2
                 else
                     logPrintTC(onem2mtclist[tcindex],"성공",logId);
 
-                if (listView1.Items[idx].SubItems[0].Text != "FAIL")
+                beforetcstate = string.Empty;
+                GetTextlist1(listView1, idx.ToString());
+                if (beforetcstate != "FAIL")
                     SetTextlist1(listView1, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
             }
             else if (resultCode == "20000200")
@@ -7421,6 +7467,23 @@ namespace WindowsFormsApp2
                     logPrintTC(onem2mtclist[tcindex],"실패",logId);
 
                 SetTextlist1(listView1, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
+            }
+        }
+
+        private void GetTextlist1(Control ctr, string index)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (ctr.InvokeRequired)
+            {
+                Ctr_Involk CI = new Ctr_Involk(GetTextlist1);
+                ctr.Invoke(CI, ctr, index);
+            }
+            else
+            {
+                int idx1 = Convert.ToInt32(index);
+                beforetcstate = listView1.Items[idx1].SubItems[1].Text;
             }
         }
 
@@ -10272,6 +10335,7 @@ namespace WindowsFormsApp2
                 dev.enrmtKeyId = enrmtKeyId;
                 Console.WriteLine("dev.enrmtKeyId = " + dev.enrmtKeyId);
                 dev.remoteCSEName = "csr-m2m_" + tbDeviceCTN.Text;
+                label12.Text = dev.remoteCSEName;
                 dev.nodeName = "nod-m2m_" + tbDeviceCTN.Text;
             }
         }
@@ -10852,7 +10916,7 @@ namespace WindowsFormsApp2
         private void button69_Click_1(object sender, EventArgs e)
         {
             if (dev.remoteCSEName != string.Empty)
-                RetriveOneM2MDataTo("StdD");
+                RetriveOneM2MDataTo("StoD");
             else
                 MessageBox.Show("서버인증파라미터 세팅하세요");
         }
@@ -10898,9 +10962,12 @@ namespace WindowsFormsApp2
         private void button54_Click_1(object sender, EventArgs e)
         {
             if (dev.remoteCSEName != string.Empty)
-                SendOneM2MDataTo("StdD", "test data");
+            {
+                string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " oneM2M module";
+                SendOneM2MDataTo("StoD", txData);
+            }
             else
-                MessageBox.Show("서버인증파라미터 세팅하세요");
+                MessageBox.Show("단말인증파라미터 세팅하세요");
         }
 
         private void SendOneM2MDataTo(string folder, string data)
@@ -10920,15 +10987,48 @@ namespace WindowsFormsApp2
             packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<cnf>application/xml</cnf>";
             packetStr += "<con>" + data + "</con>";
+            label24.Text = data;
             packetStr += "</m2m:cin>";
             string retStr = DeviceHttpRequest(header, packetStr);
         }
-    }
 
-    public class TCResult
-    {
-        public string[,] lwm2m { get; set; }           // LwM2M 항목별 시험결과
-        public string[,] onem2m { get; set; }           // oneM2M 항목별 시험결과
+        private void button75_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+            {
+                if (svr.entityId != string.Empty)
+                {
+                    string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " oneM2M module";
+                    ForwardOneM2MData(svr.entityId, "TEST", txData);
+                }
+                else
+                    MessageBox.Show("서버인증파라미터가 없습니다.");
+            }
+            else
+                MessageBox.Show("단말인증파라미터가 없습니다.");
+        }
+
+        private void ForwardOneM2MData(string entityID, string folder, string data)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/" + entityID + "/" + folder;
+            header.Method = "POST";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cnf>application/xml</cnf>";
+            packetStr += "<con>" + data + "</con>";
+            label24.Text = data;
+            packetStr += "</m2m:cin>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
     }
 
     public class Device

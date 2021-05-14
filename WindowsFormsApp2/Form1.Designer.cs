@@ -436,7 +436,7 @@
             this.listView6 = new System.Windows.Forms.ListView();
             this.webpage = new System.Windows.Forms.TabPage();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabModule = new System.Windows.Forms.TabPage();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.listView11 = new System.Windows.Forms.ListView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -481,6 +481,14 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.button37 = new System.Windows.Forms.Button();
+            this.label53 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -519,7 +527,7 @@
             this.tabTC.SuspendLayout();
             this.gbTCResult.SuspendLayout();
             this.webpage.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabModule.SuspendLayout();
             this.groupBox28.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox27.SuspendLayout();
@@ -608,7 +616,7 @@
             this.tabControl1.Controls.Add(this.tabLOG);
             this.tabControl1.Controls.Add(this.tabTC);
             this.tabControl1.Controls.Add(this.webpage);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabModule);
             this.tabControl1.Location = new System.Drawing.Point(3, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -4917,20 +4925,20 @@
             this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
             // 
-            // tabPage1
+            // tabModule
             // 
-            this.tabPage1.Controls.Add(this.groupBox28);
-            this.tabPage1.Controls.Add(this.groupBox8);
-            this.tabPage1.Controls.Add(this.groupBox27);
-            this.tabPage1.Controls.Add(this.groupBox26);
-            this.tabPage1.Controls.Add(this.groupBox24);
-            this.tabPage1.Controls.Add(this.groupBox25);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1173, 732);
-            this.tabPage1.TabIndex = 10;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabModule.Controls.Add(this.groupBox28);
+            this.tabModule.Controls.Add(this.groupBox8);
+            this.tabModule.Controls.Add(this.groupBox27);
+            this.tabModule.Controls.Add(this.groupBox26);
+            this.tabModule.Controls.Add(this.groupBox24);
+            this.tabModule.Controls.Add(this.groupBox25);
+            this.tabModule.Location = new System.Drawing.Point(4, 22);
+            this.tabModule.Name = "tabModule";
+            this.tabModule.Size = new System.Drawing.Size(1173, 732);
+            this.tabModule.TabIndex = 10;
+            this.tabModule.Text = "oneM2M module";
+            this.tabModule.UseVisualStyleBackColor = true;
             // 
             // groupBox28
             // 
@@ -5017,6 +5025,8 @@
             // 
             // groupBox27
             // 
+            this.groupBox27.Controls.Add(this.label12);
+            this.groupBox27.Controls.Add(this.label6);
             this.groupBox27.Controls.Add(this.button44);
             this.groupBox27.Location = new System.Drawing.Point(13, 25);
             this.groupBox27.Name = "groupBox27";
@@ -5029,7 +5039,7 @@
             // 
             this.button44.Location = new System.Drawing.Point(17, 20);
             this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(97, 46);
+            this.button44.Size = new System.Drawing.Size(97, 29);
             this.button44.TabIndex = 33;
             this.button44.Text = "MEF 인증";
             this.button44.UseVisualStyleBackColor = true;
@@ -5037,14 +5047,19 @@
             // 
             // groupBox26
             // 
+            this.groupBox26.Controls.Add(this.label53);
+            this.groupBox26.Controls.Add(this.textBox5);
+            this.groupBox26.Controls.Add(this.textBox3);
+            this.groupBox26.Controls.Add(this.textBox4);
+            this.groupBox26.Controls.Add(this.button37);
             this.groupBox26.Controls.Add(this.button45);
             this.groupBox26.Controls.Add(this.button46);
             this.groupBox26.Controls.Add(this.button47);
             this.groupBox26.Controls.Add(this.button48);
             this.groupBox26.Controls.Add(this.button49);
-            this.groupBox26.Location = new System.Drawing.Point(13, 148);
+            this.groupBox26.Location = new System.Drawing.Point(13, 126);
             this.groupBox26.Name = "groupBox26";
-            this.groupBox26.Size = new System.Drawing.Size(472, 109);
+            this.groupBox26.Size = new System.Drawing.Size(472, 158);
             this.groupBox26.TabIndex = 85;
             this.groupBox26.TabStop = false;
             this.groupBox26.Text = "remoteCSE";
@@ -5053,7 +5068,7 @@
             // 
             this.button45.Location = new System.Drawing.Point(24, 20);
             this.button45.Name = "button45";
-            this.button45.Size = new System.Drawing.Size(121, 20);
+            this.button45.Size = new System.Drawing.Size(118, 20);
             this.button45.TabIndex = 21;
             this.button45.Text = "CSEBase 조회";
             this.button45.UseVisualStyleBackColor = true;
@@ -5063,7 +5078,7 @@
             // 
             this.button46.Location = new System.Drawing.Point(24, 46);
             this.button46.Name = "button46";
-            this.button46.Size = new System.Drawing.Size(121, 20);
+            this.button46.Size = new System.Drawing.Size(118, 20);
             this.button46.TabIndex = 22;
             this.button46.Text = "CSR 조회";
             this.button46.UseVisualStyleBackColor = true;
@@ -5154,6 +5169,7 @@
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.label1);
             this.groupBox25.Controls.Add(this.button50);
             this.groupBox25.Controls.Add(this.button54);
             this.groupBox25.Controls.Add(this.button69);
@@ -5238,6 +5254,7 @@
             this.button75.TabIndex = 42;
             this.button75.Text = "데이터전송 (서버)";
             this.button75.UseVisualStyleBackColor = true;
+            this.button75.Click += new System.EventHandler(this.button75_Click_1);
             // 
             // label24
             // 
@@ -5372,6 +5389,78 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(160, 133);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(9, 12);
+            this.label1.TabIndex = 43;
+            this.label1.Text = ".";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(140, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(80, 12);
+            this.label6.TabIndex = 44;
+            this.label6.Text = "CSR Name : ";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(226, 28);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(9, 12);
+            this.label12.TabIndex = 45;
+            this.label12.Text = ".";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(270, 108);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(190, 21);
+            this.textBox3.TabIndex = 70;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(149, 106);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(114, 21);
+            this.textBox4.TabIndex = 69;
+            this.textBox4.Text = "AT+CGPADDR=2";
+            // 
+            // button37
+            // 
+            this.button37.Location = new System.Drawing.Point(24, 106);
+            this.button37.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button37.Name = "button37";
+            this.button37.Size = new System.Drawing.Size(119, 24);
+            this.button37.TabIndex = 68;
+            this.button37.Text = "DEVICE IP";
+            this.button37.UseVisualStyleBackColor = true;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(46, 132);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(84, 12);
+            this.label53.TabIndex = 72;
+            this.label53.Text = "IP 응답 메시지";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(149, 129);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(114, 21);
+            this.textBox5.TabIndex = 71;
+            this.textBox5.Text = "+CGPADDR=2,";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5446,11 +5535,13 @@
             this.tabTC.PerformLayout();
             this.gbTCResult.ResumeLayout(false);
             this.webpage.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabModule.ResumeLayout(false);
             this.groupBox28.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
             this.groupBox26.ResumeLayout(false);
+            this.groupBox26.PerformLayout();
             this.groupBox24.ResumeLayout(false);
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
@@ -5879,7 +5970,7 @@
         private System.Windows.Forms.ListView listView8;
         private System.Windows.Forms.ListView listView10;
         private System.Windows.Forms.ListView listView9;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabModule;
         private System.Windows.Forms.GroupBox groupBox28;
         private System.Windows.Forms.ListView listView11;
         private System.Windows.Forms.GroupBox groupBox27;
@@ -5911,6 +6002,14 @@
         private System.Windows.Forms.Button button57;
         private System.Windows.Forms.Button button58;
         private System.Windows.Forms.Button button59;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Button button37;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }
 
