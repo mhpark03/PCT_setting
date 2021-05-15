@@ -60,6 +60,7 @@ namespace WindowsFormsApp2
             sendmsgstr,
             sendmsghex,
             sendmsgver,
+            getdevip,
 
             disable_bg96,
             enable_bg96,
@@ -1807,6 +1808,10 @@ namespace WindowsFormsApp2
 
                     setDeviceEntityID();
 
+                    lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.getdevip:
+                    textBox3.Text = str2.Replace("\"", "");
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.getonem2mmode:
@@ -5048,6 +5053,11 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button128.Text);
                 worksheet.Cells[i, 1] = new Cell("");
                 worksheet.Cells[i, 2] = new Cell(textBox81.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button37.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox4.Text);
+                worksheet.Cells[i, 3] = new Cell(textBox5.Text);
 
                 worksheet.Cells.ColumnWidth[0, 3] = 5000;
                 workbook.Worksheets.Add(worksheet);
@@ -5471,6 +5481,9 @@ namespace WindowsFormsApp2
                         textBox80.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox81.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox4.Text = worksheet.Cells[i, 2].ToString();
+                        textBox5.Text = worksheet.Cells[i, 3].ToString();
 
                         /////////////////////////////////////////////// 플랫폼 검증 앱 LwM2M AT command
                         i = 0;
@@ -10558,7 +10571,14 @@ namespace WindowsFormsApp2
         private void button47_Click_1(object sender, EventArgs e)
         {
             if (dev.remoteCSEName != string.Empty)
-                DevRemoteCSECreate();
+            {
+                if (textBox3.Text != string.Empty)
+                {
+                    DevRemoteCSECreate();
+                }
+                else
+                    MessageBox.Show("단말 IP를 확인하세요");
+            }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
         }
@@ -10584,7 +10604,7 @@ namespace WindowsFormsApp2
             packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
             packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
             packetStr += "<rr>true</rr>";
-            packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
+            packetStr += "<poa>http://" + textBox3.Text + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
             if (httpRSC == "2001")
@@ -10696,7 +10716,14 @@ namespace WindowsFormsApp2
         private void button49_Click_1(object sender, EventArgs e)
         {
             if (dev.remoteCSEName != string.Empty)
-                DevRemoteCSEUpdate();
+            {
+                if (textBox3.Text != string.Empty)
+                {
+                    DevRemoteCSEUpdate();
+                }
+                else
+                    MessageBox.Show("단말 IP를 확인하세요");
+            }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
         }
@@ -10721,7 +10748,7 @@ namespace WindowsFormsApp2
             packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
             packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
             packetStr += "<rr>true</rr>";
-            packetStr += "<poa>http://" + "10.151.21.58" + ":" + "9901" + "</poa>";
+            packetStr += "<poa>http://" + textBox3.Text + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
         }
@@ -11338,6 +11365,13 @@ namespace WindowsFormsApp2
             header.X_M2M_NM = string.Empty;
 
             string retStr = DeviceHttpRequest(header, string.Empty);
+        }
+
+        private void button37_Click_1(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox4.Text);
+            nextresponse = textBox5.Text;
+            lbActionState.Text = states.getdevip.ToString();
         }
     }
 

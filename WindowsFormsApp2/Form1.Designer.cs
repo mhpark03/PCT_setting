@@ -489,6 +489,11 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label54 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button38 = new System.Windows.Forms.Button();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -4963,14 +4968,19 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.textBox8);
+            this.groupBox8.Controls.Add(this.label54);
+            this.groupBox8.Controls.Add(this.textBox6);
+            this.groupBox8.Controls.Add(this.textBox7);
+            this.groupBox8.Controls.Add(this.button38);
             this.groupBox8.Controls.Add(this.button55);
             this.groupBox8.Controls.Add(this.button56);
             this.groupBox8.Controls.Add(this.button57);
             this.groupBox8.Controls.Add(this.button58);
             this.groupBox8.Controls.Add(this.button59);
-            this.groupBox8.Location = new System.Drawing.Point(13, 471);
+            this.groupBox8.Location = new System.Drawing.Point(13, 421);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(472, 114);
+            this.groupBox8.Size = new System.Drawing.Size(472, 172);
             this.groupBox8.TabIndex = 88;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "oneM2M Firmware";
@@ -4988,7 +4998,7 @@
             // 
             // button56
             // 
-            this.button56.Location = new System.Drawing.Point(24, 77);
+            this.button56.Location = new System.Drawing.Point(25, 136);
             this.button56.Name = "button56";
             this.button56.Size = new System.Drawing.Size(118, 21);
             this.button56.TabIndex = 44;
@@ -5034,7 +5044,7 @@
             this.groupBox27.Controls.Add(this.button44);
             this.groupBox27.Location = new System.Drawing.Point(13, 25);
             this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(472, 95);
+            this.groupBox27.Size = new System.Drawing.Size(472, 55);
             this.groupBox27.TabIndex = 84;
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "oneM2M 인증";
@@ -5081,7 +5091,7 @@
             this.groupBox26.Controls.Add(this.button47);
             this.groupBox26.Controls.Add(this.button48);
             this.groupBox26.Controls.Add(this.button49);
-            this.groupBox26.Location = new System.Drawing.Point(13, 126);
+            this.groupBox26.Location = new System.Drawing.Point(13, 86);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(472, 158);
             this.groupBox26.TabIndex = 85;
@@ -5103,7 +5113,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(114, 21);
             this.textBox5.TabIndex = 71;
-            this.textBox5.Text = "+CGPADDR=2,";
+            this.textBox5.Text = "+CGPADDR: 2,";
             // 
             // textBox3
             // 
@@ -5129,6 +5139,7 @@
             this.button37.TabIndex = 68;
             this.button37.Text = "DEVICE IP";
             this.button37.UseVisualStyleBackColor = true;
+            this.button37.Click += new System.EventHandler(this.button37_Click_1);
             // 
             // button45
             // 
@@ -5249,7 +5260,7 @@
             this.groupBox25.Controls.Add(this.button75);
             this.groupBox25.Controls.Add(this.label24);
             this.groupBox25.Controls.Add(this.button67);
-            this.groupBox25.Location = new System.Drawing.Point(13, 290);
+            this.groupBox25.Location = new System.Drawing.Point(13, 250);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(472, 157);
             this.groupBox25.TabIndex = 86;
@@ -5469,6 +5480,48 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(46, 111);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(93, 12);
+            this.label54.TabIndex = 76;
+            this.label54.Text = "CID 응답 메시지";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(270, 83);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(190, 21);
+            this.textBox6.TabIndex = 75;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(149, 81);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(114, 21);
+            this.textBox7.TabIndex = 74;
+            this.textBox7.Text = "AT+CGPADDR=2";
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(24, 81);
+            this.button38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(119, 24);
+            this.button38.TabIndex = 73;
+            this.button38.Text = "Cell ID";
+            this.button38.UseVisualStyleBackColor = true;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(149, 108);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(114, 21);
+            this.textBox8.TabIndex = 77;
+            this.textBox8.Text = "+CGPADDR: 2,";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -5546,6 +5599,7 @@
             this.tabModule.ResumeLayout(false);
             this.groupBox28.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
             this.groupBox26.ResumeLayout(false);
@@ -6018,6 +6072,11 @@
         private System.Windows.Forms.Button button37;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Button button38;
     }
 }
 
