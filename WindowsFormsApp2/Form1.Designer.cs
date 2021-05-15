@@ -440,6 +440,11 @@
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.listView11 = new System.Windows.Forms.ListView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.button38 = new System.Windows.Forms.Button();
             this.button55 = new System.Windows.Forms.Button();
             this.button56 = new System.Windows.Forms.Button();
             this.button57 = new System.Windows.Forms.Button();
@@ -489,11 +494,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label54 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.button38 = new System.Windows.Forms.Button();
-            this.textBox8 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -4985,6 +4985,48 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "oneM2M Firmware";
             // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(149, 108);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(114, 21);
+            this.textBox8.TabIndex = 77;
+            this.textBox8.Text = "+CGPADDR: 2,";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(46, 111);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(93, 12);
+            this.label54.TabIndex = 76;
+            this.label54.Text = "CID 응답 메시지";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(270, 83);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(190, 21);
+            this.textBox6.TabIndex = 75;
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(149, 81);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(114, 21);
+            this.textBox7.TabIndex = 74;
+            this.textBox7.Text = "AT+CGPADDR=2";
+            // 
+            // button38
+            // 
+            this.button38.Location = new System.Drawing.Point(24, 81);
+            this.button38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button38.Name = "button38";
+            this.button38.Size = new System.Drawing.Size(119, 24);
+            this.button38.TabIndex = 73;
+            this.button38.Text = "Cell ID";
+            this.button38.UseVisualStyleBackColor = true;
+            // 
             // button55
             // 
             this.button55.Font = new System.Drawing.Font("굴림", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
@@ -5004,6 +5046,7 @@
             this.button56.TabIndex = 44;
             this.button56.Text = "RESET 보고";
             this.button56.UseVisualStyleBackColor = true;
+            this.button56.Click += new System.EventHandler(this.button56_Click_1);
             // 
             // button57
             // 
@@ -5479,48 +5522,6 @@
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(46, 111);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(93, 12);
-            this.label54.TabIndex = 76;
-            this.label54.Text = "CID 응답 메시지";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(270, 83);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(190, 21);
-            this.textBox6.TabIndex = 75;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(149, 81);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(114, 21);
-            this.textBox7.TabIndex = 74;
-            this.textBox7.Text = "AT+CGPADDR=2";
-            // 
-            // button38
-            // 
-            this.button38.Location = new System.Drawing.Point(24, 81);
-            this.button38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(119, 24);
-            this.button38.TabIndex = 73;
-            this.button38.Text = "Cell ID";
-            this.button38.UseVisualStyleBackColor = true;
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(149, 108);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(114, 21);
-            this.textBox8.TabIndex = 77;
-            this.textBox8.Text = "+CGPADDR: 2,";
             // 
             // Form1
             // 

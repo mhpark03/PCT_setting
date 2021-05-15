@@ -11373,6 +11373,37 @@ namespace WindowsFormsApp2
             nextresponse = textBox5.Text;
             lbActionState.Text = states.getdevip.ToString();
         }
+
+        private void button56_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                RebootReport();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+
+        private void RebootReport()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/" + "rbo-m2m_" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Reboot_Report";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1009</mgd>";
+            packetStr += "<dc>remote reboot</dc>";
+            packetStr += "<far>false</far>";
+            packetStr += "</m2m:rbo>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
     }
 
     public class Device
@@ -11422,6 +11453,8 @@ namespace WindowsFormsApp2
         public string X_MEF_TK { get; set; } // Password : MEF 인증으로 받은 Token 값
         public string X_MEF_EKI { get; set; } // Username(EKI) : MEF 인증으로 받은 Enrollment Key 로 생성한 Enrollment Key ID
         public string X_M2M_NM { get; set; } // 리소스 이름
+        public string X_M2M_CID { get; set; } // CellID
+        public string X_M2M_NT { get; set; } // Network 종류
     }
 
 }
