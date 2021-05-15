@@ -11231,6 +11231,114 @@ namespace WindowsFormsApp2
 
             }
         }
+
+        private void button60_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpCreate("63","*");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpCreate(string mode, string owner)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "POST";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=1";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "acp-m2m_" + tbDeviceCTN.Text;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:acp xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<pv><acr><acor>" + owner+"</acor>";
+            packetStr += "<acop>"+mode+"</acop></acr></pv>";
+            packetStr += "<pvs><acr><acor>"+dev.entityId+"</acor>";
+            packetStr += "<acop>63</acop></acr></pvs>";
+            packetStr += "</m2m:acp>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button64_Click(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpGet();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpGet()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName +"/"+ "acp-m2m_" + tbDeviceCTN.Text;
+            header.Method = "GET";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Get";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
+
+        private void button65_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpUpdate("47", "*");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpUpdate(string mode, string owner)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + "acp-m2m_" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:acp xmlns:m2m=\"http://www.onem2m.org/xml/protocols\"><pv>";
+            packetStr += "<acr><acor>" + owner + "</acor>";
+            packetStr += "<acop>" + mode + "</acop></acr></pv>";
+            packetStr += "<pvs><acr><acor>" + dev.entityId + "</acor>";
+            packetStr += "<acop>63</acop></acr></pvs>";
+            packetStr += "</m2m:acp>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button61_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpDelete();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpDelete()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + "acp-m2m_" + tbDeviceCTN.Text;
+            header.Method = "DELETE";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
     }
 
     public class Device

@@ -5202,6 +5202,7 @@
             this.button60.TabIndex = 46;
             this.button60.Text = "권한 관리 정보 생성";
             this.button60.UseVisualStyleBackColor = true;
+            this.button60.Click += new System.EventHandler(this.button60_Click_1);
             // 
             // button61
             // 
@@ -5212,6 +5213,7 @@
             this.button61.TabIndex = 48;
             this.button61.Text = "권한 관리 정보 삭제";
             this.button61.UseVisualStyleBackColor = true;
+            this.button61.Click += new System.EventHandler(this.button61_Click_1);
             // 
             // button64
             // 
@@ -5222,6 +5224,7 @@
             this.button64.TabIndex = 45;
             this.button64.Text = "권한 관리 정보 조회";
             this.button64.UseVisualStyleBackColor = true;
+            this.button64.Click += new System.EventHandler(this.button64_Click);
             // 
             // button65
             // 
@@ -5232,6 +5235,7 @@
             this.button65.TabIndex = 47;
             this.button65.Text = "권한 관리 정보 수정";
             this.button65.UseVisualStyleBackColor = true;
+            this.button65.Click += new System.EventHandler(this.button65_Click_1);
             // 
             // groupBox25
             // 
