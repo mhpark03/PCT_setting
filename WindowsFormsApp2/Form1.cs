@@ -60,6 +60,7 @@ namespace WindowsFormsApp2
             sendmsgstr,
             sendmsghex,
             sendmsgver,
+            getdevip,
 
             disable_bg96,
             enable_bg96,
@@ -442,7 +443,7 @@ namespace WindowsFormsApp2
         string imsmode = "no";
         ServiceServer svr = new ServiceServer();
         Device dev = new Device();
-        TCResult tc = new TCResult();
+        string beforetcstate = string.Empty;
 
         string device_fota_index = "0";
         string device_total_index = "0";
@@ -732,6 +733,7 @@ namespace WindowsFormsApp2
 
             /////   디바이스 초기값 설정
             dev.entityId = string.Empty;
+            dev.remoteCSEName = string.Empty;
             dev.uuid = string.Empty;
             dev.type = "onem2m";
             dev.model = string.Empty;
@@ -1670,8 +1672,6 @@ namespace WindowsFormsApp2
 
                                 if (lbActionState.Text == states.lwm2mtc0401.ToString())
                                 {
-                                    this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
-
                                     Thread.Sleep(10000);
                                     GetPlatformFWVer("NO");
 
@@ -1680,9 +1680,11 @@ namespace WindowsFormsApp2
 
                                     getSvrLoglists(kind, "auto");
                                     logPrintInTextBox("전체 시험 완료.", "");
+
+                                    this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
                                 }
-                                else
-                                    lbActionState.Text = states.idle.ToString();
+
+                                lbActionState.Text = states.idle.ToString();
                                 break;
                             case "2":
                                 logPrintInTextBox("registration update completed", "");
@@ -1806,6 +1808,10 @@ namespace WindowsFormsApp2
 
                     setDeviceEntityID();
 
+                    lbActionState.Text = states.idle.ToString();
+                    break;
+                case states.getdevip:
+                    textBox3.Text = str2.Replace("\"", "");
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.getonem2mmode:
@@ -2766,22 +2772,6 @@ namespace WindowsFormsApp2
                     else
                         lbActionState.Text = states.idle.ToString();
                     break;
-                case states.lwm2mtc06034:
-                    txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
-                    lbDevLwM2MData.Text = txData;
-
-                    if (checkBox8.Checked == true)
-                    {
-                        string hexOutput = StringToBCD(txData.ToCharArray());
-
-                        this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
-                    }
-                    else
-                        this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                    startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
-                    lbActionState.Text = states.lwm2mtc06034.ToString();
-                    nextcommand = states.lwm2mtc0501.ToString();
-                    break;
                 default:
                     lbActionState.Text = states.idle.ToString();
                     break;
@@ -3141,6 +3131,26 @@ namespace WindowsFormsApp2
                 case states.holdoffbc95:
                     lbActionState.Text = states.idle.ToString();
                     break;
+                case states.lwm2mtc06034:
+                    endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                    if (svr.enrmtKeyId != string.Empty)
+                    {
+                        startLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                        lbActionState.Text = states.lwm2mtc0502.ToString();
+                        string[] param = { "lwm2m", "tc0502" };
+                        rTh = new Thread(new ParameterizedThreadStart(SendDataToLwM2M));
+                        rTh.Start(param);
+                    }
+                    else
+                    {       // Service server 설정이 안되어 있으면 deregister  송신
+                        this.sendDataOut(textBox52.Text);
+                        startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                        lbActionState.Text = states.lwm2mtc0401.ToString();
+                        if (dev.model.StartsWith("BG95"))
+                            nextresponse = "+QLWDEREG: 0";
+                    }
+                    break;
                 default:
                     break;
             }
@@ -3287,6 +3297,21 @@ namespace WindowsFormsApp2
                         this.sendDataOut(commands["setmefauth"] + tbSvcCd.Text + "," + tBoxDeviceModel.Text + "," + tBoxDeviceVer.Text + "," + tBoxDeviceSN.Text);
                         lbActionState.Text = states.resetmefauth.ToString();
                         nextresponse = "$OM_AUTH_RSP=";
+                        break;
+                    case states.lwm2mtc06034:
+                        txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+                        lbDevLwM2MData.Text = txData;
+
+                        if (checkBox8.Checked == true)
+                        {
+                            string hexOutput = StringToBCD(txData.ToCharArray());
+
+                            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                        }
+                        else
+                            this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
+                        startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                        lbActionState.Text = states.lwm2mtc06034.ToString();
                         break;
                     default:
                         break;
@@ -5028,6 +5053,11 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button128.Text);
                 worksheet.Cells[i, 1] = new Cell("");
                 worksheet.Cells[i, 2] = new Cell(textBox81.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell(button37.Text);
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(textBox4.Text);
+                worksheet.Cells[i, 3] = new Cell(textBox5.Text);
 
                 worksheet.Cells.ColumnWidth[0, 3] = 5000;
                 workbook.Worksheets.Add(worksheet);
@@ -5451,6 +5481,9 @@ namespace WindowsFormsApp2
                         textBox80.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox81.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        textBox4.Text = worksheet.Cells[i, 2].ToString();
+                        textBox5.Text = worksheet.Cells[i, 3].ToString();
 
                         /////////////////////////////////////////////// 플랫폼 검증 앱 LwM2M AT command
                         i = 0;
@@ -6432,6 +6465,8 @@ namespace WindowsFormsApp2
                         tcmsg = "Module FW DL";
                         endLwM2MTC("tc0602", logId, resultCode, resultCodeName, string.Empty);
                     }
+                    else
+                        tcmsg = "UNKNOWN";
                     break;
             }
         }
@@ -7323,7 +7358,10 @@ namespace WindowsFormsApp2
             logPrintTC(lwm2mtclist[tcindex],"시작",string.Empty);
             lwm2mtc index = (lwm2mtc)Enum.Parse(typeof(lwm2mtc), tcindex);
             int idx = (int)index;
-            if (listView2.Items[idx].SubItems[0].Text != "FAIL")
+
+            beforetcstate = string.Empty;
+            GetTextlist2(listView2, idx.ToString());
+            if (beforetcstate != "FAIL")
                 SetTextlist2(listView2, idx.ToString() + "," + "START" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "0");
         }
 
@@ -7339,7 +7377,9 @@ namespace WindowsFormsApp2
                 else
                     logPrintTC(lwm2mtclist[tcindex],"성공",logId);
 
-                if (listView2.Items[idx].SubItems[0].Text != "FAIL")
+                beforetcstate = string.Empty;
+                GetTextlist2(listView2, idx.ToString());
+                if (beforetcstate != "FAIL")
                     SetTextlist2(listView2, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
             }
             else
@@ -7350,6 +7390,23 @@ namespace WindowsFormsApp2
                     logPrintTC(lwm2mtclist[tcindex],"실패", logId);
 
                 SetTextlist2(listView2, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
+            }
+        }
+
+        private void GetTextlist2(Control ctr, string index)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (ctr.InvokeRequired)
+            {
+                Ctr_Involk CI = new Ctr_Involk(GetTextlist2);
+                ctr.Invoke(CI, ctr, index);
+            }
+            else
+            {
+                int idx1 = Convert.ToInt32(index);
+                beforetcstate = listView2.Items[idx1].SubItems[1].Text;
             }
         }
 
@@ -7387,7 +7444,10 @@ namespace WindowsFormsApp2
             logPrintTC(onem2mtclist[tcindex],"시작", string.Empty);
             onem2mtc index = (onem2mtc)Enum.Parse(typeof(onem2mtc), tcindex);
             int idx = (int)index;
-            if (listView1.Items[idx].SubItems[0].Text != "FAIL")
+
+            beforetcstate = string.Empty;
+            GetTextlist1(listView1, idx.ToString());
+            if (beforetcstate != "FAIL")
                 SetTextlist1(listView1, idx.ToString() + "," +"START" + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + string.Empty + "," + "0");
         }
 
@@ -7403,7 +7463,9 @@ namespace WindowsFormsApp2
                 else
                     logPrintTC(onem2mtclist[tcindex],"성공",logId);
 
-                if (listView1.Items[idx].SubItems[0].Text != "FAIL")
+                beforetcstate = string.Empty;
+                GetTextlist1(listView1, idx.ToString());
+                if (beforetcstate != "FAIL")
                     SetTextlist1(listView1, idx.ToString() + "," + "PASS" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "1");
             }
             else if (resultCode == "20000200")
@@ -7418,6 +7480,23 @@ namespace WindowsFormsApp2
                     logPrintTC(onem2mtclist[tcindex],"실패",logId);
 
                 SetTextlist1(listView1, idx.ToString() + "," + "FAIL" + "," + resultCode + "," + logId + "," + resultCodeName + "," + remark + "," + "2");
+            }
+        }
+
+        private void GetTextlist1(Control ctr, string index)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (ctr.InvokeRequired)
+            {
+                Ctr_Involk CI = new Ctr_Involk(GetTextlist1);
+                ctr.Invoke(CI, ctr, index);
+            }
+            else
+            {
+                int idx1 = Convert.ToInt32(index);
+                beforetcstate = listView1.Items[idx1].SubItems[1].Text;
             }
         }
 
@@ -10269,6 +10348,7 @@ namespace WindowsFormsApp2
                 dev.enrmtKeyId = enrmtKeyId;
                 Console.WriteLine("dev.enrmtKeyId = " + dev.enrmtKeyId);
                 dev.remoteCSEName = "csr-m2m_" + tbDeviceCTN.Text;
+                label12.Text = dev.remoteCSEName;
                 dev.nodeName = "nod-m2m_" + tbDeviceCTN.Text;
             }
         }
@@ -10359,7 +10439,12 @@ namespace WindowsFormsApp2
                             Console.WriteLine(beautifiedJson);
                         }
                         else
-                            Console.WriteLine(resResult);
+                        {
+                            if (resResult.Length > 256)
+                                Console.WriteLine(resResult.Substring(0,256));
+                            else
+                                Console.WriteLine(resResult);
+                        }
                         Console.WriteLine("");
                     }
                 }
@@ -10441,7 +10526,7 @@ namespace WindowsFormsApp2
 
         private void button45_Click_1(object sender, EventArgs e)
         {
-            if (dev.enrmtKeyId != string.Empty)
+            if (dev.remoteCSEName != string.Empty)
                 DevCSEBaseGet();
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
@@ -10463,7 +10548,7 @@ namespace WindowsFormsApp2
 
         private void button46_Click_1(object sender, EventArgs e)
         {
-            if (dev.enrmtKeyId != string.Empty)
+            if (dev.remoteCSEName != string.Empty)
                 DevRemoteCSEGet();
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
@@ -10485,8 +10570,15 @@ namespace WindowsFormsApp2
 
         private void button47_Click_1(object sender, EventArgs e)
         {
-            if (dev.enrmtKeyId != string.Empty)
-                DevRemoteCSECreate();
+            if (dev.remoteCSEName != string.Empty)
+            {
+                if (textBox3.Text != string.Empty)
+                {
+                    DevRemoteCSECreate();
+                }
+                else
+                    MessageBox.Show("단말 IP를 확인하세요");
+            }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
         }
@@ -10512,7 +10604,7 @@ namespace WindowsFormsApp2
             packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
             packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
             packetStr += "<rr>true</rr>";
-            packetStr += "<poa>http://" + "10.215.253.225" + ":" + "9901" + "</poa>";
+            packetStr += "<poa>http://" + textBox3.Text + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
             if (httpRSC == "2001")
@@ -10578,7 +10670,7 @@ namespace WindowsFormsApp2
             header.Method = "POST";
             header.Accept = "application/vnd.onem2m-res+xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
-            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Create";
             header.X_M2M_Origin = dev.entityId;
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
@@ -10606,7 +10698,7 @@ namespace WindowsFormsApp2
             header.Method = "POST";
             header.Accept = "application/vnd.onem2m-res+xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=13";
-            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Create";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Reboot_Create";
             header.X_M2M_Origin = dev.entityId;
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
@@ -10623,8 +10715,15 @@ namespace WindowsFormsApp2
 
         private void button49_Click_1(object sender, EventArgs e)
         {
-            if (dev.enrmtKeyId != string.Empty)
-                DevRemoteCSEUpdate();
+            if (dev.remoteCSEName != string.Empty)
+            {
+                if (textBox3.Text != string.Empty)
+                {
+                    DevRemoteCSEUpdate();
+                }
+                else
+                    MessageBox.Show("단말 IP를 확인하세요");
+            }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
         }
@@ -10649,14 +10748,14 @@ namespace WindowsFormsApp2
             packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
             packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
             packetStr += "<rr>true</rr>";
-            packetStr += "<poa>http://" + "10.151.21.58" + ":" + "9901" + "</poa>";
+            packetStr += "<poa>http://" + textBox3.Text + ":" + "9901" + "</poa>";
             packetStr += "</m2m:csr>";
             string retStr = DeviceHttpRequest(header, packetStr);
         }
 
         private void button48_Click_1(object sender, EventArgs e)
         {
-            if (dev.enrmtKeyId != string.Empty)
+            if (dev.remoteCSEName != string.Empty)
                 DevRemoteCSEDEL();
             else
                 MessageBox.Show("서버인증파라미터 세팅하세요");
@@ -10742,12 +10841,569 @@ namespace WindowsFormsApp2
                 }
             }
         }
-    }
 
-    public class TCResult
-    {
-        public string[,] lwm2m { get; set; }           // LwM2M 항목별 시험결과
-        public string[,] onem2m { get; set; }           // oneM2M 항목별 시험결과
+        private void button50_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevContainerCreate("StoD");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevContainerCreate(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "POST";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=3";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Folder_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "cnt-"+folder;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cnt xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mni>20</mni>";
+            packetStr += "<mbs>40000</mbs>";
+            packetStr += "</m2m:cnt>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button66_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevContainerDelete("StoD");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevContainerDelete(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/cnt-" + folder;
+            header.Method = "DELETE";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Folder_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
+
+        private void button74_Click(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevSubscriptCreate("StoD");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevSubscriptCreate(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/cnt-" + folder;
+            header.Method = "POST";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=23";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Subscript_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "sub-"+folder;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:sub xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<enc><net>1</net><net>2</net><net>3</net><net>4</net></enc>";
+            packetStr += "<nu>/"+dev.entityId+"</nu>";
+            packetStr += "</m2m:sub>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button67_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevSubscriptDelete("StoD");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevSubscriptDelete(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/cnt-" + folder + "/sub-" + folder;
+            header.Method = "DELETE";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Subscript_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
+
+        private void button69_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                RetriveOneM2MDataTo("StoD");
+            else
+                MessageBox.Show("서버인증파라미터 세팅하세요");
+        }
+
+        private void RetriveOneM2MDataTo(string folder)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/cnt-"+folder+"/la";
+            header.Method = "GET";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_retrive";
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string format = string.Empty;
+                string value = string.Empty;
+
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+                //LogWrite(xDoc.OuterXml.ToString());
+
+                XmlNodeList xnList = xDoc.SelectNodes("/*"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    format = xn["cnf"].InnerText; // data format
+                    value = xn["con"].InnerText; // data value
+                }
+                //LogWrite("value = " + value);
+                //LogWrite("format = " + format);
+
+                if (format == "application/octet-stream")
+                    label20.Text = Encoding.UTF8.GetString(Convert.FromBase64String(value));
+                else
+                    label20.Text = value;
+            }
+        }
+
+        private void button54_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+            {
+                string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " oneM2M module";
+                SendOneM2MDataTo("StoD", txData);
+            }
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void SendOneM2MDataTo(string folder, string data)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/cnt-" + folder ;
+            header.Method = "POST";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cnf>application/xml</cnf>";
+            packetStr += "<con>" + data + "</con>";
+            label24.Text = data;
+            packetStr += "</m2m:cin>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button75_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+            {
+                if (svr.entityId != string.Empty)
+                {
+                    string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " oneM2M module";
+                    ForwardOneM2MData(svr.entityId, "TEST", txData);
+                }
+                else
+                    MessageBox.Show("서버인증파라미터가 없습니다.");
+            }
+            else
+                MessageBox.Show("단말인증파라미터가 없습니다.");
+        }
+
+        private void ForwardOneM2MData(string entityID, string folder, string data)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/" + entityID + "/" + folder;
+            header.Method = "POST";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "data_send";
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<cnf>application/xml</cnf>";
+            packetStr += "<con>" + data + "</con>";
+            label24.Text = data;
+            packetStr += "</m2m:cin>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button55_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DeviceVerReport();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+
+        private void DeviceVerReport()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/" + "fwr-m2m_D" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1001</mgd>";
+            packetStr += "<dc>module_firmware</dc>";
+            packetStr += "<vr>" + tBoxDeviceVer.Text + "</vr>";
+            packetStr += "<fwnnam></fwnnam>";
+            packetStr += "<url></url>";
+            packetStr += "<uds><sus>1</sus></uds>";
+            packetStr += "</m2m:fwr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button58_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                ModemVerReport();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void ModemVerReport()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/" + "fwr-m2m_M" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1001</mgd>";
+            packetStr += "<dc>module_firmware</dc>";
+            packetStr += "<vr>" + lbModemVer.Text + "</vr>";
+            packetStr += "<fwnnam></fwnnam>";
+            packetStr += "<url></url>";
+            packetStr += "<uds><sus>1</sus></uds>";
+            packetStr += "</m2m:fwr>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button57_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DeviceVerCheck();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DeviceVerCheck()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/updateVersionCheck/firmware/" + tbSvcCd.Text + "/" + tBoxDeviceModel.Text + "/" + tBoxDeviceVer.Text;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Check";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string version = string.Empty;
+                string filename = string.Empty;
+                string url = string.Empty;
+                string dc = string.Empty;
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+
+                XmlNodeList xnList = xDoc.SelectNodes("/fwr"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    version = xn["vr"].InnerText;
+                    filename = xn["fwnnam"].InnerText;
+                    url = xn["url"].InnerText;
+                    dc = xn["dc"].InnerText;
+                }
+                lbdevicever.Text = version;
+
+                DeviceVerDownload(url, filename);
+            }
+        }
+
+        private void DeviceVerDownload(string url, string filename)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/firmware/" + url + "/" + filename;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Dver_Download";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+
+            }
+        }
+
+        private void button59_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                ModemVerCheck();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void ModemVerCheck()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/updateVersionCheck/moduleFirmware/" + tbSvcCd.Text + "/" + tBoxDeviceModel.Text + "/" + lbModemVer.Text;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Check";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+                string version = string.Empty;
+                string filename = string.Empty;
+                string url = string.Empty;
+                string dc = string.Empty;
+                XmlDocument xDoc = new XmlDocument();
+                xDoc.LoadXml(retStr);
+
+                XmlNodeList xnList = xDoc.SelectNodes("/fwr"); //접근할 노드
+                foreach (XmlNode xn in xnList)
+                {
+                    version = xn["vr"].InnerText;
+                    filename = xn["fwnnam"].InnerText;
+                    url = xn["url"].InnerText;
+                    dc = xn["dc"].InnerText;
+                }
+                lbdevicever.Text = version;
+
+                ModemVerDownload(url, filename);
+            }
+        }
+
+        private void ModemVerDownload(string url, string filename)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MFOTAIP + ":" + oneM2MFOTAPort + "/ota/firmware/" + url + "/" + filename;
+            header.Method = "GET";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Mver_Download";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+            if (retStr != string.Empty)
+            {
+
+            }
+        }
+
+        private void button60_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpCreate("63","*");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpCreate(string mode, string owner)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName;
+            header.Method = "POST";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml;ty=1";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Create";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = "acp-m2m_" + tbDeviceCTN.Text;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:acp xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<pv><acr><acor>" + owner+"</acor>";
+            packetStr += "<acop>"+mode+"</acop></acr></pv>";
+            packetStr += "<pvs><acr><acor>"+dev.entityId+"</acor>";
+            packetStr += "<acop>63</acop></acr></pvs>";
+            packetStr += "</m2m:acp>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button64_Click(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpGet();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpGet()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName +"/"+ "acp-m2m_" + tbDeviceCTN.Text;
+            header.Method = "GET";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Get";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
+
+        private void button65_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpUpdate("47", "*");
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpUpdate(string mode, string owner)
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + "acp-m2m_" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Update";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:acp xmlns:m2m=\"http://www.onem2m.org/xml/protocols\"><pv>";
+            packetStr += "<acr><acor>" + owner + "</acor>";
+            packetStr += "<acop>" + mode + "</acop></acr></pv>";
+            packetStr += "<pvs><acr><acor>" + dev.entityId + "</acor>";
+            packetStr += "<acop>63</acop></acr></pvs>";
+            packetStr += "</m2m:acp>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void button61_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                DevAcpDelete();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+        private void DevAcpDelete()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + "acp-m2m_" + tbDeviceCTN.Text;
+            header.Method = "DELETE";
+            header.Accept = "application/xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Acp_Delete";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string retStr = DeviceHttpRequest(header, string.Empty);
+        }
+
+        private void button37_Click_1(object sender, EventArgs e)
+        {
+            this.sendDataOut(textBox4.Text);
+            nextresponse = textBox5.Text;
+            lbActionState.Text = states.getdevip.ToString();
+        }
+
+        private void button56_Click_1(object sender, EventArgs e)
+        {
+            if (dev.remoteCSEName != string.Empty)
+                RebootReport();
+            else
+                MessageBox.Show("단말인증파라미터 세팅하세요");
+        }
+
+
+        private void RebootReport()
+        {
+            ReqHeader header = new ReqHeader();
+            header.Url = "http://" + oneM2MBRKIP + ":" + oneM2MBRKPort + "/IN_CSE-BASE-1/cb-1/" + dev.remoteCSEName + "/" + dev.nodeName + "/" + "rbo-m2m_" + tbDeviceCTN.Text;
+            header.Method = "PUT";
+            header.Accept = "application/vnd.onem2m-res+xml";
+            header.ContentType = "application/vnd.onem2m-res+xml";
+            header.X_M2M_RI = DateTime.Now.ToString("yyyyMMddHHmmss") + "Reboot_Report";
+            header.X_M2M_Origin = dev.entityId;
+            header.X_MEF_TK = dev.token;
+            header.X_MEF_EKI = dev.enrmtKeyId;
+            header.X_M2M_NM = string.Empty;
+
+            string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+            packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+            packetStr += "<mgd>1009</mgd>";
+            packetStr += "<dc>remote reboot</dc>";
+            packetStr += "<far>false</far>";
+            packetStr += "</m2m:rbo>";
+            string retStr = DeviceHttpRequest(header, packetStr);
+        }
     }
 
     public class Device
@@ -10797,6 +11453,8 @@ namespace WindowsFormsApp2
         public string X_MEF_TK { get; set; } // Password : MEF 인증으로 받은 Token 값
         public string X_MEF_EKI { get; set; } // Username(EKI) : MEF 인증으로 받은 Enrollment Key 로 생성한 Enrollment Key ID
         public string X_M2M_NM { get; set; } // 리소스 이름
+        public string X_M2M_CID { get; set; } // CellID
+        public string X_M2M_NT { get; set; } // Network 종류
     }
 
 }
