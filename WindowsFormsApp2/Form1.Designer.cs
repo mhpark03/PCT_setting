@@ -440,11 +440,7 @@
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.listView11 = new System.Windows.Forms.ListView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label54 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.button38 = new System.Windows.Forms.Button();
             this.button55 = new System.Windows.Forms.Button();
             this.button56 = new System.Windows.Forms.Button();
             this.button57 = new System.Windows.Forms.Button();
@@ -494,6 +490,9 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.label54 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -4968,11 +4967,10 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.textBox8);
+            this.groupBox8.Controls.Add(this.comboBox5);
+            this.groupBox8.Controls.Add(this.label55);
             this.groupBox8.Controls.Add(this.label54);
             this.groupBox8.Controls.Add(this.textBox6);
-            this.groupBox8.Controls.Add(this.textBox7);
-            this.groupBox8.Controls.Add(this.button38);
             this.groupBox8.Controls.Add(this.button55);
             this.groupBox8.Controls.Add(this.button56);
             this.groupBox8.Controls.Add(this.button57);
@@ -4985,47 +4983,13 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "oneM2M Firmware";
             // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(149, 108);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(114, 21);
-            this.textBox8.TabIndex = 77;
-            this.textBox8.Text = "+CGPADDR: 2,";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(46, 111);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(93, 12);
-            this.label54.TabIndex = 76;
-            this.label54.Text = "CID 응답 메시지";
-            // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(270, 83);
+            this.textBox6.Location = new System.Drawing.Point(162, 84);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(190, 21);
             this.textBox6.TabIndex = 75;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(149, 81);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(114, 21);
-            this.textBox7.TabIndex = 74;
-            this.textBox7.Text = "AT+CGPADDR=2";
-            // 
-            // button38
-            // 
-            this.button38.Location = new System.Drawing.Point(24, 81);
-            this.button38.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button38.Name = "button38";
-            this.button38.Size = new System.Drawing.Size(119, 24);
-            this.button38.TabIndex = 73;
-            this.button38.Text = "Cell ID";
-            this.button38.UseVisualStyleBackColor = true;
+            this.textBox6.Text = "51713297";
             // 
             // button55
             // 
@@ -5522,6 +5486,39 @@
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(90, 87);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(54, 12);
+            this.label54.TabIndex = 76;
+            this.label54.Text = "Cell ID : ";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(47, 114);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(96, 12);
+            this.label55.TabIndex = 77;
+            this.label55.Text = "Network Type : ";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "LTE(1)",
+            "WiFi(2)",
+            "NB-IoT(3)",
+            "Cat M1(4)"});
+            this.comboBox5.Location = new System.Drawing.Point(162, 114);
+            this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(190, 20);
+            this.comboBox5.TabIndex = 78;
+            this.comboBox5.Text = "LTE(1)";
             // 
             // Form1
             // 
@@ -6073,11 +6070,10 @@
         private System.Windows.Forms.Button button37;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Label label54;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.Button button38;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.Label label55;
     }
 }
 
