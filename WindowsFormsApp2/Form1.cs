@@ -8704,7 +8704,7 @@ namespace WindowsFormsApp2
             packetStr += "<cnf>text/plain</cnf>";
 
             string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " server";
-            packetStr += "<con>" + txData + "</con>";
+            packetStr += "<con>" + txData + txData + "</con>";
             packetStr += "</m2m:cin>";
 
             SetText(label9, txData);
