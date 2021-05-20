@@ -2758,8 +2758,6 @@ namespace WindowsFormsApp2
 
                     if (lbActionState.Text == states.lwm2mtc0401.ToString())
                     {
-                        this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
-
                         Thread.Sleep(10000);
                         GetPlatformFWVer("NO");
 
@@ -2768,9 +2766,10 @@ namespace WindowsFormsApp2
 
                         getSvrLoglists(logkind, "auto");
                         logPrintInTextBox("전체 시험 완료.", "");
+                        this.sendDataOut(textBox54.Text);       // fota push test를 위해 register 요청
                     }
-                    else
-                        lbActionState.Text = states.idle.ToString();
+
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 default:
                     lbActionState.Text = states.idle.ToString();
@@ -8705,7 +8704,7 @@ namespace WindowsFormsApp2
             packetStr += "<cnf>text/plain</cnf>";
 
             string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " server";
-            packetStr += "<con>" + txData + "</con>";
+            packetStr += "<con>" + txData + txData + "</con>";
             packetStr += "</m2m:cin>";
 
             SetText(label9, txData);
@@ -9686,7 +9685,7 @@ namespace WindowsFormsApp2
 
             string text = "fwVr=" + tBoxDeviceVer.Text + "|fwSt=1|fwRt=0";
 
-            if (dev.model != "TPB23" && !dev.model.StartsWith("BC95") && !dev.model.StartsWith("BG95"))
+            if (dev.model != "TPB23" && !dev.model.StartsWith("BC95"))
             {
                 text += "|szx=6";       // FOTA buffer size set 1024bytes.
             }
@@ -10375,6 +10374,10 @@ namespace WindowsFormsApp2
                     wReq.Headers.Add("X-MEF-TK", header.X_MEF_TK);
                 if (header.X_MEF_EKI != string.Empty)
                     wReq.Headers.Add("X-MEF-EKI", header.X_MEF_EKI);
+                if (header.X_OTA_CID != string.Empty)
+                    wReq.Headers.Add("X-OTA-CID", header.X_OTA_CID);
+                if (header.X_OTA_NT != string.Empty)
+                    wReq.Headers.Add("X-OTA-NT", header.X_OTA_NT);
                 wReq.Headers.Add("X-LGU-DM", tBoxDeviceModel.Text);
                 wReq.Headers.Add("X-LGU-NI", "20");
 
@@ -10543,6 +10546,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
         }
 
@@ -10565,6 +10570,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
         }
 
@@ -10596,6 +10603,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = dev.remoteCSEName;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10625,6 +10634,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = dev.nodeName;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:nod xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10647,6 +10658,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = "fwr-m2m_M" + tbDeviceCTN.Text;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10675,6 +10688,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = "fwr-m2m_D" + tbDeviceCTN.Text;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10703,6 +10718,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = "rbo-m2m_" + tbDeviceCTN.Text;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10740,6 +10757,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10773,6 +10792,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
 
             header = new ReqHeader();
@@ -10784,6 +10805,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             retStr = DeviceHttpRequest(header, string.Empty);
 
             header = new ReqHeader();
@@ -10795,6 +10818,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             retStr = DeviceHttpRequest(header, string.Empty);
 
             header = new ReqHeader();
@@ -10806,6 +10831,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             retStr = DeviceHttpRequest(header, string.Empty);
 
             header = new ReqHeader();
@@ -10817,6 +10844,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             retStr = DeviceHttpRequest(header, string.Empty);
         }
 
@@ -10862,6 +10891,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = "cnt-"+folder;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:cnt xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10890,6 +10921,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
             string retStr = DeviceHttpRequest(header, string.Empty);
         }
 
@@ -10913,6 +10946,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = "sub-"+folder;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:sub xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -10941,6 +10976,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string retStr = DeviceHttpRequest(header, string.Empty);
         }
@@ -10964,6 +11001,8 @@ namespace WindowsFormsApp2
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
             header.Accept = "application/xml";
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string retStr = DeviceHttpRequest(header, string.Empty);
             if (retStr != string.Empty)
@@ -11014,6 +11053,8 @@ namespace WindowsFormsApp2
             header.X_M2M_NM = string.Empty;
             header.Accept = "application/xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -11052,6 +11093,8 @@ namespace WindowsFormsApp2
             header.X_M2M_NM = string.Empty;
             header.Accept = "application/xml";
             header.ContentType = "application/vnd.onem2m-res+xml;ty=4";
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -11083,6 +11126,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -11116,6 +11161,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:fwr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -11149,6 +11196,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = textBox6.Text;
+            header.X_OTA_NT = (comboBox5.SelectedIndex+1).ToString();
 
             string retStr = DeviceHttpRequest(header, string.Empty);
             if (retStr != string.Empty)
@@ -11186,6 +11235,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = textBox6.Text;
+            header.X_OTA_NT = (comboBox5.SelectedIndex + 1).ToString();
 
             string retStr = DeviceHttpRequest(header, string.Empty);
             if (retStr != string.Empty)
@@ -11214,6 +11265,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = textBox6.Text;
+            header.X_OTA_NT = (comboBox5.SelectedIndex + 1).ToString();
 
             string retStr = DeviceHttpRequest(header, string.Empty);
             if (retStr != string.Empty)
@@ -11251,6 +11304,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = textBox6.Text;
+            header.X_OTA_NT = (comboBox5.SelectedIndex + 1).ToString();
 
             string retStr = DeviceHttpRequest(header, string.Empty);
             if (retStr != string.Empty)
@@ -11279,6 +11334,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = "acp-m2m_" + tbDeviceCTN.Text;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:acp xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -11309,6 +11366,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string retStr = DeviceHttpRequest(header, string.Empty);
         }
@@ -11333,6 +11392,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:acp xmlns:m2m=\"http://www.onem2m.org/xml/protocols\"><pv>";
@@ -11363,6 +11424,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string retStr = DeviceHttpRequest(header, string.Empty);
         }
@@ -11395,6 +11458,8 @@ namespace WindowsFormsApp2
             header.X_MEF_TK = dev.token;
             header.X_MEF_EKI = dev.enrmtKeyId;
             header.X_M2M_NM = string.Empty;
+            header.X_OTA_CID = string.Empty;
+            header.X_OTA_NT = string.Empty;
 
             string packetStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
             packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
@@ -11453,8 +11518,8 @@ namespace WindowsFormsApp2
         public string X_MEF_TK { get; set; } // Password : MEF 인증으로 받은 Token 값
         public string X_MEF_EKI { get; set; } // Username(EKI) : MEF 인증으로 받은 Enrollment Key 로 생성한 Enrollment Key ID
         public string X_M2M_NM { get; set; } // 리소스 이름
-        public string X_M2M_CID { get; set; } // CellID
-        public string X_M2M_NT { get; set; } // Network 종류
+        public string X_OTA_CID { get; set; } // Network Cell ID
+        public string X_OTA_NT { get; set; } // Network Type
     }
 
 }
