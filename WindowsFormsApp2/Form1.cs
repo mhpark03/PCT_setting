@@ -1648,6 +1648,7 @@ namespace WindowsFormsApp2
                                     timer2.Start();
                                 }
                                 sendDataOut("AT+QLWCFG=\"session\",86400,86400");
+                                sendDataOut("AT+QLWCFG=\"urcdelay\",500");
                             }
                         }
                         else if (state[0] == "recv")
@@ -1752,6 +1753,28 @@ namespace WindowsFormsApp2
                                 }
                                 break;
                         }
+                    }
+                }
+                else if (rxMsg.StartsWith("+QIND: "))           // BG95 Module FOTA 이벤트
+                {
+                    string cmd = "+QIND: ";
+                    int first = rxMsg.IndexOf(cmd) + cmd.Length;
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
+
+                    string[] state = str2.Replace("\"", string.Empty).Split(',');
+                    if (state[0] == "FOTA")
+                    {
+                        timer2.Stop();
+                        if (lbActionState.Text == states.lwm2mtc03013.ToString())
+                            lbActionState.Text = states.lwm2mtc0602.ToString();
+
+                        if (state[1] == "COAPSTART")
+                        {
+                            logPrintInTextBox("module fota start", " ");
+                            startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+                        }
+                        else if (state[1] == "END")
+                                logPrintInTextBox("module fota finish", " ");
                     }
                 }
                 else if (nextresponse != string.Empty)
