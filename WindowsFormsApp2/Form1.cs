@@ -62,6 +62,11 @@ namespace WindowsFormsApp2
             sendmsgver,
             getdevip,
 
+            seteventalt1,
+            seteventalt2,
+            seteventalt3,
+            seteventalt4,
+
             disable_bg96,
             enable_bg96,
             setcdp_bg96,
@@ -1080,7 +1085,7 @@ namespace WindowsFormsApp2
             char[] charValues = dataIN.ToCharArray();
 
             /* Debug를 위해 Hex로 문자열 표시*/
-            /*
+            
             string hexOutput = "";
             foreach (char _eachChar in charValues)
             {
@@ -1092,7 +1097,7 @@ namespace WindowsFormsApp2
                 hexOutput += String.Format("{0:X}", value);
             }
             logPrintInTextBox(hexOutput, "");
-            */
+            
 
             if (charValues.Length >= 2)
             {
@@ -1831,7 +1836,10 @@ namespace WindowsFormsApp2
 
                     setDeviceEntityID();
 
-                    lbActionState.Text = states.idle.ToString();
+                    if(lbActionState.Text == states.autogeticcid.ToString() && dev.model == "PLT-G6")
+                        nextcommand = states.seteventalt1.ToString();
+                    else
+                        lbActionState.Text = states.idle.ToString();
                     break;
                 case states.getdevip:
                     textBox3.Text = str2.Replace("\"", "");
@@ -3142,13 +3150,29 @@ namespace WindowsFormsApp2
                     }
                     else
                     {
-                        this.sendDataOut(textBox56.Text);
-                        lbActionState.Text = states.lwm2mtc02023.ToString();
+                        if (textBox56.Text != string.Empty)
+                        {
+                            this.sendDataOut(textBox56.Text);
+                            lbActionState.Text = states.lwm2mtc02023.ToString();
+                        }
+                        else
+                        {
+                            sendDeviceEPNS();
+                            lbActionState.Text = states.lwm2mtc02025.ToString();
+                        }
                     }
                     break;
                 case states.lwm2mtc02022:
-                    this.sendDataOut(textBox56.Text);
-                    lbActionState.Text = states.lwm2mtc02023.ToString();
+                    if (textBox56.Text != string.Empty)
+                    {
+                        this.sendDataOut(textBox56.Text);
+                        lbActionState.Text = states.lwm2mtc02023.ToString();
+                    }
+                    else
+                    {
+                        sendDeviceEPNS();
+                        lbActionState.Text = states.lwm2mtc02025.ToString();
+                    }
                     break;
                 case states.holdoffbc95:
                     lbActionState.Text = states.idle.ToString();
@@ -3172,6 +3196,18 @@ namespace WindowsFormsApp2
                         if (dev.model.StartsWith("BG95"))
                             nextresponse = "+QLWDEREG: 0";
                     }
+                    break;
+                case states.seteventalt2:
+                    this.sendDataOut("AT%LWM2MOPEV=1,21");
+                    lbActionState.Text = states.seteventalt3.ToString();
+                    break;
+                case states.seteventalt3:
+                    this.sendDataOut("AT%LWM2MOPEV=1,22");
+                    lbActionState.Text = states.seteventalt4.ToString();
+                    break;
+                case states.seteventalt4:
+                    this.sendDataOut("AT%LWM2MOPEV=1,23");
+                    lbActionState.Text = states.idle.ToString();
                     break;
                 default:
                     break;
@@ -3215,6 +3251,10 @@ namespace WindowsFormsApp2
                         this.sendDataOut(textBox45.Text);
                         nextresponse = textBox38.Text;
                         lbActionState.Text = states.autogeticcid.ToString();
+                        break;
+                    case states.seteventalt1:
+                        this.sendDataOut("AT%LWM2MOPEV=1,20");
+                        lbActionState.Text = states.seteventalt2.ToString();
                         break;
                     case states.lwm2mtc02025:
                         // LWM2M bootstrap 자동 요청 순서 (V150)
@@ -5185,6 +5225,10 @@ namespace WindowsFormsApp2
                 worksheet.Cells[i, 0] = new Cell(button35.Text);
                 worksheet.Cells[i, 1] = new Cell("");
                 worksheet.Cells[i, 2] = new Cell(textBox71.Text);
+                i++;
+                worksheet.Cells[i, 0] = new Cell("자동실행시 재부팅");
+                worksheet.Cells[i, 1] = new Cell("");
+                worksheet.Cells[i, 2] = new Cell(checkBox10.Text);
 
                 worksheet.Cells.ColumnWidth[0] = 6000;
                 worksheet.Cells.ColumnWidth[1] = 5000;
@@ -5595,6 +5639,15 @@ namespace WindowsFormsApp2
                         comboBox4.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox71.Text = worksheet.Cells[i, 2].ToString();
+                        i++;
+                        checkBox10.Text = worksheet.Cells[i, 2].ToString();
+                        if (checkBox10.Text == "Reboot")
+                            checkBox10.Checked = true;
+                        else
+                        {
+                            checkBox10.Checked = false;
+                            checkBox10.Text = "just";
+                        }
 
                         //////////////////////////////////////////////////////////////// PCT 장비 옵션 설정
                         i = 1;
@@ -8425,10 +8478,61 @@ namespace WindowsFormsApp2
                 listView2.Items.Add(newitem);
             }
 
-            this.sendDataOut(textBox71.Text);
-            lbActionState.Text = states.lwm2mtc02011.ToString();
-            nextresponse = textBox65.Text;
-            nextcommand = string.Empty;
+            if (checkBox10.Checked == true)
+            {
+                this.sendDataOut(textBox71.Text);
+                lbActionState.Text = states.lwm2mtc02011.ToString();
+                nextresponse = textBox65.Text;
+                nextcommand = string.Empty;
+            }
+            else
+            {
+                if (textBox63.Text != string.Empty)
+                {
+                    this.sendDataOut(textBox63.Text);
+                    lbActionState.Text = states.lwm2mtc02021.ToString();
+                }
+                else if (textBox56.Text != string.Empty)
+                {
+                    this.sendDataOut(textBox56.Text);
+                    lbActionState.Text = states.lwm2mtc02023.ToString();
+                }
+                else
+                {
+                    sendDeviceEPNS();
+                   lbActionState.Text = states.lwm2mtc02025.ToString();
+                }
+                startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox56.Text);
+            }
+        }
+
+        private void sendDeviceEPNS()
+        {
+            setDeviceEntityID();
+            if (checkBox6.Checked == true)
+            {
+                if (checkBox7.Checked == true)
+                {
+                    if (checkBox2.Checked == false)
+                        this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"" + ",\"" + dev.entityId + "\"");
+                    else
+                        this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"" + ",\"" + tbSvcCd.Text + "\"");
+                }
+                else
+                {
+                    if (checkBox2.Checked == false)
+                        this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
+                    else
+                        this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
+                }
+            }
+            else
+            {
+                if (checkBox2.Checked == false)
+                    this.sendDataOut(textBox50.Text + dev.entityId);
+                else
+                    this.sendDataOut(textBox50.Text + tbSvcCd.Text);
+            }
         }
 
         private void button98_Click(object sender, EventArgs e)
@@ -11491,6 +11595,14 @@ namespace WindowsFormsApp2
             packetStr += "<far>false</far>";
             packetStr += "</m2m:rbo>";
             string retStr = DeviceHttpRequest(header, packetStr);
+        }
+
+        private void checkBox10_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox2.Checked == true)
+                checkBox2.Text = "Reboot";
+            else
+                checkBox2.Text = "just";
         }
     }
 

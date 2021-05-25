@@ -440,6 +440,9 @@
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.listView11 = new System.Windows.Forms.ListView();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.button55 = new System.Windows.Forms.Button();
             this.button56 = new System.Windows.Forms.Button();
@@ -490,9 +493,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label54 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -606,7 +607,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1187, 804);
+            this.panel1.Size = new System.Drawing.Size(1262, 804);
             this.panel1.TabIndex = 10;
             // 
             // tabControl1
@@ -624,7 +625,7 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1181, 758);
+            this.tabControl1.Size = new System.Drawing.Size(1247, 758);
             this.tabControl1.TabIndex = 44;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -638,7 +639,7 @@
             this.tabCOM.Controls.Add(this.groupBox10);
             this.tabCOM.Location = new System.Drawing.Point(4, 22);
             this.tabCOM.Name = "tabCOM";
-            this.tabCOM.Size = new System.Drawing.Size(1173, 732);
+            this.tabCOM.Size = new System.Drawing.Size(1239, 732);
             this.tabCOM.TabIndex = 3;
             this.tabCOM.Text = "COM port";
             this.tabCOM.UseVisualStyleBackColor = true;
@@ -1180,7 +1181,7 @@
             this.tabSMST.Location = new System.Drawing.Point(4, 22);
             this.tabSMST.Name = "tabSMST";
             this.tabSMST.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSMST.Size = new System.Drawing.Size(1173, 732);
+            this.tabSMST.Size = new System.Drawing.Size(1239, 732);
             this.tabSMST.TabIndex = 0;
             this.tabSMST.Text = "SMST setting";
             this.tabSMST.UseVisualStyleBackColor = true;
@@ -1200,7 +1201,7 @@
             this.pnSetting.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnSetting.Location = new System.Drawing.Point(3, 3);
             this.pnSetting.Name = "pnSetting";
-            this.pnSetting.Size = new System.Drawing.Size(1167, 726);
+            this.pnSetting.Size = new System.Drawing.Size(1233, 726);
             this.pnSetting.TabIndex = 13;
             // 
             // button68
@@ -2083,7 +2084,7 @@
             this.tabPROXY.Location = new System.Drawing.Point(4, 22);
             this.tabPROXY.Name = "tabPROXY";
             this.tabPROXY.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPROXY.Size = new System.Drawing.Size(1173, 732);
+            this.tabPROXY.Size = new System.Drawing.Size(1239, 732);
             this.tabPROXY.TabIndex = 1;
             this.tabPROXY.Text = "PROXY setting";
             this.tabPROXY.UseVisualStyleBackColor = true;
@@ -2100,7 +2101,7 @@
             this.pnProxy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnProxy.Location = new System.Drawing.Point(3, 3);
             this.pnProxy.Name = "pnProxy";
-            this.pnProxy.Size = new System.Drawing.Size(1167, 726);
+            this.pnProxy.Size = new System.Drawing.Size(1233, 726);
             this.pnProxy.TabIndex = 34;
             // 
             // comboBox3
@@ -2970,7 +2971,7 @@
             this.tabOneM2M.Controls.Add(this.btnoneM2MFullTest);
             this.tabOneM2M.Location = new System.Drawing.Point(4, 22);
             this.tabOneM2M.Name = "tabOneM2M";
-            this.tabOneM2M.Size = new System.Drawing.Size(1173, 732);
+            this.tabOneM2M.Size = new System.Drawing.Size(1239, 732);
             this.tabOneM2M.TabIndex = 4;
             this.tabOneM2M.Text = "oneM2M Device";
             this.tabOneM2M.UseVisualStyleBackColor = true;
@@ -3526,6 +3527,7 @@
             // 
             // tabLwM2M
             // 
+            this.tabLwM2M.Controls.Add(this.checkBox10);
             this.tabLwM2M.Controls.Add(this.groupBox22);
             this.tabLwM2M.Controls.Add(this.groupBox16);
             this.tabLwM2M.Controls.Add(this.button113);
@@ -3533,7 +3535,7 @@
             this.tabLwM2M.Controls.Add(this.button125);
             this.tabLwM2M.Location = new System.Drawing.Point(4, 22);
             this.tabLwM2M.Name = "tabLwM2M";
-            this.tabLwM2M.Size = new System.Drawing.Size(1173, 732);
+            this.tabLwM2M.Size = new System.Drawing.Size(1239, 732);
             this.tabLwM2M.TabIndex = 5;
             this.tabLwM2M.Text = "LwM2M Device";
             this.tabLwM2M.UseVisualStyleBackColor = true;
@@ -3627,7 +3629,7 @@
             // 
             // button113
             // 
-            this.button113.Location = new System.Drawing.Point(296, 14);
+            this.button113.Location = new System.Drawing.Point(234, 15);
             this.button113.Name = "button113";
             this.button113.Size = new System.Drawing.Size(155, 28);
             this.button113.TabIndex = 55;
@@ -4094,7 +4096,7 @@
             this.tabServer.Controls.Add(this.tbSvcSvrNum);
             this.tabServer.Location = new System.Drawing.Point(4, 22);
             this.tabServer.Name = "tabServer";
-            this.tabServer.Size = new System.Drawing.Size(1173, 732);
+            this.tabServer.Size = new System.Drawing.Size(1239, 732);
             this.tabServer.TabIndex = 6;
             this.tabServer.Text = "Service Server";
             this.tabServer.UseVisualStyleBackColor = true;
@@ -4591,7 +4593,7 @@
             this.tabLOG.Controls.Add(this.label21);
             this.tabLOG.Location = new System.Drawing.Point(4, 22);
             this.tabLOG.Name = "tabLOG";
-            this.tabLOG.Size = new System.Drawing.Size(1173, 732);
+            this.tabLOG.Size = new System.Drawing.Size(1239, 732);
             this.tabLOG.TabIndex = 7;
             this.tabLOG.Text = "Platform LOG";
             this.tabLOG.UseVisualStyleBackColor = true;
@@ -4842,7 +4844,7 @@
             this.tabTC.Controls.Add(this.gbTCResult);
             this.tabTC.Location = new System.Drawing.Point(4, 22);
             this.tabTC.Name = "tabTC";
-            this.tabTC.Size = new System.Drawing.Size(1173, 732);
+            this.tabTC.Size = new System.Drawing.Size(1239, 732);
             this.tabTC.TabIndex = 8;
             this.tabTC.Text = "시험절차서";
             this.tabTC.UseVisualStyleBackColor = true;
@@ -4913,7 +4915,7 @@
             this.webpage.Controls.Add(this.webBrowser1);
             this.webpage.Location = new System.Drawing.Point(4, 22);
             this.webpage.Name = "webpage";
-            this.webpage.Size = new System.Drawing.Size(1173, 732);
+            this.webpage.Size = new System.Drawing.Size(1239, 732);
             this.webpage.TabIndex = 9;
             this.webpage.Text = "Admin page";
             this.webpage.UseVisualStyleBackColor = true;
@@ -4924,7 +4926,7 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1173, 732);
+            this.webBrowser1.Size = new System.Drawing.Size(1239, 732);
             this.webBrowser1.TabIndex = 0;
             this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
@@ -4939,7 +4941,7 @@
             this.tabModule.Controls.Add(this.groupBox25);
             this.tabModule.Location = new System.Drawing.Point(4, 22);
             this.tabModule.Name = "tabModule";
-            this.tabModule.Size = new System.Drawing.Size(1173, 732);
+            this.tabModule.Size = new System.Drawing.Size(1239, 732);
             this.tabModule.TabIndex = 10;
             this.tabModule.Text = "oneM2M module";
             this.tabModule.UseVisualStyleBackColor = true;
@@ -4982,6 +4984,39 @@
             this.groupBox8.TabIndex = 88;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "oneM2M Firmware";
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "LTE(1)",
+            "WiFi(2)",
+            "NB-IoT(3)",
+            "Cat M1(4)"});
+            this.comboBox5.Location = new System.Drawing.Point(162, 114);
+            this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(190, 20);
+            this.comboBox5.TabIndex = 78;
+            this.comboBox5.Text = "LTE(1)";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(47, 114);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(96, 12);
+            this.label55.TabIndex = 77;
+            this.label55.Text = "Network Type : ";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(90, 87);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(54, 12);
+            this.label54.TabIndex = 76;
+            this.label54.Text = "Cell ID : ";
             // 
             // textBox6
             // 
@@ -5487,44 +5522,24 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // label54
+            // checkBox10
             // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(90, 87);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(54, 12);
-            this.label54.TabIndex = 76;
-            this.label54.Text = "Cell ID : ";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(47, 114);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(96, 12);
-            this.label55.TabIndex = 77;
-            this.label55.Text = "Network Type : ";
-            // 
-            // comboBox5
-            // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Items.AddRange(new object[] {
-            "LTE(1)",
-            "WiFi(2)",
-            "NB-IoT(3)",
-            "Cat M1(4)"});
-            this.comboBox5.Location = new System.Drawing.Point(162, 114);
-            this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(190, 20);
-            this.comboBox5.TabIndex = 78;
-            this.comboBox5.Text = "LTE(1)";
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Checked = true;
+            this.checkBox10.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox10.Location = new System.Drawing.Point(395, 22);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(63, 16);
+            this.checkBox10.TabIndex = 64;
+            this.checkBox10.Text = "Reboot";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1187, 804);
+            this.ClientSize = new System.Drawing.Size(1262, 804);
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(1920, 1066);
@@ -5576,6 +5591,7 @@
             this.gbOneM2MDevice.ResumeLayout(false);
             this.gbOneM2MDevice.PerformLayout();
             this.tabLwM2M.ResumeLayout(false);
+            this.tabLwM2M.PerformLayout();
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
             this.groupBox16.ResumeLayout(false);
@@ -6074,6 +6090,7 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.CheckBox checkBox10;
     }
 }
 
