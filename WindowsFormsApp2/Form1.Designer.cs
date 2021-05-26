@@ -303,6 +303,7 @@
             this.btnMEFAuthD = new System.Windows.Forms.Button();
             this.btnoneM2MFullTest = new System.Windows.Forms.Button();
             this.tabLwM2M = new System.Windows.Forms.TabPage();
+            this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.label39 = new System.Windows.Forms.Label();
             this.textBox70 = new System.Windows.Forms.TextBox();
@@ -493,7 +494,7 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -3540,6 +3541,19 @@
             this.tabLwM2M.Text = "LwM2M Device";
             this.tabLwM2M.UseVisualStyleBackColor = true;
             // 
+            // checkBox10
+            // 
+            this.checkBox10.AutoSize = true;
+            this.checkBox10.Checked = true;
+            this.checkBox10.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox10.Location = new System.Drawing.Point(395, 22);
+            this.checkBox10.Name = "checkBox10";
+            this.checkBox10.Size = new System.Drawing.Size(63, 16);
+            this.checkBox10.TabIndex = 64;
+            this.checkBox10.Text = "Reboot";
+            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            // 
             // groupBox22
             // 
             this.groupBox22.Controls.Add(this.label39);
@@ -3639,6 +3653,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.checkBox11);
             this.groupBox11.Controls.Add(this.checkBox8);
             this.groupBox11.Controls.Add(this.checkBox7);
             this.groupBox11.Controls.Add(this.label52);
@@ -5522,18 +5537,18 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // checkBox10
+            // checkBox11
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Checked = true;
-            this.checkBox10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox10.Location = new System.Drawing.Point(395, 22);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(63, 16);
-            this.checkBox10.TabIndex = 64;
-            this.checkBox10.Text = "Reboot";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            this.checkBox10.CheckedChanged += new System.EventHandler(this.checkBox10_CheckedChanged);
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Checked = true;
+            this.checkBox11.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox11.Location = new System.Drawing.Point(20, 204);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(52, 16);
+            this.checkBox11.TabIndex = 98;
+            this.checkBox11.Text = "Altair";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
             // Form1
             // 
@@ -6091,6 +6106,7 @@
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBox11;
     }
 }
 
