@@ -241,6 +241,9 @@ namespace WindowsFormsApp2
             lwm2mtc02024,
             lwm2mtc02025,
             lwm2mtc02026,
+            lwm2mtc020261,          // Altair setting
+            lwm2mtc020262,
+            lwm2mtc020263,
             lwm2mtc02027,
             lwm2mtc02028,
             lwm2mtc02029,
@@ -1159,7 +1162,18 @@ namespace WindowsFormsApp2
                         lbActionState.Text = states.idle.ToString();
                     }
                     else
+                    {
                         OKReceived();
+
+                        if (lbActionState.Text == states.lwm2mtc02011.ToString() && textBox65.Text == "OK")
+                        {
+                            logPrintInTextBox("boot complete.", "");
+                            lbActionState.Text = states.lwm2mtc02012.ToString();
+
+                            timer2.Interval = 10000;
+                            timer2.Start();
+                        }
+                    }
                 }
                 else if (rxMsg == "ERROR")
                 {
@@ -1779,11 +1793,33 @@ namespace WindowsFormsApp2
                         {
                             altdataid = state[2];
                             logPrintInTextBox("10250 object subscription completed", "");
+                            if (lbActionState.Text == states.lwm2mtc02011.ToString() || lbActionState.Text == states.lwm2mtc02012.ToString())
+                            {
+                                timer2.Stop();
+                                lbActionState.Text = states.lwm2mtc0203.ToString();
+                            }
                         }
                         else if (state[4] == "/26241/0/0")
                         {
                             altfotaid = state[2];
                             logPrintInTextBox("26241 object subscription completed", "");
+                            endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                            if (lbActionState.Text == states.lwm2mtc03011.ToString() || lbActionState.Text == states.lwm2mtc03012.ToString()
+                                || lbActionState.Text == states.lwm2mtc0203.ToString())
+                            {
+                                lbActionState.Text = states.lwm2mtc03013.ToString();
+                                timer2.Interval = 10000;
+                                timer2.Start();
+                            }
+                            else if (lbActionState.Text == states.lwm2mtc0602.ToString())
+                            {
+                                endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                lbActionState.Text = states.lwm2mtc03013.ToString();
+                                timer2.Interval = 10000;
+                                timer2.Start();
+                            }
                         }
                     }
 
@@ -3054,39 +3090,46 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.lwm2mtc02025:
-                    string epncmd = string.Empty;
-                    string epniccid = dev.iccid;
-
-                    if (comboBox4.SelectedIndex == 0)
+                    if (checkBox11.Checked == false)
                     {
-                        //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
-                        epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
-                        epncmd += tBoxDeviceSN.Text + "|ctn=";
-                        epncmd += dev.imsi + "|iccId=";
+                        string epncmd = string.Empty;
+                        string epniccid = dev.iccid;
 
-                        string iccid = dev.iccid;
-                        epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
-                        epncmd += tBoxDeviceModel.Text + "|mac=";
+                        if (comboBox4.SelectedIndex == 0)
+                        {
+                            //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
+                            epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
+                            epncmd += tBoxDeviceSN.Text + "|ctn=";
+                            epncmd += dev.imsi + "|iccId=";
+
+                            string iccid = dev.iccid;
+                            epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
+                            epncmd += tBoxDeviceModel.Text + "|mac=";
+                        }
+                        else
+                        {
+                            //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
+                            epncmd = "\"" + tbSvcCd.Text + "\",\"";
+                            epncmd += tBoxDeviceSN.Text + "\",\"";
+                            epncmd += dev.imsi + "\",\"";
+
+                            epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
+                            epncmd += tBoxDeviceModel.Text + "\"";
+                        }
+                        lbActionState.Text = states.lwm2mtc02026.ToString();
                     }
                     else
                     {
-                        //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
-                        epncmd = "\"" + tbSvcCd.Text + "\",\"";
-                        epncmd += tBoxDeviceSN.Text + "\",\"";
-                        epncmd += dev.imsi + "\",\"";
-
-                        epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
-                        epncmd += tBoxDeviceModel.Text + "\"";
+                        this.sendDataOut("at%setacfg=Identification.Model.Model," + tBoxDeviceModel.Text);
+                        lbActionState.Text = states.lwm2mtc020261.ToString();
                     }
-
-                    this.sendDataOut(textBox55.Text + epncmd);
                     startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox55.Text);
-                    lbActionState.Text = states.lwm2mtc02026.ToString();
                     break;
                 case states.setmbspstpb23:
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.lwm2mtc02026:
+                case states.lwm2mtc020263:
                     if (textBox66.Text != string.Empty)
                     {
                         // LWM2M bootstrap 자동 요청 순서 (V150)
@@ -3238,12 +3281,20 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.setmbspmodel:
+                case states.lwm2mtc020261:
                     this.sendDataOut("at%setacfg=Identification.Device.DeviceSerialNumber,"+ tBoxDeviceSN.Text);
-                    lbActionState.Text = states.setmbspsn.ToString();
+                    if (lbActionState.Text == states.setmbspmodel.ToString())
+                        lbActionState.Text = states.setmbspsn.ToString();
+                    else
+                        lbActionState.Text = states.lwm2mtc020262.ToString();
                     break;
                 case states.setmbspsn:
+                case states.lwm2mtc020262:
                     this.sendDataOut("at%setacfg=LWM2M.Config.NameMode,5");
-                    lbActionState.Text = states.idle.ToString();
+                    if (lbActionState.Text == states.setmbspsn.ToString())
+                        lbActionState.Text = states.idle.ToString();
+                    else
+                        lbActionState.Text = states.lwm2mtc020263.ToString();
                     break;
                 default:
                     break;
@@ -3400,16 +3451,33 @@ namespace WindowsFormsApp2
                         txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
                         lbDevLwM2MData.Text = txData;
 
-                        if (checkBox8.Checked == true)
+                        if (checkBox11.Checked == false)
                         {
-                            string hexOutput = StringToBCD(txData.ToCharArray());
+                            if (checkBox8.Checked == true)
+                            {
+                                string hexOutput = StringToBCD(txData.ToCharArray());
 
-                            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                                this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                            }
+                            else
+                                this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
+
+                            startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                            lbActionState.Text = states.lwm2mtc06034.ToString();
                         }
                         else
-                            this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                        startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
-                        lbActionState.Text = states.lwm2mtc06034.ToString();
+                        {
+                            if (altdataid != string.Empty)
+                            {
+                                string hexOutput = StringToBCD(txData.ToCharArray());
+                                this.sendDataOut("AT%LWM2MOBJEV=\"" + altdataid + "\",101,11542,0,\"/10250/0/0\",\"" + hexOutput + "\"");
+
+                                startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                                lbActionState.Text = states.lwm2mtc06034.ToString();
+                            }
+                            else
+                                MessageBox.Show("token ID가 필요합니다.\nREGISTER를 다시 진행해주세요.");
+                        }
                         break;
                     default:
                         break;
@@ -9778,17 +9846,33 @@ namespace WindowsFormsApp2
                 string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
                 lbDevLwM2MData.Text = txData;
 
-
-                if (checkBox8.Checked == true)
+                if (checkBox11.Checked == false)
                 {
-                    string hexOutput = StringToBCD(txData.ToCharArray());
+                    if (checkBox8.Checked == true)
+                    {
+                        string hexOutput = StringToBCD(txData.ToCharArray());
 
-                    this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                        this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
+                    }
+                    else
+                        this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
+
+                    startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                    nextcommand = states.lwm2mtc0501.ToString();
                 }
                 else
-                    this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
-                nextcommand = states.lwm2mtc0501.ToString();
+                {
+                    if (altdataid != string.Empty)
+                    {
+                        string hexOutput = StringToBCD(txData.ToCharArray());
+                        this.sendDataOut("AT%LWM2MOBJEV=\"" + altdataid + "\",101,11542,0,\"/10250/0/0\",\"" + hexOutput + "\"");
+
+                        startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
+                        nextcommand = states.lwm2mtc0501.ToString();
+                    }
+                    else
+                        MessageBox.Show("token ID가 필요합니다.\nREGISTER를 다시 진행해주세요.");
+                }
             }
             else if (lbActionState.Text == states.onem2mtc0211033.ToString())
             {
@@ -9835,12 +9919,11 @@ namespace WindowsFormsApp2
 
                     if (device_total_index == device_fota_index)
                     {
-                        endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
-
                         device_total_index = "0";
                         device_fota_index = "0";
 
                         DeviceFWVerSend();
+                        endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
 
                         if (lbActionState.Text == states.lwm2mtc06032.ToString() || lbActionState.Text == states.lwm2mtc06033.ToString())
                             nextcommand = states.lwm2mtc06034.ToString();
@@ -9881,12 +9964,11 @@ namespace WindowsFormsApp2
 
                 if (device_total_index == device_fota_index)
                 {
-                    endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
-
                     device_total_index = "0";
                     device_fota_index = "0";
 
                     DeviceFWVerSend();
+                    endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
 
                     if (lbActionState.Text == states.lwm2mtc06032.ToString() || lbActionState.Text == states.lwm2mtc06033.ToString())
                         nextcommand = states.lwm2mtc06034.ToString();
@@ -9944,7 +10026,7 @@ namespace WindowsFormsApp2
                     string hexOutput = StringToBCD(text.ToCharArray());
                     this.sendDataOut("AT%LWM2MOBJEV=\"" + altfotaid + "\",101,11542,0,\"/26241/0/0\",\"" + hexOutput + "\"");
 
-                startLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, textBox51.Text);
+                    startLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, textBox51.Text);
                 }
                 else
                     MessageBox.Show("token ID가 필요합니다.\nREGISTER를 다시 진행해주세요.");
