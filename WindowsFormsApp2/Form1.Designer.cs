@@ -315,6 +315,7 @@
             this.listView5 = new System.Windows.Forms.ListView();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.Altair = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.label52 = new System.Windows.Forms.Label();
@@ -494,7 +495,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -3653,7 +3653,7 @@
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.checkBox11);
+            this.groupBox11.Controls.Add(this.Altair);
             this.groupBox11.Controls.Add(this.checkBox8);
             this.groupBox11.Controls.Add(this.checkBox7);
             this.groupBox11.Controls.Add(this.label52);
@@ -3702,6 +3702,19 @@
             this.groupBox11.TabIndex = 36;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
+            // 
+            // Altair
+            // 
+            this.Altair.AutoSize = true;
+            this.Altair.Checked = true;
+            this.Altair.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.Altair.Location = new System.Drawing.Point(20, 204);
+            this.Altair.Name = "Altair";
+            this.Altair.Size = new System.Drawing.Size(52, 16);
+            this.Altair.TabIndex = 98;
+            this.Altair.Text = "Altair";
+            this.Altair.UseVisualStyleBackColor = true;
+            this.Altair.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
             // checkBox8
             // 
@@ -5537,19 +5550,6 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // checkBox11
-            // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Checked = true;
-            this.checkBox11.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox11.Location = new System.Drawing.Point(20, 204);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(52, 16);
-            this.checkBox11.TabIndex = 98;
-            this.checkBox11.Text = "Altair";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -6106,7 +6106,7 @@
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.CheckBox Altair;
     }
 }
 

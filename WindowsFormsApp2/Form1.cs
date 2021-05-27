@@ -1570,8 +1570,8 @@ namespace WindowsFormsApp2
                     // LwM2M Device FOTA 데이터 수신
                     string[] rx_svrdatas = str2.Replace("\"",string.Empty).Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
                                                                                           // 26241 FOTA DATA object RECEIVED!!!
-                    if (checkBox11.Checked == true)
-                        receiveFotaAltair(rx_svrdatas[2],rx_svrdatas[3]);
+                    if (Altair.Checked == true)
+                        receiveDataAltair(rx_svrdatas[2],rx_svrdatas[3]);
                     else
                         receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
                 }
@@ -1585,37 +1585,42 @@ namespace WindowsFormsApp2
                     // oneM2M 서비스 서버 데이터 수신
                     string[] rx_svrdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
                                                                // 10250 DATA object RECEIVED!!!
-                    if (Convert.ToInt32(rx_svrdatas[0]) == rx_svrdatas[1].Length / 2)    // data size 비교
-                    {
-                        //received hex data make to ascii code
-                        lbLwM2MRcvData.Text = BcdToString(rx_svrdatas[1].ToCharArray());
-                        if (lbLwM2MRcvData.Text == label40.Text)
-                            endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
-                        else
-                            endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
-                        logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
-
-                        if (lbActionState.Text == states.lwm2mtc0502.ToString())
-                        {
-                            if (svr.enrmtKeyId != string.Empty)
-                            {
-                                startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
-                                lbActionState.Text = states.lwm2mtc0503.ToString();
-
-                                rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
-                                rTh.Start();
-                            }
-                            else
-                            {
-                                this.sendDataOut(textBox52.Text);
-                                startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
-                                lbActionState.Text = states.lwm2mtc0401.ToString();
-                            }
-                        }
-                    }
+                    if (Altair.Checked == true)
+                        receiveDataAltair(rx_svrdatas[2], rx_svrdatas[3]);
                     else
                     {
-                        logPrintInTextBox("data size가 맞지 않습니다.", "");
+                        if (Convert.ToInt32(rx_svrdatas[0]) == rx_svrdatas[1].Length / 2)    // data size 비교
+                        {
+                            //received hex data make to ascii code
+                            lbLwM2MRcvData.Text = BcdToString(rx_svrdatas[1].ToCharArray());
+                            if (lbLwM2MRcvData.Text == label40.Text)
+                                endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                            else
+                                endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
+                            logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
+
+                            if (lbActionState.Text == states.lwm2mtc0502.ToString())
+                            {
+                                if (svr.enrmtKeyId != string.Empty)
+                                {
+                                    startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                                    lbActionState.Text = states.lwm2mtc0503.ToString();
+
+                                    rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
+                                    rTh.Start();
+                                }
+                                else
+                                {
+                                    this.sendDataOut(textBox52.Text);
+                                    startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                                    lbActionState.Text = states.lwm2mtc0401.ToString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            logPrintInTextBox("data size가 맞지 않습니다.", "");
+                        }
                     }
                 }
                 else if (rxMsg.StartsWith(textBox70.Text))           // Module FOTA 이벤트
@@ -1627,7 +1632,7 @@ namespace WindowsFormsApp2
                     int first = rxMsg.IndexOf(cmd) + cmd.Length;
                     string str2 = rxMsg.Substring(first, rxMsg.Length - first);
 
-                    if (checkBox11.Checked == false)
+                    if (Altair.Checked == false)
                     {
                         if (dev.model.StartsWith("BG95"))
                         {
@@ -1900,7 +1905,7 @@ namespace WindowsFormsApp2
 
                     setDeviceEntityID();
 
-                    if(lbActionState.Text == states.autogeticcid.ToString() && checkBox11.Checked == true)
+                    if(lbActionState.Text == states.autogeticcid.ToString() && Altair.Checked == true)
                         nextcommand = states.seteventalt1.ToString();
                     else
                         lbActionState.Text = states.idle.ToString();
@@ -3090,7 +3095,7 @@ namespace WindowsFormsApp2
                     lbActionState.Text = states.idle.ToString();
                     break;
                 case states.lwm2mtc02025:
-                    if (checkBox11.Checked == false)
+                    if (Altair.Checked == false)
                     {
                         string epncmd = string.Empty;
                         string epniccid = dev.iccid;
@@ -3451,7 +3456,7 @@ namespace WindowsFormsApp2
                         txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
                         lbDevLwM2MData.Text = txData;
 
-                        if (checkBox11.Checked == false)
+                        if (Altair.Checked == false)
                         {
                             if (checkBox8.Checked == true)
                             {
@@ -5336,7 +5341,7 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell("chip maker");
                 worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(checkBox11.Text);
+                worksheet.Cells[i, 2] = new Cell(Altair.Text);
 
                 worksheet.Cells.ColumnWidth[0] = 6000;
                 worksheet.Cells.ColumnWidth[1] = 5000;
@@ -5754,11 +5759,11 @@ namespace WindowsFormsApp2
                         else
                             checkBox10.Checked = false;
                         i++;
-                        checkBox11.Text = worksheet.Cells[i, 2].ToString();
-                        if (checkBox11.Text == "Altair")
-                            checkBox11.Checked = true;
+                        Altair.Text = worksheet.Cells[i, 2].ToString();
+                        if (Altair.Text == "Altair")
+                            Altair.Checked = true;
                         else
-                            checkBox11.Checked = false;
+                            Altair.Checked = false;
 
                         //////////////////////////////////////////////////////////////// PCT 장비 옵션 설정
                         i = 1;
@@ -8681,7 +8686,7 @@ namespace WindowsFormsApp2
 
         private void button97_Click(object sender, EventArgs e)
         {
-            if (checkBox11.Checked == false)
+            if (Altair.Checked == false)
             {
                 string epncmd = string.Empty;
                 string epniccid = dev.iccid;
@@ -8731,7 +8736,7 @@ namespace WindowsFormsApp2
         {
             string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
 
-            if (checkBox11.Checked == false)
+            if (Altair.Checked == false)
             {
                 if (checkBox8.Checked == true)
                 {
@@ -9846,7 +9851,7 @@ namespace WindowsFormsApp2
                 string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
                 lbDevLwM2MData.Text = txData;
 
-                if (checkBox11.Checked == false)
+                if (Altair.Checked == false)
                 {
                     if (checkBox8.Checked == true)
                     {
@@ -9937,41 +9942,72 @@ namespace WindowsFormsApp2
             }
         }
 
-        private void receiveFotaAltair(string id, string rcvData)
+        private void receiveDataAltair(string id, string rcvData)
         {
             timer2.Stop();
 
-            int dataSize = rcvData.Length / 2;
-            // Firmware File Information Block Checking
-            if ((device_total_index == "0") && (dataSize == 8))
+            if (id == "/10250/0/1")
             {
-                if (rcvData.Substring(0, 4) == "0000")
+                //received hex data make to ascii code
+                lbLwM2MRcvData.Text = BcdToString(rcvData.ToCharArray());
+                if (lbLwM2MRcvData.Text == label40.Text)
+                    endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                else
+                    endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
+                logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
+
+                if (lbActionState.Text == states.lwm2mtc0502.ToString())
                 {
-                    device_total_index = rcvData.Substring(4, 4);
-                    device_fota_checksum = rcvData.Substring(8, 8);
-                    logPrintInTextBox("total Index= " + device_total_index + ", checksum = " + device_fota_checksum + "를 수신하였습니다.", "");
-                    if (lbActionState.Text == states.lwm2mtc06032.ToString())
-                        lbActionState.Text = states.lwm2mtc06033.ToString();
+                    if (svr.enrmtKeyId != string.Empty)
+                    {
+                        startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                        lbActionState.Text = states.lwm2mtc0503.ToString();
+
+                        rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
+                        rTh.Start();
+                    }
+                    else
+                    {
+                        this.sendDataOut(textBox52.Text);
+                        startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                        lbActionState.Text = states.lwm2mtc0401.ToString();
+                    }
                 }
             }
-            // Firmware File Data Block Checking
-            else
+            else if (id == "/26241/0/1")
             {
-                device_fota_index = rcvData.Substring(0, 4);
-                //tBoxFOTAIndex.Text = device_fota_index;
-                string checksum = rcvData.Substring(4, 8);
-                logPrintInTextBox("index= " + device_fota_index + "/" + device_total_index + ", checksum= " + checksum + "를 수신하였습니다.", "");
-
-                if (device_total_index == device_fota_index)
+                int dataSize = rcvData.Length / 2;
+                // Firmware File Information Block Checking
+                if ((device_total_index == "0") && (dataSize == 8))
                 {
-                    device_total_index = "0";
-                    device_fota_index = "0";
+                    if (rcvData.Substring(0, 4) == "0000")
+                    {
+                        device_total_index = rcvData.Substring(4, 4);
+                        device_fota_checksum = rcvData.Substring(8, 8);
+                        logPrintInTextBox("total Index= " + device_total_index + ", checksum = " + device_fota_checksum + "를 수신하였습니다.", "");
+                        if (lbActionState.Text == states.lwm2mtc06032.ToString())
+                            lbActionState.Text = states.lwm2mtc06033.ToString();
+                    }
+                }
+                // Firmware File Data Block Checking
+                else
+                {
+                    device_fota_index = rcvData.Substring(0, 4);
+                    //tBoxFOTAIndex.Text = device_fota_index;
+                    string checksum = rcvData.Substring(4, 8);
+                    logPrintInTextBox("index= " + device_fota_index + "/" + device_total_index + ", checksum= " + checksum + "를 수신하였습니다.", "");
 
-                    DeviceFWVerSend();
-                    endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
+                    if (device_total_index == device_fota_index)
+                    {
+                        device_total_index = "0";
+                        device_fota_index = "0";
 
-                    if (lbActionState.Text == states.lwm2mtc06032.ToString() || lbActionState.Text == states.lwm2mtc06033.ToString())
-                        nextcommand = states.lwm2mtc06034.ToString();
+                        DeviceFWVerSend();
+                        endLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        if (lbActionState.Text == states.lwm2mtc06032.ToString() || lbActionState.Text == states.lwm2mtc06033.ToString())
+                            nextcommand = states.lwm2mtc06034.ToString();
+                    }
                 }
             }
         }
@@ -10007,7 +10043,7 @@ namespace WindowsFormsApp2
                 text += "|szx=6";       // FOTA buffer size set 1024bytes.
             }
 
-            if (checkBox11.Checked == false)
+            if (Altair.Checked == false)
             {
                 if (checkBox8.Checked == true)
                 {
@@ -11812,10 +11848,10 @@ namespace WindowsFormsApp2
 
         private void checkBox11_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBox11.Checked == true)
-                checkBox11.Text = "Altair";
+            if (Altair.Checked == true)
+                Altair.Text = "Altair";
             else
-                checkBox11.Text = "other";
+                Altair.Text = "other";
         }
     }
 
