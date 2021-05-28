@@ -3136,6 +3136,8 @@ namespace WindowsFormsApp2
                             epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
                             epncmd += tBoxDeviceModel.Text + "\"";
                         }
+
+                        this.sendDataOut(textBox55.Text + epncmd);
                         lbActionState.Text = states.lwm2mtc02026.ToString();
                     }
                     else
