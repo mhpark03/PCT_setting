@@ -3721,13 +3721,11 @@
             // Altair
             // 
             this.Altair.AutoSize = true;
-            this.Altair.Checked = true;
-            this.Altair.CheckState = System.Windows.Forms.CheckState.Checked;
             this.Altair.Location = new System.Drawing.Point(20, 204);
             this.Altair.Name = "Altair";
             this.Altair.Size = new System.Drawing.Size(52, 16);
             this.Altair.TabIndex = 98;
-            this.Altair.Text = "Altair";
+            this.Altair.Text = "other";
             this.Altair.UseVisualStyleBackColor = true;
             this.Altair.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged);
             // 
