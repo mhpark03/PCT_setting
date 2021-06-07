@@ -16,6 +16,7 @@ using ExcelLibrary.SpreadSheet;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using System.Web;
 
 namespace WindowsFormsApp2
 {
@@ -1169,6 +1170,13 @@ namespace WindowsFormsApp2
                         {
                             logPrintInTextBox("boot complete.", "");
                             lbActionState.Text = states.lwm2mtc02012.ToString();
+                            if (Altair.Checked == true)
+                            {
+                                this.sendDataOut("AT%LWM2MOPEV=1,20");
+                                this.sendDataOut("AT%LWM2MOPEV=1,21");
+                                this.sendDataOut("AT%LWM2MOPEV=1,22");
+                                this.sendDataOut("AT%LWM2MOPEV=1,23");
+                            }
 
                             timer2.Interval = 10000;
                             timer2.Start();
@@ -8078,6 +8086,8 @@ namespace WindowsFormsApp2
                     dataStream.Write(byteArray, 0, byteArray.Length);
                     dataStream.Close();
                 }
+                else
+                    wReq.ContentLength = 0;
 
                 wReq.Timeout = 20000;          // 서버 응답을 20초동안 기다림
                 using (wRes = (HttpWebResponse)wReq.GetResponse())
@@ -10041,7 +10051,7 @@ namespace WindowsFormsApp2
                 if (altdataid != string.Empty)
                 {
                     string hexOutput = StringToBCD(txData.ToCharArray());
-                    this.sendDataOut("AT%LWM2MOBJEV=\"" + altdataid + "\","+ rx_svrdatas[1] + ",11542,0,\""+ rx_svrdatas[3] + "\",\"" + hexOutput + "\"");
+                    this.sendDataOut("AT%LWM2MOBJEV=\"" + altdataid + "\",101,11542,0,\""+ rx_svrdatas[3] + "\",\"" + hexOutput + "\"");
 
                     endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbDevLwM2MData.Text = txData;
@@ -11929,6 +11939,31 @@ namespace WindowsFormsApp2
                 Altair.Text = "Altair";
             else
                 Altair.Text = "other";
+        }
+
+        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            Console.WriteLine(e.Url);
+            if (e.Url.Segments[e.Url.Segments.Length - 1].EndsWith(".pdf"))
+            {
+                e.Cancel = true;
+                string filepath = null;
+
+                saveFileDialog1.FileName = HttpUtility.UrlDecode(e.Url.Segments[e.Url.Segments.Length - 1], Encoding.UTF8);
+                //saveFileDialog1.FileName = e.Url.Segments[e.Url.Segments.Length - 1];
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    filepath = saveFileDialog1.FileName;
+                    WebClient client = new WebClient();
+                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
+                    client.DownloadFileAsync(e.Url, filepath);
+                }
+            }
+        }
+
+        void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            MessageBox.Show("File downloaded");
         }
     }
 
