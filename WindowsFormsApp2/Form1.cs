@@ -1165,22 +1165,6 @@ namespace WindowsFormsApp2
                     else
                     {
                         OKReceived();
-
-                        if (lbActionState.Text == states.lwm2mtc02011.ToString() && textBox65.Text == "OK")
-                        {
-                            logPrintInTextBox("boot complete.", "");
-                            lbActionState.Text = states.lwm2mtc02012.ToString();
-                            if (Altair.Checked == true)
-                            {
-                                this.sendDataOut("AT%LWM2MOPEV=1,20");
-                                this.sendDataOut("AT%LWM2MOPEV=1,21");
-                                this.sendDataOut("AT%LWM2MOPEV=1,22");
-                                this.sendDataOut("AT%LWM2MOPEV=1,23");
-                            }
-
-                            timer2.Interval = 10000;
-                            timer2.Start();
-                        }
                     }
                 }
                 else if (rxMsg == "ERROR")
@@ -1807,7 +1791,7 @@ namespace WindowsFormsApp2
                     }
                     else
                     {
-                        string[] state = str2.Replace("\"", string.Empty).Split(',');
+                        string[] state = str2.Replace(" ", string.Empty).Split(',');
                         if (state[0] == "20")
                         {
                             logPrintInTextBox("Bootstrap finished", "");
@@ -1827,6 +1811,16 @@ namespace WindowsFormsApp2
                         else if (state[0] == "21")
                         {
                             logPrintInTextBox("registration completed", "");
+                        }
+                        else if (state[0] == "22")
+                        {
+                            logPrintInTextBox("Modelue FOTA start", " ");
+                            timer2.Stop();
+                            startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+                            if (lbActionState.Text == states.lwm2mtc03013.ToString())
+                            {
+                                lbActionState.Text = states.lwm2mtc0602.ToString();
+                            }
                         }
                         else if (state[0] == "23")
                         {
@@ -2868,6 +2862,13 @@ namespace WindowsFormsApp2
                     logPrintInTextBox("boot complete.", "");
                     if (lbActionState.Text == states.lwm2mtc02011.ToString())
                     {
+                        if (Altair.Checked == true)
+                        {
+                            this.sendDataOut("AT%LWM2MOPEV=1,20");
+                            this.sendDataOut("AT%LWM2MOPEV=1,21");
+                            this.sendDataOut("AT%LWM2MOPEV=1,22");
+                            this.sendDataOut("AT%LWM2MOPEV=1,23");
+                        }
                         lbActionState.Text = states.lwm2mtc02012.ToString();
 
                         timer2.Interval = 10000;
