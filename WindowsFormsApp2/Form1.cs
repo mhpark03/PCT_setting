@@ -1814,13 +1814,7 @@ namespace WindowsFormsApp2
                         }
                         else if (state[0] == "22")
                         {
-                            logPrintInTextBox("Modelue FOTA start", " ");
-                            timer2.Stop();
-                            startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
-                            if (lbActionState.Text == states.lwm2mtc03013.ToString())
-                            {
-                                lbActionState.Text = states.lwm2mtc0602.ToString();
-                            }
+                            logPrintInTextBox("registration updated", "");
                         }
                         else if (state[0] == "23")
                         {
