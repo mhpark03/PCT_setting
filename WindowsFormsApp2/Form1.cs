@@ -2862,6 +2862,7 @@ namespace WindowsFormsApp2
                             this.sendDataOut("AT%LWM2MOPEV=1,21");
                             this.sendDataOut("AT%LWM2MOPEV=1,22");
                             this.sendDataOut("AT%LWM2MOPEV=1,23");
+                            this.sendDataOut("AT%LWM2MEV=1");
                         }
                         lbActionState.Text = states.lwm2mtc02012.ToString();
 
