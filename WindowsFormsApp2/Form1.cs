@@ -1862,6 +1862,29 @@ namespace WindowsFormsApp2
                                 logPrintInTextBox("module fota finish", " ");
                     }
                 }
+                else if (rxMsg.StartsWith("%LWM2MEV:"))           // Altair Module FOTA 이벤트
+                {
+                    string cmd = "LWM2MEV:";
+                    int first = rxMsg.IndexOf(cmd) + cmd.Length;
+                    string str2 = rxMsg.Substring(first, rxMsg.Length - first);
+
+                    string[] state = str2.Replace(" ", string.Empty).Split(',');
+
+                    timer2.Stop();
+                    if (lbActionState.Text == states.lwm2mtc03013.ToString())
+                        lbActionState.Text = states.lwm2mtc0602.ToString();
+
+                    if (state[0] == "0")
+                    {
+                        logPrintInTextBox("module fota start", " ");
+                        startLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+                    }
+                    else if (state[0] == "1")
+                    {
+                        logPrintInTextBox("module fota finish", " ");
+                        endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+                    }
+                }
                 else if (nextresponse != string.Empty)
                 {
                     if (rxMsg.StartsWith(nextresponse, System.StringComparison.CurrentCultureIgnoreCase))
