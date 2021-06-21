@@ -1881,8 +1881,12 @@ namespace WindowsFormsApp2
                     }
                     else if (state[0] == "1")
                     {
-                        logPrintInTextBox("module fota finish", " ");
+                        logPrintInTextBox("module fw download finish", " ");
                         endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                        lbActionState.Text = states.lwm2mtc0602.ToString();
+                        nextresponse = textBox65.Text;
+                        nextcommand = string.Empty;
                     }
                 }
                 else if (nextresponse != string.Empty)
@@ -2891,6 +2895,17 @@ namespace WindowsFormsApp2
 
                         timer2.Interval = 10000;
                         timer2.Start();
+                    }
+                    break;
+                case states.lwm2mtc0602:
+                    logPrintInTextBox("boot complete.", "");
+                    if (Altair.Checked == true)
+                    {
+                        this.sendDataOut("AT%LWM2MOPEV=1,20");
+                        this.sendDataOut("AT%LWM2MOPEV=1,21");
+                        this.sendDataOut("AT%LWM2MOPEV=1,22");
+                        this.sendDataOut("AT%LWM2MOPEV=1,23");
+                        this.sendDataOut("AT%LWM2MEV=1");
                     }
                     break;
                 case states.deregistertpb23:
