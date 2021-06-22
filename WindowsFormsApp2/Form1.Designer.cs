@@ -308,7 +308,7 @@
             this.label39 = new System.Windows.Forms.Label();
             this.textBox70 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox65 = new System.Windows.Forms.TextBox();
+            this.tBbooted = new System.Windows.Forms.TextBox();
             this.textBox71 = new System.Windows.Forms.TextBox();
             this.button35 = new System.Windows.Forms.Button();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
@@ -3571,7 +3571,7 @@
             this.groupBox22.Controls.Add(this.label39);
             this.groupBox22.Controls.Add(this.textBox70);
             this.groupBox22.Controls.Add(this.label3);
-            this.groupBox22.Controls.Add(this.textBox65);
+            this.groupBox22.Controls.Add(this.tBbooted);
             this.groupBox22.Controls.Add(this.textBox71);
             this.groupBox22.Controls.Add(this.button35);
             this.groupBox22.Location = new System.Drawing.Point(11, 43);
@@ -3606,13 +3606,13 @@
             this.label3.TabIndex = 64;
             this.label3.Text = "부팅 완료 메시지";
             // 
-            // textBox65
+            // tBbooted
             // 
-            this.textBox65.Location = new System.Drawing.Point(210, 49);
-            this.textBox65.Name = "textBox65";
-            this.textBox65.Size = new System.Drawing.Size(291, 21);
-            this.textBox65.TabIndex = 57;
-            this.textBox65.Text = "+MBIPST:0";
+            this.tBbooted.Location = new System.Drawing.Point(210, 49);
+            this.tBbooted.Name = "tBbooted";
+            this.tBbooted.Size = new System.Drawing.Size(291, 21);
+            this.tBbooted.TabIndex = 57;
+            this.tBbooted.Text = "+MBIPST:0";
             // 
             // textBox71
             // 
@@ -6036,7 +6036,7 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.TextBox textBox70;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox65;
+        private System.Windows.Forms.TextBox tBbooted;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.Label label47;

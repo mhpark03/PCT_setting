@@ -1885,8 +1885,28 @@ namespace WindowsFormsApp2
                         endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
 
                         lbActionState.Text = states.lwm2mtc0602.ToString();
-                        nextresponse = textBox65.Text;
+                        //nextresponse = tBbooted.Text;
                         nextcommand = string.Empty;
+                    }
+                }
+                else if (rxMsg == tBbooted.Text)           // Module Booting finish 이벤트
+                {
+                    logPrintInTextBox("boot complete.", "");
+                    if (lbActionState.Text == states.lwm2mtc02011.ToString())
+                    {
+                        lbActionState.Text = states.lwm2mtc02012.ToString();
+
+                        timer2.Interval = 10000;
+                        timer2.Start();
+                    }
+
+                    if (Altair.Checked == true)
+                    {
+                        this.sendDataOut("AT%LWM2MOPEV=1,20");
+                        this.sendDataOut("AT%LWM2MOPEV=1,21");
+                        this.sendDataOut("AT%LWM2MOPEV=1,22");
+                        this.sendDataOut("AT%LWM2MOPEV=1,23");
+                        this.sendDataOut("AT%LWM2MEV=1");
                     }
                 }
                 else if (nextresponse != string.Empty)
@@ -1927,6 +1947,19 @@ namespace WindowsFormsApp2
                     progressBar1.Value = 90;
 
                     nextcommand = states.autogetmodemver.ToString();       // 모듈 정보를 모두 읽고 모뎀 버전 정보 조회
+                    break;
+                case states.getmodemver:
+                    tbDeviceVer.Text = lbModemVer.Text = dev.version = str2;
+                    lbActionState.Text = states.idle.ToString();
+                    this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
+
+                    break;
+                case states.autogetmodemver:
+                    tbDeviceVer.Text = lbModemVer.Text = dev.version = str2;
+                    progressBar1.Value = 100;
+                    this.logPrintInTextBox("모뎀버전이 " + dev.version + "로 저장되었습니다.", "");
+
+                    nextcommand = states.autogetimsi.ToString();
                     break;
                 case states.geticcid:
                 case states.autogeticcid:
@@ -2879,35 +2912,7 @@ namespace WindowsFormsApp2
                         nextresponse = "$OM_C_ACP_RSP=";
                     }
                     break;
-                case states.lwm2mtc02011:
-                    logPrintInTextBox("boot complete.", "");
-                    if (lbActionState.Text == states.lwm2mtc02011.ToString())
-                    {
-                        if (Altair.Checked == true)
-                        {
-                            this.sendDataOut("AT%LWM2MOPEV=1,20");
-                            this.sendDataOut("AT%LWM2MOPEV=1,21");
-                            this.sendDataOut("AT%LWM2MOPEV=1,22");
-                            this.sendDataOut("AT%LWM2MOPEV=1,23");
-                            this.sendDataOut("AT%LWM2MEV=1");
-                        }
-                        lbActionState.Text = states.lwm2mtc02012.ToString();
 
-                        timer2.Interval = 10000;
-                        timer2.Start();
-                    }
-                    break;
-                case states.lwm2mtc0602:
-                    logPrintInTextBox("boot complete.", "");
-                    if (Altair.Checked == true)
-                    {
-                        this.sendDataOut("AT%LWM2MOPEV=1,20");
-                        this.sendDataOut("AT%LWM2MOPEV=1,21");
-                        this.sendDataOut("AT%LWM2MOPEV=1,22");
-                        this.sendDataOut("AT%LWM2MOPEV=1,23");
-                        this.sendDataOut("AT%LWM2MEV=1");
-                    }
-                    break;
                 case states.deregistertpb23:
                 case states.lwm2mtc0401:
                     endLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, string.Empty);
@@ -5360,7 +5365,7 @@ namespace WindowsFormsApp2
                 i++;
                 worksheet.Cells[i, 0] = new Cell(label3.Text);
                 worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox65.Text);
+                worksheet.Cells[i, 2] = new Cell(tBbooted.Text);
                 i++;
                 worksheet.Cells[i, 0] = new Cell(label39.Text);
                 worksheet.Cells[i, 1] = new Cell("");
@@ -5790,7 +5795,7 @@ namespace WindowsFormsApp2
                         i++;
                         textBox69.Text = worksheet.Cells[i, 2].ToString();
                         i++;
-                        textBox65.Text = worksheet.Cells[i, 2].ToString();
+                        tBbooted.Text = worksheet.Cells[i, 2].ToString();
                         i++;
                         textBox70.Text = worksheet.Cells[i, 2].ToString();
                         i++;
@@ -8661,7 +8666,7 @@ namespace WindowsFormsApp2
             {
                 this.sendDataOut(textBox71.Text);
                 lbActionState.Text = states.lwm2mtc02011.ToString();
-                nextresponse = textBox65.Text;
+                //nextresponse = tBbooted.Text;
                 nextcommand = string.Empty;
             }
             else
