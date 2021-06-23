@@ -1884,7 +1884,7 @@ namespace WindowsFormsApp2
                         logPrintInTextBox("module fw download finish", " ");
                         endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
 
-                        lbActionState.Text = states.lwm2mtc0602.ToString();
+                        //lbActionState.Text = states.lwm2mtc0602.ToString();
                         //nextresponse = tBbooted.Text;
                         nextcommand = string.Empty;
                     }
