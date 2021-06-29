@@ -3800,137 +3800,144 @@ namespace WindowsFormsApp2
 
         private void button23_Click(object sender, EventArgs e)
         {
-            string pathname = Application.StartupPath + @"/";
-            string filename = "Sample_" + tbDeviceName.Text + ".ini";
+            SaveFileDialog saveFile = new SaveFileDialog();
 
-            try
+            saveFile.Title = "SMST 파일 저장";
+            saveFile.InitialDirectory = Application.StartupPath;
+            saveFile.FileName = "Sample_" + tbDeviceName.Text + ".ini";
+            saveFile.DefaultExt = "ini files(*.xls)|*.ini";
+            saveFile.Filter = "ini files (*.ini)|*.ini";
+            if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                // Create a file to write to.
-                FileStream fs = new FileStream(pathname + filename, FileMode.Create, FileAccess.Write);
-                // Create a file to write to.
-                StreamWriter sw = new StreamWriter(fs);
+                try
+                {
+                    // Create a file to write to.
+                    FileStream fs = new FileStream(saveFile.FileName.ToString(), FileMode.Create, FileAccess.Write);
+                    // Create a file to write to.
+                    StreamWriter sw = new StreamWriter(fs);
 
-                sw.WriteLine("[Common]");
-                if (cbImsPDN.SelectedIndex == 1)
-                    sw.WriteLine("imsPDN_number = " + "1");
-                else if (cbImsPDN.SelectedIndex == 2)
-                    sw.WriteLine("imsPDN_number = " + "2");
-                else
-                    sw.WriteLine("imsPDN_number = " + "0");
-                sw.WriteLine("imsIPversion = " + cbImsIP.Text);
-                if(cbMultiPDN.Checked == true)
-                    sw.WriteLine("Multiple_PDN = true");
-                else
-                    sw.WriteLine("Multiple_PDN = false");
-                sw.WriteLine("Channel1 = "+ tbChannel1.Text);
-                sw.WriteLine("Channel2 = " + tbChannel2.Text);
-                sw.WriteLine("Channel3 = " + tbChannel3.Text);
-                sw.WriteLine("UE_IMEI = " + tbIMEI.Text);
-                if (cbAuto2ndPDN.Checked == true)
-                    sw.WriteLine("Auto2ndPDN = true");
-                else
-                    sw.WriteLine("Auto2ndPDN = false");
-                if (cbEMC.Checked == true)
-                    sw.WriteLine("EMC_Support = 1");
-                else
-                    sw.WriteLine("EMC_Support = 0");
-                if(cbCA.Checked == true)
-                    sw.WriteLine("CA_Support = true");
-                else
-                    sw.WriteLine("CA_Support = false");
-                sw.WriteLine("");
-                sw.WriteLine("[Capability]");
-                if (cbCatagory.SelectedIndex == 0)
-                    sw.WriteLine("LTE_Category = 1");
-                else
-                    sw.WriteLine("LTE_Category = 4");
-                if (cbBand1.Checked == true)
-                    sw.WriteLine("Supported_Band1 = 1");
-                else
-                    sw.WriteLine("Supported_Band1 = omitted");
-                if (cbBand5.Checked == true)
-                    sw.WriteLine("Supported_Band5 = 5");
-                else
-                    sw.WriteLine("Supported_Band5 = omitted");
-                if (cbBand7.Checked == true)
-                    sw.WriteLine("Supported_Band7 = 7");
-                else
-                    sw.WriteLine("Supported_Band7 = omitted");
-                if (cbFGI4.Checked == true)
-                    sw.WriteLine("FGI_4 = 1");
-                else
-                    sw.WriteLine("FGI_4 = 0");
-                if (cbFGI5.Checked == true)
-                    sw.WriteLine("FGI_5 = 1");
-                else
-                    sw.WriteLine("FGI_5 = 0");
-                if (cbFGI17.Checked == true)
-                    sw.WriteLine("FGI_17 = 1");
-                else
-                    sw.WriteLine("FGI_17 = 0");
-                if (cbFGI18.Checked == true)
-                    sw.WriteLine("FGI_18 = 1");
-                else
-                    sw.WriteLine("FGI_18 = 0");
-                if (cbFGI28.Checked == true)
-                    sw.WriteLine("FGI_28 = 1");
-                else
-                    sw.WriteLine("FGI_28 = 0");
-                if (cbRachR9.Checked == true)
-                    sw.WriteLine("Rach_Report_r9 = supported");
-                else
-                    sw.WriteLine("Rach_Report_r9 = omitted");
-                if (cbLogR10.Checked == true)
-                    sw.WriteLine("loggedMeasurementIdle_r10 = supported");
-                else
-                    sw.WriteLine("loggedMeasurementIdle_r10 = omitted");
-                if(cbStandaloneGNSS.Checked == true)
-                    sw.WriteLine("standaloneGNSS_Location_r10 = supported");
-                else
-                    sw.WriteLine("standaloneGNSS_Location_r10 = omitted");
-                if (cbBandCombin.Checked == true)
-                    sw.WriteLine("supportedBandCombination = supported");
-                else
-                    sw.WriteLine("supportedBandCombination = omitted");
-                sw.WriteLine("");
-                sw.WriteLine("[VOLTE_SMS]");
-                sw.WriteLine("Device_Name = " + tbDeviceName.Text);
-                sw.WriteLine("Device_Version = " + tbDeviceVer.Text);
-                sw.WriteLine("Device_Type = " + tbDeviceType.Text);
-                sw.WriteLine("TTA_Version = " + tbTTAVer.Text);
-                if (cbIPSec.Checked == true)
-                    sw.WriteLine("IPsec_enable = true");
-                else
-                    sw.WriteLine("IPsec_enable = false");
-                if (cbSMS.Checked == true)
-                    sw.WriteLine("SMS_Support = true");
-                else
-                    sw.WriteLine("SMS_Support = false");
-                if (cbVoice.Checked == true)
-                    sw.WriteLine("Voice_Support = true");
-                else
-                    sw.WriteLine("Voice_Support = false");
-                if (cbVideo.Checked == true)
-                    sw.WriteLine("Video_Support = true");
-                else
-                    sw.WriteLine("Video_Support = false");
-                if (checkBox9.Checked == true)
-                    sw.WriteLine("Auto_SMS_Read = true");
-                else
-                    sw.WriteLine("Auto_SMS_Read = false");
-                sw.WriteLine("");
-                sw.WriteLine("[NBIoT]");
-                if (cbNBIPVer.SelectedIndex == 0)
-                    sw.WriteLine("IPversion = IPv4");
-                else
-                    sw.WriteLine("IPversion = IPv6");
+                    sw.WriteLine("[Common]");
+                    if (cbImsPDN.SelectedIndex == 1)
+                        sw.WriteLine("imsPDN_number = " + "1");
+                    else if (cbImsPDN.SelectedIndex == 2)
+                        sw.WriteLine("imsPDN_number = " + "2");
+                    else
+                        sw.WriteLine("imsPDN_number = " + "0");
+                    sw.WriteLine("imsIPversion = " + cbImsIP.Text);
+                    if (cbMultiPDN.Checked == true)
+                        sw.WriteLine("Multiple_PDN = true");
+                    else
+                        sw.WriteLine("Multiple_PDN = false");
+                    sw.WriteLine("Channel1 = " + tbChannel1.Text);
+                    sw.WriteLine("Channel2 = " + tbChannel2.Text);
+                    sw.WriteLine("Channel3 = " + tbChannel3.Text);
+                    sw.WriteLine("UE_IMEI = " + tbIMEI.Text);
+                    if (cbAuto2ndPDN.Checked == true)
+                        sw.WriteLine("Auto2ndPDN = true");
+                    else
+                        sw.WriteLine("Auto2ndPDN = false");
+                    if (cbEMC.Checked == true)
+                        sw.WriteLine("EMC_Support = 1");
+                    else
+                        sw.WriteLine("EMC_Support = 0");
+                    if (cbCA.Checked == true)
+                        sw.WriteLine("CA_Support = true");
+                    else
+                        sw.WriteLine("CA_Support = false");
+                    sw.WriteLine("");
+                    sw.WriteLine("[Capability]");
+                    if (cbCatagory.SelectedIndex == 0)
+                        sw.WriteLine("LTE_Category = 1");
+                    else
+                        sw.WriteLine("LTE_Category = 4");
+                    if (cbBand1.Checked == true)
+                        sw.WriteLine("Supported_Band1 = 1");
+                    else
+                        sw.WriteLine("Supported_Band1 = omitted");
+                    if (cbBand5.Checked == true)
+                        sw.WriteLine("Supported_Band5 = 5");
+                    else
+                        sw.WriteLine("Supported_Band5 = omitted");
+                    if (cbBand7.Checked == true)
+                        sw.WriteLine("Supported_Band7 = 7");
+                    else
+                        sw.WriteLine("Supported_Band7 = omitted");
+                    if (cbFGI4.Checked == true)
+                        sw.WriteLine("FGI_4 = 1");
+                    else
+                        sw.WriteLine("FGI_4 = 0");
+                    if (cbFGI5.Checked == true)
+                        sw.WriteLine("FGI_5 = 1");
+                    else
+                        sw.WriteLine("FGI_5 = 0");
+                    if (cbFGI17.Checked == true)
+                        sw.WriteLine("FGI_17 = 1");
+                    else
+                        sw.WriteLine("FGI_17 = 0");
+                    if (cbFGI18.Checked == true)
+                        sw.WriteLine("FGI_18 = 1");
+                    else
+                        sw.WriteLine("FGI_18 = 0");
+                    if (cbFGI28.Checked == true)
+                        sw.WriteLine("FGI_28 = 1");
+                    else
+                        sw.WriteLine("FGI_28 = 0");
+                    if (cbRachR9.Checked == true)
+                        sw.WriteLine("Rach_Report_r9 = supported");
+                    else
+                        sw.WriteLine("Rach_Report_r9 = omitted");
+                    if (cbLogR10.Checked == true)
+                        sw.WriteLine("loggedMeasurementIdle_r10 = supported");
+                    else
+                        sw.WriteLine("loggedMeasurementIdle_r10 = omitted");
+                    if (cbStandaloneGNSS.Checked == true)
+                        sw.WriteLine("standaloneGNSS_Location_r10 = supported");
+                    else
+                        sw.WriteLine("standaloneGNSS_Location_r10 = omitted");
+                    if (cbBandCombin.Checked == true)
+                        sw.WriteLine("supportedBandCombination = supported");
+                    else
+                        sw.WriteLine("supportedBandCombination = omitted");
+                    sw.WriteLine("");
+                    sw.WriteLine("[VOLTE_SMS]");
+                    sw.WriteLine("Device_Name = " + tbDeviceName.Text);
+                    sw.WriteLine("Device_Version = " + tbDeviceVer.Text);
+                    sw.WriteLine("Device_Type = " + tbDeviceType.Text);
+                    sw.WriteLine("TTA_Version = " + tbTTAVer.Text);
+                    if (cbIPSec.Checked == true)
+                        sw.WriteLine("IPsec_enable = true");
+                    else
+                        sw.WriteLine("IPsec_enable = false");
+                    if (cbSMS.Checked == true)
+                        sw.WriteLine("SMS_Support = true");
+                    else
+                        sw.WriteLine("SMS_Support = false");
+                    if (cbVoice.Checked == true)
+                        sw.WriteLine("Voice_Support = true");
+                    else
+                        sw.WriteLine("Voice_Support = false");
+                    if (cbVideo.Checked == true)
+                        sw.WriteLine("Video_Support = true");
+                    else
+                        sw.WriteLine("Video_Support = false");
+                    if (checkBox9.Checked == true)
+                        sw.WriteLine("Auto_SMS_Read = true");
+                    else
+                        sw.WriteLine("Auto_SMS_Read = false");
+                    sw.WriteLine("");
+                    sw.WriteLine("[NBIoT]");
+                    if (cbNBIPVer.SelectedIndex == 0)
+                        sw.WriteLine("IPversion = IPv4");
+                    else
+                        sw.WriteLine("IPversion = IPv6");
 
-                sw.Close();
-                fs.Close();
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    sw.Close();
+                    fs.Close();
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -4148,769 +4155,776 @@ namespace WindowsFormsApp2
 
         private void button41_Click(object sender, EventArgs e)
         {
-            string pathname = Application.StartupPath + @"/";
-            string filename = "LGU+_" + tbDeviceName.Text + "_proxy.xml";
+            SaveFileDialog saveFile = new SaveFileDialog();
 
-            try
+            saveFile.Title = "PROXY 파일 저장";
+            saveFile.InitialDirectory = Application.StartupPath;
+            saveFile.FileName = "LGU+_" + tbDeviceName.Text + "_proxy.xml";
+            saveFile.DefaultExt = "xml files(*.xml)|*.xml";
+            saveFile.Filter = "xml files (*.xml)|*.xml";
+            if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                // Create a file to write to.
-                XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
-                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
-                XElement xroot = new XElement("ProxyConfiguration",
-                    new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance"),
-                    new XAttribute(xsi + "noNamespaceSchemaLocation", "AT-MMI Proxy Configuration.xsd")
-                    );
-                xdoc.Add(xroot);
+                try
+                {
+                    // Create a file to write to.
+                    XDocument xdoc = new XDocument(new XDeclaration("1.0", "UTF-8", null));
+                    XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+                    XElement xroot = new XElement("ProxyConfiguration",
+                        new XAttribute(XNamespace.Xmlns + "xsi", "http://www.w3.org/2001/XMLSchema-instance"),
+                        new XAttribute(xsi + "noNamespaceSchemaLocation", "AT-MMI Proxy Configuration.xsd")
+                        );
+                    xdoc.Add(xroot);
 
-                XElement xports = new XElement("Ports");
-                xroot.Add(xports);
+                    XElement xports = new XElement("Ports");
+                    xroot.Add(xports);
 
-                XElement port = new XElement("Port",
-                    new XAttribute("id", "1"),
-                    new XElement("Socket",
-                          new XAttribute("address", "127.0.0.1"),
-                          new XAttribute("port", "10005")
-                       )
-                    );
-                xports.Add(port);
+                    XElement port = new XElement("Port",
+                        new XAttribute("id", "1"),
+                        new XElement("Socket",
+                              new XAttribute("address", "127.0.0.1"),
+                              new XAttribute("port", "10005")
+                           )
+                        );
+                    xports.Add(port);
 
-                port = new XElement("Port",
-                    new XAttribute("id", "2"),
-                    new XElement("Socket",
-                          new XAttribute("address", "127.0.0.1"),
-                          new XAttribute("port", "10006")
-                       )
-                    );
-                xports.Add(port);
+                    port = new XElement("Port",
+                        new XAttribute("id", "2"),
+                        new XElement("Socket",
+                              new XAttribute("address", "127.0.0.1"),
+                              new XAttribute("port", "10006")
+                           )
+                        );
+                    xports.Add(port);
 
-                string comport = cBoxCOMPORT.Text;
-                comport = comport.Substring(3, comport.Length - 3);
-                string baudrate = cBoxBaudRate.Text;
-                port = new XElement("Port",
-                    new XAttribute("id", "3"),
-                    new XElement("Serial",
-                          new XAttribute("com", comport),
-                          new XAttribute("baudrate", baudrate),
-                          new XAttribute("parity", "0"),
-                          new XAttribute("stopbits", "1"),
-                          new XAttribute("byteSize", "8")
-                       )
-                    );
-                xports.Add(port);
+                    string comport = cBoxCOMPORT.Text;
+                    comport = comport.Substring(3, comport.Length - 3);
+                    string baudrate = cBoxBaudRate.Text;
+                    port = new XElement("Port",
+                        new XAttribute("id", "3"),
+                        new XElement("Serial",
+                              new XAttribute("com", comport),
+                              new XAttribute("baudrate", baudrate),
+                              new XAttribute("parity", "0"),
+                              new XAttribute("stopbits", "1"),
+                              new XAttribute("byteSize", "8")
+                           )
+                        );
+                    xports.Add(port);
 
-                port = new XElement("Port",
-                    new XAttribute("id", "4"),
-                    new XElement("Serial",
-                          new XAttribute("com", comport),
-                          new XAttribute("baudrate", baudrate),
-                          new XAttribute("parity", "0"),
-                          new XAttribute("stopbits", "1"),
-                          new XAttribute("byteSize", "8")
-                       )
-                    );
-                xports.Add(port);
+                    port = new XElement("Port",
+                        new XAttribute("id", "4"),
+                        new XElement("Serial",
+                              new XAttribute("com", comport),
+                              new XAttribute("baudrate", baudrate),
+                              new XAttribute("parity", "0"),
+                              new XAttribute("stopbits", "1"),
+                              new XAttribute("byteSize", "8")
+                           )
+                        );
+                    xports.Add(port);
 
-                port = new XElement("Port",
-                    new XAttribute("id", "5"),
-                    new XElement("Socket",
-                          new XAttribute("address", "127.0.0.1"),
-                          new XAttribute("port", "10007")
-                       )
-                    );
-                xports.Add(port);
+                    port = new XElement("Port",
+                        new XAttribute("id", "5"),
+                        new XElement("Socket",
+                              new XAttribute("address", "127.0.0.1"),
+                              new XAttribute("port", "10007")
+                           )
+                        );
+                    xports.Add(port);
 
-                port = new XElement("Port",
-                    new XAttribute("id", "6"),
-                    new XElement("Socket",
-                          new XAttribute("address", "127.0.0.1"),
-                          new XAttribute("port", "10008")
-                       )
-                    );
-                xports.Add(port);
+                    port = new XElement("Port",
+                        new XAttribute("id", "6"),
+                        new XElement("Socket",
+                              new XAttribute("address", "127.0.0.1"),
+                              new XAttribute("port", "10008")
+                           )
+                        );
+                    xports.Add(port);
 
-                port = new XElement("Port",
-                    new XAttribute("id", "7"),
-                    new XElement("Serial",
-                          new XAttribute("com", comport),
-                          new XAttribute("baudrate", baudrate),
-                          new XAttribute("parity", "0"),
-                          new XAttribute("stopbits", "1"),
-                          new XAttribute("byteSize", "8")
-                       )
-                    );
-                xports.Add(port);
+                    port = new XElement("Port",
+                        new XAttribute("id", "7"),
+                        new XElement("Serial",
+                              new XAttribute("com", comport),
+                              new XAttribute("baudrate", baudrate),
+                              new XAttribute("parity", "0"),
+                              new XAttribute("stopbits", "1"),
+                              new XAttribute("byteSize", "8")
+                           )
+                        );
+                    xports.Add(port);
 
-                port = new XElement("Port",
-                    new XAttribute("id", "8"),
-                    new XElement("Serial",
-                          new XAttribute("com", comport),
-                          new XAttribute("baudrate", baudrate),
-                          new XAttribute("parity", "0"),
-                          new XAttribute("stopbits", "1"),
-                          new XAttribute("byteSize", "8")
-                       )
-                    );
-                xports.Add(port);
+                    port = new XElement("Port",
+                        new XAttribute("id", "8"),
+                        new XElement("Serial",
+                              new XAttribute("com", comport),
+                              new XAttribute("baudrate", baudrate),
+                              new XAttribute("parity", "0"),
+                              new XAttribute("stopbits", "1"),
+                              new XAttribute("byteSize", "8")
+                           )
+                        );
+                    xports.Add(port);
 
-                XElement xChannels = new XElement("Channels");
-                xroot.Add(xChannels);
+                    XElement xChannels = new XElement("Channels");
+                    xroot.Add(xChannels);
 
-                XElement xChannel = new XElement("Channel",
-                    new XAttribute("id", "1") ,
-                    new XElement("ChannelApplication",
+                    XElement xChannel = new XElement("Channel",
+                        new XAttribute("id", "1"),
+                        new XElement("ChannelApplication",
+                            new XAttribute("name", "MUX_MMI"),
+                            new XAttribute("id", "1")
+                          ),
+                        new XElement("ServerPorts",
+                            new XElement("ServerPort", "1")
+                          ),
+                        new XElement("ClientPorts",
+                            new XElement("ClientPort", "3")
+                          )
+                        );
+                    xChannels.Add(xChannel);
+
+                    xChannel = new XElement("Channel",
+                        new XAttribute("id", "2"),
+                        new XElement("ChannelApplication",
+                            new XAttribute("name", "MUX_AT"),
+                            new XAttribute("id", "2")
+                          ),
+                        new XElement("ServerPorts",
+                            new XElement("ServerPort", "2")
+                          ),
+                        new XElement("ClientPorts",
+                            new XElement("ClientPort", "4")
+                          )
+                        );
+                    xChannels.Add(xChannel);
+
+                    xChannel = new XElement("Channel",
+                        new XAttribute("id", "3"),
+                        new XElement("ChannelApplication",
+                            new XAttribute("name", "MUX_MMI"),
+                            new XAttribute("id", "3")
+                          ),
+                        new XElement("ServerPorts",
+                            new XElement("ServerPort", "5")
+                          ),
+                        new XElement("ClientPorts",
+                            new XElement("ClientPort", "7")
+                          )
+                        );
+                    xChannels.Add(xChannel);
+
+                    xChannel = new XElement("Channel",
+                        new XAttribute("id", "4"),
+                        new XElement("ChannelApplication",
+                            new XAttribute("name", "MUX_AT"),
+                            new XAttribute("id", "4")
+                          ),
+                        new XElement("ServerPorts",
+                            new XElement("ServerPort", "6")
+                          ),
+                        new XElement("ClientPorts",
+                            new XElement("ClientPort", "8")
+                          )
+                        );
+                    xChannels.Add(xChannel);
+
+                    XElement xApps = new XElement("Applications");
+                    xroot.Add(xApps);
+
+                    string selectmsg = "yes";
+                    if (comboBox3.SelectedIndex == 0)
+                        selectmsg = "no";
+                    XElement xApp = new XElement("DisplayOnly", selectmsg);
+                    xApps.Add(xApp);
+                    XComment xComment = new XComment(" Display only or send command to the UE. Values: yes or no ");
+                    xApps.Add(xComment);
+
+                    xApp = new XElement("BypassAllRemap", "no");
+                    xApps.Add(xApp);
+                    xComment = new XComment(" Ignore all remapping options. Values: yes or no ");
+                    xApps.Add(xComment);
+
+                    xApp = new XElement("KeepSerialConnection", "yes");
+                    xApps.Add(xApp);
+                    xComment = new XComment(" Keep the serial connection opened after each AT command sent to the phone. Values: yes or no ");
+                    xApps.Add(xComment);
+
+                    xApp = new XElement("CreateLogFile", "yes");
+                    xApps.Add(xApp);
+                    xComment = new XComment(" Create automatically a log file in the \\bin directory. Values: yes or no ");
+                    xApps.Add(xComment);
+
+                    xApp = new XElement("ClearUeQueue", "yes");
+                    xApps.Add(xApp);
+                    xComment = new XComment(" Clear the UE queue before sending a new AT command ");
+                    xApps.Add(xComment);
+
+                    xApp = new XElement("Application",
                         new XAttribute("name", "MUX_MMI"),
-                        new XAttribute("id", "1")
-                      ),
-                    new XElement("ServerPorts",
-                        new XElement("ServerPort", "1")
-                      ),
-                    new XElement("ClientPorts",
-                        new XElement("ClientPort", "3")
-                      )
-                    );
-                xChannels.Add(xChannel);
+                        new XAttribute("id", "1"),
+                        new XElement("AutoConfirmationEnabled", "no"),
+                        new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
+                     );
+                    xApps.Add(xApp);
 
-                xChannel = new XElement("Channel",
-                    new XAttribute("id", "2"),
-                    new XElement("ChannelApplication",
+                    xApp = new XElement("Application",
                         new XAttribute("name", "MUX_AT"),
-                        new XAttribute("id", "2")
-                      ),
-                    new XElement("ServerPorts",
-                        new XElement("ServerPort", "2")
-                      ),
-                    new XElement("ClientPorts",
-                        new XElement("ClientPort", "4")
-                      )
-                    );
-                xChannels.Add(xChannel);
+                        new XAttribute("id", "2"),
+                        new XElement("AtManualControl", "no"),
+                        new XComment(" Don't send AT commands to the phone and display a menu to the user. Values: yes or no ")
+                     );
+                    xApps.Add(xApp);
 
-                xChannel = new XElement("Channel",
-                    new XAttribute("id", "3"),
-                    new XElement("ChannelApplication",
+                    xApp = new XElement("Application",
                         new XAttribute("name", "MUX_MMI"),
-                        new XAttribute("id", "3")
-                      ),
-                    new XElement("ServerPorts",
-                        new XElement("ServerPort", "5")
-                      ),
-                    new XElement("ClientPorts",
-                        new XElement("ClientPort", "7")
-                      )
-                    );
-                xChannels.Add(xChannel);
+                        new XAttribute("id", "3"),
+                        new XElement("AutoConfirmationEnabled", "yes"),
+                        new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
+                     );
 
-                xChannel = new XElement("Channel",
-                    new XAttribute("id", "4"),
-                    new XElement("ChannelApplication",
+                    int comment_index = 1;
+                    XComment xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    XElement xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy301.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy301.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy302.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy302.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy303.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy303.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy304.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy304.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy305.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy305.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy306.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy306.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy307.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy307.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy308.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy308.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy309.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy309.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy310.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy310.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy311.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy311.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy312.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy312.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy313.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy313.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy314.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy314.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy315.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy315.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy316.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy316.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy317.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy317.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy318.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy318.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy319.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy319.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy320.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy320.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy321.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy321.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy322.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy322.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy323.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy323.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy324.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy324.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy325.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy325.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy326.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy326.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy327.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy327.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy328.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy328.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy329.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy329.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index = 32;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy332.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy332.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy333.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy333.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy334.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy334.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+                    xApps.Add(xApp);
+
+                    xApp = new XElement("Application",
                         new XAttribute("name", "MUX_AT"),
-                        new XAttribute("id", "4")
-                      ),
-                    new XElement("ServerPorts",
-                        new XElement("ServerPort", "6")
-                      ),
-                    new XElement("ClientPorts",
-                        new XElement("ClientPort", "8")
-                      )
-                    );
-                xChannels.Add(xChannel);
+                        new XAttribute("id", "4"),
+                        new XElement("AutoConfirmationEnabled", "yes"),
+                        new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
+                     );
 
-                XElement xApps = new XElement("Applications");
-                xroot.Add(xApps);
+                    XElement xOptions = new XElement("Options");
 
-                string selectmsg = "yes";
-                if (comboBox3.SelectedIndex == 0)
-                    selectmsg = "no";
-                XElement xApp = new XElement("DisplayOnly",selectmsg);
-                xApps.Add(xApp);
-                XComment xComment = new XComment(" Display only or send command to the UE. Values: yes or no ");
-                xApps.Add(xComment);
+                    comment_index = 30;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy430.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy430.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
 
-                xApp = new XElement("BypassAllRemap", "no");
-                xApps.Add(xApp);
-                xComment = new XComment(" Ignore all remapping options. Values: yes or no ");
-                xApps.Add(xComment);
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy431.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy431.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+                    xOption = new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy431.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy431.Text
+                        )
+                      );
+                    xOptions.Add(xOption);
 
-                xApp = new XElement("KeepSerialConnection", "yes");
-                xApps.Add(xApp);
-                xComment = new XComment(" Keep the serial connection opened after each AT command sent to the phone. Values: yes or no ");
-                xApps.Add(xComment);
+                    comment_index = 35;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy435.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy435.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
 
-                xApp = new XElement("CreateLogFile", "yes");
-                xApps.Add(xApp);
-                xComment = new XComment(" Create automatically a log file in the \\bin directory. Values: yes or no ");
-                xApps.Add(xComment);
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy436.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy436.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
 
-                xApp = new XElement("ClearUeQueue", "yes");
-                xApps.Add(xApp);
-                xComment = new XComment(" Clear the UE queue before sending a new AT command ");
-                xApps.Add(xComment);
+                    comment_index++;
+                    xcomment = new XComment(" " + comment_index.ToString() + " ");
+                    xApp.Add(xcomment);
+                    xOption = new XElement("Options",
+                        new XElement("ClientReceiveRemap",
+                          new XElement("From", btProxy437.Text),
+                          new XElement("To",
+                            new XAttribute("closePort", "yes"),
+                            tBProxy437.Text
+                          )
+                        )
+                      );
+                    xApp.Add(xOption);
+                    xApps.Add(xApp);
 
-                xApp = new XElement("Application",
-                    new XAttribute("name", "MUX_MMI"),
-                    new XAttribute("id", "1"),
-                    new XElement("AutoConfirmationEnabled","no"),
-                    new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
-                 );
-                xApps.Add(xApp);
-
-                xApp = new XElement("Application",
-                    new XAttribute("name", "MUX_AT"),
-                    new XAttribute("id", "2"),
-                    new XElement("AtManualControl", "no"),
-                    new XComment(" Don't send AT commands to the phone and display a menu to the user. Values: yes or no ")
-                 );
-                xApps.Add(xApp);
-
-                xApp = new XElement("Application",
-                    new XAttribute("name", "MUX_MMI"),
-                    new XAttribute("id", "3"),
-                    new XElement("AutoConfirmationEnabled", "yes"),
-                    new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
-                 );
-
-                int comment_index = 1;
-                XComment xcomment = new XComment(" "+ comment_index.ToString() +" ");
-                xApp.Add(xcomment);
-                XElement xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy301.Text),
-                      new XElement("To", 
-                        new XAttribute("closePort", "yes"),
-                        tBProxy301.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy302.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy302.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy303.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy303.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy304.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy304.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy305.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy305.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy306.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy306.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy307.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy307.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy308.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy308.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy309.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy309.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy310.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy310.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy311.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy311.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy312.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy312.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy313.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy313.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy314.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy314.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy315.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy315.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy316.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy316.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy317.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy317.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy318.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy318.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy319.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy319.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy320.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy320.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy321.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy321.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy322.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy322.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy323.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy323.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy324.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy324.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy325.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy325.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy326.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy326.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy327.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy327.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy328.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy328.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy329.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy329.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index = 32;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy332.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy332.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy333.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy333.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy334.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy334.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-                xApps.Add(xApp);
-
-                xApp = new XElement("Application",
-                    new XAttribute("name", "MUX_AT"),
-                    new XAttribute("id", "4"),
-                    new XElement("AutoConfirmationEnabled", "yes"),
-                    new XComment(" Raise the MMI prompt or send auto reply. Values: yes or no ")
-                 );
-
-                XElement xOptions = new XElement("Options");
-
-                comment_index = 30;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy430.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy430.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy431.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy431.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-                xOption = new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy431.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy431.Text
-                    )
-                  );
-                xOptions.Add(xOption);
-
-                comment_index = 35;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy435.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy435.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy436.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy436.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-
-                comment_index++;
-                xcomment = new XComment(" " + comment_index.ToString() + " ");
-                xApp.Add(xcomment);
-                xOption = new XElement("Options",
-                    new XElement("ClientReceiveRemap",
-                      new XElement("From", btProxy437.Text),
-                      new XElement("To",
-                        new XAttribute("closePort", "yes"),
-                        tBProxy437.Text
-                      )
-                    )
-                  );
-                xApp.Add(xOption);
-                xApps.Add(xApp);
-
-                xdoc.Save(pathname + filename);
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    xdoc.Save(saveFile.FileName.ToString());
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -5078,488 +5092,498 @@ namespace WindowsFormsApp2
 
         private void button63_Click(object sender, EventArgs e)
         {
-            try
+            SaveFileDialog saveFile = new SaveFileDialog();
+
+            saveFile.Title = "Excell 저장 파일";
+            saveFile.InitialDirectory = Application.StartupPath; 
+            saveFile.FileName = tbDeviceName.Text + "_config.xls";
+            saveFile.DefaultExt = "excell files(*.xls)|*.xls";
+            saveFile.Filter = "excell files (*.xls)|*.xls";
+            if (saveFile.ShowDialog() == DialogResult.OK)
             {
-                Workbook workbook = new Workbook();
-                Worksheet worksheet = new Worksheet("options");
-                int i = 0;
-                worksheet.Cells[0, 0] = new Cell(button73.Text);
-                worksheet.Cells[0, 1] = new Cell(comboBox3.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("COM PORT");
-                worksheet.Cells[i, 1] = new Cell(cBoxCOMPORT.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("BAUDRATE");
-                worksheet.Cells[i, 1] = new Cell(cBoxBaudRate.Text);
+                try
+                {
+                    Workbook workbook = new Workbook();
+                    Worksheet worksheet = new Worksheet("options");
+                    int i = 0;
+                    worksheet.Cells[0, 0] = new Cell(button73.Text);
+                    worksheet.Cells[0, 1] = new Cell(comboBox3.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("COM PORT");
+                    worksheet.Cells[i, 1] = new Cell(cBoxCOMPORT.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("BAUDRATE");
+                    worksheet.Cells[i, 1] = new Cell(cBoxBaudRate.Text);
 
-                worksheet.Cells.ColumnWidth[0, 2] = 7000;
-                workbook.Worksheets.Add(worksheet);
+                    worksheet.Cells.ColumnWidth[0, 2] = 7000;
+                    workbook.Worksheets.Add(worksheet);
 
-                i = 0;
-                worksheet = new Worksheet("atcommand_ID3");
-                worksheet.Cells[i, 0] = new Cell(btProxy301.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy301.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy302.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy302.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy303.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy303.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy304.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy304.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy305.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy305.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy306.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy306.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy307.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy307.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy308.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy308.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy309.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy309.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy310.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy310.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy311.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy311.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy312.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy312.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy313.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy313.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy314.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy314.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy315.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy315.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy316.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy316.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy317.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy317.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy318.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy318.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy319.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy319.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy320.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy320.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy321.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy321.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy322.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy322.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy323.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy323.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy324.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy324.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy325.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy325.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy326.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy326.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy327.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy327.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy328.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy328.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy329.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy329.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy332.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy332.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy333.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy333.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy334.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy334.Text);
+                    i = 0;
+                    worksheet = new Worksheet("atcommand_ID3");
+                    worksheet.Cells[i, 0] = new Cell(btProxy301.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy301.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy302.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy302.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy303.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy303.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy304.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy304.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy305.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy305.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy306.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy306.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy307.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy307.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy308.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy308.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy309.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy309.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy310.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy310.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy311.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy311.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy312.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy312.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy313.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy313.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy314.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy314.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy315.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy315.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy316.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy316.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy317.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy317.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy318.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy318.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy319.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy319.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy320.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy320.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy321.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy321.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy322.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy322.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy323.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy323.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy324.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy324.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy325.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy325.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy326.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy326.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy327.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy327.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy328.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy328.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy329.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy329.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy332.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy332.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy333.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy333.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy334.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy334.Text);
 
-                worksheet.Cells.ColumnWidth[0, 2] = 10000;
-                workbook.Worksheets.Add(worksheet);
+                    worksheet.Cells.ColumnWidth[0, 2] = 10000;
+                    workbook.Worksheets.Add(worksheet);
 
-                i = 0;
-                worksheet = new Worksheet("atcommand_ID4");
-                worksheet.Cells[i, 0] = new Cell(btProxy430.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy430.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy431.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy431.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy435.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy435.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy436.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy436.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btProxy437.Text);
-                worksheet.Cells[i, 1] = new Cell(tBProxy437.Text);
+                    i = 0;
+                    worksheet = new Worksheet("atcommand_ID4");
+                    worksheet.Cells[i, 0] = new Cell(btProxy430.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy430.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy431.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy431.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy435.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy435.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy436.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy436.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btProxy437.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBProxy437.Text);
 
-                worksheet.Cells.ColumnWidth[0, 2] = 10000;
-                workbook.Worksheets.Add(worksheet);
+                    worksheet.Cells.ColumnWidth[0, 2] = 10000;
+                    workbook.Worksheets.Add(worksheet);
 
-                i = 0;
-                worksheet = new Worksheet("atcommand3");
-                worksheet.Cells[i, 0] = new Cell(label18.Text);
-                worksheet.Cells[i, 1] = new Cell(comboBox1.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button83.Text);
-                worksheet.Cells[i, 1] = new Cell("getmanufac");
-                worksheet.Cells[i, 2] = new Cell(textBox48.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button91.Text);
-                worksheet.Cells[i, 1] = new Cell("getmodel");
-                worksheet.Cells[i, 2] = new Cell(textBox47.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button90.Text);
-                worksheet.Cells[i, 1] = new Cell("getimsi");
-                worksheet.Cells[i, 2] = new Cell(textBox46.Text);
-                worksheet.Cells[i, 3] = new Cell(textBox33.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button71.Text);
-                worksheet.Cells[i, 1] = new Cell("geticcid");
-                worksheet.Cells[i, 2] = new Cell(textBox45.Text);
-                worksheet.Cells[i, 3] = new Cell(textBox38.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button89.Text);
-                worksheet.Cells[i, 1] = new Cell("getimei");
-                worksheet.Cells[i, 2] = new Cell(textBox49.Text);
-                worksheet.Cells[i, 3] = new Cell(textBox40.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button88.Text);
-                worksheet.Cells[i, 1] = new Cell("getmodemver");
-                worksheet.Cells[i, 2] = new Cell(textBox44.Text);
-                worksheet.Cells[i, 3] = new Cell(textBox57.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button86.Text);
-                worksheet.Cells[i, 1] = new Cell("rfreset");
-                worksheet.Cells[i, 2] = new Cell(textBox24.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button99.Text);
-                worksheet.Cells[i, 1] = new Cell("setcereg");
-                worksheet.Cells[i, 2] = new Cell(textBox58.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button100.Text);
-                worksheet.Cells[i, 1] = new Cell("rfon");
-                worksheet.Cells[i, 2] = new Cell(textBox59.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button101.Text);
-                worksheet.Cells[i, 1] = new Cell("rfoff");
-                worksheet.Cells[i, 2] = new Cell(textBox60.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button62.Text);
-                worksheet.Cells[i, 1] = new Cell("getcereg");
-                worksheet.Cells[i, 2] = new Cell(textBox61.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button119.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox78.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button63.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox64.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button120.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox79.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button121.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox80.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button128.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox81.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button37.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox4.Text);
-                worksheet.Cells[i, 3] = new Cell(textBox5.Text);
+                    i = 0;
+                    worksheet = new Worksheet("atcommand3");
+                    worksheet.Cells[i, 0] = new Cell(label18.Text);
+                    worksheet.Cells[i, 1] = new Cell(comboBox1.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button83.Text);
+                    worksheet.Cells[i, 1] = new Cell("getmanufac");
+                    worksheet.Cells[i, 2] = new Cell(textBox48.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button91.Text);
+                    worksheet.Cells[i, 1] = new Cell("getmodel");
+                    worksheet.Cells[i, 2] = new Cell(textBox47.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button90.Text);
+                    worksheet.Cells[i, 1] = new Cell("getimsi");
+                    worksheet.Cells[i, 2] = new Cell(textBox46.Text);
+                    worksheet.Cells[i, 3] = new Cell(textBox33.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button71.Text);
+                    worksheet.Cells[i, 1] = new Cell("geticcid");
+                    worksheet.Cells[i, 2] = new Cell(textBox45.Text);
+                    worksheet.Cells[i, 3] = new Cell(textBox38.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button89.Text);
+                    worksheet.Cells[i, 1] = new Cell("getimei");
+                    worksheet.Cells[i, 2] = new Cell(textBox49.Text);
+                    worksheet.Cells[i, 3] = new Cell(textBox40.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button88.Text);
+                    worksheet.Cells[i, 1] = new Cell("getmodemver");
+                    worksheet.Cells[i, 2] = new Cell(textBox44.Text);
+                    worksheet.Cells[i, 3] = new Cell(textBox57.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button86.Text);
+                    worksheet.Cells[i, 1] = new Cell("rfreset");
+                    worksheet.Cells[i, 2] = new Cell(textBox24.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button99.Text);
+                    worksheet.Cells[i, 1] = new Cell("setcereg");
+                    worksheet.Cells[i, 2] = new Cell(textBox58.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button100.Text);
+                    worksheet.Cells[i, 1] = new Cell("rfon");
+                    worksheet.Cells[i, 2] = new Cell(textBox59.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button101.Text);
+                    worksheet.Cells[i, 1] = new Cell("rfoff");
+                    worksheet.Cells[i, 2] = new Cell(textBox60.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button62.Text);
+                    worksheet.Cells[i, 1] = new Cell("getcereg");
+                    worksheet.Cells[i, 2] = new Cell(textBox61.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button119.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox78.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button63.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox64.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button120.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox79.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button121.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox80.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button128.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox81.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button37.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox4.Text);
+                    worksheet.Cells[i, 3] = new Cell(textBox5.Text);
 
-                worksheet.Cells.ColumnWidth[0, 3] = 5000;
-                workbook.Worksheets.Add(worksheet);
+                    worksheet.Cells.ColumnWidth[0, 3] = 5000;
+                    workbook.Worksheets.Add(worksheet);
 
 
-                i = 0;
-                worksheet = new Worksheet("lwm2matcmd");
-                worksheet.Cells[i, 0] = new Cell(label31.Text);
-                worksheet.Cells[i, 1] = new Cell(tbSvcCd.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label34.Text);
-                worksheet.Cells[i, 1] = new Cell(tBoxDeviceModel.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label28.Text);
-                worksheet.Cells[i, 1] = new Cell(tbSvcSvrCd.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label33.Text);
-                worksheet.Cells[i, 1] = new Cell(tbSvcSvrNum.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button98.Text);
-                worksheet.Cells[i, 1] = new Cell("setncdp");
-                worksheet.Cells[i, 2] = new Cell(textBox56.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button92.Text);
-                worksheet.Cells[i, 1] = new Cell("setepns");
-                worksheet.Cells[i, 2] = new Cell(textBox50.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label43.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(checkBox2.Text);
-                worksheet.Cells[i, 3] = new Cell(checkBox6.Text);
-                worksheet.Cells[i, 4] = new Cell(checkBox7.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button97.Text);
-                worksheet.Cells[i, 1] = new Cell("setmbsps");
-                worksheet.Cells[i, 2] = new Cell(textBox55.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button105.Text);
-                worksheet.Cells[i, 1] = new Cell("bootstrapmode");
-                worksheet.Cells[i, 2] = new Cell(textBox66.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnBootstrap.Text);
-                worksheet.Cells[i, 1] = new Cell("bootstrap");
-                worksheet.Cells[i, 2] = new Cell(textBox67.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnRegister.Text);
-                worksheet.Cells[i, 1] = new Cell("register");
-                worksheet.Cells[i, 2] = new Cell(textBox54.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button95.Text);
-                worksheet.Cells[i, 1] = new Cell("sendmsghex");
-                worksheet.Cells[i, 2] = new Cell(textBox53.Text);
-                worksheet.Cells[i, 3] = new Cell(checkBox8.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button107.Text);
-                worksheet.Cells[i, 1] = new Cell("recvmsghex");
-                worksheet.Cells[i, 2] = new Cell(textBox68.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnDeregister.Text);
-                worksheet.Cells[i, 1] = new Cell("deregister");
-                worksheet.Cells[i, 2] = new Cell(textBox52.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnDeviceVerLwM2M.Text);
-                worksheet.Cells[i, 1] = new Cell("sendmsgver");
-                worksheet.Cells[i, 2] = new Cell(textBox51.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button108.Text);
-                worksheet.Cells[i, 1] = new Cell("recvfota");
-                worksheet.Cells[i, 2] = new Cell(textBox69.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label3.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(tBbooted.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label39.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox70.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("");
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(checkBox5.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button118.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox63.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label41.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox74.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label42.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox75.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label52.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox77.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label51.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(comboBox4.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button35.Text);
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(textBox71.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("자동실행시 재부팅");
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(checkBox10.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("chip maker");
-                worksheet.Cells[i, 1] = new Cell("");
-                worksheet.Cells[i, 2] = new Cell(Altair.Text);
+                    i = 0;
+                    worksheet = new Worksheet("lwm2matcmd");
+                    worksheet.Cells[i, 0] = new Cell(label31.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbSvcCd.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label34.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBoxDeviceModel.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label28.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbSvcSvrCd.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label33.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbSvcSvrNum.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button98.Text);
+                    worksheet.Cells[i, 1] = new Cell("setncdp");
+                    worksheet.Cells[i, 2] = new Cell(textBox56.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button92.Text);
+                    worksheet.Cells[i, 1] = new Cell("setepns");
+                    worksheet.Cells[i, 2] = new Cell(textBox50.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label43.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(checkBox2.Text);
+                    worksheet.Cells[i, 3] = new Cell(checkBox6.Text);
+                    worksheet.Cells[i, 4] = new Cell(checkBox7.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button97.Text);
+                    worksheet.Cells[i, 1] = new Cell("setmbsps");
+                    worksheet.Cells[i, 2] = new Cell(textBox55.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button105.Text);
+                    worksheet.Cells[i, 1] = new Cell("bootstrapmode");
+                    worksheet.Cells[i, 2] = new Cell(textBox66.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnBootstrap.Text);
+                    worksheet.Cells[i, 1] = new Cell("bootstrap");
+                    worksheet.Cells[i, 2] = new Cell(textBox67.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnRegister.Text);
+                    worksheet.Cells[i, 1] = new Cell("register");
+                    worksheet.Cells[i, 2] = new Cell(textBox54.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button95.Text);
+                    worksheet.Cells[i, 1] = new Cell("sendmsghex");
+                    worksheet.Cells[i, 2] = new Cell(textBox53.Text);
+                    worksheet.Cells[i, 3] = new Cell(checkBox8.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button107.Text);
+                    worksheet.Cells[i, 1] = new Cell("recvmsghex");
+                    worksheet.Cells[i, 2] = new Cell(textBox68.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnDeregister.Text);
+                    worksheet.Cells[i, 1] = new Cell("deregister");
+                    worksheet.Cells[i, 2] = new Cell(textBox52.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnDeviceVerLwM2M.Text);
+                    worksheet.Cells[i, 1] = new Cell("sendmsgver");
+                    worksheet.Cells[i, 2] = new Cell(textBox51.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button108.Text);
+                    worksheet.Cells[i, 1] = new Cell("recvfota");
+                    worksheet.Cells[i, 2] = new Cell(textBox69.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label3.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(tBbooted.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label39.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox70.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("");
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(checkBox5.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button118.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox63.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label41.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox74.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label42.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox75.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label52.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox77.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label51.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(comboBox4.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button35.Text);
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(textBox71.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("자동실행시 재부팅");
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(checkBox10.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("chip maker");
+                    worksheet.Cells[i, 1] = new Cell("");
+                    worksheet.Cells[i, 2] = new Cell(Altair.Text);
 
-                worksheet.Cells.ColumnWidth[0] = 6000;
-                worksheet.Cells.ColumnWidth[1] = 5000;
-                worksheet.Cells.ColumnWidth[2] = 10000;
-                workbook.Worksheets.Add(worksheet);
+                    worksheet.Cells.ColumnWidth[0] = 6000;
+                    worksheet.Cells.ColumnWidth[1] = 5000;
+                    worksheet.Cells.ColumnWidth[2] = 10000;
+                    workbook.Worksheets.Add(worksheet);
 
-                i = 0;
-                worksheet = new Worksheet("smstset");
-                worksheet.Cells[i, 0] = new Cell("[Common]");
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnModel.Text);
-                worksheet.Cells[i, 1] = new Cell(cbImsPDN.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnManufac.Text);
-                worksheet.Cells[i, 1] = new Cell(cbImsIP.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnIMSI.Text);
-                worksheet.Cells[i, 1] = new Cell(cbMultiPDN.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button3.Text);
-                worksheet.Cells[i, 1] = new Cell(tbChannel1.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button2.Text);
-                worksheet.Cells[i, 1] = new Cell(tbChannel2.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button1.Text);
-                worksheet.Cells[i, 1] = new Cell(tbChannel3.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button7.Text);
-                worksheet.Cells[i, 1] = new Cell(tbIMEI.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button6.Text);
-                worksheet.Cells[i, 1] = new Cell(cbAuto2ndPDN.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button5.Text);
-                worksheet.Cells[i, 1] = new Cell(cbEMC.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button4.Text);
-                worksheet.Cells[i, 1] = new Cell(cbCA.Text);
-                i += 2;
-                worksheet.Cells[i, 0] = new Cell("[Capability]");
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button17.Text);
-                worksheet.Cells[i, 1] = new Cell(cbCatagory.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button16.Text);
-                worksheet.Cells[i, 1] = new Cell(cbBand1.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button15.Text);
-                worksheet.Cells[i, 1] = new Cell(cbBand5.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button14.Text);
-                worksheet.Cells[i, 1] = new Cell(cbBand7.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button13.Text);
-                worksheet.Cells[i, 1] = new Cell(cbFGI4.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button12.Text);
-                worksheet.Cells[i, 1] = new Cell(cbFGI5.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button8.Text);
-                worksheet.Cells[i, 1] = new Cell(cbFGI17.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button9.Text);
-                worksheet.Cells[i, 1] = new Cell(cbFGI18.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button10.Text);
-                worksheet.Cells[i, 1] = new Cell(cbFGI28.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button11.Text);
-                worksheet.Cells[i, 1] = new Cell(cbRachR9.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button18.Text);
-                worksheet.Cells[i, 1] = new Cell(cbLogR10.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button19.Text);
-                worksheet.Cells[i, 1] = new Cell(cbStandaloneGNSS.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button20.Text);
-                worksheet.Cells[i, 1] = new Cell(cbBandCombin.Text);
-                i += 2;
-                worksheet.Cells[i, 0] = new Cell("[VOLTE_SMS]");
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button30.Text);
-                worksheet.Cells[i, 1] = new Cell(tbDeviceName.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button29.Text);
-                worksheet.Cells[i, 1] = new Cell(tbDeviceVer.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button28.Text);
-                worksheet.Cells[i, 1] = new Cell(tbDeviceType.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button27.Text);
-                worksheet.Cells[i, 1] = new Cell(tbTTAVer.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button26.Text);
-                worksheet.Cells[i, 1] = new Cell(cbIPSec.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button25.Text);
-                worksheet.Cells[i, 1] = new Cell(cbSMS.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button21.Text);
-                worksheet.Cells[i, 1] = new Cell(cbVoice.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button22.Text);
-                worksheet.Cells[i, 1] = new Cell(cbVideo.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button129.Text);
-                worksheet.Cells[i, 1] = new Cell(checkBox9.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell("[NBIoT]");
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button36.Text);
-                worksheet.Cells[i, 1] = new Cell(cbNBIPVer.Text);
+                    i = 0;
+                    worksheet = new Worksheet("smstset");
+                    worksheet.Cells[i, 0] = new Cell("[Common]");
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnModel.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbImsPDN.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnManufac.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbImsIP.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnIMSI.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbMultiPDN.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button3.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbChannel1.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button2.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbChannel2.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button1.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbChannel3.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button7.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbIMEI.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button6.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbAuto2ndPDN.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button5.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbEMC.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button4.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbCA.Text);
+                    i += 2;
+                    worksheet.Cells[i, 0] = new Cell("[Capability]");
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button17.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbCatagory.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button16.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbBand1.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button15.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbBand5.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button14.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbBand7.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button13.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbFGI4.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button12.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbFGI5.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button8.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbFGI17.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button9.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbFGI18.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button10.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbFGI28.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button11.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbRachR9.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button18.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbLogR10.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button19.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbStandaloneGNSS.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button20.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbBandCombin.Text);
+                    i += 2;
+                    worksheet.Cells[i, 0] = new Cell("[VOLTE_SMS]");
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button30.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbDeviceName.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button29.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbDeviceVer.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button28.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbDeviceType.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button27.Text);
+                    worksheet.Cells[i, 1] = new Cell(tbTTAVer.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button26.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbIPSec.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button25.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbSMS.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button21.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbVoice.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button22.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbVideo.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button129.Text);
+                    worksheet.Cells[i, 1] = new Cell(checkBox9.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("[NBIoT]");
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button36.Text);
+                    worksheet.Cells[i, 1] = new Cell(cbNBIPVer.Text);
 
-                worksheet.Cells.ColumnWidth[0] = 5000;
-                workbook.Worksheets.Add(worksheet);
+                    worksheet.Cells.ColumnWidth[0] = 5000;
+                    workbook.Worksheets.Add(worksheet);
 
-                i = 0;
-                worksheet = new Worksheet("onem2matcmd");
-                worksheet.Cells[i, 0] = new Cell(label34.Text);
-                worksheet.Cells[i, 1] = new Cell(tBoxDeviceModel.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label32.Text);
-                worksheet.Cells[i, 1] = new Cell(tBoxDeviceSN.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnoneM2MModuleVer.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox73.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label13.Text);
-                worksheet.Cells[i, 1] = new Cell(comboBox2.Text);
-                worksheet.Cells.ColumnWidth[0] = 5000;
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label38.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox72.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button114.Text);
-                worksheet.Cells[i, 1] = new Cell(checkBox1.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(btnGetCSED.Text);
-                worksheet.Cells[i, 1] = new Cell(checkBox3.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(button115.Text);
-                worksheet.Cells[i, 1] = new Cell(checkBox4.Text);
-                i++;
-                worksheet.Cells[i, 0] = new Cell(label50.Text);
-                worksheet.Cells[i, 1] = new Cell(textBox76.Text);
-                workbook.Worksheets.Add(worksheet);
+                    i = 0;
+                    worksheet = new Worksheet("onem2matcmd");
+                    worksheet.Cells[i, 0] = new Cell(label34.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBoxDeviceModel.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label32.Text);
+                    worksheet.Cells[i, 1] = new Cell(tBoxDeviceSN.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnoneM2MModuleVer.Text);
+                    worksheet.Cells[i, 1] = new Cell(textBox73.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label13.Text);
+                    worksheet.Cells[i, 1] = new Cell(comboBox2.Text);
+                    worksheet.Cells.ColumnWidth[0] = 5000;
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label38.Text);
+                    worksheet.Cells[i, 1] = new Cell(textBox72.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button114.Text);
+                    worksheet.Cells[i, 1] = new Cell(checkBox1.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(btnGetCSED.Text);
+                    worksheet.Cells[i, 1] = new Cell(checkBox3.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(button115.Text);
+                    worksheet.Cells[i, 1] = new Cell(checkBox4.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell(label50.Text);
+                    worksheet.Cells[i, 1] = new Cell(textBox76.Text);
+                    workbook.Worksheets.Add(worksheet);
 
-                workbook.Save(Application.StartupPath + @"/" + tbDeviceName.Text + "_config.xls");
-            }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    workbook.Save(saveFile.FileName.ToString());
+                }
+                catch (Exception err)
+                {
+                    MessageBox.Show(err.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -5573,7 +5597,7 @@ namespace WindowsFormsApp2
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.DefaultExt = "xls";
             ofd.InitialDirectory = Application.StartupPath;
-            ofd.Filter = "text files (*.xls)|*.xls";
+            ofd.Filter = "excell files (*.xls)|*.xls";
             ofd.Title = "테스트 모델 정보 선택";
             ofd.ShowDialog();
             if (ofd.FileName.Length > 0)
@@ -11978,26 +12002,6 @@ namespace WindowsFormsApp2
                 Altair.Text = "Altair";
             else
                 Altair.Text = "other";
-        }
-
-        private void webBrowser1_Navigating(object sender, WebBrowserNavigatingEventArgs e)
-        {
-            Console.WriteLine(e.Url);
-            if (e.Url.Segments[e.Url.Segments.Length - 1].EndsWith(".pdf"))
-            {
-                e.Cancel = true;
-                string filepath = null;
-
-                saveFileDialog1.FileName = HttpUtility.UrlDecode(e.Url.Segments[e.Url.Segments.Length - 1], Encoding.UTF8);
-                //saveFileDialog1.FileName = e.Url.Segments[e.Url.Segments.Length - 1];
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    filepath = saveFileDialog1.FileName;
-                    WebClient client = new WebClient();
-                    client.DownloadFileCompleted += new AsyncCompletedEventHandler(client_DownloadFileCompleted);
-                    client.DownloadFileAsync(e.Url, filepath);
-                }
-            }
         }
 
         void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
