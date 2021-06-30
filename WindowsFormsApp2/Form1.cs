@@ -10114,7 +10114,7 @@ namespace WindowsFormsApp2
                 if (altdataid != string.Empty)
                 {
                     string hexOutput = StringToBCD(txData.ToCharArray());
-                    this.sendDataOut("AT%LWM2MOBJEV=\"" + altdataid + "\",101,11542,0,\""+ rx_svrdatas[3] + "\",\"" + hexOutput + "\"");
+                    this.sendDataOut("AT%LWM2MOBJRSP=" + rx_svrdatas[1] + ",2.05,/10250/0/0," + hexOutput);
 
                     endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
                     lbDevLwM2MData.Text = txData;
