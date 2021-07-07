@@ -11392,7 +11392,10 @@ namespace WindowsFormsApp2
         private void button50_Click_1(object sender, EventArgs e)
         {
             if (dev.remoteCSEName != string.Empty)
+            {
                 DevContainerCreate("StoD");
+                DevContainerCreate("DtoS");
+            }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
         }
@@ -11423,7 +11426,10 @@ namespace WindowsFormsApp2
         private void button66_Click_1(object sender, EventArgs e)
         {
             if (dev.remoteCSEName != string.Empty)
+            {
                 DevContainerDelete("StoD");
+                DevContainerDelete("DtoS");
+            }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
         }
@@ -11553,7 +11559,7 @@ namespace WindowsFormsApp2
             if (dev.remoteCSEName != string.Empty)
             {
                 string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " oneM2M module";
-                SendOneM2MDataTo("StoD", txData);
+                SendOneM2MDataTo("DtoS", txData);
             }
             else
                 MessageBox.Show("단말인증파라미터 세팅하세요");
