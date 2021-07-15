@@ -3608,7 +3608,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        tbDeviceCTN.Text = tBProxy304.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -3622,7 +3622,7 @@ namespace WindowsFormsApp2
                     {
                         string ctn = "0" + str1.Substring(5, str1.Length - 5);
 
-                        tbDeviceCTN.Text = tBProxy304.Text = dev.imsi = ctn;
+                        tbDeviceCTN.Text = dev.imsi = ctn;
                         this.logPrintInTextBox("IMSI값이 " + dev.imsi + "로 저장되었습니다.", "");
                     }
                     else
@@ -6466,7 +6466,7 @@ namespace WindowsFormsApp2
                         listView8.Items[0].Selected = true;
                     }
                     else if (mode == "man")
-                        MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tBProxy304.Text + " DEVICE 상태 정보");
+                        MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tbDeviceCTN.Text + " DEVICE 상태 정보");
                 }
                 catch (Exception ex)
                 {
@@ -6474,7 +6474,7 @@ namespace WindowsFormsApp2
                 }
             }
             else if (mode == "man")
-                MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tBProxy304.Text + " DEVICE 상태 정보");
+                MessageBox.Show("플랫폼 로그가 존재하지 않습니다.\nCTN을 확인하세요", tbDeviceCTN.Text + " DEVICE 상태 정보");
         }
 
         private void OneM2MTcResultReport(string path, string logId, string resultCode, string resultCodeName, string resType, string trgAddr, string oprType)
@@ -8354,7 +8354,7 @@ namespace WindowsFormsApp2
                                     }
                                 }
 
-                                tbDeviceCTN.Text = tBProxy304.Text = dev.imsi = ctn.ToString();
+                                tbDeviceCTN.Text = dev.imsi = ctn.ToString();
                                 lbIccid.Text = dev.iccid = iccId.ToString();
                                 setDeviceEntityID();
 
@@ -8374,11 +8374,11 @@ namespace WindowsFormsApp2
                     catch (Exception ex)
                         {
                             Console.WriteLine(ex.ToString());
-                            MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", tBProxy304.Text + " DEVICE 상태 정보");
+                            MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", tbDeviceCTN.Text + " DEVICE 상태 정보");
                         }
                     }
                     else
-                        MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", tBProxy304.Text + " DEVICE 상태 정보");
+                        MessageBox.Show("DEVICE 정보가 존재하지 않습니다.\nhttps://testadm.onem2m.uplus.co.kr:8443 에서 확인바랍니다.", tbDeviceCTN.Text + " DEVICE 상태 정보");
                 }
                 else
                     MessageBox.Show("CTN 정보가 없습니다.\nCTN을 확인하세요");

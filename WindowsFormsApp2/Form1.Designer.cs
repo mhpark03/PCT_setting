@@ -2148,11 +2148,11 @@
             this.groupBox7.Controls.Add(this.tBProxy435);
             this.groupBox7.Controls.Add(this.btProxy435);
             this.groupBox7.Controls.Add(this.btProxy431);
-            this.groupBox7.Location = new System.Drawing.Point(547, 435);
+            this.groupBox7.Location = new System.Drawing.Point(587, 435);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox7.Size = new System.Drawing.Size(513, 173);
+            this.groupBox7.Size = new System.Drawing.Size(572, 173);
             this.groupBox7.TabIndex = 40;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "AT COMMAND (ID=4)";
@@ -2172,7 +2172,7 @@
             // 
             this.tBProxy437.Location = new System.Drawing.Point(209, 131);
             this.tBProxy437.Name = "tBProxy437";
-            this.tBProxy437.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy437.Size = new System.Drawing.Size(214, 21);
             this.tBProxy437.TabIndex = 24;
             this.tBProxy437.Text = "at+cgpaddr=1";
             // 
@@ -2191,7 +2191,7 @@
             // 
             this.tBProxy436.Location = new System.Drawing.Point(209, 103);
             this.tBProxy436.Name = "tBProxy436";
-            this.tBProxy436.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy436.Size = new System.Drawing.Size(214, 21);
             this.tBProxy436.TabIndex = 22;
             this.tBProxy436.Text = "at+cnec=19";
             // 
@@ -2210,7 +2210,7 @@
             // 
             this.tBProxy431.Location = new System.Drawing.Point(208, 47);
             this.tBProxy431.Name = "tBProxy431";
-            this.tBProxy431.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy431.Size = new System.Drawing.Size(214, 21);
             this.tBProxy431.TabIndex = 18;
             this.tBProxy431.Text = "at+cmgd=1";
             // 
@@ -2218,7 +2218,7 @@
             // 
             this.tBProxy430.Location = new System.Drawing.Point(208, 19);
             this.tBProxy430.Name = "tBProxy430";
-            this.tBProxy430.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy430.Size = new System.Drawing.Size(214, 21);
             this.tBProxy430.TabIndex = 17;
             this.tBProxy430.Text = "at+cmgr=1";
             // 
@@ -2226,7 +2226,7 @@
             // 
             this.tBProxy435.Location = new System.Drawing.Point(209, 75);
             this.tBProxy435.Name = "tBProxy435";
-            this.tBProxy435.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy435.Size = new System.Drawing.Size(214, 21);
             this.tBProxy435.TabIndex = 15;
             this.tBProxy435.Text = "at+cnec=8,0";
             // 
@@ -2274,11 +2274,11 @@
             this.groupBox4.Controls.Add(this.tBProxy323);
             this.groupBox4.Controls.Add(this.btProxy325);
             this.groupBox4.Controls.Add(this.btProxy323);
-            this.groupBox4.Location = new System.Drawing.Point(547, 49);
+            this.groupBox4.Location = new System.Drawing.Point(587, 49);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox4.Size = new System.Drawing.Size(513, 349);
+            this.groupBox4.Size = new System.Drawing.Size(572, 349);
             this.groupBox4.TabIndex = 36;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "AT COMMAND (ID=3) 2/2";
@@ -2287,7 +2287,7 @@
             // 
             this.tBProxy334.Location = new System.Drawing.Point(208, 302);
             this.tBProxy334.Name = "tBProxy334";
-            this.tBProxy334.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy334.Size = new System.Drawing.Size(215, 21);
             this.tBProxy334.TabIndex = 38;
             this.tBProxy334.Text = "AT+CNEC=24";
             // 
@@ -2306,7 +2306,7 @@
             // 
             this.tBProxy333.Location = new System.Drawing.Point(208, 270);
             this.tBProxy333.Name = "tBProxy333";
-            this.tBProxy333.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy333.Size = new System.Drawing.Size(215, 21);
             this.tBProxy333.TabIndex = 36;
             this.tBProxy333.Text = "AT+CPSMS=0";
             // 
@@ -2325,7 +2325,7 @@
             // 
             this.tBProxy332.Location = new System.Drawing.Point(208, 239);
             this.tBProxy332.Name = "tBProxy332";
-            this.tBProxy332.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy332.Size = new System.Drawing.Size(215, 21);
             this.tBProxy332.TabIndex = 34;
             this.tBProxy332.Text = "AT+CPSMS=1,,,\"10000101\",\"00100010\"";
             // 
@@ -2344,7 +2344,7 @@
             // 
             this.tBProxy324.Location = new System.Drawing.Point(210, 52);
             this.tBProxy324.Name = "tBProxy324";
-            this.tBProxy324.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy324.Size = new System.Drawing.Size(215, 21);
             this.tBProxy324.TabIndex = 32;
             this.tBProxy324.Text = "atd119;";
             // 
@@ -2363,7 +2363,7 @@
             // 
             this.tBProxy329.Location = new System.Drawing.Point(208, 202);
             this.tBProxy329.Name = "tBProxy329";
-            this.tBProxy329.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy329.Size = new System.Drawing.Size(215, 21);
             this.tBProxy329.TabIndex = 30;
             this.tBProxy329.Text = "AT*SMS*MO=01012345678,313233";
             // 
@@ -2382,7 +2382,7 @@
             // 
             this.tBProxy328.Location = new System.Drawing.Point(208, 170);
             this.tBProxy328.Name = "tBProxy328";
-            this.tBProxy328.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy328.Size = new System.Drawing.Size(215, 21);
             this.tBProxy328.TabIndex = 28;
             this.tBProxy328.Text = "at+cmms=0";
             // 
@@ -2401,7 +2401,7 @@
             // 
             this.tBProxy327.Location = new System.Drawing.Point(208, 139);
             this.tBProxy327.Name = "tBProxy327";
-            this.tBProxy327.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy327.Size = new System.Drawing.Size(215, 21);
             this.tBProxy327.TabIndex = 26;
             this.tBProxy327.Text = "atd114;";
             // 
@@ -2420,7 +2420,7 @@
             // 
             this.tBProxy326.Location = new System.Drawing.Point(208, 111);
             this.tBProxy326.Name = "tBProxy326";
-            this.tBProxy326.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy326.Size = new System.Drawing.Size(215, 21);
             this.tBProxy326.TabIndex = 24;
             this.tBProxy326.Text = "atd125;";
             // 
@@ -2439,7 +2439,7 @@
             // 
             this.tBProxy325.Location = new System.Drawing.Point(208, 77);
             this.tBProxy325.Name = "tBProxy325";
-            this.tBProxy325.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy325.Size = new System.Drawing.Size(215, 21);
             this.tBProxy325.TabIndex = 20;
             this.tBProxy325.Text = "atd122;";
             // 
@@ -2447,7 +2447,7 @@
             // 
             this.tBProxy323.Location = new System.Drawing.Point(208, 22);
             this.tBProxy323.Name = "tBProxy323";
-            this.tBProxy323.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy323.Size = new System.Drawing.Size(215, 21);
             this.tBProxy323.TabIndex = 18;
             this.tBProxy323.Text = "atd119;";
             // 
@@ -2523,7 +2523,7 @@
             this.groupBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox3.Size = new System.Drawing.Size(513, 657);
+            this.groupBox3.Size = new System.Drawing.Size(561, 657);
             this.groupBox3.TabIndex = 35;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "AT COMMAND (ID=3) 1/2";
@@ -2543,7 +2543,7 @@
             // 
             this.tBProxy320.Location = new System.Drawing.Point(213, 567);
             this.tBProxy320.Name = "tBProxy320";
-            this.tBProxy320.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy320.Size = new System.Drawing.Size(195, 21);
             this.tBProxy320.TabIndex = 52;
             this.tBProxy320.Text = "atd113;";
             // 
@@ -2562,7 +2562,7 @@
             // 
             this.tBProxy319.Location = new System.Drawing.Point(213, 538);
             this.tBProxy319.Name = "tBProxy319";
-            this.tBProxy319.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy319.Size = new System.Drawing.Size(195, 21);
             this.tBProxy319.TabIndex = 50;
             this.tBProxy319.Text = "atd112;";
             // 
@@ -2581,7 +2581,7 @@
             // 
             this.tBProxy318.Location = new System.Drawing.Point(212, 510);
             this.tBProxy318.Name = "tBProxy318";
-            this.tBProxy318.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy318.Size = new System.Drawing.Size(195, 21);
             this.tBProxy318.TabIndex = 48;
             this.tBProxy318.Text = "atd111;";
             // 
@@ -2600,7 +2600,7 @@
             // 
             this.tBProxy317.Location = new System.Drawing.Point(213, 482);
             this.tBProxy317.Name = "tBProxy317";
-            this.tBProxy317.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy317.Size = new System.Drawing.Size(195, 21);
             this.tBProxy317.TabIndex = 46;
             this.tBProxy317.Text = "AT";
             // 
@@ -2619,7 +2619,7 @@
             // 
             this.tBProxy316.Location = new System.Drawing.Point(213, 454);
             this.tBProxy316.Name = "tBProxy316";
-            this.tBProxy316.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy316.Size = new System.Drawing.Size(195, 21);
             this.tBProxy316.TabIndex = 44;
             this.tBProxy316.Text = "AT+QPING=1,\"192.168.2.1\",100,10";
             // 
@@ -2638,7 +2638,7 @@
             // 
             this.tBProxy315.Location = new System.Drawing.Point(213, 426);
             this.tBProxy315.Name = "tBProxy315";
-            this.tBProxy315.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy315.Size = new System.Drawing.Size(195, 21);
             this.tBProxy315.TabIndex = 42;
             this.tBProxy315.Text = "ata";
             // 
@@ -2657,7 +2657,7 @@
             // 
             this.tBProxy314.Location = new System.Drawing.Point(213, 398);
             this.tBProxy314.Name = "tBProxy314";
-            this.tBProxy314.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy314.Size = new System.Drawing.Size(195, 21);
             this.tBProxy314.TabIndex = 40;
             this.tBProxy314.Text = "ATH";
             // 
@@ -2665,7 +2665,7 @@
             // 
             this.tBProxy322.Location = new System.Drawing.Point(212, 626);
             this.tBProxy322.Name = "tBProxy322";
-            this.tBProxy322.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy322.Size = new System.Drawing.Size(195, 21);
             this.tBProxy322.TabIndex = 17;
             this.tBProxy322.Text = "atd118;";
             // 
@@ -2684,7 +2684,7 @@
             // 
             this.tBProxy313.Location = new System.Drawing.Point(213, 370);
             this.tBProxy313.Name = "tBProxy313";
-            this.tBProxy313.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy313.Size = new System.Drawing.Size(195, 21);
             this.tBProxy313.TabIndex = 38;
             this.tBProxy313.Text = "at+chup";
             // 
@@ -2692,7 +2692,7 @@
             // 
             this.tBProxy321.Location = new System.Drawing.Point(213, 595);
             this.tBProxy321.Name = "tBProxy321";
-            this.tBProxy321.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy321.Size = new System.Drawing.Size(195, 21);
             this.tBProxy321.TabIndex = 16;
             this.tBProxy321.Text = "atd117;";
             // 
@@ -2711,7 +2711,7 @@
             // 
             this.tBProxy312.Location = new System.Drawing.Point(213, 341);
             this.tBProxy312.Name = "tBProxy312";
-            this.tBProxy312.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy312.Size = new System.Drawing.Size(195, 21);
             this.tBProxy312.TabIndex = 36;
             this.tBProxy312.Text = "ATD12345678";
             // 
@@ -2730,7 +2730,7 @@
             // 
             this.tBProxy311.Location = new System.Drawing.Point(213, 312);
             this.tBProxy311.Name = "tBProxy311";
-            this.tBProxy311.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy311.Size = new System.Drawing.Size(195, 21);
             this.tBProxy311.TabIndex = 34;
             this.tBProxy311.Text = "ATD01012345678;";
             // 
@@ -2749,7 +2749,7 @@
             // 
             this.tBProxy310.Location = new System.Drawing.Point(212, 284);
             this.tBProxy310.Name = "tBProxy310";
-            this.tBProxy310.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy310.Size = new System.Drawing.Size(195, 21);
             this.tBProxy310.TabIndex = 32;
             this.tBProxy310.Text = "atd15447769;";
             // 
@@ -2779,7 +2779,7 @@
             // 
             this.tBProxy309.Location = new System.Drawing.Point(212, 256);
             this.tBProxy309.Name = "tBProxy309";
-            this.tBProxy309.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy309.Size = new System.Drawing.Size(195, 21);
             this.tBProxy309.TabIndex = 30;
             this.tBProxy309.Text = "AT+CGACT=0,1";
             // 
@@ -2798,7 +2798,7 @@
             // 
             this.tBProxy308.Location = new System.Drawing.Point(212, 224);
             this.tBProxy308.Name = "tBProxy308";
-            this.tBProxy308.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy308.Size = new System.Drawing.Size(195, 21);
             this.tBProxy308.TabIndex = 28;
             this.tBProxy308.Text = "AT+CGACT=0,1";
             // 
@@ -2817,7 +2817,7 @@
             // 
             this.tBProxy307.Location = new System.Drawing.Point(212, 193);
             this.tBProxy307.Name = "tBProxy307";
-            this.tBProxy307.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy307.Size = new System.Drawing.Size(195, 21);
             this.tBProxy307.TabIndex = 26;
             this.tBProxy307.Text = "AT+CGACT=1,1";
             // 
@@ -2836,7 +2836,7 @@
             // 
             this.tBProxy306.Location = new System.Drawing.Point(212, 165);
             this.tBProxy306.Name = "tBProxy306";
-            this.tBProxy306.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy306.Size = new System.Drawing.Size(195, 21);
             this.tBProxy306.TabIndex = 24;
             this.tBProxy306.Text = "AT+CGACT=1,1";
             // 
@@ -2855,7 +2855,7 @@
             // 
             this.tBProxy305.Location = new System.Drawing.Point(212, 137);
             this.tBProxy305.Name = "tBProxy305";
-            this.tBProxy305.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy305.Size = new System.Drawing.Size(195, 21);
             this.tBProxy305.TabIndex = 22;
             this.tBProxy305.Text = "AT+CFUN=1,1";
             // 
@@ -2874,7 +2874,7 @@
             // 
             this.tBProxy303.Location = new System.Drawing.Point(212, 77);
             this.tBProxy303.Name = "tBProxy303";
-            this.tBProxy303.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy303.Size = new System.Drawing.Size(195, 21);
             this.tBProxy303.TabIndex = 20;
             this.tBProxy303.Text = "at+cfun=1,1";
             // 
@@ -2882,7 +2882,7 @@
             // 
             this.tBProxy302.Location = new System.Drawing.Point(212, 52);
             this.tBProxy302.Name = "tBProxy302";
-            this.tBProxy302.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy302.Size = new System.Drawing.Size(195, 21);
             this.tBProxy302.TabIndex = 19;
             this.tBProxy302.Text = "at+cfun=1,1";
             // 
@@ -2890,7 +2890,7 @@
             // 
             this.tBProxy301.Location = new System.Drawing.Point(212, 25);
             this.tBProxy301.Name = "tBProxy301";
-            this.tBProxy301.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy301.Size = new System.Drawing.Size(195, 21);
             this.tBProxy301.TabIndex = 18;
             this.tBProxy301.Text = "at+cfun=0";
             // 
@@ -2898,7 +2898,7 @@
             // 
             this.tBProxy304.Location = new System.Drawing.Point(212, 109);
             this.tBProxy304.Name = "tBProxy304";
-            this.tBProxy304.Size = new System.Drawing.Size(291, 21);
+            this.tBProxy304.Size = new System.Drawing.Size(195, 21);
             this.tBProxy304.TabIndex = 15;
             this.tBProxy304.Text = "AT+CFUN=1,1";
             // 
