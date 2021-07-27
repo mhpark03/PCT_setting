@@ -645,7 +645,7 @@
             this.tabCOM.Name = "tabCOM";
             this.tabCOM.Size = new System.Drawing.Size(1172, 732);
             this.tabCOM.TabIndex = 3;
-            this.tabCOM.Text = "COM port";
+            this.tabCOM.Text = " 모듈정보 ";
             this.tabCOM.UseVisualStyleBackColor = true;
             // 
             // textBox2
@@ -899,7 +899,7 @@
             this.gbDeviceLog.Size = new System.Drawing.Size(635, 668);
             this.gbDeviceLog.TabIndex = 44;
             this.gbDeviceLog.TabStop = false;
-            this.gbDeviceLog.Text = "Device Message";
+            this.gbDeviceLog.Text = "AT command Message";
             // 
             // listView3
             // 
@@ -948,7 +948,7 @@
             this.groupBox10.Size = new System.Drawing.Size(490, 351);
             this.groupBox10.TabIndex = 40;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Device 정보";
+            this.groupBox10.Text = "MODULE INFORMATION";
             // 
             // label47
             // 
@@ -1029,7 +1029,7 @@
             this.button87.Name = "button87";
             this.button87.Size = new System.Drawing.Size(156, 24);
             this.button87.TabIndex = 43;
-            this.button87.Text = "단말 정보 조회";
+            this.button87.Text = "모듈 정보 조회";
             this.button87.UseVisualStyleBackColor = true;
             this.button87.Click += new System.EventHandler(this.button87_Click);
             // 
@@ -1192,7 +1192,7 @@
             this.tabSMST.Padding = new System.Windows.Forms.Padding(3);
             this.tabSMST.Size = new System.Drawing.Size(1172, 732);
             this.tabSMST.TabIndex = 0;
-            this.tabSMST.Text = "SMST setting";
+            this.tabSMST.Text = " SMST설정 ";
             this.tabSMST.UseVisualStyleBackColor = true;
             // 
             // pnSetting
@@ -2095,7 +2095,7 @@
             this.tabPROXY.Padding = new System.Windows.Forms.Padding(3);
             this.tabPROXY.Size = new System.Drawing.Size(1172, 732);
             this.tabPROXY.TabIndex = 1;
-            this.tabPROXY.Text = "PROXY setting";
+            this.tabPROXY.Text = " PROXY설정 ";
             this.tabPROXY.UseVisualStyleBackColor = true;
             // 
             // pnProxy
@@ -2982,7 +2982,7 @@
             this.tabOneM2M.Name = "tabOneM2M";
             this.tabOneM2M.Size = new System.Drawing.Size(1172, 732);
             this.tabOneM2M.TabIndex = 4;
-            this.tabOneM2M.Text = "oneM2M Device";
+            this.tabOneM2M.Text = " oneM2M (ATC) ";
             this.tabOneM2M.UseVisualStyleBackColor = true;
             // 
             // button117
@@ -3415,7 +3415,7 @@
             this.groupBox17.Size = new System.Drawing.Size(628, 720);
             this.groupBox17.TabIndex = 46;
             this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Device Message";
+            this.groupBox17.Text = "AT command Message";
             // 
             // listView4
             // 
@@ -3549,7 +3549,7 @@
             this.tabLwM2M.Name = "tabLwM2M";
             this.tabLwM2M.Size = new System.Drawing.Size(1172, 732);
             this.tabLwM2M.TabIndex = 5;
-            this.tabLwM2M.Text = "LwM2M Device";
+            this.tabLwM2M.Text = " LwM2M (ATC) ";
             this.tabLwM2M.UseVisualStyleBackColor = true;
             // 
             // checkBox10
@@ -3643,7 +3643,7 @@
             this.groupBox16.Size = new System.Drawing.Size(622, 704);
             this.groupBox16.TabIndex = 45;
             this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Device Message";
+            this.groupBox16.Text = "AT command Message";
             // 
             // listView5
             // 
@@ -4138,7 +4138,7 @@
             this.tabServer.Name = "tabServer";
             this.tabServer.Size = new System.Drawing.Size(1172, 732);
             this.tabServer.TabIndex = 6;
-            this.tabServer.Text = "Service Server";
+            this.tabServer.Text = " 서비스서버 ";
             this.tabServer.UseVisualStyleBackColor = true;
             // 
             // label23
@@ -4638,7 +4638,7 @@
             this.tabLOG.Name = "tabLOG";
             this.tabLOG.Size = new System.Drawing.Size(1172, 732);
             this.tabLOG.TabIndex = 7;
-            this.tabLOG.Text = "Platform LOG";
+            this.tabLOG.Text = " 플랫폼로그 검색 ";
             this.tabLOG.UseVisualStyleBackColor = true;
             // 
             // listView10
@@ -4893,7 +4893,7 @@
             this.tabTC.Name = "tabTC";
             this.tabTC.Size = new System.Drawing.Size(1172, 732);
             this.tabTC.TabIndex = 8;
-            this.tabTC.Text = "시험절차서";
+            this.tabTC.Text = " 시험절차서 결과 ";
             this.tabTC.UseVisualStyleBackColor = true;
             // 
             // label5
@@ -4967,7 +4967,7 @@
             this.webpage.Name = "webpage";
             this.webpage.Size = new System.Drawing.Size(1172, 732);
             this.webpage.TabIndex = 9;
-            this.webpage.Text = "Admin page";
+            this.webpage.Text = " 관리자 웹페이지 ";
             this.webpage.UseVisualStyleBackColor = true;
             // 
             // webBrowser1
@@ -4993,7 +4993,7 @@
             this.tabModule.Name = "tabModule";
             this.tabModule.Size = new System.Drawing.Size(1172, 732);
             this.tabModule.TabIndex = 10;
-            this.tabModule.Text = "oneM2M module";
+            this.tabModule.Text = " oneM2M (http) ";
             this.tabModule.UseVisualStyleBackColor = true;
             // 
             // groupBox28
@@ -5586,7 +5586,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1200, 843);
             this.Name = "Form1";
-            this.Text = "LGU+ PCT";
+            this.Text = "LGU+ UMT";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);

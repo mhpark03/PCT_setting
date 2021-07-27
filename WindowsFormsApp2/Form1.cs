@@ -1319,6 +1319,8 @@ namespace WindowsFormsApp2
                     string[] deviceverinfos = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
                     if (lbActionState.Text == states.idle.ToString())
                     {
+                        endoneM2MTC("tc021002", string.Empty, string.Empty, string.Empty, str2);
+
                         tBoxDeviceVer.Text = deviceverinfos[1];
                         logPrintInTextBox("수신한 DEVICE의 버전은 " + deviceverinfos[1] + "입니다. 업데이트를 시도합니다.", "");
                         endoneM2MTC("tc021002", string.Empty, string.Empty, string.Empty, str2);
@@ -9065,7 +9067,7 @@ namespace WindowsFormsApp2
             packetStr += "<cnf>text/plain</cnf>";
 
             string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " server";
-            packetStr += "<con>" + txData + txData + "</con>";
+            packetStr += "<con>" + txData + "</con>";
             packetStr += "</m2m:cin>";
 
             SetText(label9, txData);
