@@ -620,12 +620,12 @@
             this.tabControl1.Controls.Add(this.tabSMST);
             this.tabControl1.Controls.Add(this.tabPROXY);
             this.tabControl1.Controls.Add(this.tabOneM2M);
+            this.tabControl1.Controls.Add(this.tabModule);
             this.tabControl1.Controls.Add(this.tabLwM2M);
             this.tabControl1.Controls.Add(this.tabServer);
             this.tabControl1.Controls.Add(this.tabLOG);
             this.tabControl1.Controls.Add(this.tabTC);
             this.tabControl1.Controls.Add(this.webpage);
-            this.tabControl1.Controls.Add(this.tabModule);
             this.tabControl1.Location = new System.Drawing.Point(3, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -4893,7 +4893,7 @@
             this.tabTC.Name = "tabTC";
             this.tabTC.Size = new System.Drawing.Size(1172, 732);
             this.tabTC.TabIndex = 8;
-            this.tabTC.Text = " 시험절차서 결과 ";
+            this.tabTC.Text = " 시험 결과 ";
             this.tabTC.UseVisualStyleBackColor = true;
             // 
             // label5
