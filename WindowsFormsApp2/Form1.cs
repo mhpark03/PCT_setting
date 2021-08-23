@@ -2633,24 +2633,45 @@ namespace WindowsFormsApp2
                 case states.deviceFWDownloading:
                 case states.onem2mtc0210032:
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[0]);
-                    logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
-                    if (rcvdatas[0] != "512" || oneM2Mrcvsize >= oneM2Mtotalsize)
+                    if (dev.model == "TM800")
                     {
-                        if (oneM2Mrcvsize == oneM2Mtotalsize)
-                            endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
-                        else
-                            endoneM2MTC("tc021003", string.Empty, "20000100", oneM2Mrcvsize.ToString(), oneM2Mtotalsize.ToString());
+                        oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[1]);
+                        logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
+                        if (rcvdatas[1] != "32" || oneM2Mrcvsize >= oneM2Mtotalsize)
+                        {
+                            if (oneM2Mrcvsize == oneM2Mtotalsize)
+                                endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
+                            else
+                                endoneM2MTC("tc021003", string.Empty, "20000100", oneM2Mrcvsize.ToString(), oneM2Mtotalsize.ToString());
 
-                        if (lbActionState.Text == states.deviceFWDownloading.ToString())
-                            lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                            if (lbActionState.Text == states.deviceFWDownloading.ToString())
+                                lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                            else
+                                lbActionState.Text = states.onem2mtc0210033.ToString();
+                            nextresponse = "$OM_DEV_FWDL_FINISH";
+                        }
                         else
-                            lbActionState.Text = states.onem2mtc0210033.ToString();
-                        nextresponse = "$OM_DEV_FWDL_FINISH";
+                            nextresponse = textBox76.Text;
                     }
                     else
                     {
-                        nextresponse = textBox76.Text;
+                        oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[0]);
+                        logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
+                        if (rcvdatas[0] != "512" || oneM2Mrcvsize >= oneM2Mtotalsize)
+                        {
+                            if (oneM2Mrcvsize == oneM2Mtotalsize)
+                                endoneM2MTC("tc021003", string.Empty, string.Empty, string.Empty, string.Empty);
+                            else
+                                endoneM2MTC("tc021003", string.Empty, "20000100", oneM2Mrcvsize.ToString(), oneM2Mtotalsize.ToString());
+
+                            if (lbActionState.Text == states.deviceFWDownloading.ToString())
+                                lbActionState.Text = states.deviceFWDLfinsh.ToString();
+                            else
+                                lbActionState.Text = states.onem2mtc0210033.ToString();
+                            nextresponse = "$OM_DEV_FWDL_FINISH";
+                        }
+                        else
+                            nextresponse = textBox76.Text;
                     }
                     break;
                 case states.deviceFWDLfinsh:
