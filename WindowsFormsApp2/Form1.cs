@@ -11266,7 +11266,7 @@ namespace WindowsFormsApp2
             packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<mgd>1009</mgd>";
             packetStr += "<dc>remote reboot</dc>";
-            packetStr += "<far>false</far>";
+            packetStr += "<rbo>false</rbo>";
             packetStr += "</m2m:rbo>";
             string retStr = DeviceHttpRequest(header, packetStr);
         }
@@ -12012,7 +12012,7 @@ namespace WindowsFormsApp2
             packetStr += "<m2m:rbo xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<mgd>1009</mgd>";
             packetStr += "<dc>remote reboot</dc>";
-            packetStr += "<far>false</far>";
+            packetStr += "<rbo>false</rbo>";
             packetStr += "</m2m:rbo>";
             string retStr = DeviceHttpRequest(header, packetStr);
         }
