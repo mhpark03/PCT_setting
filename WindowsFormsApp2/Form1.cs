@@ -2633,7 +2633,7 @@ namespace WindowsFormsApp2
                 case states.deviceFWDownloading:
                 case states.onem2mtc0210032:
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (dev.model == "TM800")
+                    if (dev.model == "TM800" || dev.model == "TN800")
                     {
                         oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[1]);
                         logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
