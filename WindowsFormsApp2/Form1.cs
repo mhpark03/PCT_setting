@@ -2633,7 +2633,7 @@ namespace WindowsFormsApp2
                 case states.deviceFWDownloading:
                 case states.onem2mtc0210032:
                     rcvdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                    if (dev.model == "TM800" || dev.model == "TN800")
+                    if (checkBox11.Checked == true)
                     {
                         oneM2Mrcvsize += Convert.ToUInt32(rcvdatas[1]);
                         logPrintInTextBox("index= " + oneM2Mrcvsize + "/" + oneM2Mtotalsize + "를 수신하였습니다.", "");
@@ -5599,6 +5599,7 @@ namespace WindowsFormsApp2
                     i++;
                     worksheet.Cells[i, 0] = new Cell(label50.Text);
                     worksheet.Cells[i, 1] = new Cell(textBox76.Text);
+                    worksheet.Cells[i, 2] = new Cell(checkBox11.Text);
                     workbook.Worksheets.Add(worksheet);
 
                     workbook.Save(saveFile.FileName.ToString());
@@ -6070,6 +6071,14 @@ namespace WindowsFormsApp2
                         }
                         i++;
                         textBox76.Text = worksheet.Cells[i, 1].ToString();
+                        checkBox11.Text = worksheet.Cells[i, 2].ToString();
+                        if (checkBox11.Text == "index")
+                            checkBox11.Checked = true;
+                        else
+                        {
+                            checkBox11.Checked = false;
+                            checkBox11.Text = "size";
+                        }
                     }
                     else
                         MessageBox.Show("정상적인 파일이 아닙니다.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -12036,6 +12045,14 @@ namespace WindowsFormsApp2
         void client_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             MessageBox.Show("File downloaded");
+        }
+
+        private void checkBox11_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBox11.Checked == true)
+                checkBox11.Text = "index";
+            else
+                checkBox11.Text = "size";
         }
     }
 
