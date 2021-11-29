@@ -254,6 +254,7 @@
             this.tabOneM2M = new System.Windows.Forms.TabPage();
             this.button117 = new System.Windows.Forms.Button();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
             this.label50 = new System.Windows.Forms.Label();
             this.textBox76 = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
@@ -359,6 +360,7 @@
             this.listView5 = new System.Windows.Forms.ListView();
             this.button113 = new System.Windows.Forms.Button();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
             this.Altair = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -495,7 +497,8 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.label56 = new System.Windows.Forms.Label();
+            this.tbDevID = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -3017,6 +3020,17 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "oneM2M Firmware";
             // 
+            // checkBox11
+            // 
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.Location = new System.Drawing.Point(397, 53);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(48, 16);
+            this.checkBox11.TabIndex = 81;
+            this.checkBox11.Text = "size";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged_1);
+            // 
             // label50
             // 
             this.label50.AutoSize = true;
@@ -4150,6 +4164,7 @@
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.checkBox12);
             this.groupBox11.Controls.Add(this.Altair);
             this.groupBox11.Controls.Add(this.checkBox8);
             this.groupBox11.Controls.Add(this.checkBox7);
@@ -4200,6 +4215,17 @@
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "LwM2M COMMAND";
             // 
+            // checkBox12
+            // 
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.Location = new System.Drawing.Point(141, 430);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(48, 16);
+            this.checkBox12.TabIndex = 99;
+            this.checkBox12.Text = "없음";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            this.checkBox12.CheckedChanged += new System.EventHandler(this.checkBox12_CheckedChanged_1);
+            // 
             // Altair
             // 
             this.Altair.AutoSize = true;
@@ -4216,7 +4242,7 @@
             this.checkBox8.AutoSize = true;
             this.checkBox8.Checked = true;
             this.checkBox8.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox8.Location = new System.Drawing.Point(123, 427);
+            this.checkBox8.Location = new System.Drawing.Point(73, 430);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(48, 16);
             this.checkBox8.TabIndex = 97;
@@ -4644,6 +4670,8 @@
             // 
             // groupBox13
             // 
+            this.groupBox13.Controls.Add(this.tbDevID);
+            this.groupBox13.Controls.Add(this.label56);
             this.groupBox13.Controls.Add(this.label40);
             this.groupBox13.Controls.Add(this.label8);
             this.groupBox13.Controls.Add(this.lbDevEntityId);
@@ -4657,14 +4685,14 @@
             this.groupBox13.Controls.Add(this.btnLwM2MData);
             this.groupBox13.Location = new System.Drawing.Point(11, 520);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(458, 184);
+            this.groupBox13.Size = new System.Drawing.Size(458, 197);
             this.groupBox13.TabIndex = 48;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "LwM2M Device DATA";
             // 
             // label40
             // 
-            this.label40.Location = new System.Drawing.Point(147, 78);
+            this.label40.Location = new System.Drawing.Point(147, 109);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(242, 22);
             this.label40.TabIndex = 88;
@@ -4673,7 +4701,7 @@
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(210, 142);
+            this.label8.Location = new System.Drawing.Point(209, 173);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(164, 16);
             this.label8.TabIndex = 48;
@@ -4691,7 +4719,7 @@
             // 
             // button93
             // 
-            this.button93.Location = new System.Drawing.Point(15, 115);
+            this.button93.Location = new System.Drawing.Point(14, 146);
             this.button93.Name = "button93";
             this.button93.Size = new System.Drawing.Size(126, 42);
             this.button93.TabIndex = 47;
@@ -4701,7 +4729,7 @@
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(210, 115);
+            this.label10.Location = new System.Drawing.Point(209, 146);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(164, 16);
             this.label10.TabIndex = 50;
@@ -4719,7 +4747,7 @@
             // 
             // label35
             // 
-            this.label35.Location = new System.Drawing.Point(147, 115);
+            this.label35.Location = new System.Drawing.Point(146, 146);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(61, 16);
             this.label35.TabIndex = 51;
@@ -4738,7 +4766,7 @@
             // 
             // label36
             // 
-            this.label36.Location = new System.Drawing.Point(150, 140);
+            this.label36.Location = new System.Drawing.Point(149, 171);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(60, 17);
             this.label36.TabIndex = 49;
@@ -4756,7 +4784,7 @@
             // 
             // btnLwM2MData
             // 
-            this.btnLwM2MData.Location = new System.Drawing.Point(15, 78);
+            this.btnLwM2MData.Location = new System.Drawing.Point(14, 109);
             this.btnLwM2MData.Name = "btnLwM2MData";
             this.btnLwM2MData.Size = new System.Drawing.Size(127, 23);
             this.btnLwM2MData.TabIndex = 11;
@@ -5577,16 +5605,21 @@
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // checkBox11
+            // label56
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(397, 53);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(48, 16);
-            this.checkBox11.TabIndex = 81;
-            this.checkBox11.Text = "size";
-            this.checkBox11.UseVisualStyleBackColor = true;
-            this.checkBox11.CheckedChanged += new System.EventHandler(this.checkBox11_CheckedChanged_1);
+            this.label56.Location = new System.Drawing.Point(15, 68);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(126, 22);
+            this.label56.TabIndex = 89;
+            this.label56.Text = "Device EntityID";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tbDevID
+            // 
+            this.tbDevID.Location = new System.Drawing.Point(123, 70);
+            this.tbDevID.Name = "tbDevID";
+            this.tbDevID.Size = new System.Drawing.Size(327, 21);
+            this.tbDevID.TabIndex = 90;
             // 
             // Form1
             // 
@@ -5664,6 +5697,7 @@
             this.tabServer.ResumeLayout(false);
             this.tabServer.PerformLayout();
             this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupBox12.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
@@ -6146,6 +6180,9 @@
         private System.Windows.Forms.CheckBox checkBox10;
         private System.Windows.Forms.CheckBox Altair;
         private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.CheckBox checkBox12;
+        private System.Windows.Forms.TextBox tbDevID;
+        private System.Windows.Forms.Label label56;
     }
 }
 
