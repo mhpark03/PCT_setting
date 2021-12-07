@@ -34,6 +34,8 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbRTS = new System.Windows.Forms.CheckBox();
+            this.cbDTR = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabCOM = new System.Windows.Forms.TabPage();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -407,6 +409,8 @@
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.tbDevID = new System.Windows.Forms.TextBox();
+            this.label56 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbDevEntityId = new System.Windows.Forms.Label();
@@ -497,8 +501,6 @@
             this.label32 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.label56 = new System.Windows.Forms.Label();
-            this.tbDevID = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabCOM.SuspendLayout();
@@ -556,7 +558,7 @@
             "38400",
             "76800",
             "115200"});
-            this.cBoxBaudRate.Location = new System.Drawing.Point(141, 12);
+            this.cBoxBaudRate.Location = new System.Drawing.Point(120, 12);
             this.cBoxBaudRate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxBaudRate.Name = "cBoxBaudRate";
             this.cBoxBaudRate.Size = new System.Drawing.Size(66, 20);
@@ -568,18 +570,18 @@
             this.cBoxCOMPORT.FormattingEnabled = true;
             this.cBoxCOMPORT.Items.AddRange(new object[] {
             "COM103"});
-            this.cBoxCOMPORT.Location = new System.Drawing.Point(50, 12);
+            this.cBoxCOMPORT.Location = new System.Drawing.Point(35, 12);
             this.cBoxCOMPORT.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cBoxCOMPORT.Name = "cBoxCOMPORT";
-            this.cBoxCOMPORT.Size = new System.Drawing.Size(84, 20);
+            this.cBoxCOMPORT.Size = new System.Drawing.Size(80, 20);
             this.cBoxCOMPORT.TabIndex = 1;
-            this.cBoxCOMPORT.Text = "COM1";
+            this.cBoxCOMPORT.Text = "COM103";
             // 
             // progressBar1
             // 
             this.progressBar1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.progressBar1.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.progressBar1.Location = new System.Drawing.Point(20, 15);
+            this.progressBar1.Location = new System.Drawing.Point(12, 12);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(19, 18);
@@ -593,6 +595,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cbRTS);
+            this.panel1.Controls.Add(this.cbDTR);
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Controls.Add(this.button81);
             this.panel1.Controls.Add(this.button72);
@@ -614,6 +618,32 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1195, 804);
             this.panel1.TabIndex = 10;
+            // 
+            // cbRTS
+            // 
+            this.cbRTS.AutoSize = true;
+            this.cbRTS.Checked = true;
+            this.cbRTS.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbRTS.Location = new System.Drawing.Point(246, 14);
+            this.cbRTS.Name = "cbRTS";
+            this.cbRTS.Size = new System.Drawing.Size(48, 16);
+            this.cbRTS.TabIndex = 80;
+            this.cbRTS.Text = "RTS";
+            this.cbRTS.UseVisualStyleBackColor = true;
+            this.cbRTS.CheckedChanged += new System.EventHandler(this.cbRTS_CheckedChanged);
+            // 
+            // cbDTR
+            // 
+            this.cbDTR.AutoSize = true;
+            this.cbDTR.Checked = true;
+            this.cbDTR.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbDTR.Location = new System.Drawing.Point(192, 15);
+            this.cbDTR.Name = "cbDTR";
+            this.cbDTR.Size = new System.Drawing.Size(48, 16);
+            this.cbDTR.TabIndex = 79;
+            this.cbDTR.Text = "DTR";
+            this.cbDTR.UseVisualStyleBackColor = true;
+            this.cbDTR.CheckedChanged += new System.EventHandler(this.cbDTR_CheckedChanged);
             // 
             // tabControl1
             // 
@@ -4690,6 +4720,22 @@
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "LwM2M Device DATA";
             // 
+            // tbDevID
+            // 
+            this.tbDevID.Location = new System.Drawing.Point(123, 70);
+            this.tbDevID.Name = "tbDevID";
+            this.tbDevID.Size = new System.Drawing.Size(327, 21);
+            this.tbDevID.TabIndex = 90;
+            // 
+            // label56
+            // 
+            this.label56.Location = new System.Drawing.Point(15, 68);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(126, 22);
+            this.label56.TabIndex = 89;
+            this.label56.Text = "Device EntityID";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // label40
             // 
             this.label40.Location = new System.Drawing.Point(147, 109);
@@ -5517,7 +5563,7 @@
             // lbActionState
             // 
             this.lbActionState.AutoSize = true;
-            this.lbActionState.Location = new System.Drawing.Point(213, 15);
+            this.lbActionState.Location = new System.Drawing.Point(294, 16);
             this.lbActionState.Name = "lbActionState";
             this.lbActionState.Size = new System.Drawing.Size(43, 12);
             this.lbActionState.TabIndex = 58;
@@ -5604,22 +5650,6 @@
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // label56
-            // 
-            this.label56.Location = new System.Drawing.Point(15, 68);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(126, 22);
-            this.label56.TabIndex = 89;
-            this.label56.Text = "Device EntityID";
-            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // tbDevID
-            // 
-            this.tbDevID.Location = new System.Drawing.Point(123, 70);
-            this.tbDevID.Name = "tbDevID";
-            this.tbDevID.Size = new System.Drawing.Size(327, 21);
-            this.tbDevID.TabIndex = 90;
             // 
             // Form1
             // 
@@ -6183,6 +6213,8 @@
         private System.Windows.Forms.CheckBox checkBox12;
         private System.Windows.Forms.TextBox tbDevID;
         private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.CheckBox cbDTR;
+        private System.Windows.Forms.CheckBox cbRTS;
     }
 }
 

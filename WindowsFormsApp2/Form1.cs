@@ -915,8 +915,14 @@ namespace WindowsFormsApp2
                     serialPort1.DataBits = (int)8;
                     serialPort1.StopBits = StopBits.One;
                     serialPort1.Parity = Parity.None;
-                    serialPort1.DtrEnable = true;
-                    serialPort1.RtsEnable = false;
+                    if (cbDTR.Checked == true)
+                        serialPort1.DtrEnable = true;
+                    else
+                        serialPort1.DtrEnable = false;
+                    if (cbRTS.Checked == true)
+                        serialPort1.RtsEnable = true;
+                    else
+                        serialPort1.RtsEnable = false;
                     serialPort1.ReadTimeout = (int)500;
                     serialPort1.WriteTimeout = (int)500;
 
@@ -5215,6 +5221,12 @@ namespace WindowsFormsApp2
                     i++;
                     worksheet.Cells[i, 0] = new Cell("BAUDRATE");
                     worksheet.Cells[i, 1] = new Cell(cBoxBaudRate.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("DTR");
+                    worksheet.Cells[i, 1] = new Cell(cbDTR.Text);
+                    i++;
+                    worksheet.Cells[i, 0] = new Cell("RTS");
+                    worksheet.Cells[i, 1] = new Cell(cbRTS.Text);
 
                     worksheet.Cells.ColumnWidth[0, 2] = 7000;
                     workbook.Worksheets.Add(worksheet);
@@ -5726,6 +5738,16 @@ namespace WindowsFormsApp2
                             cBoxCOMPORT.SelectedIndex = 0;
                         i++;
                         cBoxBaudRate.Text = worksheet.Cells[i, 1].ToString();
+                        i++;
+                        if (worksheet.Cells[i, 1].ToString() == "false")
+                            cbDTR.Checked = false;
+                        else
+                            cbDTR.Checked = true;
+                        i++;
+                        if (worksheet.Cells[i, 1].ToString() == "false")
+                            cbRTS.Checked = false;
+                        else
+                            cbRTS.Checked = true;
 
                         ///////////////////////////////////////////////////////////////// PCT 장비 AT command 매핑 1
                         worksheet = workbook.Worksheets[1];
@@ -12182,6 +12204,22 @@ namespace WindowsFormsApp2
                 checkBox12.Text = "\"";
             else
                 checkBox12.Text = "없음";
+        }
+
+        private void cbDTR_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cbDTR.Checked == true)
+                serialPort1.DtrEnable = true;
+            else
+                serialPort1.DtrEnable = false;
+        }
+
+        private void cbRTS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbRTS.Checked == true)
+                serialPort1.RtsEnable = true;
+            else
+                serialPort1.RtsEnable = false;
         }
     }
 
