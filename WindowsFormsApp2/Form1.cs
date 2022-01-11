@@ -1640,7 +1640,9 @@ namespace WindowsFormsApp2
 
                     if (Altair.Checked == false)
                     {
-                        if (dev.model.StartsWith("BG95"))
+                        if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
+                            dev.model.StartsWith("BC660") ||    // Quectel BC660
+                            dev.model.StartsWith("BG770"))      // Quectel BG770
                         {
                             string[] state = str2.Replace("\"", string.Empty).Split(',');
                             if (state[0] == "event")
@@ -3432,7 +3434,9 @@ namespace WindowsFormsApp2
                         this.sendDataOut(textBox52.Text);
                         startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
                         lbActionState.Text = states.lwm2mtc0401.ToString();
-                        if (dev.model.StartsWith("BG95"))
+                        if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
+                            dev.model.StartsWith("BC660") ||    // Quectel BC660
+                            dev.model.StartsWith("BG770"))      // Quectel BG770
                             nextresponse = "+QLWDEREG: 0";
                     }
                     break;
@@ -3600,7 +3604,9 @@ namespace WindowsFormsApp2
                             this.sendDataOut(textBox52.Text);
                             startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
                             lbActionState.Text = states.lwm2mtc0401.ToString();
-                            if (dev.model.StartsWith("BG95"))
+                            if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
+                                dev.model.StartsWith("BC660") ||    // Quectel BC660
+                                dev.model.StartsWith("BG770"))      // Quectel BG770
                                 nextresponse = "+QLWDEREG: 0";
                         }
                         break;
@@ -3633,7 +3639,7 @@ namespace WindowsFormsApp2
                             else
                             {
                                 if (checkBox12.Checked == true)
-                                    this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
+                                    this.sendDataOut(textBox53.Text + txData.Length + ",\"" + txData+"\"");
                                 else
                                     this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
                             }
@@ -9014,7 +9020,9 @@ namespace WindowsFormsApp2
             this.sendDataOut(textBox52.Text);
             startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
             lbActionState.Text = states.deregistertpb23.ToString();
-            if (dev.model.StartsWith("BG95"))
+            if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
+                            dev.model.StartsWith("BC660") ||    // Quectel BC660
+                            dev.model.StartsWith("BG770"))      // Quectel BG770
                 nextresponse = "+QLWDEREG: 0";
         }
 
@@ -10456,7 +10464,9 @@ namespace WindowsFormsApp2
                 this.sendDataOut(textBox52.Text);
                 startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
                 SetText(lbActionState, states.lwm2mtc0401.ToString());
-                if (dev.model.StartsWith("BG95"))
+                if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
+                            dev.model.StartsWith("BC660") ||    // Quectel BC660
+                            dev.model.StartsWith("BG770"))      // Quectel BG770
                     nextresponse = "+QLWDEREG: 0";
             }
         }
