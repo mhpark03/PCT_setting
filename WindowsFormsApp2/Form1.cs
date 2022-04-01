@@ -17,6 +17,7 @@ using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Threading;
 using System.Web;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp2
 {
@@ -970,6 +971,37 @@ namespace WindowsFormsApp2
 
         }
 
+        private string generateData(string command, string txdata, bool isHex, bool useDoubleQuotation)
+        {
+            if (command.Contains("{DATA}") || command.Contains("{LENGTH}"))
+            {
+                string data = isHex ? StringToBCD(txdata.ToCharArray()) : txdata;
+                int length = txdata.Length;
+
+                return command.Replace("{LENGTH}", length.ToString())
+                              .Replace("{DATA}", useDoubleQuotation ? $"\"{data}\"" : data);
+            }
+            else // Legacy data command generation
+            {
+                if (isHex)
+                {
+                    string hexOutput = StringToBCD(txdata.ToCharArray());
+
+                    if (useDoubleQuotation)
+                        return(command + hexOutput.Length / 2 + ",\"" + hexOutput + "\"");
+                    else
+                        return(command + hexOutput.Length / 2 + "," + hexOutput);
+                }
+                else
+                {
+                    if (useDoubleQuotation)
+                        return(command + txdata.Length + ",\"" + txdata + "\"");
+                    else
+                        return(command + txdata.Length + "," + txdata);
+                }
+            }
+        }
+
         private void sendDataOut(string dataOUT)
         {
             try
@@ -1575,6 +1607,116 @@ namespace WindowsFormsApp2
                                                                                           // 26241 FOTA DATA object RECEIVED!!!
                     if (Altair.Checked == true)
                         receiveDataAltair(str2);
+                    else if (dev.model.Contains("BC660K"))
+                    {
+                        var m = Regex.Match(str2, @"write,(?<mid>\d+),(?<object>\d+),(?<instance>\d+),(?<resource>\d+),(?<type>\d+),(?<length>\d+),(?<data>.*),0$");
+                        if (m.Success)
+                        {
+                            this.sendDataOut($"AT+QLWWRRSP={m.Groups["mid"].ToString()}, 2"); // Send CoAP 2.04 ACK
+
+                            if (m.Groups["object"].ToString() == "26241")
+                            {
+                                receiveFotaData(m.Groups["length"].ToString(), m.Groups["data"].ToString());
+                            }
+                            else if (m.Groups["object"].ToString() == "10250")
+                            {
+                                if (Convert.ToInt32(m.Groups["length"].ToString()) == m.Groups["data"].ToString().Length / 2)    // data size 비교
+                                {
+                                    //received hex data make to ascii code
+                                    lbLwM2MRcvData.Text = BcdToString(m.Groups["data"].ToString().ToCharArray());
+                                    if (lbLwM2MRcvData.Text == label40.Text)
+                                        endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                                    else
+                                        endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
+                                    logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
+
+                                    if (lbActionState.Text == states.lwm2mtc0502.ToString())
+                                    {
+                                        if (svr.enrmtKeyId != string.Empty)
+                                        {
+                                            startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                                            lbActionState.Text = states.lwm2mtc0503.ToString();
+
+                                            rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
+                                            rTh.Start();
+                                        }
+                                        else
+                                        {
+                                            this.sendDataOut(textBox52.Text);
+                                            startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                                            lbActionState.Text = states.lwm2mtc0401.ToString();
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    logPrintInTextBox("data size가 맞지 않습니다.", "");
+                                }
+                            }
+                        }
+
+                        m = Regex.Match(str2, @"read,(?<mid>\d+),(?<object>\d+),(?<instance>\d+),(?<resource>\d+)$");
+                        if (m.Success)
+                        {
+                            string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+
+                            string hexOutput = StringToBCD(txData.ToCharArray());
+                            this.sendDataOut($"AT+QLWRDRSP={m.Groups["mid"]},1,{m.Groups["object"]},{m.Groups["instance"]},{m.Groups["resource"]},2,{txData.Length},{hexOutput},0");
+
+                            endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
+                            lbDevLwM2MData.Text = txData;
+                        }
+
+                        m = Regex.Match(str2, @"(?<eventType>\w+),?(?<params>.*)$");
+                        if (m.Success)
+                        {
+                            // logPrintInTextBox($"Event Type: {m.Groups["eventType"]}", "");
+                            if (m.Groups["eventType"].ToString() == "bs_finished")
+                            {
+                                logPrintInTextBox("Bootstrap finished", "");
+                                endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                if (lbActionState.Text == states.lwm2mtc02011.ToString() || lbActionState.Text == states.lwm2mtc02012.ToString())
+                                {
+                                    timer2.Stop();
+                                    lbActionState.Text = states.lwm2mtc0203.ToString();
+                                }
+                                else if (lbActionState.Text == states.lwm2mtc02029.ToString())
+                                {
+                                    timer2.Stop();
+                                    lbActionState.Text = states.lwm2mtc03012.ToString();
+                                }
+                            }
+                            else if (m.Groups["eventType"].ToString() == "observe")
+                            {
+                                var obsParams = m.Groups["params"].ToString().Split(',');
+
+                                logPrintInTextBox($"{obsParams[2]} object subscription completed (msgid = {obsParams[0]})", "");
+                                sendDataOut($"AT+QLWOBSRSP={obsParams[0]},1,{obsParams[2]},{obsParams[3]},{obsParams[4]},1,0,\"\",0"); // NULL data response
+
+                                if (obsParams[2] == "26241")
+                                {
+                                    endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                    if (lbActionState.Text == states.lwm2mtc03011.ToString() || lbActionState.Text == states.lwm2mtc03012.ToString()
+                                        || lbActionState.Text == states.lwm2mtc0203.ToString())
+                                    {
+                                        lbActionState.Text = states.lwm2mtc03013.ToString();
+                                        timer2.Interval = 10000;
+                                        timer2.Start();
+                                    }
+                                    else if (lbActionState.Text == states.lwm2mtc0602.ToString())
+                                    {
+                                        endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                        lbActionState.Text = states.lwm2mtc03013.ToString();
+                                        timer2.Interval = 10000;
+                                        timer2.Start();
+                                    }
+                                }
+                            }
+                        }
+                    }
                     else
                     {
                         string[] rx_svrdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
@@ -1641,8 +1783,7 @@ namespace WindowsFormsApp2
                     if (Altair.Checked == false)
                     {
                         if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
-                            dev.model.StartsWith("BC660") ||    // Quectel BC660
-                            dev.model.StartsWith("BG770"))      // Quectel BG770
+                            dev.model.StartsWith("BG77"))       // Quectel BG770, BG772
                         {
                             string[] state = str2.Replace("\"", string.Empty).Split(',');
                             if (state[0] == "event")
@@ -1987,6 +2128,10 @@ namespace WindowsFormsApp2
                         this.sendDataOut("AT%LWM2MOPEV=1,22");
                         this.sendDataOut("AT%LWM2MOPEV=1,23");
                         this.sendDataOut("AT%LWM2MEV=1");
+                    }
+                    else if (dev.model.Contains("BC660K"))
+                    {
+                        this.sendDataOut("AT+QSCLK=0"); // Disable deepsleep mode for test
                     }
                 }
                 else if (nextresponse != string.Empty)
@@ -3263,29 +3408,46 @@ namespace WindowsFormsApp2
                         string epncmd = string.Empty;
                         string epniccid = dev.iccid;
 
-                        if (comboBox4.SelectedIndex == 0)
+                        if (textBox55.Text.Contains("{CODE}") ||
+                            textBox55.Text.Contains("{SERIAL}") ||
+                            textBox55.Text.Contains("{CTN}") ||
+                            textBox55.Text.Contains("{ICCID}") ||
+                            textBox55.Text.Contains("{MODEL}") ||
+                            textBox55.Text.Contains("{MAC}"))
                         {
-                            //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
-                            epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
-                            epncmd += tBoxDeviceSN.Text + "|ctn=";
-                            epncmd += dev.imsi + "|iccId=";
-
-                            string iccid = dev.iccid;
-                            epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
-                            epncmd += tBoxDeviceModel.Text + "|mac=";
+                            this.sendDataOut(textBox55.Text.Replace("{CODE}", tbSvcCd.Text)
+                                                           .Replace("{SERIAL}", tBoxDeviceSN.Text)
+                                                           .Replace("{CTN}", dev.imsi)
+                                                           .Replace("{ICCID}", epniccid.Substring(epniccid.Length - 6, 6))
+                                                           .Replace("{MODEL}", tBoxDeviceModel.Text)
+                                                           .Replace("{MAC}", ""));
                         }
-                        else
+                        else // Legacy
                         {
-                            //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
-                            epncmd = "\"" + tbSvcCd.Text + "\",\"";
-                            epncmd += tBoxDeviceSN.Text + "\",\"";
-                            epncmd += dev.imsi + "\",\"";
+                            if (comboBox4.SelectedIndex == 0)
+                            {
+                                //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
+                                epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
+                                epncmd += tBoxDeviceSN.Text + "|ctn=";
+                                epncmd += dev.imsi + "|iccId=";
 
-                            epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
-                            epncmd += tBoxDeviceModel.Text + "\"";
+                                string iccid = dev.iccid;
+                                epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
+                                epncmd += tBoxDeviceModel.Text + "|mac=";
+                            }
+                            else
+                            {
+                                //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
+                                epncmd = "\"" + tbSvcCd.Text + "\",\"";
+                                epncmd += tBoxDeviceSN.Text + "\",\"";
+                                epncmd += dev.imsi + "\",\"";
+
+                                epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
+                                epncmd += tBoxDeviceModel.Text + "\"";
+                            }
+
+                            this.sendDataOut(textBox55.Text + epncmd);
                         }
-
-                        this.sendDataOut(textBox55.Text + epncmd);
                         lbActionState.Text = states.lwm2mtc02026.ToString();
                     }
                     else
@@ -3435,8 +3597,8 @@ namespace WindowsFormsApp2
                         startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
                         lbActionState.Text = states.lwm2mtc0401.ToString();
                         if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
-                            dev.model.StartsWith("BC660") ||    // Quectel BC660
-                            dev.model.StartsWith("BG770"))      // Quectel BG770
+                            dev.model.StartsWith("BG77") ||     // Quectel BG770, BG772
+                            dev.model.Contains("BC660"))        // Quectel BC660
                             nextresponse = "+QLWDEREG: 0";
                     }
                     break;
@@ -3605,8 +3767,8 @@ namespace WindowsFormsApp2
                             startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
                             lbActionState.Text = states.lwm2mtc0401.ToString();
                             if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
-                                dev.model.StartsWith("BC660") ||    // Quectel BC660
-                                dev.model.StartsWith("BG770"))      // Quectel BG770
+                                dev.model.StartsWith("BG77") ||     // Quectel BG770, BG772
+                                dev.model.Contains("BC660"))        // Quectel BC660
                                 nextresponse = "+QLWDEREG: 0";
                         }
                         break;
@@ -8865,7 +9027,11 @@ namespace WindowsFormsApp2
         private void sendDeviceEPNS()
         {
             setDeviceEntityID();
-            if (checkBox6.Checked == true)
+            if (textBox50.Text.Contains("{EPNS}"))
+            {
+                this.sendDataOut(textBox50.Text.Replace("{EPNS}", checkBox2.Checked ? tbSvcCd.Text : dev.entityId));
+            }
+            else if (checkBox6.Checked == true)
             {
                 if (checkBox7.Checked == true)
                 {
@@ -8931,29 +9097,46 @@ namespace WindowsFormsApp2
                 string epncmd = string.Empty;
                 string epniccid = dev.iccid;
 
-                if (comboBox4.SelectedIndex == 0)
+                if (textBox55.Text.Contains("{CODE}") ||
+                    textBox55.Text.Contains("{SERIAL}") ||
+                    textBox55.Text.Contains("{CTN}") ||
+                    textBox55.Text.Contains("{ICCID}") ||
+                    textBox55.Text.Contains("{MODEL}") ||
+                    textBox55.Text.Contains("{MAC}"))
                 {
-                    //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
-                    epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
-                    epncmd += tBoxDeviceSN.Text + "|ctn=";
-                    epncmd += dev.imsi + "|iccId=";
-
-                    string iccid = dev.iccid;
-                    epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
-                    epncmd += tBoxDeviceModel.Text + "|mac=";
+                    this.sendDataOut(textBox55.Text.Replace("{CODE}", tbSvcCd.Text)
+                                                   .Replace("{SERIAL}", tBoxDeviceSN.Text)
+                                                   .Replace("{CTN}", dev.imsi)
+                                                   .Replace("{ICCID}", epniccid.Substring(epniccid.Length - 6, 6))
+                                                   .Replace("{MODEL}", tBoxDeviceModel.Text)
+                                                   .Replace("{MAC}", ""));
                 }
-                else
+                else // Legacy
                 {
-                    //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
-                    epncmd = "\"" + tbSvcCd.Text + "\",\"";
-                    epncmd += tBoxDeviceSN.Text + "\",\"";
-                    epncmd += dev.imsi + "\",\"";
+                    if (comboBox4.SelectedIndex == 0)
+                    {
+                        //AT+MLWMBSPS="serviceCode=GAMR|deviceSerialNo=1234567|ctn=01022335078 | iccId = 127313 | deviceModel = Summer | mac = "
+                        epncmd = "serviceCode=" + tbSvcCd.Text + "|deviceSerialNo=";
+                        epncmd += tBoxDeviceSN.Text + "|ctn=";
+                        epncmd += dev.imsi + "|iccId=";
 
-                    epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
-                    epncmd += tBoxDeviceModel.Text + "\"";
+                        string iccid = dev.iccid;
+                        epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "|deviceModel=";
+                        epncmd += tBoxDeviceModel.Text + "|mac=";
+                    }
+                    else
+                    {
+                        //AT+QLWMBSPS=<service code>,<sn>,<ctn>,<iccid>,<device model>
+                        epncmd = "\"" + tbSvcCd.Text + "\",\"";
+                        epncmd += tBoxDeviceSN.Text + "\",\"";
+                        epncmd += dev.imsi + "\",\"";
+
+                        epncmd += epniccid.Substring(epniccid.Length - 6, 6) + "\",\"";
+                        epncmd += tBoxDeviceModel.Text + "\"";
+                    }
+
+                    this.sendDataOut(textBox55.Text + epncmd);
                 }
-
-                this.sendDataOut(textBox55.Text + epncmd);
                 lbActionState.Text = states.setmbspstpb23.ToString();
             }
             else
@@ -9021,8 +9204,8 @@ namespace WindowsFormsApp2
             startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
             lbActionState.Text = states.deregistertpb23.ToString();
             if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
-                            dev.model.StartsWith("BC660") ||    // Quectel BC660
-                            dev.model.StartsWith("BG770"))      // Quectel BG770
+                dev.model.StartsWith("BG77") ||     // Quectel BG770, BG772
+                dev.model.Contains("BC660"))        // Quectel BC660
                 nextresponse = "+QLWDEREG: 0";
         }
 
@@ -10465,8 +10648,8 @@ namespace WindowsFormsApp2
                 startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
                 SetText(lbActionState, states.lwm2mtc0401.ToString());
                 if (dev.model.StartsWith("BG95") ||     // Quectel BG95-M6, BG950, BG951 
-                            dev.model.StartsWith("BC660") ||    // Quectel BC660
-                            dev.model.StartsWith("BG770"))      // Quectel BG770
+                    dev.model.StartsWith("BG77") ||     // Quectel BG770, BG772
+                    dev.model.Contains("BC660"))        // Quectel BC660
                     nextresponse = "+QLWDEREG: 0";
             }
         }
