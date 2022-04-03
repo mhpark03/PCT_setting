@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -1607,120 +1607,123 @@ namespace WindowsFormsApp2
                                                                                           // 26241 FOTA DATA object RECEIVED!!!
                     if (Altair.Checked == true)
                         receiveDataAltair(str2);
-                    else if (dev.model.Contains("BC660K"))
-                    {
-                        var m = Regex.Match(str2, @"write,(?<mid>\d+),(?<object>\d+),(?<instance>\d+),(?<resource>\d+),(?<type>\d+),(?<length>\d+),(?<data>.*),0$");
-                        if (m.Success)
-                        {
-                            this.sendDataOut($"AT+QLWWRRSP={m.Groups["mid"].ToString()}, 2"); // Send CoAP 2.04 ACK
-
-                            if (m.Groups["object"].ToString() == "26241")
-                            {
-                                receiveFotaData(m.Groups["length"].ToString(), m.Groups["data"].ToString());
-                            }
-                            else if (m.Groups["object"].ToString() == "10250")
-                            {
-                                if (Convert.ToInt32(m.Groups["length"].ToString()) == m.Groups["data"].ToString().Length / 2)    // data size 비교
-                                {
-                                    //received hex data make to ascii code
-                                    lbLwM2MRcvData.Text = BcdToString(m.Groups["data"].ToString().ToCharArray());
-                                    if (lbLwM2MRcvData.Text == label40.Text)
-                                        endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
-                                    else
-                                        endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
-                                    logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
-
-                                    if (lbActionState.Text == states.lwm2mtc0502.ToString())
-                                    {
-                                        if (svr.enrmtKeyId != string.Empty)
-                                        {
-                                            startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
-                                            lbActionState.Text = states.lwm2mtc0503.ToString();
-
-                                            rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
-                                            rTh.Start();
-                                        }
-                                        else
-                                        {
-                                            this.sendDataOut(textBox52.Text);
-                                            startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
-                                            lbActionState.Text = states.lwm2mtc0401.ToString();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    logPrintInTextBox("data size가 맞지 않습니다.", "");
-                                }
-                            }
-                        }
-
-                        m = Regex.Match(str2, @"read,(?<mid>\d+),(?<object>\d+),(?<instance>\d+),(?<resource>\d+)$");
-                        if (m.Success)
-                        {
-                            string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
-
-                            string hexOutput = StringToBCD(txData.ToCharArray());
-                            this.sendDataOut($"AT+QLWRDRSP={m.Groups["mid"]},1,{m.Groups["object"]},{m.Groups["instance"]},{m.Groups["resource"]},2,{txData.Length},{hexOutput},0");
-
-                            endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
-                            lbDevLwM2MData.Text = txData;
-                        }
-
-                        m = Regex.Match(str2, @"(?<eventType>\w+),?(?<params>.*)$");
-                        if (m.Success)
-                        {
-                            // logPrintInTextBox($"Event Type: {m.Groups["eventType"]}", "");
-                            if (m.Groups["eventType"].ToString() == "bs_finished")
-                            {
-                                logPrintInTextBox("Bootstrap finished", "");
-                                endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
-
-                                if (lbActionState.Text == states.lwm2mtc02011.ToString() || lbActionState.Text == states.lwm2mtc02012.ToString())
-                                {
-                                    timer2.Stop();
-                                    lbActionState.Text = states.lwm2mtc0203.ToString();
-                                }
-                                else if (lbActionState.Text == states.lwm2mtc02029.ToString())
-                                {
-                                    timer2.Stop();
-                                    lbActionState.Text = states.lwm2mtc03012.ToString();
-                                }
-                            }
-                            else if (m.Groups["eventType"].ToString() == "observe")
-                            {
-                                var obsParams = m.Groups["params"].ToString().Split(',');
-
-                                logPrintInTextBox($"{obsParams[2]} object subscription completed (msgid = {obsParams[0]})", "");
-                                sendDataOut($"AT+QLWOBSRSP={obsParams[0]},1,{obsParams[2]},{obsParams[3]},{obsParams[4]},1,0,\"\",0"); // NULL data response
-
-                                if (obsParams[2] == "26241")
-                                {
-                                    endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
-
-                                    if (lbActionState.Text == states.lwm2mtc03011.ToString() || lbActionState.Text == states.lwm2mtc03012.ToString()
-                                        || lbActionState.Text == states.lwm2mtc0203.ToString())
-                                    {
-                                        lbActionState.Text = states.lwm2mtc03013.ToString();
-                                        timer2.Interval = 10000;
-                                        timer2.Start();
-                                    }
-                                    else if (lbActionState.Text == states.lwm2mtc0602.ToString())
-                                    {
-                                        endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
-
-                                        lbActionState.Text = states.lwm2mtc03013.ToString();
-                                        timer2.Interval = 10000;
-                                        timer2.Start();
-                                    }
-                                }
-                            }
-                        }
-                    }
                     else
                     {
-                        string[] rx_svrdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
-                        receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
+                        if (dev.model.Contains("BC660K"))
+                        {
+                            var m = Regex.Match(str2, @"write,(?<mid>\d+),(?<object>\d+),(?<instance>\d+),(?<resource>\d+),(?<type>\d+),(?<length>\d+),(?<data>.*),0$");
+                            if (m.Success)
+                            {
+                                this.sendDataOut($"AT+QLWWRRSP={m.Groups["mid"].ToString()}, 2"); // Send CoAP 2.04 ACK
+
+                                if (m.Groups["object"].ToString() == "26241")
+                                {
+                                    receiveFotaData(m.Groups["length"].ToString(), m.Groups["data"].ToString());
+                                }
+                                else if (m.Groups["object"].ToString() == "10250")
+                                {
+                                    if (Convert.ToInt32(m.Groups["length"].ToString()) == m.Groups["data"].ToString().Length / 2)    // data size 비교
+                                    {
+                                        //received hex data make to ascii code
+                                        lbLwM2MRcvData.Text = BcdToString(m.Groups["data"].ToString().ToCharArray());
+                                        if (lbLwM2MRcvData.Text == label40.Text)
+                                            endLwM2MTC("tc0502", string.Empty, string.Empty, string.Empty, string.Empty);
+                                        else
+                                            endLwM2MTC("tc0502", string.Empty, "20000100", lbLwM2MRcvData.Text, string.Empty);
+                                        logPrintInTextBox("\"" + lbLwM2MRcvData.Text + "\"를 수신하였습니다.", "");
+
+                                        if (lbActionState.Text == states.lwm2mtc0502.ToString())
+                                        {
+                                            if (svr.enrmtKeyId != string.Empty)
+                                            {
+                                                startLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
+                                                lbActionState.Text = states.lwm2mtc0503.ToString();
+
+                                                rTh = new Thread(new ThreadStart(RetriveDataLwM2M));
+                                                rTh.Start();
+                                            }
+                                            else
+                                            {
+                                                this.sendDataOut(textBox52.Text);
+                                                startLwM2MTC("tc0401", string.Empty, string.Empty, string.Empty, textBox52.Text);
+                                                lbActionState.Text = states.lwm2mtc0401.ToString();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        logPrintInTextBox("data size가 맞지 않습니다.", "");
+                                    }
+                                }
+                            }
+
+                            m = Regex.Match(str2, @"read,(?<mid>\d+),(?<object>\d+),(?<instance>\d+),(?<resource>\d+)$");
+                            if (m.Success)
+                            {
+                                string txData = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss.fff") + " LwM2M device";
+
+                                string hexOutput = StringToBCD(txData.ToCharArray());
+                                this.sendDataOut($"AT+QLWRDRSP={m.Groups["mid"]},1,{m.Groups["object"]},{m.Groups["instance"]},{m.Groups["resource"]},2,{txData.Length},{hexOutput},0");
+
+                                endLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, string.Empty);
+                                lbDevLwM2MData.Text = txData;
+                            }
+
+                            m = Regex.Match(str2, @"(?<eventType>\w+),?(?<params>.*)$");
+                            if (m.Success)
+                            {
+                                // logPrintInTextBox($"Event Type: {m.Groups["eventType"]}", "");
+                                if (m.Groups["eventType"].ToString() == "bs_finished")
+                                {
+                                    logPrintInTextBox("Bootstrap finished", "");
+                                    endLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                    if (lbActionState.Text == states.lwm2mtc02011.ToString() || lbActionState.Text == states.lwm2mtc02012.ToString())
+                                    {
+                                        timer2.Stop();
+                                        lbActionState.Text = states.lwm2mtc0203.ToString();
+                                    }
+                                    else if (lbActionState.Text == states.lwm2mtc02029.ToString())
+                                    {
+                                        timer2.Stop();
+                                        lbActionState.Text = states.lwm2mtc03012.ToString();
+                                    }
+                                }
+                                else if (m.Groups["eventType"].ToString() == "observe")
+                                {
+                                    var obsParams = m.Groups["params"].ToString().Split(',');
+
+                                    logPrintInTextBox($"{obsParams[2]} object subscription completed (msgid = {obsParams[0]})", "");
+                                    sendDataOut($"AT+QLWOBSRSP={obsParams[0]},1,{obsParams[2]},{obsParams[3]},{obsParams[4]},1,0,\"\",0"); // NULL data response
+
+                                    if (obsParams[2] == "26241")
+                                    {
+                                        endLwM2MTC("tc0301", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                        if (lbActionState.Text == states.lwm2mtc03011.ToString() || lbActionState.Text == states.lwm2mtc03012.ToString()
+                                            || lbActionState.Text == states.lwm2mtc0203.ToString())
+                                        {
+                                            lbActionState.Text = states.lwm2mtc03013.ToString();
+                                            timer2.Interval = 10000;
+                                            timer2.Start();
+                                        }
+                                        else if (lbActionState.Text == states.lwm2mtc0602.ToString())
+                                        {
+                                            endLwM2MTC("tc0602", string.Empty, string.Empty, string.Empty, string.Empty);
+
+                                            lbActionState.Text = states.lwm2mtc03013.ToString();
+                                            timer2.Interval = 10000;
+                                            timer2.Start();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            string[] rx_svrdatas = str2.Split(',');    // 수신한 데이터를 한 문장씩 나누어 array에 저장
+                            receiveFotaData(rx_svrdatas[0], rx_svrdatas[1]);
+                        }
                     }
                 }
                 else if (rxMsg.StartsWith(textBox68.Text, System.StringComparison.CurrentCultureIgnoreCase))
@@ -2121,6 +2124,11 @@ namespace WindowsFormsApp2
                         timer2.Start();
                     }
 
+                    if (dev.model.Contains("BC660K"))
+                    {
+                        this.sendDataOut("AT+QSCLK=0"); // Disable deepsleep mode for test
+                    }
+
                     if (Altair.Checked == true)
                     {
                         this.sendDataOut("AT%LWM2MOPEV=1,20");
@@ -2128,10 +2136,6 @@ namespace WindowsFormsApp2
                         this.sendDataOut("AT%LWM2MOPEV=1,22");
                         this.sendDataOut("AT%LWM2MOPEV=1,23");
                         this.sendDataOut("AT%LWM2MEV=1");
-                    }
-                    else if (dev.model.Contains("BC660K"))
-                    {
-                        this.sendDataOut("AT+QSCLK=0"); // Disable deepsleep mode for test
                     }
                 }
                 else if (nextresponse != string.Empty)
@@ -3342,60 +3346,14 @@ namespace WindowsFormsApp2
                         // End Point Name Parameter 설정
                         //AT+MLWEPNS="LWM2M 서버 entityID"
                         setDeviceEntityID();
-                        if (checkBox6.Checked == true)
-                        {
-                            if (checkBox7.Checked == true)
-                            {
-                                if (checkBox2.Checked == false)
-                                    this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"" + ",\"" + dev.entityId + "\"");
-                                else
-                                    this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"" + ",\"" + tbSvcCd.Text + "\"");
-                            }
-                            else
-                            {
-                                if (checkBox2.Checked == false)
-                                    this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
-                                else
-                                    this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
-                            }
-                        }
-                        else
-                        {
-                            if (checkBox2.Checked == false)
-                                this.sendDataOut(textBox50.Text + dev.entityId);
-                            else
-                                this.sendDataOut(textBox50.Text + tbSvcCd.Text);
-                        }
+                        sendDeviceEPNS();
                         startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox50.Text);
                         lbActionState.Text = states.lwm2mtc02025.ToString();
                     }
                     break;
                 case states.lwm2mtc02024:
                     setDeviceEntityID();
-                    if (checkBox6.Checked == true)
-                    {
-                        if (checkBox7.Checked == true)
-                        {
-                            if (checkBox2.Checked == false)
-                                this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"" + ",\"" + dev.entityId + "\"");
-                            else
-                                this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"" + ",\"" + tbSvcCd.Text + "\"");
-                        }
-                        else
-                        {
-                            if (checkBox2.Checked == false)
-                                this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
-                            else
-                                this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
-                        }
-                    }
-                    else
-                    {
-                        if (checkBox2.Checked == false)
-                            this.sendDataOut(textBox50.Text + dev.entityId);
-                        else
-                            this.sendDataOut(textBox50.Text + tbSvcCd.Text);
-                    }
+                    sendDeviceEPNS();
                     startLwM2MTC("tc0202", string.Empty, string.Empty, string.Empty, textBox50.Text);
                     lbActionState.Text = states.lwm2mtc02025.ToString();
                     break;
@@ -3448,6 +3406,7 @@ namespace WindowsFormsApp2
 
                             this.sendDataOut(textBox55.Text + epncmd);
                         }
+
                         lbActionState.Text = states.lwm2mtc02026.ToString();
                     }
                     else
@@ -3789,22 +3748,7 @@ namespace WindowsFormsApp2
 
                         if (Altair.Checked == false)
                         {
-                            if (checkBox8.Checked == true)
-                            {
-                                string hexOutput = StringToBCD(txData.ToCharArray());
-
-                                if (checkBox12.Checked == true)
-                                    this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + ",\"" + hexOutput+"\"");
-                                else
-                                    this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
-                            }
-                            else
-                            {
-                                if (checkBox12.Checked == true)
-                                    this.sendDataOut(textBox53.Text + txData.Length + ",\"" + txData+"\"");
-                                else
-                                    this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                            }
+                            this.sendDataOut(generateData(textBox53.Text, txData, checkBox8.Checked, checkBox12.Checked));
 
                             startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
                             lbActionState.Text = states.lwm2mtc06034.ToString();
@@ -9031,29 +8975,32 @@ namespace WindowsFormsApp2
             {
                 this.sendDataOut(textBox50.Text.Replace("{EPNS}", checkBox2.Checked ? tbSvcCd.Text : dev.entityId));
             }
-            else if (checkBox6.Checked == true)
-            {
-                if (checkBox7.Checked == true)
-                {
-                    if (checkBox2.Checked == false)
-                        this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"" + ",\"" + dev.entityId + "\"");
-                    else
-                        this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"" + ",\"" + tbSvcCd.Text + "\"");
-                }
-                else
-                {
-                    if (checkBox2.Checked == false)
-                        this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
-                    else
-                        this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
-                }
-            }
             else
             {
-                if (checkBox2.Checked == false)
-                    this.sendDataOut(textBox50.Text + dev.entityId);
+                if (checkBox6.Checked == true)
+                {
+                    if (checkBox7.Checked == true)
+                    {
+                        if (checkBox2.Checked == false)
+                            this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"" + ",\"" + dev.entityId + "\"");
+                        else
+                            this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"" + ",\"" + tbSvcCd.Text + "\"");
+                    }
+                    else
+                    {
+                        if (checkBox2.Checked == false)
+                            this.sendDataOut(textBox50.Text + "\"" + dev.entityId + "\"");
+                        else
+                            this.sendDataOut(textBox50.Text + "\"" + tbSvcCd.Text + "\"");
+                    }
+                }
                 else
-                    this.sendDataOut(textBox50.Text + tbSvcCd.Text);
+                {
+                    if (checkBox2.Checked == false)
+                        this.sendDataOut(textBox50.Text + dev.entityId);
+                    else
+                        this.sendDataOut(textBox50.Text + tbSvcCd.Text);
+                }
             }
         }
 
@@ -9066,27 +9013,7 @@ namespace WindowsFormsApp2
         private void button92_Click(object sender, EventArgs e)
         {
             setDeviceEntityID();
-            string atcmd = textBox50.Text;
-            if (checkBox6.Checked == true)
-                atcmd += "\"";
-            if (checkBox2.Checked == false)
-                atcmd += dev.entityId;
-            else
-                atcmd += tbSvcCd.Text;
-            if (checkBox6.Checked == true)
-                atcmd += "\"";
-            if (checkBox7.Checked == true)
-            {
-                if (checkBox6.Checked == true)
-                    atcmd += ",\"";
-                if (checkBox2.Checked == false)
-                    atcmd += dev.entityId;
-                else
-                    atcmd += tbSvcCd.Text;
-                if (checkBox6.Checked == true)
-                    atcmd += "\"";
-            }
-            this.sendDataOut(atcmd);
+            sendDeviceEPNS();
             lbActionState.Text = states.setepnstpb23.ToString();
         }
 
@@ -9137,6 +9064,7 @@ namespace WindowsFormsApp2
 
                     this.sendDataOut(textBox55.Text + epncmd);
                 }
+
                 lbActionState.Text = states.setmbspstpb23.ToString();
             }
             else
@@ -9161,22 +9089,7 @@ namespace WindowsFormsApp2
 
             if (Altair.Checked == false)
             {
-                if (checkBox8.Checked == true)
-                {
-                    string hexOutput = StringToBCD(txData.ToCharArray());
-
-                    if (checkBox12.Checked == true)
-                        this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + ",\"" + hexOutput+"\"");
-                    else
-                        this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
-                }
-                else
-                {
-                    if (checkBox12.Checked == true)
-                        this.sendDataOut(textBox53.Text + txData.Length + ",\"" + txData+"\"");
-                    else
-                        this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                }
+                this.sendDataOut(generateData(textBox53.Text, txData, checkBox8.Checked, checkBox12.Checked));
 
                 startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
                 lbActionState.Text = states.sendmsghex.ToString();
@@ -9539,18 +9452,18 @@ namespace WindowsFormsApp2
                         value += "=";
                     }
                     //LogWrite("value = " + value);
-                    SetText(lbDirectRxData, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
+                    SetText(lbLwM2MRxData, Encoding.UTF8.GetString(Convert.FromBase64String(value)));
                 }
                 else
-                    SetText(lbDirectRxData, value);
+                    SetText(lbLwM2MRxData, value);
 
-                if (lbDirectRxData.Text == lbSendedData.Text)
+                if (lbLwM2MRxData.Text == lbDevLwM2MData.Text)
                 {
                     endLwM2MTC("tc0503", string.Empty, string.Empty, string.Empty, string.Empty);
                 }
                 else
                 {
-                    endLwM2MTC("tc0503", string.Empty, "20000100", lbDirectRxData.Text, lbSendedData.Text);
+                    endLwM2MTC("tc0503", string.Empty, "20000100", lbLwM2MRxData.Text, lbDevLwM2MData.Text);
                 }
 
                 if (lbActionState.Text == states.lwm2mtc0503.ToString())
@@ -10293,22 +10206,7 @@ namespace WindowsFormsApp2
 
                 if (Altair.Checked == false)
                 {
-                    if (checkBox8.Checked == true)
-                    {
-                        string hexOutput = StringToBCD(txData.ToCharArray());
-
-                        if (checkBox12.Checked == true)
-                            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + ",\"" + hexOutput+"\"");
-                        else
-                            this.sendDataOut(textBox53.Text + hexOutput.Length / 2 + "," + hexOutput);
-                    }
-                    else
-                    {
-                        if (checkBox12.Checked == true)
-                            this.sendDataOut(textBox53.Text + txData.Length + ",\"" + txData+"\"");
-                        else
-                            this.sendDataOut(textBox53.Text + txData.Length + "," + txData);
-                    }
+                    this.sendDataOut(generateData(textBox53.Text, txData, checkBox8.Checked, checkBox12.Checked));
 
                     startLwM2MTC("tc0501", string.Empty, string.Empty, string.Empty, textBox53.Text);
                     nextcommand = states.lwm2mtc0501.ToString();
@@ -10549,22 +10447,7 @@ namespace WindowsFormsApp2
 
             if (Altair.Checked == false)
             {
-                if (checkBox8.Checked == true)
-                {
-                    string hexOutput = StringToBCD(text.ToCharArray());
-
-                    if (checkBox12.Checked == true)
-                        this.sendDataOut(textBox51.Text + hexOutput.Length / 2 + ",\"" + hexOutput+"\"");
-                    else
-                        this.sendDataOut(textBox51.Text + hexOutput.Length / 2 + "," + hexOutput);
-                }
-                else
-                {
-                    if (checkBox12.Checked == true)
-                        this.sendDataOut(textBox51.Text + text.Length + ",\"" + text+"\"");
-                    else
-                        this.sendDataOut(textBox51.Text + text.Length + "," + text);
-                }
+                this.sendDataOut(generateData(textBox51.Text, text, checkBox8.Checked, checkBox12.Checked));
                 startLwM2MTC("tc0603", string.Empty, string.Empty, string.Empty, textBox51.Text);
             }
             else
