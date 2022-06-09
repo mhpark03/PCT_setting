@@ -11496,7 +11496,7 @@ namespace WindowsFormsApp2
             packetStr += "<m2m:csr xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
             packetStr += "<cst>3</cst>";
             packetStr += "<csi>/" + dev.entityId + "</csi>";
-            packetStr += "<cb>/" + dev.entityId + "/cb-1</cb>";
+            packetStr += "<cb>/cb-1/" + dev.entityId +"</cb>";
             packetStr += "<acpi>cb-1/" + dev.remoteCSEName + "/acp-m2m_" + tbDeviceCTN.Text + "</acpi>";
             packetStr += "<rr>true</rr>";
             packetStr += "<poa>http://" + textBox3.Text + ":" + "9901" + "</poa>";
